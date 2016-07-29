@@ -1,6 +1,6 @@
 //
-//  PartyBoardUITests.m
-//  PartyBoardUITests
+//  PulseUITests.m
+//  PulseUITests
 //
 //  Created by William Ullrich on 7/7/16.
 //  Copyright © 2016 null. All rights reserved.
@@ -8,11 +8,11 @@
 
 #import <XCTest/XCTest.h>
 
-@interface PartyBoardUITests : XCTestCase
+@interface PulseUITests : XCTestCase
 
 @end
 
-@implementation PartyBoardUITests
+@implementation PulseUITests
 
 - (void)setUp {
     [super setUp];

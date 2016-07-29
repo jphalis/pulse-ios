@@ -1,6 +1,6 @@
 //
 //  AppDelegate.m
-//  Partyboard
+//  Pulse
 //
 
 #import "AppDelegate.h"

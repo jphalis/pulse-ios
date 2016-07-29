@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:PartyBoard.xcodeproj">
+      location = "self:/Users/jphalis/Desktop/pulse-ios/Pulse.xcodeproj">
    </FileRef>
 </Workspace>

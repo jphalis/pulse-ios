@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13F77D321D2EE581003EF38D"
-               BuildableName = "PartyBoard.app"
-               BlueprintName = "PartyBoard"
-               ReferencedContainer = "container:Partyboard.xcodeproj">
+               BuildableName = "Pulse.app"
+               BlueprintName = "Pulse"
+               ReferencedContainer = "container:Pulse.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13F77D4B1D2EE581003EF38D"
-               BuildableName = "PartyBoardTests.xctest"
-               BlueprintName = "PartyBoardTests"
-               ReferencedContainer = "container:Partyboard.xcodeproj">
+               BuildableName = "PulseTests.xctest"
+               BlueprintName = "PulseTests"
+               ReferencedContainer = "container:Pulse.xcodeproj">
             </BuildableReference>
          </TestableReference>
          <TestableReference
@@ -43,9 +43,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13F77D561D2EE581003EF38D"
-               BuildableName = "PartyBoardUITests.xctest"
-               BlueprintName = "PartyBoardUITests"
-               ReferencedContainer = "container:Partyboard.xcodeproj">
+               BuildableName = "PulseUITests.xctest"
+               BlueprintName = "PulseUITests"
+               ReferencedContainer = "container:Pulse.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -53,9 +53,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13F77D321D2EE581003EF38D"
-            BuildableName = "PartyBoard.app"
-            BlueprintName = "PartyBoard"
-            ReferencedContainer = "container:Partyboard.xcodeproj">
+            BuildableName = "Pulse.app"
+            BlueprintName = "Pulse"
+            ReferencedContainer = "container:Pulse.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -76,9 +76,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13F77D321D2EE581003EF38D"
-            BuildableName = "PartyBoard.app"
-            BlueprintName = "PartyBoard"
-            ReferencedContainer = "container:Partyboard.xcodeproj">
+            BuildableName = "Pulse.app"
+            BlueprintName = "Pulse"
+            ReferencedContainer = "container:Pulse.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -95,9 +95,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13F77D321D2EE581003EF38D"
-            BuildableName = "PartyBoard.app"
-            BlueprintName = "PartyBoard"
-            ReferencedContainer = "container:Partyboard.xcodeproj">
+            BuildableName = "Pulse.app"
+            BlueprintName = "Pulse"
+            ReferencedContainer = "container:Pulse.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

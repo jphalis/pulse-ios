@@ -1,6 +1,6 @@
 //
 //  SignInViewController.m
-//  Partyboard
+//  Pulse
 //
 
 #import "SignInViewController.h"

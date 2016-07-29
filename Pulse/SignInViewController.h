@@ -1,6 +1,6 @@
 //
 //  SignInViewController.h
-//  Partyboard
+//  Pulse
 //
 
 #import <UIKit/UIKit.h>

@@ -1,9 +1,6 @@
 //
 //  main.m
-//  Partyboard
-//
-//  Created by Sickk Software LLC on 6/5/16.
-//  Copyright © 2016 null. All rights reserved.
+//  Pulse
 //
 
 #import <UIKit/UIKit.h>

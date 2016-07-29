@@ -1,18 +1,15 @@
 //
-//  PartyBoardTests.m
-//  PartyBoardTests
-//
-//  Created by William Ullrich on 7/7/16.
-//  Copyright © 2016 null. All rights reserved.
+//  PulseTests.m
+//  PulseTests
 //
 
 #import <XCTest/XCTest.h>
 
-@interface PartyBoardTests : XCTestCase
+@interface PulseTests : XCTestCase
 
 @end
 
-@implementation PartyBoardTests
+@implementation PulseTests
 
 - (void)setUp {
     [super setUp];
