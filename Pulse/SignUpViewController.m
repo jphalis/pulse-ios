@@ -1,19 +1,19 @@
 //
-//  SignInViewController.m
+//  SignUpViewController.m
 //  Pulse
 //
 
 //#import "CustomTabViewController.h"
 #import "defs.h"
-#import "SignInViewController.h"
 #import "SCLAlertView.h"
+#import "SignUpViewController.h"
 #import "StringUtil.h"
 
-@interface SignInViewController ()
+@interface SignUpViewController ()
 
 @end
 
-@implementation SignInViewController
+@implementation SignUpViewController
 
 - (void)viewDidLoad {
     self.automaticallyAdjustsScrollViewInsets = NO;
@@ -21,6 +21,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    _nameField.delegate = self;
     _emailField.delegate = self;
     _passwordField.delegate = self;
     
@@ -49,11 +50,9 @@
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+//     Get the new view controller using [segue destinationViewController].
+//     Pass the selected object to the new view controller.
 }
-
-#pragma mark - Actions
 
 - (IBAction)onBack:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
@@ -72,7 +71,14 @@
     
     SCLAlertView *alert = [[SCLAlertView alloc] init];
     
-    if ([_emailField.text isEqualToString:@""] || _emailField.text == nil){
+    if ([_nameField.text isEqualToString:@""] || _nameField.text == nil){
+        alert.showAnimationType = SlideInFromLeft;
+        alert.hideAnimationType = SlideOutToBottom;
+        [alert showNotice:self title:@"Notice" subTitle:EMPTY_NAME closeButtonTitle:@"OK" duration:0.0f];
+        [_nameField becomeFirstResponder];
+        return NO;
+    }
+    else if ([_emailField.text isEqualToString:@""] || _emailField.text == nil){
         alert.showAnimationType = SlideInFromLeft;
         alert.hideAnimationType = SlideOutToBottom;
         [alert showNotice:self title:@"Notice" subTitle:EMPTY_EMAIL closeButtonTitle:@"OK" duration:0.0f];
@@ -114,15 +120,19 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     if (textField.tag == 0){
+        [_emailField becomeFirstResponder];
+    }
+    else if(textField.tag == 1){
         [_passwordField becomeFirstResponder];
-    } else if(textField.tag == 1){
+    }
+    else if(textField.tag == 2){
         [_passwordField resignFirstResponder];
     }
     return YES;
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField{
-    if (textField.tag != 1){
+    if (textField.tag != 2){
         [self animateTextField: textField up: YES];
     }
     else {
@@ -130,7 +140,7 @@
     }
 }
 
-- (void)animateTextField:(UITextField*) textField up:(BOOL) up{
+- (void)animateTextField: (UITextField*) textField up:(BOOL) up{
     float val = 0.21;
     
     const int movementDistance = val * textField.frame.origin.y;
@@ -151,6 +161,7 @@
 
 -(void)doSubmit{
     [self.view endEditing:YES];
+    SetUserName([_nameField.text Trim]);
     SetUserEmail([_emailField.text Trim]);
     SetUserPassword([_passwordField.text Trim]);
     
