@@ -4,7 +4,7 @@
 //
 
 #import <UIKit/UIKit.h>
-//#import "CustomTabViewController.h"
+#import "CustomTabViewController.h"
 
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
@@ -20,7 +20,7 @@
 @property (strong, nonatomic) NSMutableDictionary *dicAllKeys;
 @property (strong, nonatomic) NSMutableDictionary *dictProfileInfo;
 @property (strong, nonatomic) NSMutableArray *arrViewControllers;
-//@property (strong, nonatomic) CustomTabViewController *tabbar;
+@property (strong, nonatomic) CustomTabViewController *tabbar;
 @property (assign, nonatomic) NSInteger currentTab;
 @property (assign, nonatomic) NSInteger notificationCount;
 @property (strong, nonatomic) UINavigationController *navController;

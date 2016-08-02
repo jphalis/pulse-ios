@@ -3,7 +3,7 @@
 //  Pulse
 //
 
-//#import "CustomTabViewController.h"
+#import "CustomTabViewController.h"
 #import "defs.h"
 #import "SCLAlertView.h"
 #import "SignUpViewController.h"
@@ -75,28 +75,36 @@
         alert.showAnimationType = SlideInFromLeft;
         alert.hideAnimationType = SlideOutToBottom;
         [alert showNotice:self title:@"Notice" subTitle:EMPTY_NAME closeButtonTitle:@"OK" duration:0.0f];
-        [_nameField becomeFirstResponder];
+        [alert alertIsDismissed:^{
+            [_nameField becomeFirstResponder];
+        }];
         return NO;
     }
     else if ([_emailField.text isEqualToString:@""] || _emailField.text == nil){
         alert.showAnimationType = SlideInFromLeft;
         alert.hideAnimationType = SlideOutToBottom;
         [alert showNotice:self title:@"Notice" subTitle:EMPTY_EMAIL closeButtonTitle:@"OK" duration:0.0f];
-        [_emailField becomeFirstResponder];
+        [alert alertIsDismissed:^{
+            [_emailField becomeFirstResponder];
+        }];
         return NO;
     }
     else if ([AppDelegate validateEmail:[_emailField.text Trim]] == NO){
         alert.showAnimationType = SlideInFromLeft;
         alert.hideAnimationType = SlideOutToBottom;
         [alert showEdit:self title:@"Notice" subTitle:INVALID_EMAIL closeButtonTitle:@"OK" duration:0.0f];
-        [_emailField becomeFirstResponder];
+        [alert alertIsDismissed:^{
+            [_emailField becomeFirstResponder];
+        }];
         return NO;
     }
     else if ([_passwordField.text isEqualToString:@""] || _passwordField.text == nil){
         alert.showAnimationType = SlideInFromLeft;
         alert.hideAnimationType = SlideOutToBottom;
         [alert showNotice:self title:@"Notice" subTitle:EMPTY_PASSWORD closeButtonTitle:@"OK" duration:0.0f];
-        [_passwordField becomeFirstResponder];
+        [alert alertIsDismissed:^{
+            [_passwordField becomeFirstResponder];
+        }];
         return NO;
     }
     return YES;
@@ -141,7 +149,7 @@
 }
 
 - (void)animateTextField: (UITextField*) textField up:(BOOL) up{
-    float val = 0.21;
+    float val = 0.18;
     
     const int movementDistance = val * textField.frame.origin.y;
     const float movementDuration = 0.3f;
@@ -165,14 +173,8 @@
     SetUserEmail([_emailField.text Trim]);
     SetUserPassword([_passwordField.text Trim]);
     
-    // Temporary alert until home screen is put in
-    SCLAlertView *alert = [[SCLAlertView alloc] init];
-    alert.showAnimationType = SlideInFromLeft;
-    alert.hideAnimationType = SlideOutToBottom;
-    [alert showInfo:self title:@"Success" subTitle:@"This is where a redirect will occur to the home screen." closeButtonTitle:@"OK" duration:0.0f];
-    
-    //    CustomTabViewController *customTabViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"CustomTabViewController"];
-    //    [self.navigationController pushViewController:customTabViewController animated:animation];
+    CustomTabViewController *customTabViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"CustomTabViewController"];
+    [self.navigationController pushViewController:customTabViewController animated:YES];
 }
 
 @end

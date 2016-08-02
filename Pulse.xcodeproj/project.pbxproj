@@ -41,6 +41,7 @@
 		D04A412F1D50F17600C850FB /* CustomTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D04A412B1D50F17600C850FB /* CustomTabViewController.m */; };
 		D04A41301D50F17600C850FB /* SignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D04A412D1D50F17600C850FB /* SignInViewController.m */; };
 		D04A41311D50F22D00C850FB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D04A41331D50F22D00C850FB /* Main.storyboard */; };
+		D087D4281D51293E0055B587 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D087D4271D51293E0055B587 /* HomeViewController.m */; };
 		D08E5F851D4AF25600A58F80 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D08E5F841D4AF25600A58F80 /* MapKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -123,6 +124,8 @@
 		D04A412C1D50F17600C850FB /* SignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignInViewController.h; sourceTree = "<group>"; };
 		D04A412D1D50F17600C850FB /* SignInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignInViewController.m; sourceTree = "<group>"; };
 		D04A41321D50F22D00C850FB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		D087D4261D51293E0055B587 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
+		D087D4271D51293E0055B587 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		D08E5F841D4AF25600A58F80 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -312,6 +315,8 @@
 				D04A41291D50F17600C850FB /* AuthViewController.m */,
 				D04A412A1D50F17600C850FB /* CustomTabViewController.h */,
 				D04A412B1D50F17600C850FB /* CustomTabViewController.m */,
+				D087D4261D51293E0055B587 /* HomeViewController.h */,
+				D087D4271D51293E0055B587 /* HomeViewController.m */,
 				D04A412C1D50F17600C850FB /* SignInViewController.h */,
 				D04A412D1D50F17600C850FB /* SignInViewController.m */,
 				D04A40E41D50DFDE00C850FB /* SignUpViewController.h */,
@@ -481,6 +486,7 @@
 				D04A41251D50ECC000C850FB /* MBProgressHUD.m in Sources */,
 				D04A41061D50E4AB00C850FB /* SCLButton.m in Sources */,
 				D04A41031D50E4AB00C850FB /* SCLAlertView.m in Sources */,
+				D087D4281D51293E0055B587 /* HomeViewController.m in Sources */,
 				D04A412F1D50F17600C850FB /* CustomTabViewController.m in Sources */,
 				D04A41301D50F17600C850FB /* SignInViewController.m in Sources */,
 				13F77D381D2EE581003EF38D /* main.m in Sources */,
