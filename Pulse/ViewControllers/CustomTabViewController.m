@@ -3,23 +3,22 @@
 //  Pulse
 //
 
+#import "AccountViewController.h"
 #import "AppDelegate.h"
+#import "CreateViewController.h"
 #import "CustomTabViewController.h"
 #import "defs.h"
+#import "FindViewController.h"
 #import "HomeViewController.h"
-//#import "MiscellaneousViewController.h"
-//#import "NotificationClass.h"
-//#import "NotificationViewController.h"
-//#import "ShopViewController.h"
-//#import "TimeLineViewController.h"
+#import "NotificationsViewController.h"
 
 
 enum {
     TABHOME = 10,
-    TABTIMELINE,
-    TABSHOP,
-    TABNOTIFICATION,
-    TABMISCELLANEOUS,
+    TABFIND,
+    TABCREATE,
+    TABNOTIFICATIONS,
+    TABACCOUNT,
 };
 
 @interface CustomTabViewController (){
@@ -73,34 +72,34 @@ enum {
     
 //    UIButton *btn = (UIButton*)[self.view viewWithTag:TABHOME];
 //    btn.titleLabel.font = fontLight(13);
-//    btn = (UIButton*)[self.view viewWithTag:TABTIMELINE];
+//    btn = (UIButton*)[self.view viewWithTag:TABFIND];
 //    btn.titleLabel.font = fontLight(13);
-//    btn = (UIButton*)[self.view viewWithTag:TABSHOP];
+//    btn = (UIButton*)[self.view viewWithTag:TABCREATE];
 //    btn.titleLabel.font = fontLight(13);
-//    btn = (UIButton*)[self.view viewWithTag:TABNOTIFICATION];
+//    btn = (UIButton*)[self.view viewWithTag:TABNOTIFICATIONS];
 //    btn.titleLabel.font = fontLight(13);
-//    btn = (UIButton*)[self.view viewWithTag:TABMISCELLANEOUS];
+//    btn = (UIButton*)[self.view viewWithTag:TABACCOUNT];
 //    btn.titleLabel.font = fontLight(13);
 }
 
 -(void)LoadTabBar{
     HomeViewController *homeViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"HomeViewController"];
-//    TimeLineViewController *timeLineViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"TimeLineViewController"];
-//    ShopViewController *shopViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"ShopViewController"];
-//    NotificationViewController *notificationViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"NotificationViewController"];
-//    MiscellaneousViewController *miscellaneousViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"MiscellaneousViewController"];
+    FindViewController *findViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"FindViewController"];
+    CreateViewController *createViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"CreateViewController"];
+    NotificationsViewController *notificationsViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"NotificationsViewController"];
+    AccountViewController *accountViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"AccountViewController"];
     
     UINavigationController *navController1 = [[UINavigationController alloc]initWithRootViewController:homeViewController];
-//    UINavigationController *navController2 = [[UINavigationController alloc]initWithRootViewController:timeLineViewController];
-//    UINavigationController *navController3 = [[UINavigationController alloc]initWithRootViewController:shopViewController];
-//    UINavigationController *navController4 = [[UINavigationController alloc]initWithRootViewController:notificationViewController];
-//    UINavigationController *navController5 = [[UINavigationController alloc]initWithRootViewController:miscellaneousViewController];
+    UINavigationController *navController2 = [[UINavigationController alloc]initWithRootViewController:findViewController];
+    UINavigationController *navController3 = [[UINavigationController alloc]initWithRootViewController:createViewController];
+    UINavigationController *navController4 = [[UINavigationController alloc]initWithRootViewController:notificationsViewController];
+    UINavigationController *navController5 = [[UINavigationController alloc]initWithRootViewController:accountViewController];
     
     [self PushViewController:navController1];
-//    [self PushViewController:navController2];
-//    [self PushViewController:navController3];
-//    [self PushViewController:navController4];
-//    [self PushViewController:navController5];
+    [self PushViewController:navController2];
+    [self PushViewController:navController3];
+    [self PushViewController:navController4];
+    [self PushViewController:navController5];
 }
 
 -(void)PushViewController:(UINavigationController *)nvc{
@@ -155,13 +154,8 @@ enum {
     
     if (btn.tag == previousIndex){
        // return;
-//        [UIView animateWithDuration:0.5 animations:^(void){
-//            [collectionVW scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
-//        }];
-//        NSLog(@"Click");
-        
-        // send notification to HomeViewController to scrollToTop
-    } else {
+    }
+    else {
         if (previousIndex != 0){
             UIButton *btnpreviousIndex = (UIButton*)[tabView viewWithTag:previousIndex];
             
@@ -185,26 +179,26 @@ enum {
             [self presentThisView: navController];
             break;
         }
-//        case TABTIMELINE: {
-//            UINavigationController *navController = [appDelegate.arrViewControllers objectAtIndex:1];
-//            [self presentThisView: navController];
-//            break;
-//        }
-//        case TABSHOP: {
-//            UINavigationController *navController = [appDelegate.arrViewControllers objectAtIndex:2];
-//            [self presentThisView: navController];
-//            break;
-//        }
-//        case TABNOTIFICATION: {
-//            UINavigationController *navController = [appDelegate.arrViewControllers objectAtIndex:3];
-//            [self presentThisView: navController];
-//            break;
-//        }
-//        case TABMISCELLANEOUS: {
-//            UINavigationController *navController = [appDelegate.arrViewControllers objectAtIndex:4];
-//            [self presentThisView: navController];
-//            break;
-//        }
+        case TABFIND: {
+            UINavigationController *navController = [appDelegate.arrViewControllers objectAtIndex:1];
+            [self presentThisView: navController];
+            break;
+        }
+        case TABCREATE: {
+            UINavigationController *navController = [appDelegate.arrViewControllers objectAtIndex:2];
+            [self presentThisView: navController];
+            break;
+        }
+        case TABNOTIFICATIONS: {
+            UINavigationController *navController = [appDelegate.arrViewControllers objectAtIndex:3];
+            [self presentThisView: navController];
+            break;
+        }
+        case TABACCOUNT: {
+            UINavigationController *navController = [appDelegate.arrViewControllers objectAtIndex:4];
+            [self presentThisView: navController];
+            break;
+        }
         default:
             break;
     }

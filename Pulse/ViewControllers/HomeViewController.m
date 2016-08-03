@@ -15,7 +15,6 @@
     AppDelegate *appDelegate;
 }
 
-
 @end
 
 @implementation HomeViewController
@@ -53,4 +52,7 @@
 }
 */
 
+- (IBAction)doLogout:(id)sender {
+    [appDelegate userLogout];
+}
 @end
