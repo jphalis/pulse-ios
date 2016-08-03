@@ -36,6 +36,17 @@
     
     // Hide navigation bar
     self.navigationController.navigationBarHidden = YES;
+    
+    //Custom Placeholder Color
+    UIColor *color = [UIColor whiteColor];
+    _nameField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Name" attributes:@{NSForegroundColorAttributeName: color}];
+    _emailField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Email" attributes:@{NSForegroundColorAttributeName: color}];
+    _passwordField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Password" attributes:@{NSForegroundColorAttributeName: color}];
+    
+    // Done button attributes
+    _btnSignUp.layer.borderWidth = 2;
+    _btnSignUp.layer.borderColor = [[UIColor whiteColor] CGColor];
+    _btnSignUp.layer.cornerRadius = 7;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -139,29 +150,29 @@
     return YES;
 }
 
-- (void)textFieldDidEndEditing:(UITextField *)textField{
-    if (textField.tag != 2){
-        [self animateTextField: textField up: YES];
-    }
-    else {
-        self.view.frame = CGRectMake(self.view.frame.origin.x, 0, self.view.frame.size.width, self.view.frame.size.height);
-    }
-}
-
-- (void)animateTextField: (UITextField*) textField up:(BOOL) up{
-    float val = 0.18;
-    
-    const int movementDistance = val * textField.frame.origin.y;
-    const float movementDuration = 0.3f;
-    int movement = (up ? -movementDistance : movementDistance);
-    
-    [UIView beginAnimations: @"anim" context: nil];
-    [UIView setAnimationBeginsFromCurrentState: YES];
-    [UIView setAnimationDuration: movementDuration];
-    self.view.frame = CGRectOffset(self.view.frame, 0, movement);
-    
-    [UIView commitAnimations];
-}
+//- (void)textFieldDidEndEditing:(UITextField *)textField{
+//    if (textField.tag != 2){
+//        [self animateTextField: textField up: YES];
+//    }
+//    else {
+//        self.view.frame = CGRectMake(self.view.frame.origin.x, 0, self.view.frame.size.width, self.view.frame.size.height);
+//    }
+//}
+//
+//- (void)animateTextField: (UITextField*) textField up:(BOOL) up{
+//    float val = 0.18;
+//    
+//    const int movementDistance = val * textField.frame.origin.y;
+//    const float movementDuration = 0.3f;
+//    int movement = (up ? -movementDistance : movementDistance);
+//    
+//    [UIView beginAnimations: @"anim" context: nil];
+//    [UIView setAnimationBeginsFromCurrentState: YES];
+//    [UIView setAnimationDuration: movementDuration];
+//    self.view.frame = CGRectOffset(self.view.frame, 0, movement);
+//    
+//    [UIView commitAnimations];
+//}
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     [self.view endEditing:YES];

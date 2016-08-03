@@ -20,11 +20,8 @@ MBProgressHUD *hud;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
     // Override point for customization after application launch.
     
-    // Hide status bar on splash page
-    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:NO];
-    
-    // Display white status bar
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    // Show status bar after splash page
+    [[UIApplication sharedApplication] setStatusBarHidden:NO];
     
     if(GetUserName == nil){
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];

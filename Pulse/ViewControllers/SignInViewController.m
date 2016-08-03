@@ -127,29 +127,29 @@
     return YES;
 }
 
-- (void)textFieldDidEndEditing:(UITextField *)textField{
-    if (textField.tag != 1){
-        [self animateTextField: textField up: YES];
-    }
-    else {
-        self.view.frame = CGRectMake(self.view.frame.origin.x, 0, self.view.frame.size.width, self.view.frame.size.height);
-    }
-}
-
-- (void)animateTextField:(UITextField*) textField up:(BOOL) up{
-    float val = 0.12;
-    
-    const int movementDistance = val * textField.frame.origin.y;
-    const float movementDuration = 0.3f;
-    int movement = (up ? -movementDistance : movementDistance);
-    
-    [UIView beginAnimations: @"anim" context: nil];
-    [UIView setAnimationBeginsFromCurrentState: YES];
-    [UIView setAnimationDuration: movementDuration];
-    self.view.frame = CGRectOffset(self.view.frame, 0, movement);
-    
-    [UIView commitAnimations];
-}
+//- (void)textFieldDidEndEditing:(UITextField *)textField{
+//    if (textField.tag != 1){
+//        [self animateTextField: textField up: YES];
+//    }
+//    else {
+//        self.view.frame = CGRectMake(self.view.frame.origin.x, 0, self.view.frame.size.width, self.view.frame.size.height);
+//    }
+//}
+//
+//- (void)animateTextField:(UITextField*) textField up:(BOOL) up{
+//    float val = 0.12;
+//    
+//    const int movementDistance = val * textField.frame.origin.y;
+//    const float movementDuration = 0.3f;
+//    int movement = (up ? -movementDistance : movementDistance);
+//    
+//    [UIView beginAnimations: @"anim" context: nil];
+//    [UIView setAnimationBeginsFromCurrentState: YES];
+//    [UIView setAnimationDuration: movementDuration];
+//    self.view.frame = CGRectOffset(self.view.frame, 0, movement);
+//    
+//    [UIView commitAnimations];
+//}
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     [self.view endEditing:YES];

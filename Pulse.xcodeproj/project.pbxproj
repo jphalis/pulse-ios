@@ -173,6 +173,7 @@
 				D08E5F841D4AF25600A58F80 /* MapKit.framework */,
 				13F77D351D2EE581003EF38D /* Pulse */,
 				13F77D4F1D2EE581003EF38D /* PulseTests */,
+				13F77D341D2EE581003EF38D /* Products */,
 			);
 			sourceTree = "<group>";
 		};
@@ -184,7 +185,6 @@
 				13F77D571D2EE581003EF38D /* PulseUITests.xctest */,
 			);
 			name = Products;
-			path = ..;
 			sourceTree = "<group>";
 		};
 		13F77D351D2EE581003EF38D /* Pulse */ = {
@@ -192,7 +192,6 @@
 			children = (
 				D04DBD891D5178CD00BB8172 /* Common */,
 				D04DBD4E1D5178B200BB8172 /* External */,
-				13F77D341D2EE581003EF38D /* Products */,
 				13F77D361D2EE581003EF38D /* Supporting Files */,
 				D08E5F831D4AF03500A58F80 /* ViewControllers */,
 				13F77D391D2EE581003EF38D /* AppDelegate.h */,
@@ -413,10 +412,11 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0730;
-				ORGANIZATIONNAME = null;
+				ORGANIZATIONNAME = domain;
 				TargetAttributes = {
 					13F77D321D2EE581003EF38D = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = Y64H65SHZL;
 						SystemCapabilities = {
 							com.apple.Maps.iOS = {
 								enabled = 1;
@@ -662,11 +662,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Pulse/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.null.Pulse;
+				PRODUCT_BUNDLE_IDENTIFIER = com.domain.pulse;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "c287498a-b883-4388-8ec3-80443fb8ddaf";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -676,11 +679,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Pulse/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.null.Pulse;
+				PRODUCT_BUNDLE_IDENTIFIER = com.domain.pulse;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "c287498a-b883-4388-8ec3-80443fb8ddaf";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
