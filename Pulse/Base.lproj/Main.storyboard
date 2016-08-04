@@ -201,7 +201,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="Gibson-Regular" family="Gibson" pointSize="16"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="next"/>
+                                <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="next"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Vis-Bn-yxS">
                                 <rect key="frame" x="28" y="195" width="264" height="1"/>
@@ -227,6 +227,9 @@
                                 <state key="normal" title="Continue">
                                     <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="onDone:" destination="ZQO-Y4-SDF" eventType="touchUpInside" id="VtK-5H-hB2"/>
+                                </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="password" minimumFontSize="17" clearButtonMode="whileEditing" id="SLs-8K-2pt">
                                 <rect key="frame" x="28" y="204" width="264" height="40"/>
@@ -301,17 +304,17 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="8i2-5V-hKL">
-                                <rect key="frame" x="0.0" y="523" width="320" height="45"/>
+                                <rect key="frame" x="0.0" y="528" width="320" height="40"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
                                 <subviews>
                                     <button opaque="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="tFp-SK-AIZ">
                                         <rect key="frame" x="0.0" y="0.0" width="64" height="45"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" red="0.16078431369999999" green="0.18039215689999999" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
-                                        <state key="normal" backgroundImage="home_icon_default">
+                                        <state key="normal" image="home_icon_default">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
-                                        <state key="selected" backgroundImage="home_icon_active">
+                                        <state key="selected" image="home_icon_active">
                                             <color key="titleColor" red="0.59999999999999998" green="0.0" blue="0.082352941176470587" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
@@ -319,13 +322,13 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="11" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="mAG-Lx-4aU">
-                                        <rect key="frame" x="64" y="0.0" width="64" height="45"/>
+                                        <rect key="frame" x="64" y="-3" width="64" height="45"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" red="0.16078431369999999" green="0.18039215689999999" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
-                                        <state key="normal" backgroundImage="find_icon_default">
+                                        <state key="normal" image="find_icon_default">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
-                                        <state key="selected" backgroundImage="find_icon_active">
+                                        <state key="selected" image="find_icon_active">
                                             <color key="titleColor" red="0.59999999999999998" green="0.0" blue="0.08235294118" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
@@ -333,7 +336,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="12" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="yj4-pC-Iy5">
-                                        <rect key="frame" x="128" y="0.0" width="64" height="45"/>
+                                        <rect key="frame" x="128" y="0.0" width="64" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" red="0.6705882352941176" green="0.054901960784313725" blue="0.10588235294117647" alpha="1" colorSpace="calibratedRGB"/>
                                         <state key="normal" backgroundImage="create_icon">
@@ -347,13 +350,13 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="13" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="zkb-i8-5VI">
-                                        <rect key="frame" x="192" y="0.0" width="64" height="45"/>
+                                        <rect key="frame" x="192" y="-3" width="64" height="45"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" red="0.16078431369999999" green="0.18039215689999999" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
-                                        <state key="normal" backgroundImage="notifications_icon_default">
+                                        <state key="normal" image="notifications_icon_default">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
-                                        <state key="selected" backgroundImage="home_icon_active">
+                                        <state key="selected" image="notifications_icon_active">
                                             <color key="titleColor" red="0.59999999999999998" green="0.0" blue="0.08235294118" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
@@ -361,13 +364,13 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="14" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="rcq-Rg-e7G">
-                                        <rect key="frame" x="256" y="0.0" width="64" height="45"/>
+                                        <rect key="frame" x="256" y="-3" width="64" height="45"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" red="0.16078431369999999" green="0.18039215689999999" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
-                                        <state key="normal" backgroundImage="account_icon_default">
+                                        <state key="normal" image="account_icon_default">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
-                                        <state key="selected" backgroundImage="account_icon_active">
+                                        <state key="selected" image="account_icon_active">
                                             <color key="titleColor" red="0.59999999999999998" green="0.0" blue="0.08235294118" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
@@ -646,21 +649,22 @@
         </scene>
     </scenes>
     <resources>
-        <image name="account_icon_active" width="64" height="45"/>
-        <image name="account_icon_default" width="64" height="45"/>
+        <image name="account_icon_active" width="30" height="30"/>
+        <image name="account_icon_default" width="30" height="30"/>
         <image name="backButton.png" width="115" height="221"/>
         <image name="celebration_icon" width="170" height="170"/>
         <image name="create_icon" width="64" height="45"/>
         <image name="custom_icon" width="170" height="170"/>
         <image name="event_icon" width="170" height="170"/>
-        <image name="find_icon_active" width="64" height="45"/>
-        <image name="find_icon_default" width="64" height="45"/>
+        <image name="find_icon_active" width="30" height="30"/>
+        <image name="find_icon_default" width="30" height="30"/>
         <image name="holiday_icon" width="170" height="170"/>
-        <image name="home_icon_active" width="64" height="45"/>
-        <image name="home_icon_default" width="64" height="45"/>
+        <image name="home_icon_active" width="30" height="30"/>
+        <image name="home_icon_default" width="30" height="30"/>
         <image name="loginScreenBackground.png" width="803" height="1483"/>
         <image name="logo_icon" width="414" height="412"/>
-        <image name="notifications_icon_default" width="64" height="45"/>
+        <image name="notifications_icon_active" width="30" height="30"/>
+        <image name="notifications_icon_default" width="30" height="30"/>
         <image name="rager_icon" width="170" height="170"/>
         <image name="social_icon" width="170" height="170"/>
         <image name="themed_icon" width="170" height="170"/>
