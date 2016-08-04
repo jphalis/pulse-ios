@@ -36,7 +36,7 @@ enum {
 @end
 
 @implementation CustomTabViewController
-@synthesize tabView, currentView;
+@synthesize tabView;
 
 - (void)viewDidLoad {
     appDelegate = (AppDelegate *)[AppDelegate getDelegate];
@@ -64,11 +64,6 @@ enum {
     
     appDelegate.arrViewControllers = [[NSMutableArray alloc]init];
     appDelegate.tabbar = self;
-
-// Thin grey border on top
-//    UIView *topBorder = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tabView.frame.size.width, 0.7)];
-//    topBorder.backgroundColor = [UIColor colorWithRed:(235/255.0) green:(235/255.0) blue:(235/255.0) alpha:1.0];
-//    [tabView addSubview:topBorder];
     
 //    UIButton *btn = (UIButton*)[self.view viewWithTag:TABHOME];
 //    btn.titleLabel.font = fontLight(13);
@@ -161,12 +156,15 @@ enum {
             
             if (btnpreviousIndex != nil && previousIndex != -1){
                 [btnpreviousIndex setSelected:NO];
+                NSArray *viewsToRemove = [btnpreviousIndex subviews];
+                [[viewsToRemove lastObject] removeFromSuperview];
             }
-           // UIView *bottomBorder = [[UIView alloc] initWithFrame:CGRectMake(0, btn.frame.size.height - 4.0f, btn.frame.size.width, 4)];
-          //  bottomBorder.backgroundColor = [UIColor lightGrayColor];
-        
+            
             [btn setSelected:YES];
-           // [btn addSubview:bottomBorder];
+
+            UIView *bottomBorder = [[UIView alloc] initWithFrame:CGRectMake(0, btn.frame.size.height - 4.0f, btn.frame.size.width, 4)];
+            bottomBorder.backgroundColor = [UIColor colorWithRed:(171/255.0) green:(14/255.0) blue:(27/255.0) alpha:1.0];
+            [btn addSubview:bottomBorder];
         }
     }
     appDelegate.currentTab = currentIndex;

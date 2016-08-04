@@ -13,7 +13,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="partyBoardLogoL.png" id="Xjt-ge-6DQ">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo_icon" id="Xjt-ge-6DQ">
                                 <rect key="frame" x="77" y="207" width="165" height="155"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                             </imageView>
@@ -27,6 +27,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="partyBoardLogoL.png" width="725" height="845"/>
+        <image name="logo_icon" width="414" height="412"/>
     </resources>
 </document>

@@ -28,6 +28,16 @@
     UISwipeGestureRecognizer *viewRight = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swipeRight:)];
     viewRight.direction = UISwipeGestureRecognizerDirectionRight;
     [self.view addGestureRecognizer:viewRight];
+    
+    //Custom Placeholder Color
+    UIColor *color = [UIColor whiteColor];
+    _emailField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Email" attributes:@{NSForegroundColorAttributeName: color}];
+    _passwordField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Password" attributes:@{NSForegroundColorAttributeName: color}];
+    
+    // Done button attributes
+    _btnSignIn.layer.borderWidth = 2;
+    _btnSignIn.layer.borderColor = [[UIColor whiteColor] CGColor];
+    _btnSignIn.layer.cornerRadius = 7;
 }
 
 -(void)viewWillAppear:(BOOL)animated{

@@ -9,6 +9,7 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *emailField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
+@property (weak, nonatomic) IBOutlet UIButton *btnSignIn;
 
 - (IBAction)onBack:(id)sender;
 - (IBAction)onDone:(id)sender;

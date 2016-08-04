@@ -23,7 +23,7 @@ MBProgressHUD *hud;
     // Show status bar after splash page
     [[UIApplication sharedApplication] setStatusBarHidden:NO];
     
-    if(GetUserName == nil){
+    if([GetUserEmail == nil){
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
         UINavigationController *navController = [storyboard instantiateViewControllerWithIdentifier:@"NavigationControllerPulse"];
         AuthViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"AuthViewController"];
@@ -39,7 +39,8 @@ MBProgressHUD *hud;
         [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge) categories:nil]];
         
         [[UIApplication sharedApplication] registerForRemoteNotifications];
-    } else {
+    }
+    else {
         [[UIApplication sharedApplication] registerForRemoteNotificationTypes: (UIRemoteNotificationTypeNewsstandContentAvailability| UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
     }
     
@@ -176,7 +177,7 @@ MBProgressHUD *hud;
     return mobileNumber;
 }
 
--(int)getLength:(NSString*)mobileNumber{
+-(NSInteger)getLength:(NSString*)mobileNumber{
     mobileNumber = [mobileNumber stringByReplacingOccurrencesOfString:@"(" withString:@""];
     mobileNumber = [mobileNumber stringByReplacingOccurrencesOfString:@")" withString:@""];
     mobileNumber = [mobileNumber stringByReplacingOccurrencesOfString:@" " withString:@""];
