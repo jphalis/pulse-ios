@@ -25,7 +25,7 @@
 #define EMAIL_EXISTS @"This email is already associated with an account."
 #define SIGNUP_SUCCESS @"Thank you for signing up on Pulse!"
 
-// Forgot Password
+// Forgot password
 #define EMPTY_OLD_PASSWORD @"Please enter your old password."
 #define EMPTY_NEW_PASSWORD @"Please enter your new password."
 #define EMPTY_CNF_NEW_PASSWORD @"Please confirm your password."
@@ -36,8 +36,18 @@
 #define PASS_FAILURE @"This email does not exists in our systems."
 #define PASS_SENT @"A password reset email has been sent to you."
 
-// Change Password
+// Change password
 #define CHANGE_PASS_SUCCESS @"Your password has been updated successfully."
 #define CHANGE_PASS_MISMATCH @"Incorrect old password."
+
+// Create party
+#define EMPTY_PARTY_NAME @"Please enter a name for this party first."
+#define EMPTY_PARTY_ADDRESS @"Please enter the address for the party."
+#define EMPTY_MONTH @"Please enter the starting month."
+#define EMPTY_DAY @"Please enter the starting day."
+#define EMPTY_START_TIME @"Please enter the start time."
+#define EMPTY_END_TIME @"Please enter the end time."
+#define INVALID_MONTH @"Please enter a valid month."
+#define INVALID_DAY @"Please enter a valid day."
 
 #endif

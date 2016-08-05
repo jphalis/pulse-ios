@@ -120,7 +120,7 @@ enum {
     if(prevController != nil){
         [prevController.view removeFromSuperview];
     }
-    prevController.view.backgroundColor = [UIColor whiteColor];
+
     prevController = naVController;
     CGRect frame = prevController.view.frame;
     frame.origin = CGPointMake(0, 0);

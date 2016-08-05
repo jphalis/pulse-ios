@@ -42,6 +42,8 @@
 		D04DBD991D517C7D00BB8172 /* FindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D04DBD941D517C7D00BB8172 /* FindViewController.m */; };
 		D04DBD9A1D517C7D00BB8172 /* NotificationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D04DBD961D517C7D00BB8172 /* NotificationsViewController.m */; };
 		D08E5F851D4AF25600A58F80 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D08E5F841D4AF25600A58F80 /* MapKit.framework */; };
+		D0A55EC31D539AD100C8172C /* GuestsCreateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A55EC11D539AD100C8172C /* GuestsCreateViewController.m */; };
+		D0A55EC61D53B96D00C8172C /* DateCreateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A55EC51D53B96D00C8172C /* DateCreateViewController.m */; };
 		D0CB55911D51781300BAE462 /* AuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CB55881D51781300BAE462 /* AuthViewController.m */; };
 		D0CB55921D51781300BAE462 /* CustomTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CB558A1D51781300BAE462 /* CustomTabViewController.m */; };
 		D0CB55931D51781300BAE462 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CB558C1D51781300BAE462 /* HomeViewController.m */; };
@@ -129,6 +131,10 @@
 		D04DBD951D517C7D00BB8172 /* NotificationsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NotificationsViewController.h; path = ViewControllers/NotificationsViewController.h; sourceTree = "<group>"; };
 		D04DBD961D517C7D00BB8172 /* NotificationsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NotificationsViewController.m; path = ViewControllers/NotificationsViewController.m; sourceTree = "<group>"; };
 		D08E5F841D4AF25600A58F80 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		D0A55EC11D539AD100C8172C /* GuestsCreateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GuestsCreateViewController.m; path = ViewControllers/GuestsCreateViewController.m; sourceTree = "<group>"; };
+		D0A55EC21D539AD100C8172C /* GuestsCreateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GuestsCreateViewController.h; path = ViewControllers/GuestsCreateViewController.h; sourceTree = "<group>"; };
+		D0A55EC41D53B96D00C8172C /* DateCreateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DateCreateViewController.h; path = ViewControllers/DateCreateViewController.h; sourceTree = "<group>"; };
+		D0A55EC51D53B96D00C8172C /* DateCreateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DateCreateViewController.m; path = ViewControllers/DateCreateViewController.m; sourceTree = "<group>"; };
 		D0CB55871D51781300BAE462 /* AuthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AuthViewController.h; path = ViewControllers/AuthViewController.h; sourceTree = "<group>"; };
 		D0CB55881D51781300BAE462 /* AuthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AuthViewController.m; path = ViewControllers/AuthViewController.m; sourceTree = "<group>"; };
 		D0CB55891D51781300BAE462 /* CustomTabViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CustomTabViewController.h; path = ViewControllers/CustomTabViewController.h; sourceTree = "<group>"; };
@@ -335,8 +341,12 @@
 				D04DBD921D517C7D00BB8172 /* CreateViewController.m */,
 				D0CB55891D51781300BAE462 /* CustomTabViewController.h */,
 				D0CB558A1D51781300BAE462 /* CustomTabViewController.m */,
+				D0A55EC41D53B96D00C8172C /* DateCreateViewController.h */,
+				D0A55EC51D53B96D00C8172C /* DateCreateViewController.m */,
 				D04DBD931D517C7D00BB8172 /* FindViewController.h */,
 				D04DBD941D517C7D00BB8172 /* FindViewController.m */,
+				D0A55EC21D539AD100C8172C /* GuestsCreateViewController.h */,
+				D0A55EC11D539AD100C8172C /* GuestsCreateViewController.m */,
 				D0CB558B1D51781300BAE462 /* HomeViewController.h */,
 				D0CB558C1D51781300BAE462 /* HomeViewController.m */,
 				D04DBD951D517C7D00BB8172 /* NotificationsViewController.h */,
@@ -506,6 +516,8 @@
 				D04DBD861D5178B200BB8172 /* NSString+Additions.m in Sources */,
 				D04DBD781D5178B200BB8172 /* SCLAlertView.m in Sources */,
 				D04DBD761D5178B200BB8172 /* MBProgressHUD.m in Sources */,
+				D0A55EC31D539AD100C8172C /* GuestsCreateViewController.m in Sources */,
+				D0A55EC61D53B96D00C8172C /* DateCreateViewController.m in Sources */,
 				D04DBD851D5178B200BB8172 /* TWMessageBarManager.m in Sources */,
 				D04DBD771D5178B200BB8172 /* Reachability.m in Sources */,
 				13F77D381D2EE581003EF38D /* main.m in Sources */,
