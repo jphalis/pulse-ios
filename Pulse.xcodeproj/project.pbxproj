@@ -45,6 +45,7 @@
 		D0A55EC31D539AD100C8172C /* GuestsCreateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A55EC11D539AD100C8172C /* GuestsCreateViewController.m */; };
 		D0A55EC61D53B96D00C8172C /* DateCreateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A55EC51D53B96D00C8172C /* DateCreateViewController.m */; };
 		D0A55EC91D54C60900C8172C /* InviteCreateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A55EC81D54C60900C8172C /* InviteCreateViewController.m */; };
+		D0A55ECC1D54CF7300C8172C /* PreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A55ECB1D54CF7300C8172C /* PreviewViewController.m */; };
 		D0CB55911D51781300BAE462 /* AuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CB55881D51781300BAE462 /* AuthViewController.m */; };
 		D0CB55921D51781300BAE462 /* CustomTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CB558A1D51781300BAE462 /* CustomTabViewController.m */; };
 		D0CB55931D51781300BAE462 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CB558C1D51781300BAE462 /* HomeViewController.m */; };
@@ -138,6 +139,8 @@
 		D0A55EC51D53B96D00C8172C /* DateCreateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DateCreateViewController.m; path = ViewControllers/DateCreateViewController.m; sourceTree = "<group>"; };
 		D0A55EC71D54C60900C8172C /* InviteCreateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InviteCreateViewController.h; path = ViewControllers/InviteCreateViewController.h; sourceTree = "<group>"; };
 		D0A55EC81D54C60900C8172C /* InviteCreateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InviteCreateViewController.m; path = ViewControllers/InviteCreateViewController.m; sourceTree = "<group>"; };
+		D0A55ECA1D54CF7300C8172C /* PreviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PreviewViewController.h; path = ViewControllers/PreviewViewController.h; sourceTree = "<group>"; };
+		D0A55ECB1D54CF7300C8172C /* PreviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PreviewViewController.m; path = ViewControllers/PreviewViewController.m; sourceTree = "<group>"; };
 		D0CB55871D51781300BAE462 /* AuthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AuthViewController.h; path = ViewControllers/AuthViewController.h; sourceTree = "<group>"; };
 		D0CB55881D51781300BAE462 /* AuthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AuthViewController.m; path = ViewControllers/AuthViewController.m; sourceTree = "<group>"; };
 		D0CB55891D51781300BAE462 /* CustomTabViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CustomTabViewController.h; path = ViewControllers/CustomTabViewController.h; sourceTree = "<group>"; };
@@ -356,6 +359,8 @@
 				D0A55EC81D54C60900C8172C /* InviteCreateViewController.m */,
 				D04DBD951D517C7D00BB8172 /* NotificationsViewController.h */,
 				D04DBD961D517C7D00BB8172 /* NotificationsViewController.m */,
+				D0A55ECA1D54CF7300C8172C /* PreviewViewController.h */,
+				D0A55ECB1D54CF7300C8172C /* PreviewViewController.m */,
 				D0CB558D1D51781300BAE462 /* SignInViewController.h */,
 				D0CB558E1D51781300BAE462 /* SignInViewController.m */,
 				D0CB558F1D51781300BAE462 /* SignUpViewController.h */,
@@ -523,6 +528,7 @@
 				D04DBD761D5178B200BB8172 /* MBProgressHUD.m in Sources */,
 				D0A55EC91D54C60900C8172C /* InviteCreateViewController.m in Sources */,
 				D0A55EC31D539AD100C8172C /* GuestsCreateViewController.m in Sources */,
+				D0A55ECC1D54CF7300C8172C /* PreviewViewController.m in Sources */,
 				D0A55EC61D53B96D00C8172C /* DateCreateViewController.m in Sources */,
 				D04DBD851D5178B200BB8172 /* TWMessageBarManager.m in Sources */,
 				D04DBD771D5178B200BB8172 /* Reachability.m in Sources */,

@@ -9,9 +9,8 @@
 #import "defs.h"
 #import "GlobalFunctions.h"
 #import "GuestsCreateViewController.h"
-#import "UIViewControllerAdditions.h"
-
 #import "SCLAlertView.h"
+#import "UIViewControllerAdditions.h"
 
 
 @interface GuestsCreateViewController () <UIActionSheetDelegate> {

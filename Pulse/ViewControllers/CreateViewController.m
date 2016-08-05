@@ -11,8 +11,6 @@
 #import "CreateViewController.h"
 #import "UIViewControllerAdditions.h"
 
-#import "SCLAlertView.h"
-
 
 @interface CreateViewController (){
     AppDelegate *appDelegate;

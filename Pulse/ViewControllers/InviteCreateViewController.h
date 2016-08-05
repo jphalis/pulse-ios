@@ -6,12 +6,14 @@
 #import <UIKit/UIKit.h>
 
 
-@interface InviteCreateViewController : UIViewController
+@interface InviteCreateViewController : UIViewController <UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *openPartyIcon;
 @property (weak, nonatomic) IBOutlet UIButton *requestPartyIcon;
 @property (weak, nonatomic) IBOutlet UIButton *exclusivePartyIcon;
 @property (retain, nonatomic) NSString *partyInvite;
+@property (retain, nonatomic) NSString *partyType;
+@property (retain, nonatomic) NSString *partySize;
 
 - (IBAction)onClick:(id)sender;
 - (IBAction)onScratch:(id)sender;

@@ -5,12 +5,12 @@
 
 
 #import "AppDelegate.h"
+#import "DateCreateViewController.h"
 #import "defs.h"
 #import "GlobalFunctions.h"
-#import "DateCreateViewController.h"
-#import "UIViewControllerAdditions.h"
-
+#import "PreviewViewController.h"
 #import "SCLAlertView.h"
+#import "UIViewControllerAdditions.h"
 
 
 @interface DateCreateViewController () <UIActionSheetDelegate> {
@@ -275,23 +275,18 @@
 
 - (IBAction)onProceed:(id)sender {
     if([self ValidateFields]){
-    //    PreviewViewController *previewViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PreviewViewController"];
-    //    previewViewController.partyInvite = _partyInvite;
-    //    previewViewController.partyType = _partyType;
-    //    previewViewController.partyName = _partyName;
-    //    previewViewController.partyAddress = _partyAddress;
-    //    previewViewController.partySize = _partySize;
-    //    previewViewController.partyMonth = _monthField.text;
-    //    previewViewController.partyDay = _dayField.text;
-    //    previewViewController.partyStartTime = _startTimeField.text;
-    //    previewViewController.partyEndTime = _endTimeField.text;
-    //    previewViewController.partyDescription = _descriptionField.text;
-    //    [self.navigationController pushViewController:previewViewController animated:YES];
-        
-        SCLAlertView *alert = [[SCLAlertView alloc] init];
-        alert.showAnimationType = SlideInFromLeft;
-        alert.hideAnimationType = SlideOutToBottom;
-        [alert showInfo:self title:@"Notice" subTitle:@"Would continue" closeButtonTitle:@"OK" duration:0.0f];
+        PreviewViewController *previewViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PreviewViewController"];
+        previewViewController.partyInvite = _partyInvite;
+        previewViewController.partyType = _partyType;
+        previewViewController.partyName = _partyName;
+        previewViewController.partyAddress = _partyAddress;
+        previewViewController.partySize = _partySize;
+        previewViewController.partyMonth = _monthField.text;
+        previewViewController.partyDay = _dayField.text;
+        previewViewController.partyStartTime = _startTimeField.text;
+        previewViewController.partyEndTime = _endTimeField.text;
+        previewViewController.partyDescription = _descriptionField.text;
+        [self.navigationController pushViewController:previewViewController animated:YES];
     }
 }
 
