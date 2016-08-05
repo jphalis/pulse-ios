@@ -32,9 +32,6 @@
     _endTimeField.delegate = self;
     _descriptionField.delegate = self;
     
-    NSDateFormatter *timeFormatter = [[NSDateFormatter alloc] init];
-    [timeFormatter setDateFormat:@"h:mm a"];
-    
     // Start time picker
     _startPickerView = [[UIDatePicker alloc] init];
     _startPickerView.datePickerMode = UIDatePickerModeTime; // UIDatePickerModeDateAndTime

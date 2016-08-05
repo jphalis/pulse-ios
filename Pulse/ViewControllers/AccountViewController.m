@@ -52,4 +52,17 @@
 }
 */
 
+- (IBAction)onSettings:(id)sender {
+}
+
+- (IBAction)onProfilePictureChange:(id)sender {
+}
+- (IBAction)onEvents:(id)sender {
+}
+
+- (IBAction)onFollowers:(id)sender {
+}
+
+- (IBAction)onFollowing:(id)sender {
+}
 @end
