@@ -276,6 +276,7 @@
 - (IBAction)onProceed:(id)sender {
     if([self ValidateFields]){
     //    PreviewViewController *previewViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PreviewViewController"];
+    //    previewViewController.partyInvite = _partyInvite;
     //    previewViewController.partyType = _partyType;
     //    previewViewController.partyName = _partyName;
     //    previewViewController.partyAddress = _partyAddress;

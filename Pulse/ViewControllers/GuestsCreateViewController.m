@@ -192,6 +192,10 @@ enum{
     }
 }
 
+- (IBAction)onPrevious:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (IBAction)onScratch:(id)sender {
     UIActionSheet *actionSheet = [[UIActionSheet alloc]
                                   initWithTitle:@"Are you sure you want to scratch this party?"
@@ -212,6 +216,7 @@ enum{
 
 - (IBAction)onProceed:(id)sender {
     DateCreateViewController *dateCreateViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"DateCreateViewController"];
+    dateCreateViewController.partyInvite = _partyInvite;
     dateCreateViewController.partyType = _partyType;
     dateCreateViewController.partyName = _partyNameField.text;
     dateCreateViewController.partyAddress = _partyAddressField.text;
