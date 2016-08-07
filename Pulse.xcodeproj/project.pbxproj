@@ -16,6 +16,24 @@
 		13F77D6E1D2EE6B6003EF38D /* backButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 13F77D6A1D2EE6B6003EF38D /* backButton.png */; };
 		13F77D6F1D2EE6B6003EF38D /* continueButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 13F77D6B1D2EE6B6003EF38D /* continueButton.png */; };
 		13F77D701D2EE6B6003EF38D /* partyBoardLogoL.png in Resources */ = {isa = PBXBuildFile; fileRef = 13F77D6C1D2EE6B6003EF38D /* partyBoardLogoL.png */; };
+		D01EB9711D5508670051D87F /* NotificationClass.m in Sources */ = {isa = PBXBuildFile; fileRef = D01EB9701D5508670051D87F /* NotificationClass.m */; };
+		D01EB9751D55089C0051D87F /* TableViewCellNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = D01EB9741D55089C0051D87F /* TableViewCellNotification.m */; };
+		D03CEE931D569E9200D2586D /* AnimatedMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = D03CEE921D569E9200D2586D /* AnimatedMethods.m */; };
+		D03CEE961D569ECE00D2586D /* CustomButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D03CEE951D569ECE00D2586D /* CustomButton.m */; };
+		D03CEEC01D56D2D700D2586D /* AccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D03CEEA11D56D2D700D2586D /* AccountViewController.m */; };
+		D03CEEC11D56D2D700D2586D /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D03CEEA31D56D2D700D2586D /* SettingsViewController.m */; };
+		D03CEEC21D56D2D700D2586D /* AuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D03CEEA61D56D2D700D2586D /* AuthViewController.m */; };
+		D03CEEC31D56D2D700D2586D /* SignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D03CEEA81D56D2D700D2586D /* SignInViewController.m */; };
+		D03CEEC41D56D2D700D2586D /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D03CEEAA1D56D2D700D2586D /* SignUpViewController.m */; };
+		D03CEEC51D56D2D700D2586D /* CreateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D03CEEAD1D56D2D700D2586D /* CreateViewController.m */; };
+		D03CEEC61D56D2D700D2586D /* DateCreateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D03CEEAF1D56D2D700D2586D /* DateCreateViewController.m */; };
+		D03CEEC71D56D2D700D2586D /* GuestsCreateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D03CEEB11D56D2D700D2586D /* GuestsCreateViewController.m */; };
+		D03CEEC81D56D2D700D2586D /* InviteCreateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D03CEEB31D56D2D700D2586D /* InviteCreateViewController.m */; };
+		D03CEEC91D56D2D700D2586D /* PreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D03CEEB51D56D2D700D2586D /* PreviewViewController.m */; };
+		D03CEECA1D56D2D700D2586D /* CustomTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D03CEEB71D56D2D700D2586D /* CustomTabViewController.m */; };
+		D03CEECB1D56D2D700D2586D /* FindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D03CEEBA1D56D2D700D2586D /* FindViewController.m */; };
+		D03CEECC1D56D2D700D2586D /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D03CEEBC1D56D2D700D2586D /* HomeViewController.m */; };
+		D03CEECD1D56D2D700D2586D /* NotificationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D03CEEBF1D56D2D700D2586D /* NotificationsViewController.m */; };
 		D04A41311D50F22D00C850FB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D04A41331D50F22D00C850FB /* Main.storyboard */; };
 		D04DBD761D5178B200BB8172 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = D04DBD501D5178B200BB8172 /* MBProgressHUD.m */; };
 		D04DBD771D5178B200BB8172 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = D04DBD531D5178B200BB8172 /* Reachability.m */; };
@@ -37,20 +55,7 @@
 		D04DBD871D5178B200BB8172 /* StringUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = D04DBD721D5178B200BB8172 /* StringUtil.m */; };
 		D04DBD881D5178B200BB8172 /* UIViewControllerAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D04DBD751D5178B200BB8172 /* UIViewControllerAdditions.m */; };
 		D04DBD8E1D5178CD00BB8172 /* GlobalFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = D04DBD8C1D5178CD00BB8172 /* GlobalFunctions.m */; };
-		D04DBD971D517C7D00BB8172 /* AccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D04DBD901D517C7D00BB8172 /* AccountViewController.m */; };
-		D04DBD981D517C7D00BB8172 /* CreateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D04DBD921D517C7D00BB8172 /* CreateViewController.m */; };
-		D04DBD991D517C7D00BB8172 /* FindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D04DBD941D517C7D00BB8172 /* FindViewController.m */; };
-		D04DBD9A1D517C7D00BB8172 /* NotificationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D04DBD961D517C7D00BB8172 /* NotificationsViewController.m */; };
 		D08E5F851D4AF25600A58F80 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D08E5F841D4AF25600A58F80 /* MapKit.framework */; };
-		D0A55EC31D539AD100C8172C /* GuestsCreateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A55EC11D539AD100C8172C /* GuestsCreateViewController.m */; };
-		D0A55EC61D53B96D00C8172C /* DateCreateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A55EC51D53B96D00C8172C /* DateCreateViewController.m */; };
-		D0A55EC91D54C60900C8172C /* InviteCreateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A55EC81D54C60900C8172C /* InviteCreateViewController.m */; };
-		D0A55ECC1D54CF7300C8172C /* PreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A55ECB1D54CF7300C8172C /* PreviewViewController.m */; };
-		D0CB55911D51781300BAE462 /* AuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CB55881D51781300BAE462 /* AuthViewController.m */; };
-		D0CB55921D51781300BAE462 /* CustomTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CB558A1D51781300BAE462 /* CustomTabViewController.m */; };
-		D0CB55931D51781300BAE462 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CB558C1D51781300BAE462 /* HomeViewController.m */; };
-		D0CB55941D51781300BAE462 /* SignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CB558E1D51781300BAE462 /* SignInViewController.m */; };
-		D0CB55951D51781300BAE462 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CB55901D51781300BAE462 /* SignUpViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,6 +91,42 @@
 		13F77D6A1D2EE6B6003EF38D /* backButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backButton.png; sourceTree = "<group>"; };
 		13F77D6B1D2EE6B6003EF38D /* continueButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = continueButton.png; sourceTree = "<group>"; };
 		13F77D6C1D2EE6B6003EF38D /* partyBoardLogoL.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = partyBoardLogoL.png; sourceTree = "<group>"; };
+		D01EB96F1D5508670051D87F /* NotificationClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationClass.h; sourceTree = "<group>"; };
+		D01EB9701D5508670051D87F /* NotificationClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationClass.m; sourceTree = "<group>"; };
+		D01EB9731D55089C0051D87F /* TableViewCellNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewCellNotification.h; sourceTree = "<group>"; };
+		D01EB9741D55089C0051D87F /* TableViewCellNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewCellNotification.m; sourceTree = "<group>"; };
+		D03CEE911D569E9200D2586D /* AnimatedMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimatedMethods.h; sourceTree = "<group>"; };
+		D03CEE921D569E9200D2586D /* AnimatedMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimatedMethods.m; sourceTree = "<group>"; };
+		D03CEE941D569ECE00D2586D /* CustomButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomButton.h; sourceTree = "<group>"; };
+		D03CEE951D569ECE00D2586D /* CustomButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomButton.m; sourceTree = "<group>"; };
+		D03CEEA01D56D2D700D2586D /* AccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountViewController.h; sourceTree = "<group>"; };
+		D03CEEA11D56D2D700D2586D /* AccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountViewController.m; sourceTree = "<group>"; };
+		D03CEEA21D56D2D700D2586D /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		D03CEEA31D56D2D700D2586D /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
+		D03CEEA51D56D2D700D2586D /* AuthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthViewController.h; sourceTree = "<group>"; };
+		D03CEEA61D56D2D700D2586D /* AuthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthViewController.m; sourceTree = "<group>"; };
+		D03CEEA71D56D2D700D2586D /* SignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignInViewController.h; sourceTree = "<group>"; };
+		D03CEEA81D56D2D700D2586D /* SignInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignInViewController.m; sourceTree = "<group>"; };
+		D03CEEA91D56D2D700D2586D /* SignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
+		D03CEEAA1D56D2D700D2586D /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
+		D03CEEAC1D56D2D700D2586D /* CreateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateViewController.h; sourceTree = "<group>"; };
+		D03CEEAD1D56D2D700D2586D /* CreateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateViewController.m; sourceTree = "<group>"; };
+		D03CEEAE1D56D2D700D2586D /* DateCreateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DateCreateViewController.h; sourceTree = "<group>"; };
+		D03CEEAF1D56D2D700D2586D /* DateCreateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DateCreateViewController.m; sourceTree = "<group>"; };
+		D03CEEB01D56D2D700D2586D /* GuestsCreateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuestsCreateViewController.h; sourceTree = "<group>"; };
+		D03CEEB11D56D2D700D2586D /* GuestsCreateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuestsCreateViewController.m; sourceTree = "<group>"; };
+		D03CEEB21D56D2D700D2586D /* InviteCreateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InviteCreateViewController.h; sourceTree = "<group>"; };
+		D03CEEB31D56D2D700D2586D /* InviteCreateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InviteCreateViewController.m; sourceTree = "<group>"; };
+		D03CEEB41D56D2D700D2586D /* PreviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreviewViewController.h; sourceTree = "<group>"; };
+		D03CEEB51D56D2D700D2586D /* PreviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreviewViewController.m; sourceTree = "<group>"; };
+		D03CEEB61D56D2D700D2586D /* CustomTabViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTabViewController.h; sourceTree = "<group>"; };
+		D03CEEB71D56D2D700D2586D /* CustomTabViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTabViewController.m; sourceTree = "<group>"; };
+		D03CEEB91D56D2D700D2586D /* FindViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindViewController.h; sourceTree = "<group>"; };
+		D03CEEBA1D56D2D700D2586D /* FindViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindViewController.m; sourceTree = "<group>"; };
+		D03CEEBB1D56D2D700D2586D /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
+		D03CEEBC1D56D2D700D2586D /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
+		D03CEEBE1D56D2D700D2586D /* NotificationsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationsViewController.h; sourceTree = "<group>"; };
+		D03CEEBF1D56D2D700D2586D /* NotificationsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationsViewController.m; sourceTree = "<group>"; };
 		D04A41321D50F22D00C850FB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D04DBD4F1D5178B200BB8172 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		D04DBD501D5178B200BB8172 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
@@ -124,33 +165,7 @@
 		D04DBD8B1D5178CD00BB8172 /* GlobalFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobalFunctions.h; sourceTree = "<group>"; };
 		D04DBD8C1D5178CD00BB8172 /* GlobalFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlobalFunctions.m; sourceTree = "<group>"; };
 		D04DBD8D1D5178CD00BB8172 /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Message.h; sourceTree = "<group>"; };
-		D04DBD8F1D517C7D00BB8172 /* AccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AccountViewController.h; path = ViewControllers/AccountViewController.h; sourceTree = "<group>"; };
-		D04DBD901D517C7D00BB8172 /* AccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AccountViewController.m; path = ViewControllers/AccountViewController.m; sourceTree = "<group>"; };
-		D04DBD911D517C7D00BB8172 /* CreateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CreateViewController.h; path = ViewControllers/CreateViewController.h; sourceTree = "<group>"; };
-		D04DBD921D517C7D00BB8172 /* CreateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CreateViewController.m; path = ViewControllers/CreateViewController.m; sourceTree = "<group>"; };
-		D04DBD931D517C7D00BB8172 /* FindViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FindViewController.h; path = ViewControllers/FindViewController.h; sourceTree = "<group>"; };
-		D04DBD941D517C7D00BB8172 /* FindViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FindViewController.m; path = ViewControllers/FindViewController.m; sourceTree = "<group>"; };
-		D04DBD951D517C7D00BB8172 /* NotificationsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NotificationsViewController.h; path = ViewControllers/NotificationsViewController.h; sourceTree = "<group>"; };
-		D04DBD961D517C7D00BB8172 /* NotificationsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NotificationsViewController.m; path = ViewControllers/NotificationsViewController.m; sourceTree = "<group>"; };
 		D08E5F841D4AF25600A58F80 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		D0A55EC11D539AD100C8172C /* GuestsCreateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GuestsCreateViewController.m; path = ViewControllers/GuestsCreateViewController.m; sourceTree = "<group>"; };
-		D0A55EC21D539AD100C8172C /* GuestsCreateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GuestsCreateViewController.h; path = ViewControllers/GuestsCreateViewController.h; sourceTree = "<group>"; };
-		D0A55EC41D53B96D00C8172C /* DateCreateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DateCreateViewController.h; path = ViewControllers/DateCreateViewController.h; sourceTree = "<group>"; };
-		D0A55EC51D53B96D00C8172C /* DateCreateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DateCreateViewController.m; path = ViewControllers/DateCreateViewController.m; sourceTree = "<group>"; };
-		D0A55EC71D54C60900C8172C /* InviteCreateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InviteCreateViewController.h; path = ViewControllers/InviteCreateViewController.h; sourceTree = "<group>"; };
-		D0A55EC81D54C60900C8172C /* InviteCreateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InviteCreateViewController.m; path = ViewControllers/InviteCreateViewController.m; sourceTree = "<group>"; };
-		D0A55ECA1D54CF7300C8172C /* PreviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PreviewViewController.h; path = ViewControllers/PreviewViewController.h; sourceTree = "<group>"; };
-		D0A55ECB1D54CF7300C8172C /* PreviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PreviewViewController.m; path = ViewControllers/PreviewViewController.m; sourceTree = "<group>"; };
-		D0CB55871D51781300BAE462 /* AuthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AuthViewController.h; path = ViewControllers/AuthViewController.h; sourceTree = "<group>"; };
-		D0CB55881D51781300BAE462 /* AuthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AuthViewController.m; path = ViewControllers/AuthViewController.m; sourceTree = "<group>"; };
-		D0CB55891D51781300BAE462 /* CustomTabViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CustomTabViewController.h; path = ViewControllers/CustomTabViewController.h; sourceTree = "<group>"; };
-		D0CB558A1D51781300BAE462 /* CustomTabViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CustomTabViewController.m; path = ViewControllers/CustomTabViewController.m; sourceTree = "<group>"; };
-		D0CB558B1D51781300BAE462 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HomeViewController.h; path = ViewControllers/HomeViewController.h; sourceTree = "<group>"; };
-		D0CB558C1D51781300BAE462 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HomeViewController.m; path = ViewControllers/HomeViewController.m; sourceTree = "<group>"; };
-		D0CB558D1D51781300BAE462 /* SignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SignInViewController.h; path = ViewControllers/SignInViewController.h; sourceTree = "<group>"; };
-		D0CB558E1D51781300BAE462 /* SignInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SignInViewController.m; path = ViewControllers/SignInViewController.m; sourceTree = "<group>"; };
-		D0CB558F1D51781300BAE462 /* SignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SignUpViewController.h; path = ViewControllers/SignUpViewController.h; sourceTree = "<group>"; };
-		D0CB55901D51781300BAE462 /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SignUpViewController.m; path = ViewControllers/SignUpViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -202,10 +217,12 @@
 		13F77D351D2EE581003EF38D /* Pulse */ = {
 			isa = PBXGroup;
 			children = (
+				D01EB96E1D5508480051D87F /* CellViews */,
 				D04DBD891D5178CD00BB8172 /* Common */,
 				D04DBD4E1D5178B200BB8172 /* External */,
+				D01EB9721D55087E0051D87F /* Models */,
 				13F77D361D2EE581003EF38D /* Supporting Files */,
-				D08E5F831D4AF03500A58F80 /* ViewControllers */,
+				D03CEE9E1D56D2D700D2586D /* ViewControllers */,
 				13F77D391D2EE581003EF38D /* AppDelegate.h */,
 				13F77D3A1D2EE581003EF38D /* AppDelegate.m */,
 				D04A41331D50F22D00C850FB /* Main.storyboard */,
@@ -237,6 +254,99 @@
 			path = PulseTests;
 			sourceTree = "<group>";
 		};
+		D01EB96E1D5508480051D87F /* CellViews */ = {
+			isa = PBXGroup;
+			children = (
+				D01EB9731D55089C0051D87F /* TableViewCellNotification.h */,
+				D01EB9741D55089C0051D87F /* TableViewCellNotification.m */,
+			);
+			name = CellViews;
+			sourceTree = "<group>";
+		};
+		D01EB9721D55087E0051D87F /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				D01EB96F1D5508670051D87F /* NotificationClass.h */,
+				D01EB9701D5508670051D87F /* NotificationClass.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		D03CEE9E1D56D2D700D2586D /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				D03CEE9F1D56D2D700D2586D /* Account */,
+				D03CEEA41D56D2D700D2586D /* Authentication */,
+				D03CEEAB1D56D2D700D2586D /* Create */,
+				D03CEEB81D56D2D700D2586D /* Find */,
+				D03CEEBD1D56D2D700D2586D /* Notifications */,
+				D03CEEB61D56D2D700D2586D /* CustomTabViewController.h */,
+				D03CEEB71D56D2D700D2586D /* CustomTabViewController.m */,
+				D03CEEBB1D56D2D700D2586D /* HomeViewController.h */,
+				D03CEEBC1D56D2D700D2586D /* HomeViewController.m */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		D03CEE9F1D56D2D700D2586D /* Account */ = {
+			isa = PBXGroup;
+			children = (
+				D03CEEA01D56D2D700D2586D /* AccountViewController.h */,
+				D03CEEA11D56D2D700D2586D /* AccountViewController.m */,
+				D03CEEA21D56D2D700D2586D /* SettingsViewController.h */,
+				D03CEEA31D56D2D700D2586D /* SettingsViewController.m */,
+			);
+			path = Account;
+			sourceTree = "<group>";
+		};
+		D03CEEA41D56D2D700D2586D /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				D03CEEA51D56D2D700D2586D /* AuthViewController.h */,
+				D03CEEA61D56D2D700D2586D /* AuthViewController.m */,
+				D03CEEA71D56D2D700D2586D /* SignInViewController.h */,
+				D03CEEA81D56D2D700D2586D /* SignInViewController.m */,
+				D03CEEA91D56D2D700D2586D /* SignUpViewController.h */,
+				D03CEEAA1D56D2D700D2586D /* SignUpViewController.m */,
+			);
+			path = Authentication;
+			sourceTree = "<group>";
+		};
+		D03CEEAB1D56D2D700D2586D /* Create */ = {
+			isa = PBXGroup;
+			children = (
+				D03CEEAC1D56D2D700D2586D /* CreateViewController.h */,
+				D03CEEAD1D56D2D700D2586D /* CreateViewController.m */,
+				D03CEEAE1D56D2D700D2586D /* DateCreateViewController.h */,
+				D03CEEAF1D56D2D700D2586D /* DateCreateViewController.m */,
+				D03CEEB01D56D2D700D2586D /* GuestsCreateViewController.h */,
+				D03CEEB11D56D2D700D2586D /* GuestsCreateViewController.m */,
+				D03CEEB21D56D2D700D2586D /* InviteCreateViewController.h */,
+				D03CEEB31D56D2D700D2586D /* InviteCreateViewController.m */,
+				D03CEEB41D56D2D700D2586D /* PreviewViewController.h */,
+				D03CEEB51D56D2D700D2586D /* PreviewViewController.m */,
+			);
+			path = Create;
+			sourceTree = "<group>";
+		};
+		D03CEEB81D56D2D700D2586D /* Find */ = {
+			isa = PBXGroup;
+			children = (
+				D03CEEB91D56D2D700D2586D /* FindViewController.h */,
+				D03CEEBA1D56D2D700D2586D /* FindViewController.m */,
+			);
+			path = Find;
+			sourceTree = "<group>";
+		};
+		D03CEEBD1D56D2D700D2586D /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				D03CEEBE1D56D2D700D2586D /* NotificationsViewController.h */,
+				D03CEEBF1D56D2D700D2586D /* NotificationsViewController.m */,
+			);
+			path = Notifications;
+			sourceTree = "<group>";
+		};
 		D04DBD4E1D5178B200BB8172 /* External */ = {
 			isa = PBXGroup;
 			children = (
@@ -245,6 +355,10 @@
 				D04DBD641D5178B200BB8172 /* StatusBarNotifications */,
 				D04DBD6E1D5178B200BB8172 /* StringUtil */,
 				D04DBD731D5178B200BB8172 /* ViewControllerAdditions */,
+				D03CEE911D569E9200D2586D /* AnimatedMethods.h */,
+				D03CEE921D569E9200D2586D /* AnimatedMethods.m */,
+				D03CEE941D569ECE00D2586D /* CustomButton.h */,
+				D03CEE951D569ECE00D2586D /* CustomButton.m */,
 				D04DBD4F1D5178B200BB8172 /* MBProgressHUD.h */,
 				D04DBD501D5178B200BB8172 /* MBProgressHUD.m */,
 			);
@@ -334,39 +448,6 @@
 				D04DBD8D1D5178CD00BB8172 /* Message.h */,
 			);
 			path = Common;
-			sourceTree = "<group>";
-		};
-		D08E5F831D4AF03500A58F80 /* ViewControllers */ = {
-			isa = PBXGroup;
-			children = (
-				D04DBD8F1D517C7D00BB8172 /* AccountViewController.h */,
-				D04DBD901D517C7D00BB8172 /* AccountViewController.m */,
-				D0CB55871D51781300BAE462 /* AuthViewController.h */,
-				D0CB55881D51781300BAE462 /* AuthViewController.m */,
-				D04DBD911D517C7D00BB8172 /* CreateViewController.h */,
-				D04DBD921D517C7D00BB8172 /* CreateViewController.m */,
-				D0CB55891D51781300BAE462 /* CustomTabViewController.h */,
-				D0CB558A1D51781300BAE462 /* CustomTabViewController.m */,
-				D0A55EC41D53B96D00C8172C /* DateCreateViewController.h */,
-				D0A55EC51D53B96D00C8172C /* DateCreateViewController.m */,
-				D04DBD931D517C7D00BB8172 /* FindViewController.h */,
-				D04DBD941D517C7D00BB8172 /* FindViewController.m */,
-				D0A55EC21D539AD100C8172C /* GuestsCreateViewController.h */,
-				D0A55EC11D539AD100C8172C /* GuestsCreateViewController.m */,
-				D0CB558B1D51781300BAE462 /* HomeViewController.h */,
-				D0CB558C1D51781300BAE462 /* HomeViewController.m */,
-				D0A55EC71D54C60900C8172C /* InviteCreateViewController.h */,
-				D0A55EC81D54C60900C8172C /* InviteCreateViewController.m */,
-				D04DBD951D517C7D00BB8172 /* NotificationsViewController.h */,
-				D04DBD961D517C7D00BB8172 /* NotificationsViewController.m */,
-				D0A55ECA1D54CF7300C8172C /* PreviewViewController.h */,
-				D0A55ECB1D54CF7300C8172C /* PreviewViewController.m */,
-				D0CB558D1D51781300BAE462 /* SignInViewController.h */,
-				D0CB558E1D51781300BAE462 /* SignInViewController.m */,
-				D0CB558F1D51781300BAE462 /* SignUpViewController.h */,
-				D0CB55901D51781300BAE462 /* SignUpViewController.m */,
-			);
-			name = ViewControllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -516,34 +597,39 @@
 			buildActionMask = 2147483647;
 			files = (
 				D04DBD7B1D5178B200BB8172 /* SCLButton.m in Sources */,
+				D03CEEC71D56D2D700D2586D /* GuestsCreateViewController.m in Sources */,
 				D04DBD871D5178B200BB8172 /* StringUtil.m in Sources */,
+				D03CEEC51D56D2D700D2586D /* CreateViewController.m in Sources */,
 				D04DBD791D5178B200BB8172 /* SCLAlertViewResponder.m in Sources */,
+				D03CEE931D569E9200D2586D /* AnimatedMethods.m in Sources */,
+				D03CEEC81D56D2D700D2586D /* InviteCreateViewController.m in Sources */,
 				D04DBD7D1D5178B200BB8172 /* SCLTimerDisplay.m in Sources */,
-				D0CB55911D51781300BAE462 /* AuthViewController.m in Sources */,
 				13F77D3B1D2EE581003EF38D /* AppDelegate.m in Sources */,
-				D0CB55921D51781300BAE462 /* CustomTabViewController.m in Sources */,
-				D0CB55941D51781300BAE462 /* SignInViewController.m in Sources */,
 				D04DBD861D5178B200BB8172 /* NSString+Additions.m in Sources */,
+				D01EB9751D55089C0051D87F /* TableViewCellNotification.m in Sources */,
 				D04DBD781D5178B200BB8172 /* SCLAlertView.m in Sources */,
 				D04DBD761D5178B200BB8172 /* MBProgressHUD.m in Sources */,
-				D0A55EC91D54C60900C8172C /* InviteCreateViewController.m in Sources */,
-				D0A55EC31D539AD100C8172C /* GuestsCreateViewController.m in Sources */,
-				D0A55ECC1D54CF7300C8172C /* PreviewViewController.m in Sources */,
-				D0A55EC61D53B96D00C8172C /* DateCreateViewController.m in Sources */,
+				D03CEECD1D56D2D700D2586D /* NotificationsViewController.m in Sources */,
+				D03CEE961D569ECE00D2586D /* CustomButton.m in Sources */,
+				D03CEEC41D56D2D700D2586D /* SignUpViewController.m in Sources */,
+				D03CEECB1D56D2D700D2586D /* FindViewController.m in Sources */,
 				D04DBD851D5178B200BB8172 /* TWMessageBarManager.m in Sources */,
+				D03CEECC1D56D2D700D2586D /* HomeViewController.m in Sources */,
 				D04DBD771D5178B200BB8172 /* Reachability.m in Sources */,
+				D03CEEC91D56D2D700D2586D /* PreviewViewController.m in Sources */,
 				13F77D381D2EE581003EF38D /* main.m in Sources */,
+				D03CEECA1D56D2D700D2586D /* CustomTabViewController.m in Sources */,
+				D03CEEC21D56D2D700D2586D /* AuthViewController.m in Sources */,
 				D04DBD7A1D5178B200BB8172 /* SCLAlertViewStyleKit.m in Sources */,
-				D04DBD991D517C7D00BB8172 /* FindViewController.m in Sources */,
+				D03CEEC31D56D2D700D2586D /* SignInViewController.m in Sources */,
 				D04DBD7E1D5178B200BB8172 /* UIImage+ImageEffects.m in Sources */,
-				D04DBD981D517C7D00BB8172 /* CreateViewController.m in Sources */,
-				D04DBD971D517C7D00BB8172 /* AccountViewController.m in Sources */,
-				D0CB55951D51781300BAE462 /* SignUpViewController.m in Sources */,
-				D04DBD9A1D517C7D00BB8172 /* NotificationsViewController.m in Sources */,
+				D03CEEC01D56D2D700D2586D /* AccountViewController.m in Sources */,
 				D04DBD7C1D5178B200BB8172 /* SCLTextView.m in Sources */,
 				D04DBD881D5178B200BB8172 /* UIViewControllerAdditions.m in Sources */,
+				D03CEEC11D56D2D700D2586D /* SettingsViewController.m in Sources */,
+				D03CEEC61D56D2D700D2586D /* DateCreateViewController.m in Sources */,
 				D04DBD8E1D5178CD00BB8172 /* GlobalFunctions.m in Sources */,
-				D0CB55931D51781300BAE462 /* HomeViewController.m in Sources */,
+				D01EB9711D5508670051D87F /* NotificationClass.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
