@@ -16,8 +16,6 @@
 		13F77D6E1D2EE6B6003EF38D /* backButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 13F77D6A1D2EE6B6003EF38D /* backButton.png */; };
 		13F77D6F1D2EE6B6003EF38D /* continueButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 13F77D6B1D2EE6B6003EF38D /* continueButton.png */; };
 		13F77D701D2EE6B6003EF38D /* partyBoardLogoL.png in Resources */ = {isa = PBXBuildFile; fileRef = 13F77D6C1D2EE6B6003EF38D /* partyBoardLogoL.png */; };
-		D01EB9711D5508670051D87F /* NotificationClass.m in Sources */ = {isa = PBXBuildFile; fileRef = D01EB9701D5508670051D87F /* NotificationClass.m */; };
-		D01EB9751D55089C0051D87F /* TableViewCellNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = D01EB9741D55089C0051D87F /* TableViewCellNotification.m */; };
 		D03CEE931D569E9200D2586D /* AnimatedMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = D03CEE921D569E9200D2586D /* AnimatedMethods.m */; };
 		D03CEE961D569ECE00D2586D /* CustomButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D03CEE951D569ECE00D2586D /* CustomButton.m */; };
 		D03CEEC01D56D2D700D2586D /* AccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D03CEEA11D56D2D700D2586D /* AccountViewController.m */; };
@@ -56,6 +54,11 @@
 		D04DBD881D5178B200BB8172 /* UIViewControllerAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D04DBD751D5178B200BB8172 /* UIViewControllerAdditions.m */; };
 		D04DBD8E1D5178CD00BB8172 /* GlobalFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = D04DBD8C1D5178CD00BB8172 /* GlobalFunctions.m */; };
 		D08E5F851D4AF25600A58F80 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D08E5F841D4AF25600A58F80 /* MapKit.framework */; };
+		D0C02F831D56D69F0033EF98 /* FollowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C02F821D56D69F0033EF98 /* FollowViewController.m */; };
+		D0C02F8C1D56DBDC0033EF98 /* TableViewCellAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C02F891D56DBDC0033EF98 /* TableViewCellAccount.m */; };
+		D0C02F8D1D56DBDC0033EF98 /* TableViewCellNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C02F8B1D56DBDC0033EF98 /* TableViewCellNotification.m */; };
+		D0C02F911D56DBF30033EF98 /* NotificationClass.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C02F901D56DBF30033EF98 /* NotificationClass.m */; };
+		D0C02F941D56DC100033EF98 /* ProfileClass.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C02F931D56DC100033EF98 /* ProfileClass.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,10 +94,6 @@
 		13F77D6A1D2EE6B6003EF38D /* backButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backButton.png; sourceTree = "<group>"; };
 		13F77D6B1D2EE6B6003EF38D /* continueButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = continueButton.png; sourceTree = "<group>"; };
 		13F77D6C1D2EE6B6003EF38D /* partyBoardLogoL.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = partyBoardLogoL.png; sourceTree = "<group>"; };
-		D01EB96F1D5508670051D87F /* NotificationClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationClass.h; sourceTree = "<group>"; };
-		D01EB9701D5508670051D87F /* NotificationClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationClass.m; sourceTree = "<group>"; };
-		D01EB9731D55089C0051D87F /* TableViewCellNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewCellNotification.h; sourceTree = "<group>"; };
-		D01EB9741D55089C0051D87F /* TableViewCellNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewCellNotification.m; sourceTree = "<group>"; };
 		D03CEE911D569E9200D2586D /* AnimatedMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimatedMethods.h; sourceTree = "<group>"; };
 		D03CEE921D569E9200D2586D /* AnimatedMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimatedMethods.m; sourceTree = "<group>"; };
 		D03CEE941D569ECE00D2586D /* CustomButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomButton.h; sourceTree = "<group>"; };
@@ -166,6 +165,16 @@
 		D04DBD8C1D5178CD00BB8172 /* GlobalFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlobalFunctions.m; sourceTree = "<group>"; };
 		D04DBD8D1D5178CD00BB8172 /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Message.h; sourceTree = "<group>"; };
 		D08E5F841D4AF25600A58F80 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		D0C02F811D56D69F0033EF98 /* FollowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FollowViewController.h; sourceTree = "<group>"; };
+		D0C02F821D56D69F0033EF98 /* FollowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FollowViewController.m; sourceTree = "<group>"; };
+		D0C02F881D56DBDC0033EF98 /* TableViewCellAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewCellAccount.h; sourceTree = "<group>"; };
+		D0C02F891D56DBDC0033EF98 /* TableViewCellAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewCellAccount.m; sourceTree = "<group>"; };
+		D0C02F8A1D56DBDC0033EF98 /* TableViewCellNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewCellNotification.h; sourceTree = "<group>"; };
+		D0C02F8B1D56DBDC0033EF98 /* TableViewCellNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewCellNotification.m; sourceTree = "<group>"; };
+		D0C02F8F1D56DBF30033EF98 /* NotificationClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationClass.h; sourceTree = "<group>"; };
+		D0C02F901D56DBF30033EF98 /* NotificationClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationClass.m; sourceTree = "<group>"; };
+		D0C02F921D56DC100033EF98 /* ProfileClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileClass.h; sourceTree = "<group>"; };
+		D0C02F931D56DC100033EF98 /* ProfileClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileClass.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -217,10 +226,10 @@
 		13F77D351D2EE581003EF38D /* Pulse */ = {
 			isa = PBXGroup;
 			children = (
-				D01EB96E1D5508480051D87F /* CellViews */,
+				D0C02F871D56DBDC0033EF98 /* CellViews */,
 				D04DBD891D5178CD00BB8172 /* Common */,
 				D04DBD4E1D5178B200BB8172 /* External */,
-				D01EB9721D55087E0051D87F /* Models */,
+				D0C02F8E1D56DBF30033EF98 /* Models */,
 				13F77D361D2EE581003EF38D /* Supporting Files */,
 				D03CEE9E1D56D2D700D2586D /* ViewControllers */,
 				13F77D391D2EE581003EF38D /* AppDelegate.h */,
@@ -254,24 +263,6 @@
 			path = PulseTests;
 			sourceTree = "<group>";
 		};
-		D01EB96E1D5508480051D87F /* CellViews */ = {
-			isa = PBXGroup;
-			children = (
-				D01EB9731D55089C0051D87F /* TableViewCellNotification.h */,
-				D01EB9741D55089C0051D87F /* TableViewCellNotification.m */,
-			);
-			name = CellViews;
-			sourceTree = "<group>";
-		};
-		D01EB9721D55087E0051D87F /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				D01EB96F1D5508670051D87F /* NotificationClass.h */,
-				D01EB9701D5508670051D87F /* NotificationClass.m */,
-			);
-			name = Models;
-			sourceTree = "<group>";
-		};
 		D03CEE9E1D56D2D700D2586D /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -293,6 +284,8 @@
 			children = (
 				D03CEEA01D56D2D700D2586D /* AccountViewController.h */,
 				D03CEEA11D56D2D700D2586D /* AccountViewController.m */,
+				D0C02F811D56D69F0033EF98 /* FollowViewController.h */,
+				D0C02F821D56D69F0033EF98 /* FollowViewController.m */,
 				D03CEEA21D56D2D700D2586D /* SettingsViewController.h */,
 				D03CEEA31D56D2D700D2586D /* SettingsViewController.m */,
 			);
@@ -450,6 +443,28 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
+		D0C02F871D56DBDC0033EF98 /* CellViews */ = {
+			isa = PBXGroup;
+			children = (
+				D0C02F881D56DBDC0033EF98 /* TableViewCellAccount.h */,
+				D0C02F891D56DBDC0033EF98 /* TableViewCellAccount.m */,
+				D0C02F8A1D56DBDC0033EF98 /* TableViewCellNotification.h */,
+				D0C02F8B1D56DBDC0033EF98 /* TableViewCellNotification.m */,
+			);
+			path = CellViews;
+			sourceTree = "<group>";
+		};
+		D0C02F8E1D56DBF30033EF98 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				D0C02F8F1D56DBF30033EF98 /* NotificationClass.h */,
+				D0C02F901D56DBF30033EF98 /* NotificationClass.m */,
+				D0C02F921D56DC100033EF98 /* ProfileClass.h */,
+				D0C02F931D56DC100033EF98 /* ProfileClass.m */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -596,6 +611,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0C02F941D56DC100033EF98 /* ProfileClass.m in Sources */,
 				D04DBD7B1D5178B200BB8172 /* SCLButton.m in Sources */,
 				D03CEEC71D56D2D700D2586D /* GuestsCreateViewController.m in Sources */,
 				D04DBD871D5178B200BB8172 /* StringUtil.m in Sources */,
@@ -603,19 +619,21 @@
 				D04DBD791D5178B200BB8172 /* SCLAlertViewResponder.m in Sources */,
 				D03CEE931D569E9200D2586D /* AnimatedMethods.m in Sources */,
 				D03CEEC81D56D2D700D2586D /* InviteCreateViewController.m in Sources */,
+				D0C02F911D56DBF30033EF98 /* NotificationClass.m in Sources */,
 				D04DBD7D1D5178B200BB8172 /* SCLTimerDisplay.m in Sources */,
 				13F77D3B1D2EE581003EF38D /* AppDelegate.m in Sources */,
 				D04DBD861D5178B200BB8172 /* NSString+Additions.m in Sources */,
-				D01EB9751D55089C0051D87F /* TableViewCellNotification.m in Sources */,
 				D04DBD781D5178B200BB8172 /* SCLAlertView.m in Sources */,
 				D04DBD761D5178B200BB8172 /* MBProgressHUD.m in Sources */,
 				D03CEECD1D56D2D700D2586D /* NotificationsViewController.m in Sources */,
+				D0C02F8C1D56DBDC0033EF98 /* TableViewCellAccount.m in Sources */,
 				D03CEE961D569ECE00D2586D /* CustomButton.m in Sources */,
 				D03CEEC41D56D2D700D2586D /* SignUpViewController.m in Sources */,
 				D03CEECB1D56D2D700D2586D /* FindViewController.m in Sources */,
 				D04DBD851D5178B200BB8172 /* TWMessageBarManager.m in Sources */,
 				D03CEECC1D56D2D700D2586D /* HomeViewController.m in Sources */,
 				D04DBD771D5178B200BB8172 /* Reachability.m in Sources */,
+				D0C02F8D1D56DBDC0033EF98 /* TableViewCellNotification.m in Sources */,
 				D03CEEC91D56D2D700D2586D /* PreviewViewController.m in Sources */,
 				13F77D381D2EE581003EF38D /* main.m in Sources */,
 				D03CEECA1D56D2D700D2586D /* CustomTabViewController.m in Sources */,
@@ -627,9 +645,9 @@
 				D04DBD7C1D5178B200BB8172 /* SCLTextView.m in Sources */,
 				D04DBD881D5178B200BB8172 /* UIViewControllerAdditions.m in Sources */,
 				D03CEEC11D56D2D700D2586D /* SettingsViewController.m in Sources */,
+				D0C02F831D56D69F0033EF98 /* FollowViewController.m in Sources */,
 				D03CEEC61D56D2D700D2586D /* DateCreateViewController.m in Sources */,
 				D04DBD8E1D5178CD00BB8172 /* GlobalFunctions.m in Sources */,
-				D01EB9711D5508670051D87F /* NotificationClass.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

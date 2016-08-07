@@ -14,6 +14,7 @@
 #import "GlobalFunctions.h"
 #import "NotificationClass.h"
 #import "NotificationsViewController.h"
+#import "SCLAlertView.h"
 //#import "SingleNotificationViewController.h"
 #import "TableViewCellNotification.h"
 #import "UIViewControllerAdditions.h"
@@ -150,15 +151,18 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NotificationClass *notificationClass = [arrNotification objectAtIndex:indexPath.row];
     
-    NSLog(@"clicked");
+    SCLAlertView *alert = [[SCLAlertView alloc] init];
+    alert.showAnimationType = SlideInFromLeft;
+    alert.hideAnimationType = SlideOutToBottom;
+    [alert showNotice:self title:@"Notice" subTitle:@"Load individual notification." closeButtonTitle:@"OK" duration:0.0f];
     
-    if([notificationClass.targetUrl isEqualToString:@""]){
-        return;
-    } else {
+//    if([notificationClass.targetUrl isEqualToString:@""]){
+//        return;
+//    } else {
 //        SingleNotificationViewController *singleNotificationViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"SingleNotificationViewController"];
 //        singleNotificationViewController.singleNotificationUrl = notificationClass.targetUrl;
 //        [self.navigationController pushViewController:singleNotificationViewController animated:YES];
-    }
+//    }
 }
 
 @end
