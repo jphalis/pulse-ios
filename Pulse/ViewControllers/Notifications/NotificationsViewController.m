@@ -149,7 +149,7 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NotificationClass *notificationClass = [arrNotification objectAtIndex:indexPath.row];
+//    NotificationClass *notificationClass = [arrNotification objectAtIndex:indexPath.row];
     
     SCLAlertView *alert = [[SCLAlertView alloc] init];
     alert.showAnimationType = SlideInFromLeft;

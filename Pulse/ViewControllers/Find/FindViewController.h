@@ -3,9 +3,13 @@
 //  Pulse
 //
 
+#import <MapKit/MapKit.h>
 #import <UIKit/UIKit.h>
 
 
-@interface FindViewController : UIViewController
+@interface FindViewController : UIViewController <MKMapViewDelegate>
+
+@property (strong, nonatomic) IBOutlet UICollectionView *collectionVW;
+@property (strong, nonatomic) IBOutlet MKMapView *mapView;
 
 @end
