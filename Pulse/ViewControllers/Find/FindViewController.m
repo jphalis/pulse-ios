@@ -16,7 +16,7 @@
 #import "UIViewControllerAdditions.h"
 
 
-@interface FindViewController () <MKMapViewDelegate, CLLocationManagerDelegate> {
+@interface FindViewController () <MKMapViewDelegate, CLLocationManagerDelegate,UICollectionViewDelegateFlowLayout> {
     AppDelegate *appDelegate;
     
     NSMutableArray *arrParties;
@@ -181,6 +181,11 @@
     return 1;
 }
 
+-(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    CGFloat cellWidth =  [[UIScreen mainScreen] bounds].size.width;
+    return CGSizeMake(cellWidth, 100);
+}
+
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     CollectionViewCellImage *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"FindCell" forIndexPath:indexPath];
     
@@ -191,8 +196,8 @@
     cell.userProfilePicture.layer.masksToBounds = YES;
     cell.partyName.text = @"JP Birthday";
     cell.partyAddress.text = @"Hoboken, NJ";
-    cell.numberAttending.text = @"21";
-    cell.numberRequests.text = @"100";
+    cell.partyAttending.text = @"21";
+    cell.partyRequests.text = @"100";
     
 //    PartyClass *partyClass = [arrParties objectAtIndex:indexPath.row];
 //    
