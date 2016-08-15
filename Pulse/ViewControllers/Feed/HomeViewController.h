@@ -8,6 +8,4 @@
 
 @interface HomeViewController : UIViewController
 
-- (IBAction)doLogout:(id)sender;
-
 @end

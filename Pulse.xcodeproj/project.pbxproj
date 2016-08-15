@@ -35,7 +35,6 @@
 		D03CEEC91D56D2D700D2586D /* PreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D03CEEB51D56D2D700D2586D /* PreviewViewController.m */; };
 		D03CEECA1D56D2D700D2586D /* CustomTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D03CEEB71D56D2D700D2586D /* CustomTabViewController.m */; };
 		D03CEECB1D56D2D700D2586D /* FindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D03CEEBA1D56D2D700D2586D /* FindViewController.m */; };
-		D03CEECC1D56D2D700D2586D /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D03CEEBC1D56D2D700D2586D /* HomeViewController.m */; };
 		D03CEECD1D56D2D700D2586D /* NotificationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D03CEEBF1D56D2D700D2586D /* NotificationsViewController.m */; };
 		D04A41311D50F22D00C850FB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D04A41331D50F22D00C850FB /* Main.storyboard */; };
 		D04DBD761D5178B200BB8172 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = D04DBD501D5178B200BB8172 /* MBProgressHUD.m */; };
@@ -59,6 +58,9 @@
 		D04DBD881D5178B200BB8172 /* UIViewControllerAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D04DBD751D5178B200BB8172 /* UIViewControllerAdditions.m */; };
 		D04DBD8E1D5178CD00BB8172 /* GlobalFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = D04DBD8C1D5178CD00BB8172 /* GlobalFunctions.m */; };
 		D08E5F851D4AF25600A58F80 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D08E5F841D4AF25600A58F80 /* MapKit.framework */; };
+		D09D4BA81D624DCD00D285F3 /* TableViewCellFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = D09D4BA71D624DCD00D285F3 /* TableViewCellFeed.m */; };
+		D09D4BAD1D624E8F00D285F3 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D09D4BAC1D624E8F00D285F3 /* HomeViewController.m */; };
+		D09D4BB01D624EF000D285F3 /* FeedClass.m in Sources */ = {isa = PBXBuildFile; fileRef = D09D4BAF1D624EF000D285F3 /* FeedClass.m */; };
 		D0C02F831D56D69F0033EF98 /* FollowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C02F821D56D69F0033EF98 /* FollowViewController.m */; };
 		D0C02F8C1D56DBDC0033EF98 /* TableViewCellAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C02F891D56DBDC0033EF98 /* TableViewCellAccount.m */; };
 		D0C02F8D1D56DBDC0033EF98 /* TableViewCellNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C02F8B1D56DBDC0033EF98 /* TableViewCellNotification.m */; };
@@ -134,8 +136,6 @@
 		D03CEEB71D56D2D700D2586D /* CustomTabViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTabViewController.m; sourceTree = "<group>"; };
 		D03CEEB91D56D2D700D2586D /* FindViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindViewController.h; sourceTree = "<group>"; };
 		D03CEEBA1D56D2D700D2586D /* FindViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindViewController.m; sourceTree = "<group>"; };
-		D03CEEBB1D56D2D700D2586D /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
-		D03CEEBC1D56D2D700D2586D /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		D03CEEBE1D56D2D700D2586D /* NotificationsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationsViewController.h; sourceTree = "<group>"; };
 		D03CEEBF1D56D2D700D2586D /* NotificationsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationsViewController.m; sourceTree = "<group>"; };
 		D04A41321D50F22D00C850FB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -177,6 +177,12 @@
 		D04DBD8C1D5178CD00BB8172 /* GlobalFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlobalFunctions.m; sourceTree = "<group>"; };
 		D04DBD8D1D5178CD00BB8172 /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Message.h; sourceTree = "<group>"; };
 		D08E5F841D4AF25600A58F80 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		D09D4BA61D624DCD00D285F3 /* TableViewCellFeed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewCellFeed.h; sourceTree = "<group>"; };
+		D09D4BA71D624DCD00D285F3 /* TableViewCellFeed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewCellFeed.m; sourceTree = "<group>"; };
+		D09D4BAB1D624E8F00D285F3 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
+		D09D4BAC1D624E8F00D285F3 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
+		D09D4BAE1D624EF000D285F3 /* FeedClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedClass.h; sourceTree = "<group>"; };
+		D09D4BAF1D624EF000D285F3 /* FeedClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedClass.m; sourceTree = "<group>"; };
 		D0C02F811D56D69F0033EF98 /* FollowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FollowViewController.h; sourceTree = "<group>"; };
 		D0C02F821D56D69F0033EF98 /* FollowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FollowViewController.m; sourceTree = "<group>"; };
 		D0C02F881D56DBDC0033EF98 /* TableViewCellAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewCellAccount.h; sourceTree = "<group>"; };
@@ -287,12 +293,11 @@
 				D03CEE9F1D56D2D700D2586D /* Account */,
 				D03CEEA41D56D2D700D2586D /* Authentication */,
 				D03CEEAB1D56D2D700D2586D /* Create */,
+				D09D4BAA1D624E8F00D285F3 /* Feed */,
 				D03CEEB81D56D2D700D2586D /* Find */,
 				D03CEEBD1D56D2D700D2586D /* Notifications */,
 				D03CEEB61D56D2D700D2586D /* CustomTabViewController.h */,
 				D03CEEB71D56D2D700D2586D /* CustomTabViewController.m */,
-				D03CEEBB1D56D2D700D2586D /* HomeViewController.h */,
-				D03CEEBC1D56D2D700D2586D /* HomeViewController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -461,6 +466,15 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
+		D09D4BAA1D624E8F00D285F3 /* Feed */ = {
+			isa = PBXGroup;
+			children = (
+				D09D4BAB1D624E8F00D285F3 /* HomeViewController.h */,
+				D09D4BAC1D624E8F00D285F3 /* HomeViewController.m */,
+			);
+			path = Feed;
+			sourceTree = "<group>";
+		};
 		D0C02F871D56DBDC0033EF98 /* CellViews */ = {
 			isa = PBXGroup;
 			children = (
@@ -468,6 +482,8 @@
 				D01350E61D5A935A00ACD2C1 /* CollectionViewCellimage.m */,
 				D0C02F881D56DBDC0033EF98 /* TableViewCellAccount.h */,
 				D0C02F891D56DBDC0033EF98 /* TableViewCellAccount.m */,
+				D09D4BA61D624DCD00D285F3 /* TableViewCellFeed.h */,
+				D09D4BA71D624DCD00D285F3 /* TableViewCellFeed.m */,
 				D0C02F8A1D56DBDC0033EF98 /* TableViewCellNotification.h */,
 				D0C02F8B1D56DBDC0033EF98 /* TableViewCellNotification.m */,
 			);
@@ -477,6 +493,8 @@
 		D0C02F8E1D56DBF30033EF98 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				D09D4BAE1D624EF000D285F3 /* FeedClass.h */,
+				D09D4BAF1D624EF000D285F3 /* FeedClass.m */,
 				D0C02F8F1D56DBF30033EF98 /* NotificationClass.h */,
 				D0C02F901D56DBF30033EF98 /* NotificationClass.m */,
 				D01350E81D5A99BA00ACD2C1 /* PartyClass.h */,
@@ -654,17 +672,19 @@
 				D03CEEC41D56D2D700D2586D /* SignUpViewController.m in Sources */,
 				D03CEECB1D56D2D700D2586D /* FindViewController.m in Sources */,
 				D04DBD851D5178B200BB8172 /* TWMessageBarManager.m in Sources */,
-				D03CEECC1D56D2D700D2586D /* HomeViewController.m in Sources */,
 				D04DBD771D5178B200BB8172 /* Reachability.m in Sources */,
 				D0C02F8D1D56DBDC0033EF98 /* TableViewCellNotification.m in Sources */,
+				D09D4BAD1D624E8F00D285F3 /* HomeViewController.m in Sources */,
 				D01350EA1D5A99BA00ACD2C1 /* PartyClass.m in Sources */,
 				D03CEEC91D56D2D700D2586D /* PreviewViewController.m in Sources */,
 				13F77D381D2EE581003EF38D /* main.m in Sources */,
 				D03CEECA1D56D2D700D2586D /* CustomTabViewController.m in Sources */,
 				D03CEEC21D56D2D700D2586D /* AuthViewController.m in Sources */,
 				D04DBD7A1D5178B200BB8172 /* SCLAlertViewStyleKit.m in Sources */,
+				D09D4BB01D624EF000D285F3 /* FeedClass.m in Sources */,
 				D03CEEC31D56D2D700D2586D /* SignInViewController.m in Sources */,
 				D04DBD7E1D5178B200BB8172 /* UIImage+ImageEffects.m in Sources */,
+				D09D4BA81D624DCD00D285F3 /* TableViewCellFeed.m in Sources */,
 				D03CEEC01D56D2D700D2586D /* AccountViewController.m in Sources */,
 				D04DBD7C1D5178B200BB8172 /* SCLTextView.m in Sources */,
 				D04DBD881D5178B200BB8172 /* UIViewControllerAdditions.m in Sources */,

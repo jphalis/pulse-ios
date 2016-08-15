@@ -84,6 +84,10 @@
 }
 
 -(void)startRefresh{
+    if(arrNotification.count > 0){
+        [arrNotification removeAllObjects];
+    }
+    
     [self getNotificationDetails];
 }
 
@@ -154,7 +158,7 @@
     SCLAlertView *alert = [[SCLAlertView alloc] init];
     alert.showAnimationType = SlideInFromLeft;
     alert.hideAnimationType = SlideOutToBottom;
-    [alert showNotice:self title:@"Notice" subTitle:@"Load individual notification." closeButtonTitle:@"OK" duration:0.0f];
+    [alert showInfo:self title:@"Notice" subTitle:@"Load individual notification." closeButtonTitle:@"OK" duration:0.0f];
     
 //    if([notificationClass.targetUrl isEqualToString:@""]){
 //        return;
