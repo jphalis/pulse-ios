@@ -41,9 +41,12 @@ extern AppDelegate *appDelegate;
 
 #ifdef DEBUG
     // DEV URLS
-    #define LOGINURL @"http://127.0.0.1:8000/"
-    #define SIGNUPURL @"http://127.0.0.1:8000/"
+    #define LOGINURL @"http://127.0.0.1:8000/hidden/secure/pulse/api/auth/token/"
+    #define SIGNUPURL @"http://127.0.0.1:8000/hidden/secure/pulse/api/accounts/create/"
     #define HOMEPAGEURL @"http://127.0.0.1:8000/"
+    #define PROFILEURL @"http://127.0.0.1:8000/hidden/secure/pulse/api/accounts/"
+    #define NOTIFICATIONURL @"http://127.0.0.1:8000/hidden/secure/pulse/api/notifications/"
+    #define NOTIFICATIONUNREADURL @"http://127.0.0.1:8000/hidden/secure/pulse/api/notifications/unread/"
 #else
     // PROD URLS
     #define LOGINURL @"https://www.domain.com/"
@@ -51,30 +54,24 @@ extern AppDelegate *appDelegate;
     #define HOMEPAGEURL @"https://www.domain.com/"
 #endif
 
-#define    UserDefaults           [NSUserDefaults standardUserDefaults]
+#define    UserDefaults       [NSUserDefaults standardUserDefaults]
 
-#define    SetAppKill(x)         [[NSUserDefaults standardUserDefaults] setObject:(x) forKey:@"AppKill"]
-#define    GetAppKill            [[NSUserDefaults standardUserDefaults] objectForKey:@"AppKill"]
+#define    SetUserToken(x)    [[NSUserDefaults standardUserDefaults] setObject:(x) forKey:@"UserToken"]
+#define    GetUserToken       [[NSUserDefaults standardUserDefaults] objectForKey:@"UserToken"]
 
-#define    SetUserToken(x)       [[NSUserDefaults standardUserDefaults] setObject:(x) forKey:@"UserToken"]
-#define    GetUserToken          [[NSUserDefaults standardUserDefaults] objectForKey:@"UserToken"]
+#define    SetUserID(x)       [[NSUserDefaults standardUserDefaults] setInteger:(x) forKey:@"UserID"]
+#define    GetUserID          [[NSUserDefaults standardUserDefaults] integerForKey:@"UserID"]
 
-#define    SetUserID(x)          [[NSUserDefaults standardUserDefaults] setInteger:(x) forKey:@"UserID"]
-#define    GetUserID             [[NSUserDefaults standardUserDefaults] integerForKey:@"UserID"]
+#define    SetUserEmail(x)    [[NSUserDefaults standardUserDefaults] setObject:(x) forKey:@"UserEmail"]
+#define    GetUserEmail       [[NSUserDefaults standardUserDefaults] objectForKey:@"UserEmail"]
 
-#define    SetUserEmail(x)         [[NSUserDefaults standardUserDefaults] setObject:(x) forKey:@"UserEmail"]
-#define    GetUserEmail            [NSUserDefaults standardUserDefaults] objectForKey:@"UserEmail"]
+#define    SetUserPassword(x) [[NSUserDefaults standardUserDefaults] setObject:(x) forKey:@"UserPassword"]
+#define    GetUserPassword    [[NSUserDefaults standardUserDefaults] objectForKey:@"UserPassword"]
 
-#define    SetUserPassword(x)    [[NSUserDefaults standardUserDefaults] setObject:(x) forKey:@"UserPassword"]
-#define    GetUserPassword       [[NSUserDefaults standardUserDefaults] objectForKey:@"UserPassword"]
+#define    SetUserName(x)     [[NSUserDefaults standardUserDefaults] setObject:(x) forKey:@"UserName"]
+#define    GetUserName        [[NSUserDefaults standardUserDefaults] objectForKey:@"UserName"]
 
-#define    SetUserName(x)         [[NSUserDefaults standardUserDefaults] setObject:(x) forKey:@"UserName"]
-#define    GetUserName            [[NSUserDefaults standardUserDefaults] objectForKey:@"UserName"]
-
-#define    SetMobileNum(x)        [[NSUserDefaults standardUserDefaults] setObject:(x) forKey:@"MobileNum"]
-#define    GetMobileNum           [[NSUserDefaults standardUserDefaults] objectForKey:@"MobileNum"]
-
-#define    SetInitialScreen(x)        [[NSUserDefaults standardUserDefaults] setObject:(x) forKey:@"InitialScreen"]
-#define    GetInitialScreen           [[NSUserDefaults standardUserDefaults] objectForKey:@"InitialScreen"]
+#define    SetisFullView(x)   [[NSUserDefaults standardUserDefaults] setBool:(x) forKey:@"FullView"]
+#define    GetsFullView       [[NSUserDefaults standardUserDefaults] boolForKey:@"FullView"]
 
 #endif

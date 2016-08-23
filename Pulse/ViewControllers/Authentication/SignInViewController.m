@@ -5,6 +5,7 @@
 
 #import "CustomTabViewController.h"
 #import "defs.h"
+#import "GlobalFunctions.h"
 #import "SignInViewController.h"
 #import "SCLAlertView.h"
 #import "StringUtil.h"
@@ -75,6 +76,7 @@
 }
 
 - (IBAction)onDone:(id)sender {
+    checkNetworkReachability();
     if([self validateFields]){
         [self doSubmit];
     }
@@ -142,41 +144,61 @@
     return YES;
 }
 
-//- (void)textFieldDidEndEditing:(UITextField *)textField{
-//    if (textField.tag != 1){
-//        [self animateTextField: textField up: YES];
-//    }
-//    else {
-//        self.view.frame = CGRectMake(self.view.frame.origin.x, 0, self.view.frame.size.width, self.view.frame.size.height);
-//    }
-//}
-//
-//- (void)animateTextField:(UITextField*) textField up:(BOOL) up{
-//    float val = 0.12;
-//    
-//    const int movementDistance = val * textField.frame.origin.y;
-//    const float movementDuration = 0.3f;
-//    int movement = (up ? -movementDistance : movementDistance);
-//    
-//    [UIView beginAnimations: @"anim" context: nil];
-//    [UIView setAnimationBeginsFromCurrentState: YES];
-//    [UIView setAnimationDuration: movementDuration];
-//    self.view.frame = CGRectOffset(self.view.frame, 0, movement);
-//    
-//    [UIView commitAnimations];
-//}
-
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     [self.view endEditing:YES];
 }
 
 -(void)doSubmit{
     [self.view endEditing:YES];
-    SetUserEmail([_emailField.text Trim]);
-    SetUserPassword([_passwordField.text Trim]);
+    [self setBusy:YES];
     
-    CustomTabViewController *customTabViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"CustomTabViewController"];
-    [self.navigationController pushViewController:customTabViewController animated:YES];
+    SCLAlertView *alert = [[SCLAlertView alloc] init];
+    
+    _emailField.text = [_emailField.text lowercaseString];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        NSString *params = [NSString stringWithFormat:@"email=%@&password=%@",[_emailField.text Trim],[_passwordField.text Trim]];
+        
+        NSMutableData *bodyData = [[NSMutableData alloc] initWithData:[params dataUsingEncoding:NSUTF8StringEncoding]];
+        NSString *postLength = [NSString stringWithFormat:@"%lu",(unsigned long)[bodyData length]];
+        
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@",LOGINURL]];
+        NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url];
+        [urlRequest setTimeoutInterval:60];
+        [urlRequest setHTTPMethod:@"POST"];
+        [urlRequest setValue:postLength forHTTPHeaderField:@"Content-Length"];
+        [urlRequest setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"content-type"];
+        [urlRequest setValue:@"multipart/form-data" forHTTPHeaderField:@"enctype"];
+        [urlRequest setHTTPBody:bodyData];
+        
+        [NSURLConnection sendAsynchronousRequest:urlRequest queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error){
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self setBusy:NO];
+                
+                if ([data length] > 0 && error == nil){
+                    NSDictionary *JSONValue = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
+                    
+                    if([[JSONValue objectForKey:@"userid"]integerValue] > 0){
+                        SetUserID([[JSONValue objectForKey:@"userid"]integerValue]);
+                        SetUserEmail([_emailField.text Trim]);
+                        SetUserPassword([_passwordField.text Trim]);
+                        CustomTabViewController *customTabViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"CustomTabViewController"];
+                        [self.navigationController pushViewController:customTabViewController animated:YES];
+                    } else {
+                        alert.showAnimationType = SlideInFromLeft;
+                        alert.hideAnimationType = SlideOutToBottom;
+                        [alert showNotice:self title:@"Notice" subTitle:JSONValue[@"non_field_errors"][0] closeButtonTitle:@"OK" duration:0.0f];
+                    }
+                } else {
+                    // NSLog(@"error: %@", error);
+                    showServerError();
+                    [self setBusy:NO];
+                }
+            });
+        }];
+    });
 }
 
 @end

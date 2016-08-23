@@ -13,7 +13,6 @@
 @property (nonatomic, retain) NSString *senderProfilePicture;
 @property (nonatomic, retain) NSString *objectId;
 @property (nonatomic, retain) NSString *notificationText;
-@property (nonatomic, retain) NSString *recipient;
 @property (nonatomic, retain) NSString *targetUrl;
 
 @end

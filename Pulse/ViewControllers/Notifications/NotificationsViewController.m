@@ -15,7 +15,8 @@
 #import "NotificationClass.h"
 #import "NotificationsViewController.h"
 #import "SCLAlertView.h"
-//#import "SingleNotificationViewController.h"
+#import "SDIAsyncImageView.h"
+//#import "PartyViewController.h"
 #import "TableViewCellNotification.h"
 #import "UIViewControllerAdditions.h"
 
@@ -36,6 +37,7 @@
 
 - (void)viewDidLoad {
     arrNotification = [[NSMutableArray alloc]init];
+    [self getNotificationDetails:NOTIFICATIONURL];
     
     [super viewDidLoad];
     
@@ -44,8 +46,6 @@
              forControlEvents:UIControlEventValueChanged];
     
     [tblVW addSubview:refreshControl];
-    
-    [self getNotificationDetails];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -88,21 +88,71 @@
         [arrNotification removeAllObjects];
     }
     
-    [self getNotificationDetails];
+    [self getNotificationDetails:NOTIFICATIONURL];
 }
 
--(void)getNotificationDetails {
-    NotificationClass *notificationClass = [[NotificationClass alloc]init];
-    notificationClass.notificationCount = @"18";
-    notificationClass.results = [NSMutableArray arrayWithObject:@""];
-    notificationClass.senderUrl = @"";
-    notificationClass.senderProfilePicture = @"";
-    notificationClass.objectId = @"3";
-    notificationClass.notificationText = @"Here's a sample notification.";
-    notificationClass.recipient = @"myself";
-    notificationClass.targetUrl = @"";
-    [arrNotification addObject:notificationClass];
-    [self showNotifications];
+-(void)getNotificationDetails:(NSString *)requestURL{
+    checkNetworkReachability();
+    [self setBusy:NO];
+    
+    [appDelegate showHUDAddedToView:self.view message:@""];
+    NSString *urlString = [NSString stringWithFormat:@"%@", requestURL];
+    
+    NSMutableURLRequest *_request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:urlString]cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
+                                                             timeoutInterval:60];
+    
+    NSString *authStr = [NSString stringWithFormat:@"%@:%@", GetUserEmail, GetUserPassword];
+    NSData *plainData = [authStr dataUsingEncoding:NSUTF8StringEncoding];
+    NSString *base64String = [plainData base64EncodedStringWithOptions:0];
+    NSString *authValue = [NSString stringWithFormat:@"Basic %@", base64String];
+    [_request setValue:authValue forHTTPHeaderField:@"Authorization"];
+    [_request setHTTPMethod:@"GET"];
+    
+    [NSURLConnection sendAsynchronousRequest:_request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error){
+        if(error != nil){
+            [appDelegate hideHUDForView2:self.view];
+        }
+        if([data length] > 0 && error == nil){
+            [appDelegate hideHUDForView2:self.view];
+            
+            NSDictionary *JSONValue = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+            
+            if([JSONValue isKindOfClass:[NSDictionary class]]){
+                notificationCount = [[JSONValue objectForKey:@"count"]integerValue];
+                
+                NSArray *arrNotifResult = [JSONValue objectForKey:@"results"];
+                
+                if(notificationCount > 0){
+                    _lblWaterMark.hidden = YES;
+                } else {
+                    _lblWaterMark.hidden = NO;
+                }
+                for (int i = 0; i < arrNotifResult.count; i++) {
+                    NotificationClass *notificationClass = [[NotificationClass alloc]init];
+                    int userId = [[[arrNotifResult objectAtIndex:i]valueForKey:@"id"]intValue];
+                    notificationClass.objectId = [NSString stringWithFormat:@"%d", userId];
+                    notificationClass.senderUrl = [[arrNotifResult objectAtIndex:i]valueForKey:@"sender_url"];
+                    NSString *str = [[arrNotifResult objectAtIndex:i]valueForKey:@"sender_profile_picture"];
+                    NSString *newStr = [NSString stringWithFormat:@"https:%@", str];
+                    notificationClass.senderProfilePicture = newStr;
+                    notificationClass.notificationText = [[arrNotifResult objectAtIndex:i]valueForKey:@"__str__"];
+                    if([[arrNotifResult objectAtIndex:i]valueForKey:@"target_url"] != [NSNull null]){
+                        notificationClass.targetUrl = [[arrNotifResult objectAtIndex:i]valueForKey:@"target_url"];
+                    } else {
+                        notificationClass.targetUrl = @"";
+                    }
+                    [arrNotification addObject:notificationClass];
+                }
+                [appDelegate hideHUDForView2:self.view];
+                [self showNotifications];
+            } else {
+                [appDelegate hideHUDForView2:self.view];
+            }
+        } else {
+            [appDelegate hideHUDForView2:self.view];
+            showServerError();
+        }
+    }];
 }
 
 -(void)showNotifications{
@@ -137,11 +187,7 @@
         cell.notificationTextField.textColor = [UIColor blackColor];
     }
     
-    if ([notificationClass.senderProfilePicture isEqual: @""]){
-//        cell.senderProfilePicture = @"avatar.png";
-    } else {
-//        cell.senderProfilePicture = notificationClass.senderProfilePicture;
-    }
+    [cell.senderProfilePicture loadImageFromURL:notificationClass.senderProfilePicture withTempImage:@"avatar_icon"];
     cell.senderProfilePicture.layer.cornerRadius = cell.senderProfilePicture.frame.size.width / 2;
     cell.senderProfilePicture.layer.masksToBounds = YES;
     
@@ -155,17 +201,12 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 //    NotificationClass *notificationClass = [arrNotification objectAtIndex:indexPath.row];
     
-    SCLAlertView *alert = [[SCLAlertView alloc] init];
-    alert.showAnimationType = SlideInFromLeft;
-    alert.hideAnimationType = SlideOutToBottom;
-    [alert showInfo:self title:@"Notice" subTitle:@"Load individual notification." closeButtonTitle:@"OK" duration:0.0f];
-    
 //    if([notificationClass.targetUrl isEqualToString:@""]){
 //        return;
 //    } else {
-//        SingleNotificationViewController *singleNotificationViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"SingleNotificationViewController"];
-//        singleNotificationViewController.singleNotificationUrl = notificationClass.targetUrl;
-//        [self.navigationController pushViewController:singleNotificationViewController animated:YES];
+//        PartyViewController *partyViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PartyViewController"];
+//        partyViewController.partyUrl = notificationClass.targetUrl;
+//        [self.navigationController pushViewController:partyViewController animated:YES];
 //    }
 }
 

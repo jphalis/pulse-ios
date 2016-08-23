@@ -7,6 +7,6 @@
 
 @implementation NotificationClass
 
-@synthesize notificationCount, results, senderUrl, senderProfilePicture, objectId, notificationText, recipient, targetUrl;
+@synthesize notificationCount, results, senderUrl, senderProfilePicture, objectId, notificationText, targetUrl;
 
 @end

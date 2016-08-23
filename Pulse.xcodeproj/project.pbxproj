@@ -57,6 +57,10 @@
 		D04DBD871D5178B200BB8172 /* StringUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = D04DBD721D5178B200BB8172 /* StringUtil.m */; };
 		D04DBD881D5178B200BB8172 /* UIViewControllerAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D04DBD751D5178B200BB8172 /* UIViewControllerAdditions.m */; };
 		D04DBD8E1D5178CD00BB8172 /* GlobalFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = D04DBD8C1D5178CD00BB8172 /* GlobalFunctions.m */; };
+		D06ED5131D6CAA23006AE20B /* AsyncImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D06ED50C1D6CAA23006AE20B /* AsyncImageView.m */; };
+		D06ED5141D6CAA23006AE20B /* SDIAsyncImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D06ED50E1D6CAA23006AE20B /* SDIAsyncImageView.m */; };
+		D06ED5151D6CAA23006AE20B /* UIImage+GIF.m in Sources */ = {isa = PBXBuildFile; fileRef = D06ED5101D6CAA23006AE20B /* UIImage+GIF.m */; };
+		D06ED5161D6CAA23006AE20B /* UIImageExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = D06ED5121D6CAA23006AE20B /* UIImageExtras.m */; };
 		D08E5F851D4AF25600A58F80 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D08E5F841D4AF25600A58F80 /* MapKit.framework */; };
 		D09D4BA81D624DCD00D285F3 /* TableViewCellFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = D09D4BA71D624DCD00D285F3 /* TableViewCellFeed.m */; };
 		D09D4BAD1D624E8F00D285F3 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D09D4BAC1D624E8F00D285F3 /* HomeViewController.m */; };
@@ -176,6 +180,14 @@
 		D04DBD8B1D5178CD00BB8172 /* GlobalFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobalFunctions.h; sourceTree = "<group>"; };
 		D04DBD8C1D5178CD00BB8172 /* GlobalFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlobalFunctions.m; sourceTree = "<group>"; };
 		D04DBD8D1D5178CD00BB8172 /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Message.h; sourceTree = "<group>"; };
+		D06ED50B1D6CAA23006AE20B /* AsyncImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncImageView.h; sourceTree = "<group>"; };
+		D06ED50C1D6CAA23006AE20B /* AsyncImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncImageView.m; sourceTree = "<group>"; };
+		D06ED50D1D6CAA23006AE20B /* SDIAsyncImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDIAsyncImageView.h; sourceTree = "<group>"; };
+		D06ED50E1D6CAA23006AE20B /* SDIAsyncImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDIAsyncImageView.m; sourceTree = "<group>"; };
+		D06ED50F1D6CAA23006AE20B /* UIImage+GIF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+GIF.h"; sourceTree = "<group>"; };
+		D06ED5101D6CAA23006AE20B /* UIImage+GIF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+GIF.m"; sourceTree = "<group>"; };
+		D06ED5111D6CAA23006AE20B /* UIImageExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIImageExtras.h; sourceTree = "<group>"; };
+		D06ED5121D6CAA23006AE20B /* UIImageExtras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIImageExtras.m; sourceTree = "<group>"; };
 		D08E5F841D4AF25600A58F80 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		D09D4BA61D624DCD00D285F3 /* TableViewCellFeed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewCellFeed.h; sourceTree = "<group>"; };
 		D09D4BA71D624DCD00D285F3 /* TableViewCellFeed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewCellFeed.m; sourceTree = "<group>"; };
@@ -366,6 +378,7 @@
 		D04DBD4E1D5178B200BB8172 /* External */ = {
 			isa = PBXGroup;
 			children = (
+				D06ED50A1D6CAA23006AE20B /* AsyncImage */,
 				D04DBD511D5178B200BB8172 /* Reachability */,
 				D04DBD541D5178B200BB8172 /* SCLAlertView */,
 				D04DBD641D5178B200BB8172 /* StatusBarNotifications */,
@@ -464,6 +477,21 @@
 				D04DBD8D1D5178CD00BB8172 /* Message.h */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		D06ED50A1D6CAA23006AE20B /* AsyncImage */ = {
+			isa = PBXGroup;
+			children = (
+				D06ED50B1D6CAA23006AE20B /* AsyncImageView.h */,
+				D06ED50C1D6CAA23006AE20B /* AsyncImageView.m */,
+				D06ED50D1D6CAA23006AE20B /* SDIAsyncImageView.h */,
+				D06ED50E1D6CAA23006AE20B /* SDIAsyncImageView.m */,
+				D06ED50F1D6CAA23006AE20B /* UIImage+GIF.h */,
+				D06ED5101D6CAA23006AE20B /* UIImage+GIF.m */,
+				D06ED5111D6CAA23006AE20B /* UIImageExtras.h */,
+				D06ED5121D6CAA23006AE20B /* UIImageExtras.m */,
+			);
+			path = AsyncImage;
 			sourceTree = "<group>";
 		};
 		D09D4BAA1D624E8F00D285F3 /* Feed */ = {
@@ -664,13 +692,17 @@
 				D04DBD7D1D5178B200BB8172 /* SCLTimerDisplay.m in Sources */,
 				13F77D3B1D2EE581003EF38D /* AppDelegate.m in Sources */,
 				D04DBD861D5178B200BB8172 /* NSString+Additions.m in Sources */,
+				D06ED5131D6CAA23006AE20B /* AsyncImageView.m in Sources */,
 				D04DBD781D5178B200BB8172 /* SCLAlertView.m in Sources */,
 				D04DBD761D5178B200BB8172 /* MBProgressHUD.m in Sources */,
 				D03CEECD1D56D2D700D2586D /* NotificationsViewController.m in Sources */,
+				D06ED5141D6CAA23006AE20B /* SDIAsyncImageView.m in Sources */,
 				D0C02F8C1D56DBDC0033EF98 /* TableViewCellAccount.m in Sources */,
 				D03CEE961D569ECE00D2586D /* CustomButton.m in Sources */,
 				D03CEEC41D56D2D700D2586D /* SignUpViewController.m in Sources */,
 				D03CEECB1D56D2D700D2586D /* FindViewController.m in Sources */,
+				D06ED5161D6CAA23006AE20B /* UIImageExtras.m in Sources */,
+				D06ED5151D6CAA23006AE20B /* UIImage+GIF.m in Sources */,
 				D04DBD851D5178B200BB8172 /* TWMessageBarManager.m in Sources */,
 				D04DBD771D5178B200BB8172 /* Reachability.m in Sources */,
 				D0C02F8D1D56DBDC0033EF98 /* TableViewCellNotification.m in Sources */,
@@ -841,7 +873,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.domain.pulse;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "c287498a-b883-4388-8ec3-80443fb8ddaf";
+				PROVISIONING_PROFILE = "9b2b1bc5-ae47-4efd-bff9-40964359161b";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -858,7 +890,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.domain.pulse;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "c287498a-b883-4388-8ec3-80443fb8ddaf";
+				PROVISIONING_PROFILE = "9b2b1bc5-ae47-4efd-bff9-40964359161b";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

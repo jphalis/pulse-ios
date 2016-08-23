@@ -23,7 +23,7 @@ MBProgressHUD *hud;
     // Show status bar after splash page
     [[UIApplication sharedApplication] setStatusBarHidden:NO];
     
-    if([GetUserEmail == nil){
+    if(GetUserEmail == nil){
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
         UINavigationController *navController = [storyboard instantiateViewControllerWithIdentifier:@"NavigationControllerPulse"];
         AuthViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"AuthViewController"];

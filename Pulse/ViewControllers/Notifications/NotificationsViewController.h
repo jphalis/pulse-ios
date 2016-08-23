@@ -8,4 +8,6 @@
 
 @interface NotificationsViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UILabel *lblWaterMark;
+
 @end

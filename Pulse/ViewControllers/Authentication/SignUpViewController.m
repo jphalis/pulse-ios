@@ -5,6 +5,7 @@
 
 #import "CustomTabViewController.h"
 #import "defs.h"
+#import "GlobalFunctions.h"
 #import "SCLAlertView.h"
 #import "SignUpViewController.h"
 #import "StringUtil.h"
@@ -155,42 +156,57 @@
     return YES;
 }
 
-//- (void)textFieldDidEndEditing:(UITextField *)textField{
-//    if (textField.tag != 2){
-//        [self animateTextField: textField up: YES];
-//    }
-//    else {
-//        self.view.frame = CGRectMake(self.view.frame.origin.x, 0, self.view.frame.size.width, self.view.frame.size.height);
-//    }
-//}
-//
-//- (void)animateTextField: (UITextField*) textField up:(BOOL) up{
-//    float val = 0.18;
-//    
-//    const int movementDistance = val * textField.frame.origin.y;
-//    const float movementDuration = 0.3f;
-//    int movement = (up ? -movementDistance : movementDistance);
-//    
-//    [UIView beginAnimations: @"anim" context: nil];
-//    [UIView setAnimationBeginsFromCurrentState: YES];
-//    [UIView setAnimationDuration: movementDuration];
-//    self.view.frame = CGRectOffset(self.view.frame, 0, movement);
-//    
-//    [UIView commitAnimations];
-//}
-
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     [self.view endEditing:YES];
 }
 
 -(void)doSubmit{
+    checkNetworkReachability();
     [self.view endEditing:YES];
-    SetUserName([_nameField.text Trim]);
-    SetUserEmail([_emailField.text Trim]);
-    SetUserPassword([_passwordField.text Trim]);
+    [self setBusy:YES];
     
-    CustomTabViewController *customTabViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"CustomTabViewController"];
-    [self.navigationController pushViewController:customTabViewController animated:YES];
+    SCLAlertView *alert = [[SCLAlertView alloc] init];
+    
+    NSString *params = [NSString stringWithFormat:@"{\"full_name\":\"%@\",\"email\":\"%@\",\"password\":\"%@\"}",[_nameField.text Trim], [_emailField.text Trim], [_passwordField.text Trim]];
+    NSString *postLength = [NSString stringWithFormat:@"%lu",(unsigned long)[params length]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@", SIGNUPURL]];
+    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url];
+    [urlRequest setTimeoutInterval:60];
+    [urlRequest setHTTPMethod:@"POST"];
+    [urlRequest setValue:@"" forHTTPHeaderField:@"Authorization"];
+    [urlRequest setValue:postLength forHTTPHeaderField:@"Content-Length"];
+    [urlRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [urlRequest setHTTPBody:[params dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    [NSURLConnection sendAsynchronousRequest:urlRequest queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error){
+        
+        if ([data length] > 0 && error == nil){
+            NSDictionary *JSONValue = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+            NSLog(@"JSON: %@", JSONValue);
+            if(JSONValue != nil){
+                NSLog(@"Email: %@", [JSONValue objectForKey:@"email"]);
+                if([[JSONValue objectForKey:@"email"] isKindOfClass:[NSString class]]){
+                    SetUserID([[JSONValue objectForKey:@"id"]integerValue]);
+                    SetUserName([_nameField.text Trim]);
+                    SetUserEmail([_emailField.text Trim]);
+                    SetUserPassword([_passwordField.text Trim]);
+                    CustomTabViewController *customTabViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"CustomTabViewController"];
+                    [self.navigationController pushViewController:customTabViewController animated:YES];
+                } else {
+                    alert.showAnimationType = SlideInFromLeft;
+                    alert.hideAnimationType = SlideOutToBottom;
+                    [alert showNotice:self title:@"Notice" subTitle:EMAIL_EXISTS closeButtonTitle:@"OK" duration:0.0f];
+                }
+            } else {
+                showServerError();
+            }
+            [self setBusy:NO];
+        } else {
+            [self setBusy:NO];
+            showServerError();
+        }
+        [self setBusy:NO];
+    }];
 }
 
 @end
