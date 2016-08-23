@@ -10,6 +10,7 @@
 #import "GlobalFunctions.h"
 #import "ProfileClass.h"
 #import "SCLAlertView.h"
+#import "SDIAsyncImageView.h"
 #import "TableViewCellAccount.h"
 
 
@@ -87,11 +88,14 @@
     
     NSMutableDictionary *dictUser = [arrDetails objectAtIndex:indexPath.row];
     
-//    cell.userProfilePicture = [dictUser objectForKey:@"user__profile_picture"];
+    _userName = [dictUser objectForKey:@"user__full_name"];
+    _userId = [dictUser objectForKey:@"user__id"];
+    
+    [cell.userProfilePicture loadImageFromURL:[dictUser objectForKey:@"user__profile_pic"] withTempImage:@"avatar_icon"];
     cell.userProfilePicture.layer.cornerRadius = cell.userProfilePicture.frame.size.width / 2;
     cell.userProfilePicture.layer.masksToBounds = YES;
     
-    cell.userName.text = [dictUser objectForKey:@"user__name"];
+    cell.userName.text = [dictUser objectForKey:@"user__full_name"];
     
     if (cell.userName.text == GetUserName){
         cell.followBtn.hidden = YES;
@@ -102,6 +106,10 @@
     
     [cell.followBtn addTarget:self action:@selector(followUser:) forControlEvents:UIControlEventTouchUpInside];
     
+    UIView *bottomBorder = [[UIView alloc] initWithFrame:CGRectMake(0, cell.frame.size.height - 1, cell.frame.size.width, 1)];
+    bottomBorder.backgroundColor = [UIColor colorWithRed:(234/255.0) green:(234/255.0) blue:(234/255.0) alpha:1.0];
+    [cell.contentView addSubview:bottomBorder];
+    
     return cell;
 }
 
@@ -109,19 +117,14 @@
     SCLAlertView *alert = [[SCLAlertView alloc] init];
     alert.showAnimationType = SlideInFromLeft;
     alert.hideAnimationType = SlideOutToBottom;
-    [alert showNotice:self title:@"Notice" subTitle:@"Follow this user." closeButtonTitle:@"OK" duration:0.0f];
+    [alert showNotice:self title:@"Notice" subTitle:[NSString stringWithFormat:@"Follow %@", _userName] closeButtonTitle:@"OK" duration:0.0f];
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    SCLAlertView *alert = [[SCLAlertView alloc] init];
-    alert.showAnimationType = SlideInFromLeft;
-    alert.hideAnimationType = SlideOutToBottom;
-    [alert showNotice:self title:@"Notice" subTitle:@"Show user account here." closeButtonTitle:@"OK" duration:0.0f];
-    
-//    NSDictionary *dictUserDeatil = [arrDetails objectAtIndex:indexPath.row];
-    
-//    AccountViewController *accountViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"AccountViewController"];
-//    [self.navigationController pushViewController:accountViewController animated:YES];
+    AccountViewController *accountViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"AccountViewController"];
+    accountViewController.userURL = [NSString stringWithFormat:@"%@%@/", PROFILEURL, _userId];
+    accountViewController.needBack = YES;
+    [self.navigationController pushViewController:accountViewController animated:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{

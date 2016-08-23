@@ -173,17 +173,15 @@
                     if([[arrPartyResult objectAtIndex:i]valueForKey:@"user_profile_pic"] == [NSNull null]){
                         partyClass.partyUserProfilePicture = @"";
                     } else {
-                        NSString *str2 = [[arrPartyResult objectAtIndex:i]valueForKey:@"user_profile_pic"];
-                        NSString *newStr2 = [NSString stringWithFormat:@"https://oby.s3.amazonaws.com/media/%@", str2];
-                        partyClass.partyUserProfilePicture = newStr2;
+                        NSString *str = [[arrPartyResult objectAtIndex:i]valueForKey:@"user_profile_pic"];
+                        partyClass.partyUserProfilePicture = [NSString stringWithFormat:@"https://oby.s3.amazonaws.com/media/%@", str];
                     }
                     
                     if([[arrPartyResult objectAtIndex:i]valueForKey:@"image"] == [NSNull null]){
                         partyClass.partyImage = @"";
                     } else {
-                        NSString *str = [[arrPartyResult objectAtIndex:i]valueForKey:@"image"];
-                        NSString *newStr = [NSString stringWithFormat:@"https://oby.s3.amazonaws.com/media/%@", str];
-                        partyClass.partyImage = newStr;
+                        NSString *str2 = [[arrPartyResult objectAtIndex:i]valueForKey:@"image"];
+                        partyClass.partyImage = [NSString stringWithFormat:@"https://oby.s3.amazonaws.com/media/%@", str2];
                     }
 
                     [arrParties addObject:partyClass];

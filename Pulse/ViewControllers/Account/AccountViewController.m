@@ -27,12 +27,11 @@
 
 - (void)viewDidLoad {
     dictProfileInformation = [[NSMutableDictionary alloc]init];
+    [self getProfileDetails];
     
     [super viewDidLoad];
     
     appDelegate = [AppDelegate getDelegate];
-    
-    [self getProfileDetails];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -48,6 +47,12 @@
     
     if (GetUserName){
         _profileName.text = GetUserName;
+    }
+    
+    if (_needBack){
+        _backBtn.hidden = NO;
+    } else {
+        _backBtn.hidden = YES;
     }
 }
 
@@ -67,39 +72,138 @@
 */
 
 -(void)getProfileDetails{
-    ProfileClass *profileClass = [[ProfileClass alloc]init];
-
-    profileClass.userId = @"21";
-    profileClass.userName = @"John Doe";
-    profileClass.accountUrl = @"";
-//                if([JSONValue objectForKey:@"profile_picture"] == [NSNull null]){
-//                    profileClass.userProfilePicture = @"";
-//                } else {
-//                    profileClass.userProfilePicture = [JSONValue objectForKey:@"profile_picture"];
-//                }
-    profileClass.followers_count = @"0";
-    profileClass.following_count = @"1924";
+    checkNetworkReachability();
+    [self setBusy:YES];
     
-    profileClass.arrfollowers = [[NSMutableArray alloc]init];
-    profileClass.arrfollowings = [[NSMutableArray alloc]init];
+    if (!_userURL){
+        _userURL = [NSString stringWithFormat:@"%@%ld/", PROFILEURL, (long)GetUserID];
+    }
+    
+    NSString *urlString = [NSString stringWithFormat:@"%@", _userURL];
+    NSMutableURLRequest *_request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:urlString]cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
+                                                             timeoutInterval:60];
+    NSString *authStr = [NSString stringWithFormat:@"%@:%@", GetUserEmail, GetUserPassword];
+    NSData *plainData = [authStr dataUsingEncoding:NSUTF8StringEncoding];
+    NSString *base64String = [plainData base64EncodedStringWithOptions:0];
+    NSString *authValue = [NSString stringWithFormat:@"Basic %@", base64String];
+    [_request setValue:authValue forHTTPHeaderField:@"Authorization"];
+    [_request setHTTPMethod:@"GET"];
+    
+    [NSURLConnection sendAsynchronousRequest:_request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error){
+        if(error != nil){
+            [self setBusy:NO];
+        }
+        
+        if ([data length] > 0 && error == nil){
+            NSDictionary *JSONValue = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+            
+            if([JSONValue isKindOfClass:[NSDictionary class]]){
+                ProfileClass *profileClass = [[ProfileClass alloc]init];
+                
+                int userId = [[JSONValue objectForKey:@"id"]intValue];
+                profileClass.userId = [NSString stringWithFormat:@"%d", userId];
+                profileClass.gender = [JSONValue objectForKey:@"gender"];
+                profileClass.userName = [JSONValue objectForKey:@"full_name"];
+                profileClass.event_count = [JSONValue objectForKey:@"event_count"];
+                BOOL isPrivate = [[JSONValue objectForKey:@"is_private"]boolValue];
+                profileClass.isPrivate = isPrivate;
+                if([JSONValue objectForKey:@"profile_pic"] == [NSNull null]){
+                    profileClass.userProfilePicture = @"";
+                } else {
+                    NSString *str = [JSONValue objectForKey:@"profile_pic"];
+                    profileClass.userProfilePicture = [NSString stringWithFormat:@"https://oby.s3.amazonaws.com/media/%@", str];;
+                }
+                if([JSONValue objectForKey:@"follower"] == [NSNull null]){
+                    profileClass.followers_count = @"0";
+                    profileClass.following_count = @"0";
+                } else {
+                    NSDictionary *dictFollower = [JSONValue objectForKey:@"follower"];
+                    NSMutableArray *arrFollower = [dictFollower objectForKey:@"get_followers_info"];
+                    NSMutableArray *arrFollowing = [dictFollower objectForKey:@"get_following_info"];
+                    
+                    profileClass.followers_count = [NSString abbreviateNumber:[[dictFollower objectForKey:@"followers_count"]intValue]];
+                    profileClass.following_count = [NSString abbreviateNumber:[[dictFollower objectForKey:@"following_count"]intValue]];
+                    
+                    profileClass.arrfollowers = [[NSMutableArray alloc]init];
+                    profileClass.arrfollowings = [[NSMutableArray alloc]init];
+                    
+                    for(int j = 0; j < arrFollower.count; j++){
+                        NSMutableDictionary *dictFollowerInfo = [[NSMutableDictionary alloc]init];
+                        NSDictionary *dictUserDetail = [arrFollower objectAtIndex:j];
+                        
+                        if([dictUserDetail objectForKey:@"user__profile_pic"] == [NSNull null]){
+                            [dictFollowerInfo setObject:@"" forKey:@"user__profile_pic"];
+                        } else {
+                            NSString *proflURL = [NSString stringWithFormat:@"%@%@",@"https://oby.s3.amazonaws.com/media/",[dictUserDetail objectForKey:@"user__profile_pic"]];
+                            [dictFollowerInfo setValue:proflURL forKey:@"user__profile_pic"];
+                        }
+                        
+                        if([dictUserDetail objectForKey:@"user__full_name"] == [NSNull null]){
+                            [dictFollowerInfo setObject:@"" forKey:@"user__full_name"];
+                        } else {
+                            [dictFollowerInfo setObject:[dictUserDetail objectForKey:@"user__full_name"] forKey:@"user__full_name"];
+                        }
+                        
+                        if([dictUserDetail objectForKey:@"user__id"] == [NSNull null]){
+                            [dictFollowerInfo setObject:@"" forKey:@"user__id"];
+                        } else {
+                            [dictFollowerInfo setObject:[NSString stringWithFormat:@"%@",[dictUserDetail objectForKey:@"user__id"]] forKey:@"user__id"];
+                        }
+                        
+                        [profileClass.arrfollowers addObject:dictFollowerInfo];
+                    }
+                    for(int k = 0; k < arrFollowing.count; k++){
+                        NSMutableDictionary *dictFollowerInfo = [[NSMutableDictionary alloc]init];
+                        NSDictionary *dictUserDetail = [arrFollowing objectAtIndex:k];
+                        
+                        if([dictUserDetail objectForKey:@"user__profile_pic"] == [NSNull null]){
+                            [dictFollowerInfo setObject:@"" forKey:@"user__profile_pic"];
+                        } else {
+                            NSString *proflURL = [NSString stringWithFormat:@"%@%@",@"https://oby.s3.amazonaws.com/media/",[dictUserDetail objectForKey:@"user__profile_pic"]];
+                            [dictFollowerInfo setValue:proflURL forKey:@"user__profile_pic"];
+                        }
+                        if([dictUserDetail objectForKey:@"user__full_name"] == [NSNull null]){
+                            [dictFollowerInfo setObject:@"" forKey:@"user__full_name"];
+                        } else {
+                            [dictFollowerInfo setObject:[dictUserDetail objectForKey:@"user__full_name"] forKey:@"user__full_name"];
+                        }
+                        
+                        if([dictUserDetail objectForKey:@"user__id"] == [NSNull null]){
+                            [dictFollowerInfo setObject:@"" forKey:@"user__id"];
+                        } else {
+                            [dictFollowerInfo setObject:[NSString stringWithFormat:@"%@",[dictUserDetail objectForKey:@"user__id"]] forKey:@"user__id"];
+                        }
+                        
+                        NSString *fullName = [dictFollowerInfo objectForKey:@"user__full_name"];
+                        [dictFollowerInfo setValue:fullName forKey:@"user__full_name"];
+                        
+                        [profileClass.arrfollowings addObject:dictFollowerInfo];
+                    }
+                }
+                
+                [dictProfileInformation setObject:profileClass forKey:@"ProfileInfo"];
+                [self showProfileInfo];
+            } else {
 
-    NSMutableDictionary *dictFollowerInfo = [[NSMutableDictionary alloc]init];
-
-    [dictFollowerInfo setObject:@"Jane Smith" forKey:@"user__name"];
-//    [dictFollowerInfo setObject:@"" forKey:@"user__profile_picture"];
-
-    [profileClass.arrfollowings addObject:dictFollowerInfo];
-
-    [dictProfileInformation setObject:profileClass forKey:@"ProfileInfo"];
-    [self showProfileInfo];
+            }
+        } else {
+            showServerError();
+        }
+        [self setBusy:NO];
+    }];
 }
 
 -(void)showProfileInfo{
     ProfileClass *profileClass = [dictProfileInformation objectForKey:@"ProfileInfo"];
     _profileName.text = profileClass.userName;
+    _eventCount.text = profileClass.event_count;
     _followerCount.text = profileClass.followers_count;
     _followingCount.text = profileClass.following_count;
-    [_profilePicture setImage:[UIImage imageNamed:@"avatar_icon"]];
+    [_profilePicture loadImageFromURL:profileClass.userProfilePicture withTempImage:@"avatar_icon"];
+}
+
+- (IBAction)onBack:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (IBAction)onSettings:(id)sender {
@@ -126,7 +230,7 @@
     
     ProfileClass *profileClass = [dictProfileInformation objectForKey:@"ProfileInfo"];
     
-    if([sender tag] == 0){
+    if([sender tag] == 1){
         if([_followerCount.text isEqualToString:@"0"]){
             return;
         }

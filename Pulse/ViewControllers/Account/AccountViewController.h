@@ -4,16 +4,21 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SDIAsyncImageView.h"
 
 
 @interface AccountViewController : UIViewController
 
-@property (weak, nonatomic) IBOutlet UIImageView *profilePicture;
+@property (strong, nonatomic)NSString *userURL;
+@property (weak, nonatomic) IBOutlet SDIAsyncImageView *profilePicture;
 @property (weak, nonatomic) IBOutlet UILabel *profileName;
 @property (weak, nonatomic) IBOutlet UILabel *eventCount;
 @property (weak, nonatomic) IBOutlet UILabel *followerCount;
 @property (weak, nonatomic) IBOutlet UILabel *followingCount;
+@property (weak, nonatomic) IBOutlet UIButton *backBtn;
+@property (nonatomic, assign) BOOL needBack;
 
+- (IBAction)onBack:(id)sender;
 - (IBAction)onSettings:(id)sender;
 - (IBAction)onProfilePictureChange:(id)sender;
 - (IBAction)onEvents:(id)sender;
