@@ -7,6 +7,6 @@
 
 @implementation PartyClass
 
-@synthesize partyInvite, partyType, partyName, partyAddress, partySize, partyMonth, partyDay, partyStartTime, partyEndTime, partyDescription, partyImage, partyUserProfilePicture, partyAttendingCount, partyRequestCount;
+@synthesize partyId, partyType, partyName, partyAddress, partySize, partyMonth, partyDay, partyStartTime, partyEndTime, partyDescription, partyImage, partyUserProfilePicture, partyAttendingCount, partyRequestCount;
 
 @end

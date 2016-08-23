@@ -47,6 +47,7 @@ extern AppDelegate *appDelegate;
     #define PROFILEURL @"http://127.0.0.1:8000/hidden/secure/pulse/api/accounts/"
     #define NOTIFICATIONURL @"http://127.0.0.1:8000/hidden/secure/pulse/api/notifications/"
     #define NOTIFICATIONUNREADURL @"http://127.0.0.1:8000/hidden/secure/pulse/api/notifications/unread/"
+    #define PARTIESURL @"http://127.0.0.1:8000/hidden/secure/pulse/api/parties/"
 #else
     // PROD URLS
     #define LOGINURL @"https://www.domain.com/"

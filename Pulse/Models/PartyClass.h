@@ -7,7 +7,8 @@
 
 @interface PartyClass : NSObject
 
-@property (retain, nonatomic) NSString *partyInvite;
+@property (retain, nonatomic) NSString *partyId;
+//@property (retain, nonatomic) NSString *partyInvite;
 @property (retain, nonatomic) NSString *partyType;
 @property (retain, nonatomic) NSString *partyName;
 @property (retain, nonatomic) NSString *partyAddress;
