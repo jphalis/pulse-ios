@@ -7,6 +7,7 @@
 #import "AccountViewController.h"
 #import "AppDelegate.h"
 #import "defs.h"
+#import "EventsViewController.h"
 #import "FollowViewController.h"
 #import "GlobalFunctions.h"
 #import "ProfileClass.h"
@@ -219,10 +220,8 @@
 }
 
 - (IBAction)onEvents:(id)sender {
-    SCLAlertView *alert = [[SCLAlertView alloc] init];
-    alert.showAnimationType = SlideInFromLeft;
-    alert.hideAnimationType = SlideOutToBottom;
-    [alert showNotice:self title:@"Notice" subTitle:@"View events here." closeButtonTitle:@"OK" duration:0.0f];
+    EventsViewController *eventsViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"EventsViewController"];
+    [self.navigationController pushViewController:eventsViewController animated:YES];
 }
 
 - (IBAction)onViewList:(id)sender {
