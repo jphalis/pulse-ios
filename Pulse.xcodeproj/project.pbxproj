@@ -62,6 +62,7 @@
 		D06ED5141D6CAA23006AE20B /* SDIAsyncImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D06ED50E1D6CAA23006AE20B /* SDIAsyncImageView.m */; };
 		D06ED5151D6CAA23006AE20B /* UIImage+GIF.m in Sources */ = {isa = PBXBuildFile; fileRef = D06ED5101D6CAA23006AE20B /* UIImage+GIF.m */; };
 		D06ED5161D6CAA23006AE20B /* UIImageExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = D06ED5121D6CAA23006AE20B /* UIImageExtras.m */; };
+		D088BC2C1D6F59280007C983 /* PartyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D088BC2B1D6F59280007C983 /* PartyViewController.m */; };
 		D08E5F851D4AF25600A58F80 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D08E5F841D4AF25600A58F80 /* MapKit.framework */; };
 		D09D4BA81D624DCD00D285F3 /* TableViewCellFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = D09D4BA71D624DCD00D285F3 /* TableViewCellFeed.m */; };
 		D09D4BAD1D624E8F00D285F3 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D09D4BAC1D624E8F00D285F3 /* HomeViewController.m */; };
@@ -191,6 +192,8 @@
 		D06ED5101D6CAA23006AE20B /* UIImage+GIF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+GIF.m"; sourceTree = "<group>"; };
 		D06ED5111D6CAA23006AE20B /* UIImageExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIImageExtras.h; sourceTree = "<group>"; };
 		D06ED5121D6CAA23006AE20B /* UIImageExtras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIImageExtras.m; sourceTree = "<group>"; };
+		D088BC2A1D6F59280007C983 /* PartyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PartyViewController.h; sourceTree = "<group>"; };
+		D088BC2B1D6F59280007C983 /* PartyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PartyViewController.m; sourceTree = "<group>"; };
 		D08E5F841D4AF25600A58F80 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		D09D4BA61D624DCD00D285F3 /* TableViewCellFeed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewCellFeed.h; sourceTree = "<group>"; };
 		D09D4BA71D624DCD00D285F3 /* TableViewCellFeed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewCellFeed.m; sourceTree = "<group>"; };
@@ -313,6 +316,8 @@
 				D03CEEBD1D56D2D700D2586D /* Notifications */,
 				D03CEEB61D56D2D700D2586D /* CustomTabViewController.h */,
 				D03CEEB71D56D2D700D2586D /* CustomTabViewController.m */,
+				D088BC2A1D6F59280007C983 /* PartyViewController.h */,
+				D088BC2B1D6F59280007C983 /* PartyViewController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -704,6 +709,7 @@
 				D03CEECD1D56D2D700D2586D /* NotificationsViewController.m in Sources */,
 				D06ED5141D6CAA23006AE20B /* SDIAsyncImageView.m in Sources */,
 				D0C02F8C1D56DBDC0033EF98 /* TableViewCellAccount.m in Sources */,
+				D088BC2C1D6F59280007C983 /* PartyViewController.m in Sources */,
 				D03CEE961D569ECE00D2586D /* CustomButton.m in Sources */,
 				D03CEEC41D56D2D700D2586D /* SignUpViewController.m in Sources */,
 				D03CEECB1D56D2D700D2586D /* FindViewController.m in Sources */,

@@ -11,7 +11,7 @@
 #import "PartyClass.h"
 #import "SCLAlertView.h"
 #import "SDIAsyncImageView.h"
-//#import "PartyViewController.h"
+#import "PartyViewController.h"
 #import "UIViewControllerAdditions.h"
 
 
@@ -20,9 +20,9 @@
     
     NSInteger partyCount;
     NSMutableArray *arrParties;
-//  PartyViewController *partyViewController;
+    PartyViewController *partyViewController;
     UIRefreshControl *refreshControl;
-    NSInteger *tapCellIndex;
+    NSInteger tapCellIndex;
 }
 
 - (IBAction)onBack:(id)sender;
@@ -38,12 +38,11 @@
     
     arrParties = [[NSMutableArray alloc]init];
 
-//    partyViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PartyViewController"];
-//    partyViewController.delegate = self;
-//    
+    partyViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PartyViewController"];
+
     appDelegate = [AppDelegate getDelegate];
     
-//    tapCellIndex = -1;
+    tapCellIndex = -1;
     
     refreshControl = [[UIRefreshControl alloc] init];
     [refreshControl addTarget:self action:@selector(startRefresh)
@@ -219,20 +218,26 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-//    CollectionViewCellImage *currentCell = (CollectionViewCellImage *)[collectionView cellForItemAtIndexPath:indexPath];
     
-    SCLAlertView *alert = [[SCLAlertView alloc] init];
-    alert.showAnimationType = SlideInFromLeft;
-    alert.hideAnimationType = SlideOutToBottom;
-    [alert showInfo:self title:@"Notice" subTitle:@"View party screen" closeButtonTitle:@"OK" duration:0.0f];
+    tapCellIndex = indexPath.row;
+    PartyClass *partyClass = [arrParties objectAtIndex:indexPath.row];
     
-//    tapCellIndex = indexPath.row;
-//    PartyClass *partyClass = [arrParties objectAtIndex:indexPath.row];
-//    
-//    partyViewController.photoURL = partyClass.photo;
-//    partyViewController.photoDeleteURL = partyClass.photo_url;
-//    
-//    [appDelegate.window addSubview:partyViewController.view];
+    partyViewController.partyId = partyClass.partyId;
+//    partyViewController.partyInvite = partyClass.PartyInviteType;
+    partyViewController.partyType = partyClass.partyType;
+    partyViewController.partyName = partyClass.partyName;
+    partyViewController.partyAddress = partyClass.partyAddress;
+    partyViewController.partySize = partyClass.partySize;
+    partyViewController.partyMonth = partyClass.partyMonth;
+    partyViewController.partyDay = partyClass.partyDay;
+    partyViewController.partyStartTime = partyClass.partyStartTime;
+    partyViewController.partyEndTime = partyClass.partyEndTime;
+    partyViewController.partyImage = partyClass.partyImage;
+    partyViewController.partyDescription = partyClass.partyDescription;
+    partyViewController.partyAttending = partyClass.partyAttendingCount;
+    partyViewController.partyRequests = partyClass.partyRequestCount;
+    
+    [self.navigationController pushViewController:partyViewController animated:YES];
 }
 
 @end
