@@ -712,6 +712,7 @@
                         <outlet property="followingCount" destination="39S-mQ-pUi" id="Nzw-59-YiC"/>
                         <outlet property="profileName" destination="q7B-Za-Yku" id="hMH-45-sFf"/>
                         <outlet property="profilePicture" destination="ct8-ea-6Eq" id="02T-Sc-0wO"/>
+                        <outlet property="settingsBtn" destination="Wjk-4z-0d2" id="Ibp-Cf-RJ5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2BH-1H-qcI" userLabel="First Responder" sceneMemberID="firstResponder"/>

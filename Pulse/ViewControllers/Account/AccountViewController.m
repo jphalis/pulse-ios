@@ -13,6 +13,7 @@
 #import "ProfileClass.h"
 #import "SCLAlertView.h"
 #import "SettingsViewController.h"
+#import "TWMessageBarManager.h"
 #import "UIViewControllerAdditions.h"
 
 
@@ -54,6 +55,14 @@
         _backBtn.hidden = NO;
     } else {
         _backBtn.hidden = YES;
+    }
+    
+    if([[_userURL lastPathComponent]isEqualToString:[NSString stringWithFormat:@"%ld", (long)GetUserID]]){
+        [_settingsBtn setImage:[UIImage imageNamed:@"settings_icon"] forState:UIControlStateNormal];
+        _settingsBtn.tag = 1;
+    } else {
+        [_settingsBtn setImage:[UIImage imageNamed:@"dot_more_icon"] forState:UIControlStateNormal];
+        _settingsBtn.tag = 2;
     }
 }
 
@@ -208,8 +217,58 @@
 }
 
 - (IBAction)onSettings:(id)sender {
-    SettingsViewController *settingsViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"SettingsViewController"];
-    [self.navigationController pushViewController:settingsViewController animated:YES];
+    if([sender tag] == 1){
+        SettingsViewController *settingsViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"SettingsViewController"];
+        [self.navigationController pushViewController:settingsViewController animated:YES];
+    } else {
+        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                                 delegate:self
+                                                        cancelButtonTitle:@"Cancel"
+                                                   destructiveButtonTitle:@"Block User"
+                                                        otherButtonTitles:nil];
+        [actionSheet showInView:self.view];
+    }
+}
+
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 0){
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Are you sure you want to block this user?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
+        alert.delegate = self;
+        alert.tag = 100;
+        [alert show];
+    } else if(buttonIndex == 1){
+        //        NSLog(@"Cancel button clicked");
+    }
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (alertView.tag == 100 && buttonIndex == 1 ) {
+        checkNetworkReachability();
+        ProfileClass *profileClass = [dictProfileInformation objectForKey:@"ProfileInfo"];
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            NSString *strURL = [NSString stringWithFormat:@"%@%@/", BLOCKURL, profileClass.userId];
+            NSURL *url = [NSURL URLWithString:strURL];
+            NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url];
+            [urlRequest setTimeoutInterval:60];
+            [urlRequest setHTTPMethod:@"POST"];
+            NSString *authStr = [NSString stringWithFormat:@"%@:%@", GetUserEmail, GetUserPassword];
+            NSData *plainData = [authStr dataUsingEncoding:NSUTF8StringEncoding];
+            NSString *base64String = [plainData base64EncodedStringWithOptions:0];
+            NSString *authValue = [NSString stringWithFormat:@"Basic %@", base64String];
+            [urlRequest setValue:authValue forHTTPHeaderField:@"Authorization"];
+            [urlRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+            
+            [NSURLConnection sendAsynchronousRequest:urlRequest queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error){
+                [self setBusy:NO];
+                [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"Success"
+                                                               description:BLOCK_USER
+                                                                      type:TWMessageBarMessageTypeSuccess
+                                                                  duration:3.0];
+                [self.navigationController popViewControllerAnimated:YES];
+            }];
+        });
+    }
 }
 
 - (IBAction)onProfilePictureChange:(id)sender {

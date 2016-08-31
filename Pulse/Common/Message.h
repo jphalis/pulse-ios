@@ -11,6 +11,7 @@
 #define SERVER_ERROR @"That's our bad. Please try again later."
 #define LOGIN_ERROR  @"Unable to login with provided credentials."
 #define NETWORK_UNAVAILABLE  @"Please check your network connection."
+#define BLOCK_USER @"You have blocked that user."
 
 // Sign in
 #define USER_NOTREGISTERED @"The username or password may be incorrect."
