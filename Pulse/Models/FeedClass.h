@@ -7,9 +7,9 @@
 
 @interface FeedClass : NSObject
 
-@property (nonatomic, retain) NSMutableArray *results;
-@property (nonatomic, retain) NSString *ownerUrl;
-@property (nonatomic, retain) NSString *ownerProfilePicture;
+@property (nonatomic, retain) NSString *sender;
+@property (nonatomic, retain) NSString *senderUrl;
+@property (nonatomic, retain) NSString *senderProfilePicture;
 @property (nonatomic, retain) NSString *objectId;
 @property (nonatomic, retain) NSString *feedText;
 @property (nonatomic, retain) NSString *time;

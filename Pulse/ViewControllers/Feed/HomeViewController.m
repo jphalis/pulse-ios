@@ -19,6 +19,7 @@
 #import "GlobalFunctions.h"
 #import "HomeViewController.h"
 #import "SCLAlertView.h"
+#import "SDIAsyncImageView.h"
 #import "TableViewCellFeed.h"
 #import "UIViewControllerAdditions.h"
 
@@ -39,6 +40,8 @@
 - (void)viewDidLoad {
     arrFeed = [[NSMutableArray alloc]init];
     
+    [self getFeedDetails];
+    
     [super viewDidLoad];
     
     refreshControl = [[UIRefreshControl alloc] init];
@@ -46,8 +49,6 @@
              forControlEvents:UIControlEventValueChanged];
     
     [tblVW addSubview:refreshControl];
-    
-    [self getFeedDetails];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -94,16 +95,89 @@
 }
 
 -(void)getFeedDetails {
-    FeedClass *feedClass = [[FeedClass alloc]init];
-    feedClass.results = [NSMutableArray arrayWithObject:@""];
-    feedClass.ownerUrl = @"";
-    feedClass.ownerProfilePicture = @"";
-    feedClass.objectId = @"3";
-    feedClass.feedText = @"Here's a sample feed item.";
-    feedClass.time = @"18m";
-    feedClass.targetUrl = @"";
-    [arrFeed addObject:feedClass];
-    [self showFeed];
+    NSString *urlString = [NSString stringWithFormat:@"%@", FEEDURL];
+    NSMutableURLRequest *_request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:urlString]cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
+                                                             timeoutInterval:60];
+    
+    NSString *authStr = [NSString stringWithFormat:@"%@:%@", GetUserEmail, GetUserPassword];
+    NSData *plainData = [authStr dataUsingEncoding:NSUTF8StringEncoding];
+    NSString *base64String = [plainData base64EncodedStringWithOptions:0];
+    NSString *authValue = [NSString stringWithFormat:@"Basic %@", base64String];
+    [_request setValue:authValue forHTTPHeaderField:@"Authorization"];
+    [_request setHTTPMethod:@"GET"];
+    
+    [NSURLConnection sendAsynchronousRequest:_request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error){
+        if (error != nil){
+            [appDelegate hideHUDForView2:self.view];
+        }
+        if ([data length] > 0 && error == nil){
+            [appDelegate hideHUDForView2:self.view];
+            
+            NSArray *JSONValue = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+            
+            if ([JSONValue isKindOfClass:[NSNull class]]){
+                [self setBusy:NO];
+                showServerError();
+                return;
+            }
+            if ([JSONValue isKindOfClass:[NSArray class]]){
+                [self setBusy:NO];
+                
+
+                if ([JSONValue count] > 0){
+
+                    if (arrFeed.count > 0){
+                        [arrFeed removeAllObjects];
+                    }
+
+                    for (int i = 0; i < JSONValue.count; i++) {
+                        
+                        NSMutableDictionary *dictResult;
+                        dictResult = [JSONValue objectAtIndex:i];
+                        FeedClass *feedClass = [[FeedClass alloc]init];
+                        
+                        if([dictResult objectForKey:@"sender"] == [NSNull null]){
+                            feedClass.sender = @"";
+                        } else {
+                            feedClass.sender = [dictResult objectForKey:@"sender"];
+                        }
+                        if([dictResult objectForKey:@"sender_url"] == [NSNull null]){
+                            feedClass.senderUrl = @"";
+                        } else {
+                            feedClass.senderUrl = [dictResult objectForKey:@"sender"];
+                        }
+                        if([dictResult objectForKey:@"sender_profile_picture"] == [NSNull null]){
+                            feedClass.senderProfilePicture = @"";
+                        } else {
+                            feedClass.senderProfilePicture = [dictResult objectForKey:@"sender_profile_picture"];
+                        }
+                        if([dictResult objectForKey:@"__str__"] == [NSNull null]){
+                            feedClass.feedText = @"";
+                        } else {
+                            feedClass.feedText = [dictResult objectForKey:@"__str__"];
+                        }
+                        if([dictResult objectForKey:@"target_url"] == [NSNull null]){
+                            feedClass.targetUrl = @"";
+                        } else {
+                            feedClass.targetUrl = [dictResult objectForKey:@"target_url"];
+                        }
+                        if([dictResult objectForKey:@"time_since"] == [NSNull null]){
+                            feedClass.time = @"";
+                        } else {
+                            feedClass.time = [dictResult objectForKey:@"time_since"];
+                        }
+
+                        [arrFeed addObject:feedClass];
+                    }
+                    [self showFeed];
+                }
+            }
+        } else {
+            [self setBusy:NO];
+            [appDelegate hideHUDForView2:self.view];
+            showServerError();
+        }
+    }];
 }
 
 -(void)showFeed{
@@ -130,6 +204,8 @@
     
     FeedClass *feedClass = [arrFeed objectAtIndex:indexPath.row];
     
+    cell.timeLabel.text = feedClass.time;
+    
     cell.feedText.text = feedClass.feedText;
     
     if([feedClass.targetUrl isEqualToString:@""]){
@@ -138,11 +214,7 @@
         cell.feedText.textColor = [UIColor blackColor];
     }
     
-    if ([feedClass.ownerProfilePicture isEqual: @""]){
-        //        cell.senderProfilePicture = @"avatar.png";
-    } else {
-        //        cell.senderProfilePicture = notificationClass.senderProfilePicture;
-    }
+    [cell.userProfilePicture loadImageFromURL:feedClass.senderProfilePicture withTempImage:@"avatar_icon"];
     cell.userProfilePicture.layer.cornerRadius = cell.userProfilePicture.frame.size.width / 2;
     cell.userProfilePicture.layer.masksToBounds = YES;
     

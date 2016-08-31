@@ -7,6 +7,6 @@
 
 @implementation FeedClass
 
-@synthesize results, ownerUrl, ownerProfilePicture, objectId, feedText, time, targetUrl;
+@synthesize sender, senderUrl, senderProfilePicture, objectId, feedText, time, targetUrl;
 
 @end

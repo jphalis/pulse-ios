@@ -1957,12 +1957,12 @@ only</string>
                                                     <rect key="frame" x="6" y="3.5" width="308" height="60"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                                     <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avatar_icon" id="xkN-WH-zEf" userLabel="User Profile Picture">
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avatar_icon" id="xkN-WH-zEf" userLabel="User Profile Picture" customClass="SDIAsyncImageView">
                                                             <rect key="frame" x="14" y="8.5" width="40" height="40"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                         </imageView>
                                                         <textView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" editable="NO" text="Sample Text" selectable="NO" id="Hvx-NF-h6g" userLabel="Feed Text Field">
-                                                            <rect key="frame" x="60.5" y="16.5" width="234" height="43.5"/>
+                                                            <rect key="frame" x="60.5" y="9.5" width="234" height="43.5"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>

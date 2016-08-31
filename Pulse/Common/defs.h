@@ -16,45 +16,44 @@ extern AppDelegate *appDelegate;
 #define trim(x) [x stringByTrimmingCharactersInSet:WSset]
 #if __LP64__ || (TARGET_OS_EMBEDDED && !TARGET_OS_IPHONE) || TARGET_OS_WIN32 || NS_BUILD_32_LIKE_64
     #define SetSInt(x) [NSString stringWithFormat:@"%d",x]
-    #define SetInt(x) [NSString stringWithFormat:@"%ld",x]
+    #define SetInt(x)  [NSString stringWithFormat:@"%ld",x]
 #else
     #define SetSInt(x) [NSString stringWithFormat:@"%d",x]
-    #define SetInt(x) SetSInt(x)
+    #define SetInt(x)  SetSInt(x)
 #endif
 
 #define DQ_  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 #define _DQ });
-#define MQ_ dispatch_async( dispatch_get_main_queue(), ^(void) {
+#define MQ_ dispatch_async(dispatch_get_main_queue(), ^(void) {
 #define _MQ });
 
-#define MAIN_FRAME [[UIScreen mainScreen]bounds]
-#define SCREEN_WIDTH [[UIScreen mainScreen]bounds].size.width
+#define MAIN_FRAME    [[UIScreen mainScreen]bounds]
+#define SCREEN_WIDTH  [[UIScreen mainScreen]bounds].size.width
 #define SCREEN_HEIGHT [[UIScreen mainScreen]bounds].size.height
 
-#define EMAIL         @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_.@-"
-#define PASSWORD_CHAR @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890._-*@!"
-#define NAME      @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_-"
-#define NUMBERS @"0123456789+"
+#define EMAIL          @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_.@-"
+#define PASSWORD_CHAR  @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890._-*@!"
+#define NAME           @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_-"
+#define NUMBERS        @"0123456789+"
 
 #define ShowNetworkActivityIndicator()      [UIApplication sharedApplication].networkActivityIndicatorVisible = YES
 #define HideNetworkActivityIndicator()      [UIApplication sharedApplication].networkActivityIndicatorVisible = NO
 
 #ifdef DEBUG
     // DEV URLS
-    #define LOGINURL @"http://127.0.0.1:8000/hidden/secure/pulse/api/auth/token/"
-    #define SIGNUPURL @"http://127.0.0.1:8000/hidden/secure/pulse/api/accounts/create/"
-    #define HOMEPAGEURL @"http://127.0.0.1:8000/"
-    #define PROFILEURL @"http://127.0.0.1:8000/hidden/secure/pulse/api/accounts/"
-    #define NOTIFICATIONURL @"http://127.0.0.1:8000/hidden/secure/pulse/api/notifications/"
+    #define LOGINURL              @"http://127.0.0.1:8000/hidden/secure/pulse/api/auth/token/"
+    #define SIGNUPURL             @"http://127.0.0.1:8000/hidden/secure/pulse/api/accounts/create/"
+    #define FEEDURL               @"http://127.0.0.1:8000/hidden/secure/pulse/api/feed/"
+    #define PROFILEURL            @"http://127.0.0.1:8000/hidden/secure/pulse/api/accounts/"
+    #define NOTIFICATIONURL       @"http://127.0.0.1:8000/hidden/secure/pulse/api/notifications/"
     #define NOTIFICATIONUNREADURL @"http://127.0.0.1:8000/hidden/secure/pulse/api/notifications/unread/"
-    #define PARTIESURL @"http://127.0.0.1:8000/hidden/secure/pulse/api/parties/"
-    #define PARTIESOWNURL @"http://127.0.0.1:8000/hidden/secure/pulse/api/parties/own/"
-    #define PARTYURL @"http://127.0.0.1:8000/hidden/secure/pulse/api/party/"
+    #define PARTIESURL            @"http://127.0.0.1:8000/hidden/secure/pulse/api/parties/"
+    #define PARTIESOWNURL         @"http://127.0.0.1:8000/hidden/secure/pulse/api/parties/own/"
+    #define PARTYURL              @"http://127.0.0.1:8000/hidden/secure/pulse/api/party/"
 #else
     // PROD URLS
-    #define LOGINURL @"https://www.domain.com/"
-    #define SIGNUPURL @"https://www.domain.com/"
-    #define HOMEPAGEURL @"https://www.domain.com/"
+    #define LOGINURL              @"https://www.domain.com/"
+    #define SIGNUPURL             @"https://www.domain.com/"
 #endif
 
 #define    UserDefaults       [NSUserDefaults standardUserDefaults]
