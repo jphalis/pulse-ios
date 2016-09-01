@@ -100,11 +100,17 @@
     if (cell.userName.text == GetUserName){
         cell.followBtn.hidden = YES;
     } else {
-        UIImage *btnImage = [UIImage imageNamed:@"plus_sign_icon.png"];
-        [cell.followBtn setImage:btnImage forState:UIControlStateNormal];
+        if ([appDelegate.arrFollowing containsObject:_userName]){
+            UIImage *followImage = [UIImage imageNamed:@"checkmark_icon.png"];
+            [cell.followBtn setImage:followImage forState:UIControlStateNormal];
+        } else {
+            UIImage *followImage = [UIImage imageNamed:@"plus_sign_icon.png"];
+            [cell.followBtn setImage:followImage forState:UIControlStateNormal];
+        }
     }
     
     [cell.followBtn addTarget:self action:@selector(followUser:) forControlEvents:UIControlEventTouchUpInside];
+    cell.followBtn.tag = indexPath.row;
     
     UIView *bottomBorder = [[UIView alloc] initWithFrame:CGRectMake(0, cell.frame.size.height - 1, cell.frame.size.width, 1)];
     bottomBorder.backgroundColor = [UIColor colorWithRed:(234/255.0) green:(234/255.0) blue:(234/255.0) alpha:1.0];
@@ -113,11 +119,66 @@
     return cell;
 }
 
--(IBAction)followUser:(id)sender {
-    SCLAlertView *alert = [[SCLAlertView alloc] init];
-    alert.showAnimationType = SlideInFromLeft;
-    alert.hideAnimationType = SlideOutToBottom;
-    [alert showNotice:self title:@"Notice" subTitle:[NSString stringWithFormat:@"Follow %@", _userName] closeButtonTitle:@"OK" duration:0.0f];
+-(IBAction)followUser:(UIButton *)sender {
+    checkNetworkReachability();
+    [self.view endEditing:YES];
+    [self setBusy:YES];
+
+    NSString *strURL = [NSString stringWithFormat:@"%@%@/", FOLLOWURL, _userId];
+    NSURL *url = [NSURL URLWithString:strURL];
+    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url];
+    [urlRequest setTimeoutInterval:60];
+    [urlRequest setHTTPMethod:@"POST"];
+    NSString *authStr = [NSString stringWithFormat:@"%@:%@", GetUserEmail, GetUserPassword];
+    NSData *plainData = [authStr dataUsingEncoding:NSUTF8StringEncoding];
+    NSString *base64String = [plainData base64EncodedStringWithOptions:0];
+    NSString *authValue = [NSString stringWithFormat:@"Basic %@", base64String];
+    [urlRequest setValue:authValue forHTTPHeaderField:@"Authorization"];
+    [urlRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    
+    [NSURLConnection sendAsynchronousRequest:urlRequest queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error){
+        
+        if ([data length] > 0 && error == nil){
+            NSDictionary *JSONValue = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+
+            if(JSONValue != nil){
+
+                if([[JSONValue allKeys]count] > 1){
+
+                    if ([appDelegate.arrFollowing containsObject:_userName]){
+                        UIImage *followImage = [UIImage imageNamed:@"plus_sign_icon.png"];
+                        [sender setImage:followImage forState:UIControlStateNormal];
+                        
+                        for(int i = 0; i < appDelegate.arrFollowing.count; i++){
+                            if([[appDelegate.arrFollowing objectAtIndex:i]isEqualToString:_userName]){
+                                [appDelegate.arrFollowing removeObjectAtIndex:i];
+                            }
+                        }
+                        
+                        NSInteger row = sender.tag;
+                        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
+                        [_tblVW beginUpdates];
+                        [_tblVW reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, nil] withRowAnimation:UITableViewRowAnimationFade];
+                        [_tblVW endUpdates];
+                    } else {
+                        UIImage *followImage = [UIImage imageNamed:@"checkmark_icon.png"];
+                        [sender setImage:followImage forState:UIControlStateNormal];
+                        
+                        [appDelegate.arrFollowing addObject:_userName];
+                        
+                        NSInteger row = sender.tag;
+                        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
+                        [_tblVW beginUpdates];
+                        [_tblVW reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, nil] withRowAnimation:UITableViewRowAnimationNone];
+                        [_tblVW endUpdates];
+                    }
+                }
+            }
+        } else {
+            showServerError();
+        }
+        [self setBusy:NO];
+    }];
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

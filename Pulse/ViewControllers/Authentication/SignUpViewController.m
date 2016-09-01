@@ -182,9 +182,7 @@
         
         if ([data length] > 0 && error == nil){
             NSDictionary *JSONValue = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
-            NSLog(@"JSON: %@", JSONValue);
             if(JSONValue != nil){
-                NSLog(@"Email: %@", [JSONValue objectForKey:@"email"]);
                 if([[JSONValue objectForKey:@"email"] isKindOfClass:[NSString class]]){
                     SetUserID([[JSONValue objectForKey:@"id"]integerValue]);
                     SetUserName([_nameField.text Trim]);

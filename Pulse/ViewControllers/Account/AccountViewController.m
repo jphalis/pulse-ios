@@ -166,6 +166,19 @@
                         NSMutableDictionary *dictFollowerInfo = [[NSMutableDictionary alloc]init];
                         NSDictionary *dictUserDetail = [arrFollowing objectAtIndex:k];
                         
+                        if (userId == GetUserID) {
+                            if(appDelegate.arrFollowing.count > 0){
+                                [appDelegate.arrFollowing removeAllObjects];
+                            }
+                            if([dictUserDetail objectForKey:@"user__full_name"] == [NSNull null]){
+                                [dictFollowerInfo setObject:@"" forKey:@"user__full_name"];
+                            } else {
+                                [dictFollowerInfo setObject:[dictUserDetail objectForKey:@"user__full_name"] forKey:@"user__full_name"];
+                            }
+                            NSString *userName = [dictFollowerInfo objectForKey:@"user__full_name"];
+                            [appDelegate.arrFollowing addObject:userName];
+                        }
+                        
                         if([dictUserDetail objectForKey:@"user__profile_pic"] == [NSNull null]){
                             [dictFollowerInfo setObject:@"" forKey:@"user__profile_pic"];
                         } else {

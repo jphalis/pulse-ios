@@ -45,6 +45,7 @@ extern AppDelegate *appDelegate;
     #define SIGNUPURL             @"http://127.0.0.1:8000/hidden/secure/pulse/api/accounts/create/"
     #define FEEDURL               @"http://127.0.0.1:8000/hidden/secure/pulse/api/feed/"
     #define PROFILEURL            @"http://127.0.0.1:8000/hidden/secure/pulse/api/accounts/"
+    #define FOLLOWURL            @"http://127.0.0.1:8000/hidden/secure/pulse/api/follow/"
     #define BLOCKURL              @"http://127.0.0.1:8000/hidden/secure/pulse/api/block/"
     #define NOTIFICATIONURL       @"http://127.0.0.1:8000/hidden/secure/pulse/api/notifications/"
     #define NOTIFICATIONUNREADURL @"http://127.0.0.1:8000/hidden/secure/pulse/api/notifications/unread/"

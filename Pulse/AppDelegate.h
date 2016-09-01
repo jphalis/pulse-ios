@@ -13,10 +13,7 @@
 +(void)showMessage:(NSString *)message;
 
 @property (strong, nonatomic) UIWindow *window;
-@property (strong, nonatomic) NSMutableArray *arrTimeLinePhotos;
-@property (strong, nonatomic) NSMutableArray *arrHashtagPhotos;
-@property (strong, nonatomic) NSMutableArray *arrSupports;
-@property (strong, nonatomic) NSMutableArray *arrPhotos;
+@property (strong, nonatomic) NSMutableArray *arrFollowing;
 @property (strong, nonatomic) NSMutableDictionary *dicAllKeys;
 @property (strong, nonatomic) NSMutableDictionary *dictProfileInfo;
 @property (strong, nonatomic) NSMutableArray *arrViewControllers;

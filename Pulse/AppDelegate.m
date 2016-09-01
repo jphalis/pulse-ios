@@ -47,9 +47,7 @@ MBProgressHUD *hud;
     // Which types of noticiations are enabled by the user
     // UIRemoteNotificationType enabledTypes = [[UIApplication sharedApplication] enabledRemoteNotificationTypes];
     
-//        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-//        HomeViewController *homeViewController = [storyboard instantiateViewControllerWithIdentifier:@"HomeViewController"];
-//        homeViewController.managedObjectContext = self.managedObjectContext;
+    _arrFollowing = [[NSMutableArray alloc]init];
     
     return YES;
 }

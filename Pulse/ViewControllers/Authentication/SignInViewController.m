@@ -180,9 +180,10 @@
                 if ([data length] > 0 && error == nil){
                     NSDictionary *JSONValue = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
                     
-                    if([[JSONValue objectForKey:@"userid"]integerValue] > 0){
-                        SetUserID([[JSONValue objectForKey:@"userid"]integerValue]);
-                        SetUserEmail([_emailField.text Trim]);
+                    if([[JSONValue objectForKey:@"user_id"]integerValue] > 0){
+                        SetUserID([[JSONValue objectForKey:@"user_id"]integerValue]);
+                        SetUserName([JSONValue objectForKey:@"user_name"]);
+                        SetUserEmail([JSONValue objectForKey:@"user_email"]);
                         SetUserPassword([_passwordField.text Trim]);
                         CustomTabViewController *customTabViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"CustomTabViewController"];
                         [self.navigationController pushViewController:customTabViewController animated:YES];
