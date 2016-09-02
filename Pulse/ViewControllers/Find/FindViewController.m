@@ -13,7 +13,7 @@
 #import "PartyClass.h"
 #import "SCLAlertView.h"
 #import "SDIAsyncImageView.h"
-//#import "PartyViewController.h"
+#import "PartyViewController.h"
 #import "UIViewControllerAdditions.h"
 
 
@@ -22,9 +22,8 @@
     
     NSInteger partyCount;
     NSMutableArray *arrParties;
-//  PartyViewController *partyViewController;
     UIRefreshControl *refreshControl;
-    NSInteger *tapCellIndex;
+    NSInteger tapCellIndex;
 }
 
 @end
@@ -41,17 +40,13 @@
     [super viewDidLoad];
     
     arrParties = [[NSMutableArray alloc]init];
-
-//    partyViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PartyViewController"];
-//    partyViewController.delegate = self;
-//    
     appDelegate = [AppDelegate getDelegate];
     
     _mapView.delegate = self;
     locationManager = [[CLLocationManager alloc] init];
     locationManager.delegate = self;
     
-//    tapCellIndex = -1;
+    tapCellIndex = -1;
     
     refreshControl = [[UIRefreshControl alloc] init];
     [refreshControl addTarget:self action:@selector(startRefresh)
@@ -167,8 +162,8 @@
                     partyClass.partyStartTime = [[arrPartyResult objectAtIndex:i]valueForKey:@"start_time"];
                     partyClass.partyEndTime = [[arrPartyResult objectAtIndex:i]valueForKey:@"end_time"];
                     partyClass.partyDescription = [[arrPartyResult objectAtIndex:i]valueForKey:@"description"];
-                    partyClass.partyAttendingCount = [[arrPartyResult objectAtIndex:i]valueForKey:@"attendees_count"];
-                    partyClass.partyRequestCount = [[arrPartyResult objectAtIndex:i]valueForKey:@"attendees_count"];
+                    partyClass.partyAttendingCount = [NSString abbreviateNumber:[[[arrPartyResult objectAtIndex:i]valueForKey:@"attendees_count"]intValue]];
+                    partyClass.partyRequestCount = [NSString abbreviateNumber:[[[arrPartyResult objectAtIndex:i]valueForKey:@"attendees_count"]intValue]];
                     
                     if([[arrPartyResult objectAtIndex:i]valueForKey:@"user_profile_pic"] == [NSNull null]){
                         partyClass.partyUserProfilePicture = @"";
@@ -182,6 +177,34 @@
                     } else {
                         NSString *str2 = [[arrPartyResult objectAtIndex:i]valueForKey:@"image"];
                         partyClass.partyImage = [NSString stringWithFormat:@"https://oby.s3.amazonaws.com/media/%@", str2];
+                    }
+                    
+                    if([[arrPartyResult objectAtIndex:i]valueForKey:@"get_attendees_info"] == [NSNull null]){
+
+                    } else {
+                        NSMutableArray *arrAttendee = [[arrPartyResult objectAtIndex:i]valueForKey:@"get_attendees_info"];
+                        
+                        partyClass.arrAttending = [[NSMutableArray alloc]init];
+                        
+                        for(int j = 0; j < arrAttendee.count; j++){
+                            NSMutableDictionary *dictAttendeeInfo = [[NSMutableDictionary alloc]init];
+                            NSDictionary *dictUserDetail = [arrAttendee objectAtIndex:j];
+                            
+                            if([dictUserDetail objectForKey:@"profile_pic"] == [NSNull null]){
+                                [dictAttendeeInfo setObject:@"" forKey:@"user__profile_pic"];
+                            } else {
+                                NSString *proflURL = [NSString stringWithFormat:@"%@%@",@"https://oby.s3.amazonaws.com/media/",[dictUserDetail objectForKey:@"profile_pic"]];
+                                [dictAttendeeInfo setValue:proflURL forKey:@"user__profile_pic"];
+                            }
+                            
+                            if([dictUserDetail objectForKey:@"full_name"] == [NSNull null]){
+                                [dictAttendeeInfo setObject:@"" forKey:@"user__full_name"];
+                            } else {
+                                [dictAttendeeInfo setObject:[dictUserDetail objectForKey:@"full_name"] forKey:@"user__full_name"];
+                            }
+                            
+                            [partyClass.arrAttending addObject:dictAttendeeInfo];
+                        }
                     }
 
                     [arrParties addObject:partyClass];
@@ -292,20 +315,28 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-//    CollectionViewCellImage *currentCell = (CollectionViewCellImage *)[collectionView cellForItemAtIndexPath:indexPath];
     
-    SCLAlertView *alert = [[SCLAlertView alloc] init];
-    alert.showAnimationType = SlideInFromLeft;
-    alert.hideAnimationType = SlideOutToBottom;
-    [alert showInfo:self title:@"Notice" subTitle:@"View party screen" closeButtonTitle:@"OK" duration:0.0f];
+    tapCellIndex = indexPath.row;
+    PartyClass *partyClass = [arrParties objectAtIndex:indexPath.row];
     
-//    tapCellIndex = indexPath.row;
-//    PartyClass *partyClass = [arrParties objectAtIndex:indexPath.row];
-//    
-//    partyViewController.photoURL = partyClass.photo;
-//    partyViewController.photoDeleteURL = partyClass.photo_url;
-//    
-//    [appDelegate.window addSubview:partyViewController.view];
+    PartyViewController *partyViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PartyViewController"];
+    partyViewController.partyId = partyClass.partyId;
+    //    partyViewController.partyInvite = partyClass.PartyInviteType;
+    partyViewController.partyType = partyClass.partyType;
+    partyViewController.partyName = partyClass.partyName;
+    partyViewController.partyAddress = partyClass.partyAddress;
+    partyViewController.partySize = partyClass.partySize;
+    partyViewController.partyMonth = partyClass.partyMonth;
+    partyViewController.partyDay = partyClass.partyDay;
+    partyViewController.partyStartTime = partyClass.partyStartTime;
+    partyViewController.partyEndTime = partyClass.partyEndTime;
+    partyViewController.partyImage = partyClass.partyImage;
+    partyViewController.partyDescription = partyClass.partyDescription;
+    partyViewController.partyAttending = partyClass.partyAttendingCount;
+    partyViewController.partyRequests = partyClass.partyRequestCount;
+    partyViewController.usersAttending = partyClass.arrAttending.copy;
+
+    [self.navigationController pushViewController:partyViewController animated:YES];
 }
 
 @end

@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *partyAttendingField;
 @property (weak, nonatomic) IBOutlet UILabel *partyRequestsField;
 @property (weak, nonatomic) IBOutlet UITextView *partyDescriptionField;
+@property (weak, nonatomic) IBOutlet UIButton *attendBtn;
 @property (retain, nonatomic) NSString *partyId;
 @property (retain, nonatomic) NSString *partyInvite;
 @property (retain, nonatomic) NSString *partyType;
@@ -30,6 +31,7 @@
 @property (retain, nonatomic) NSString *partyDescription;
 @property (retain, nonatomic) NSString *partyAttending;
 @property (retain, nonatomic) NSString *partyRequests;
+@property (retain, nonatomic) NSMutableArray *usersAttending;
 
 - (IBAction)onBack:(id)sender;
 - (IBAction)onAttend:(id)sender;

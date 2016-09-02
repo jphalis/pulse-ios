@@ -20,10 +20,17 @@
 
 @implementation PartyViewController
 
+@synthesize usersAttending;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     appDelegate = [AppDelegate getDelegate];
+    
+    // Go back when swipe right
+    UISwipeGestureRecognizer *viewRight = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swipeRight:)];
+    viewRight.direction = UISwipeGestureRecognizerDirectionRight;
+    [self.view addGestureRecognizer:viewRight];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -53,11 +60,23 @@
     _partyAttendingField.text = _partyAttending;
     _partyRequestsField.text = _partyRequests;
     _partyDescriptionField.text = _partyDescription;
+    
+    if ([[usersAttending valueForKey:@"user__full_name"] containsObject: GetUserName]) {
+        [_attendBtn setTitle:@"Going!" forState:UIControlStateNormal];
+    } else {
+        [_attendBtn setTitle:@"Let's go!" forState:UIControlStateNormal];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - Navigation
+
+-(void)swipeRight:(UISwipeGestureRecognizer *)gestureRecognizer{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 /*

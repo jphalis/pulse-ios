@@ -2306,6 +2306,7 @@ only</string>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
+                        <outlet property="attendBtn" destination="ix4-y4-73E" id="bIq-fd-mTr"/>
                         <outlet property="partyAddressField" destination="9La-K8-mOR" id="R17-Bc-SVd"/>
                         <outlet property="partyAttendingField" destination="FME-Lw-kX6" id="pAC-of-JKh"/>
                         <outlet property="partyDateTimeField" destination="ueQ-IV-A2m" id="FVQ-wK-9Mm"/>

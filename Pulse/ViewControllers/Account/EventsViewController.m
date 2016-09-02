@@ -160,6 +160,34 @@
                         NSString *str2 = [[arrPartyResult objectAtIndex:i]valueForKey:@"image"];
                         partyClass.partyImage = [NSString stringWithFormat:@"https://oby.s3.amazonaws.com/media/%@", str2];
                     }
+                    
+                    if([[arrPartyResult objectAtIndex:i]valueForKey:@"get_attendees_info"] == [NSNull null]){
+                        
+                    } else {
+                        NSMutableArray *arrAttendee = [[arrPartyResult objectAtIndex:i]valueForKey:@"get_attendees_info"];
+                        
+                        partyClass.arrAttending = [[NSMutableArray alloc]init];
+                        
+                        for(int j = 0; j < arrAttendee.count; j++){
+                            NSMutableDictionary *dictAttendeeInfo = [[NSMutableDictionary alloc]init];
+                            NSDictionary *dictUserDetail = [arrAttendee objectAtIndex:j];
+                            
+                            if([dictUserDetail objectForKey:@"profile_pic"] == [NSNull null]){
+                                [dictAttendeeInfo setObject:@"" forKey:@"user__profile_pic"];
+                            } else {
+                                NSString *proflURL = [NSString stringWithFormat:@"%@%@",@"https://oby.s3.amazonaws.com/media/",[dictUserDetail objectForKey:@"profile_pic"]];
+                                [dictAttendeeInfo setValue:proflURL forKey:@"user__profile_pic"];
+                            }
+                            
+                            if([dictUserDetail objectForKey:@"full_name"] == [NSNull null]){
+                                [dictAttendeeInfo setObject:@"" forKey:@"user__full_name"];
+                            } else {
+                                [dictAttendeeInfo setObject:[dictUserDetail objectForKey:@"full_name"] forKey:@"user__full_name"];
+                            }
+                            
+                            [partyClass.arrAttending addObject:dictAttendeeInfo];
+                        }
+                    }
 
                     [arrParties addObject:partyClass];
                 }
@@ -236,6 +264,7 @@
     partyViewController.partyDescription = partyClass.partyDescription;
     partyViewController.partyAttending = partyClass.partyAttendingCount;
     partyViewController.partyRequests = partyClass.partyRequestCount;
+    partyViewController.usersAttending = partyClass.arrAttending.copy;
     
     [self.navigationController pushViewController:partyViewController animated:YES];
 }

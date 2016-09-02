@@ -22,5 +22,6 @@
 @property (retain, nonatomic) NSString *partyUserProfilePicture;
 @property (retain, nonatomic) NSString *partyAttendingCount;
 @property (retain, nonatomic) NSString *partyRequestCount;
+@property (nonatomic, retain) NSMutableArray *arrAttending;
 
 @end
