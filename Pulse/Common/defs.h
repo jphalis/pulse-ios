@@ -41,22 +41,32 @@ extern AppDelegate *appDelegate;
 
 #ifdef DEBUG
     // DEV URLS
-    #define LOGINURL              @"http://127.0.0.1:8000/hidden/secure/pulse/api/auth/token/"
-    #define SIGNUPURL             @"http://127.0.0.1:8000/hidden/secure/pulse/api/accounts/create/"
-    #define FEEDURL               @"http://127.0.0.1:8000/hidden/secure/pulse/api/feed/"
-    #define PROFILEURL            @"http://127.0.0.1:8000/hidden/secure/pulse/api/accounts/"
-    #define FOLLOWURL             @"http://127.0.0.1:8000/hidden/secure/pulse/api/follow/"
-    #define BLOCKURL              @"http://127.0.0.1:8000/hidden/secure/pulse/api/block/"
-    #define NOTIFICATIONURL       @"http://127.0.0.1:8000/hidden/secure/pulse/api/notifications/"
-    #define NOTIFICATIONUNREADURL @"http://127.0.0.1:8000/hidden/secure/pulse/api/notifications/unread/"
-    #define PARTIESURL            @"http://127.0.0.1:8000/hidden/secure/pulse/api/parties/"
-    #define PARTIESOWNURL         @"http://127.0.0.1:8000/hidden/secure/pulse/api/parties/own/"
-    #define PARTYURL              @"http://127.0.0.1:8000/hidden/secure/pulse/api/party/"
-    #define FLAGURL               @"http://127.0.0.1:8000/hidden/secure/pulse/api/flag/create/"
+    #define LOGINURL       @"http://127.0.0.1:8000/hidden/secure/pulse/api/auth/token/"
+    #define SIGNUPURL      @"http://127.0.0.1:8000/hidden/secure/pulse/api/accounts/create/"
+    #define FEEDURL        @"http://127.0.0.1:8000/hidden/secure/pulse/api/feed/"
+    #define PROFILEURL     @"http://127.0.0.1:8000/hidden/secure/pulse/api/accounts/"
+    #define FOLLOWURL      @"http://127.0.0.1:8000/hidden/secure/pulse/api/follow/"
+    #define BLOCKURL       @"http://127.0.0.1:8000/hidden/secure/pulse/api/block/"
+    #define NOTIFURL       @"http://127.0.0.1:8000/hidden/secure/pulse/api/notifications/"
+    #define NOTIFUNREADURL @"http://127.0.0.1:8000/hidden/secure/pulse/api/notifications/unread/"
+    #define PARTIESURL     @"http://127.0.0.1:8000/hidden/secure/pulse/api/parties/"
+    #define PARTIESOWNURL  @"http://127.0.0.1:8000/hidden/secure/pulse/api/parties/own/"
+    #define PARTYURL       @"http://127.0.0.1:8000/hidden/secure/pulse/api/party/"
+    #define FLAGURL        @"http://127.0.0.1:8000/hidden/secure/pulse/api/flag/create/"
 #else
     // PROD URLS
-    #define LOGINURL              @"https://www.domain.com/"
-    #define SIGNUPURL             @"https://www.domain.com/"
+    #define LOGINURL       @"http://pulse-ios.herokuapp.com/hidden/secure/pulse/api/auth/token/"
+    #define SIGNUPURL      @"http://pulse-ios.herokuapp.com/hidden/secure/pulse/api/accounts/create/"
+    #define FEEDURL        @"http://pulse-ios.herokuapp.com/hidden/secure/pulse/api/feed/"
+    #define PROFILEURL     @"http://pulse-ios.herokuapp.com/hidden/secure/pulse/api/accounts/"
+    #define FOLLOWURL      @"http://pulse-ios.herokuapp.com/hidden/secure/pulse/api/follow/"
+    #define BLOCKURL       @"http://pulse-ios.herokuapp.com/hidden/secure/pulse/api/block/"
+    #define NOTIFURL       @"http://pulse-ios.herokuapp.com/hidden/secure/pulse/api/notifications/"
+    #define NOTIFUNREADURL @"http://pulse-ios.herokuapp.com/hidden/secure/pulse/api/notifications/unread/"
+    #define PARTIESURL     @"http://pulse-ios.herokuapp.com/hidden/secure/pulse/api/parties/"
+    #define PARTIESOWNURL  @"http://pulse-ios.herokuapp.com/hidden/secure/pulse/api/parties/own/"
+    #define PARTYURL       @"http://pulse-ios.herokuapp.com/hidden/secure/pulse/api/party/"
+    #define FLAGURL        @"http://pulse-ios.herokuapp.com/hidden/secure/pulse/api/flag/create/"
 #endif
 
 #define    UserDefaults       [NSUserDefaults standardUserDefaults]

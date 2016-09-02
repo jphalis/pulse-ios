@@ -37,7 +37,7 @@
 
 - (void)viewDidLoad {
     arrNotification = [[NSMutableArray alloc]init];
-    [self getNotificationDetails:NOTIFICATIONURL];
+    [self getNotificationDetails:NOTIFURL];
     
     [super viewDidLoad];
     
@@ -88,7 +88,7 @@
         [arrNotification removeAllObjects];
     }
     
-    [self getNotificationDetails:NOTIFICATIONURL];
+    [self getNotificationDetails:NOTIFURL];
 }
 
 -(void)getNotificationDetails:(NSString *)requestURL{

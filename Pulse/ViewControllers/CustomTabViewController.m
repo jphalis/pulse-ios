@@ -64,17 +64,6 @@ enum {
     
     appDelegate.arrViewControllers = [[NSMutableArray alloc]init];
     appDelegate.tabbar = self;
-    
-//    UIButton *btn = (UIButton*)[self.view viewWithTag:TABHOME];
-//    btn.titleLabel.font = fontLight(13);
-//    btn = (UIButton*)[self.view viewWithTag:TABFIND];
-//    btn.titleLabel.font = fontLight(13);
-//    btn = (UIButton*)[self.view viewWithTag:TABCREATE];
-//    btn.titleLabel.font = fontLight(13);
-//    btn = (UIButton*)[self.view viewWithTag:TABNOTIFICATIONS];
-//    btn.titleLabel.font = fontLight(13);
-//    btn = (UIButton*)[self.view viewWithTag:TABACCOUNT];
-//    btn.titleLabel.font = fontLight(13);
 }
 
 -(void)LoadTabBar{
