@@ -8,8 +8,11 @@
 #import "defs.h"
 #import "GlobalFunctions.h"
 #import "PartyViewController.h"
-#import "SCLAlertView.h"
 #import "UIViewControllerAdditions.h"
+
+
+#define DEFAULT_BTN_TEXT @"Let's go!"
+#define ATTENDING_BTN_TEXT @"Going!"
 
 
 @interface PartyViewController () {
@@ -23,6 +26,10 @@
 @synthesize usersAttending;
 
 - (void)viewDidLoad {
+    if (_partyUrl){
+        [self getPartyDetails];
+    }
+
     [super viewDidLoad];
     
     appDelegate = [AppDelegate getDelegate];
@@ -44,27 +51,8 @@
     
     [super viewWillAppear:YES];
     
-    [_partyImageField loadImageFromURL:_partyImage withTempImage:@"camera_icon"];
-    _partyImageField.layer.borderWidth = 4;
-    _partyImageField.layer.borderColor = [[UIColor whiteColor] CGColor];
-    _partyImageField.layer.cornerRadius = 10;
-    _partyImageField.layer.masksToBounds = YES;
-    
-    NSInteger monthNumber = [_partyMonth integerValue];
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    NSString *monthName = [[dateFormatter monthSymbols] objectAtIndex:(monthNumber-1)];
-    _partyDateTimeField.text = [NSString stringWithFormat:@"%@ %@, 2016  %@-%@", monthName, _partyDay, _partyStartTime, _partyEndTime];
-    
-    _partyNameField.text = _partyName;
-    _partyAddressField.text = _partyAddress;
-    _partyAttendingField.text = _partyAttending;
-    _partyRequestsField.text = _partyRequests;
-    _partyDescriptionField.text = _partyDescription;
-    
-    if ([[usersAttending valueForKey:@"user__full_name"] containsObject: GetUserName]) {
-        [_attendBtn setTitle:@"Going!" forState:UIControlStateNormal];
-    } else {
-        [_attendBtn setTitle:@"Let's go!" forState:UIControlStateNormal];
+    if (!_partyUrl){
+        [self showPartyInfo];
     }
 }
 
@@ -96,54 +84,136 @@
 }
 
 - (IBAction)onAttend:(id)sender {
-    SCLAlertView *alert = [[SCLAlertView alloc] init];
-    alert.showAnimationType = SlideInFromLeft;
-    alert.hideAnimationType = SlideOutToBottom;
-    [alert showInfo:self title:@"Notice" subTitle:@"Attend party functionality." closeButtonTitle:@"OK" duration:0.0f];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSString *strURL = [NSString stringWithFormat:@"%@%@/", PARTYATTENDURL, _partyId];
+        NSURL *url = [NSURL URLWithString:strURL];
+        NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url];
+        [urlRequest setTimeoutInterval:60];
+        [urlRequest setHTTPMethod:@"POST"];
+        NSString *authStr = [NSString stringWithFormat:@"%@:%@", GetUserEmail, GetUserPassword];
+        NSData *plainData = [authStr dataUsingEncoding:NSUTF8StringEncoding];
+        NSString *base64String = [plainData base64EncodedStringWithOptions:0];
+        NSString *authValue = [NSString stringWithFormat:@"Basic %@", base64String];
+        [urlRequest setValue:authValue forHTTPHeaderField:@"Authorization"];
+        [urlRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+
+        [NSURLConnection sendAsynchronousRequest:urlRequest queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error){
+            
+            if ([data length] > 0 && error == nil){
+                NSDictionary *JSONValue = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+                if (JSONValue != nil){
+                    if ([_attendBtn.titleLabel.text isEqual:DEFAULT_BTN_TEXT]){
+                        [_attendBtn setTitle:ATTENDING_BTN_TEXT forState:UIControlStateNormal];
+                    } else {
+                        [_attendBtn setTitle:DEFAULT_BTN_TEXT forState:UIControlStateNormal];
+                    }
+                }
+            } else {
+                [self showMessage:SERVER_ERROR];
+            }
+        }];
+        [self setBusy:NO];
+    });
+}
+
+-(void)getPartyDetails {
+    checkNetworkReachability();
+
+    NSString *urlString = [NSString stringWithFormat:@"%@", _partyUrl];
+    NSMutableURLRequest *_request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:urlString]cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
+                                                             timeoutInterval:60];
     
-//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-//        NSString *strURL = [NSString stringWithFormat:@"%@%@/", ATTENDURL, _partyId];
-//        NSURL *url = [NSURL URLWithString:strURL];
-//        NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url];
-//        [urlRequest setTimeoutInterval:60];
-//        [urlRequest setHTTPMethod:@"POST"];
-//        NSString *authStr = [NSString stringWithFormat:@"%@:%@", GetUserEmail, GetUserPassword];
-//        NSData *plainData = [authStr dataUsingEncoding:NSUTF8StringEncoding];
-//        NSString *base64String = [plainData base64EncodedStringWithOptions:0];
-//        NSString *authValue = [NSString stringWithFormat:@"Basic %@", base64String];
-//        [urlRequest setValue:authValue forHTTPHeaderField:@"Authorization"];
-//        [urlRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-//
-//        [NSURLConnection sendAsynchronousRequest:urlRequest queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error){
-//            
-//            if ([data length] > 0 && error == nil){
-//                NSDictionary *JSONValue = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
-//                if(JSONValue != nil){
-//                    /*
-//                     int likecount=(int)[photoClass.like_count integerValue];
-//                     if(photoClass.isLike){
-//                     likecount--;
-//                     }else{
-//                     likecount++;
-//                     }
-//                     
-//                     photoClass.like_count=[NSString stringWithFormat:@"%d",likecount];
-//                     photoClass.isLike=!photoClass.isLike;
-//                     
-//                     selectCell.imgLike.image=[UIImage imageNamed:@"like_icon"];
-//                     if(photoClass.isLike){
-//                     selectCell.imgLike.image=[UIImage imageNamed:@"likeselect"];
-//                     }
-//                     selectCell.lblLikes.text=[NSString stringWithFormat:@"%@",photoClass.like_count];
-//                     */
-//                    // [collectionVWHome reloadData];
-//                }
-//            } else {
-//                [self showMessage:SERVER_ERROR];
-//            }
-//        }];
-//        [self setBusy:NO];
-//    });
+    NSString *authStr = [NSString stringWithFormat:@"%@:%@", GetUserEmail, GetUserPassword];
+    NSData *plainData = [authStr dataUsingEncoding:NSUTF8StringEncoding];
+    NSString *base64String = [plainData base64EncodedStringWithOptions:0];
+    NSString *authValue = [NSString stringWithFormat:@"Basic %@", base64String];
+    [_request setValue:authValue forHTTPHeaderField:@"Authorization"];
+    [_request setHTTPMethod:@"GET"];
+    
+    [NSURLConnection sendAsynchronousRequest:_request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error){
+
+        if ([data length] > 0 && error == nil){
+            NSDictionary *JSONValue = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+            
+            if([JSONValue isKindOfClass:[NSDictionary class]]){
+                int partyId = [[JSONValue valueForKey:@"id"]intValue];
+                _partyId = [NSString stringWithFormat:@"%d", partyId];
+                // _partyInvite =
+                _partyType = [JSONValue valueForKey:@"party_type"];
+                _partyName = [JSONValue valueForKey:@"name"];
+                _partyAddress = [JSONValue valueForKey:@"location"];
+                _partySize = [JSONValue valueForKey:@"party_size"];
+                int partyMonth = [[JSONValue valueForKey:@"party_month"]intValue];
+                _partyMonth = [NSString stringWithFormat:@"%d", partyMonth];
+                int partyDay = [[JSONValue valueForKey:@"party_day"]intValue];
+                _partyDay = [NSString stringWithFormat:@"%d", partyDay];
+                _partyStartTime = [JSONValue valueForKey:@"start_time"];
+                _partyEndTime = [JSONValue valueForKey:@"end_time"];
+                if ([JSONValue valueForKey:@"image"] == [NSNull null]){
+                    _partyImage = @"";
+                } else {
+                    NSString *str = [JSONValue valueForKey:@"image"];
+                    _partyImage = [NSString stringWithFormat:@"https://oby.s3.amazonaws.com/media/%@", str];
+                }
+                _partyDescription = [JSONValue valueForKey:@"description"];
+                _partyAttending = [NSString abbreviateNumber:[[JSONValue valueForKey:@"attendees_count"]intValue]];
+                _partyRequests = [NSString abbreviateNumber:[[JSONValue valueForKey:@"attendees_count"]intValue]];
+
+                if (!([JSONValue valueForKey:@"get_attendees_info"] == [NSNull null])){
+                    NSMutableArray *arrAttendee = [JSONValue valueForKey:@"get_attendees_info"];
+                    usersAttending = [[NSMutableArray alloc]init];
+                    
+                    for(int i = 0; i < arrAttendee.count; i++){
+                        NSMutableDictionary *dictAttendeeInfo = [[NSMutableDictionary alloc]init];
+                        NSDictionary *dictUserDetail = [arrAttendee objectAtIndex:i];
+                        
+                        if([dictUserDetail objectForKey:@"profile_pic"] == [NSNull null]){
+                            [dictAttendeeInfo setObject:@"" forKey:@"user__profile_pic"];
+                        } else {
+                            NSString *proflURL = [NSString stringWithFormat:@"%@%@",@"https://oby.s3.amazonaws.com/media/",[dictUserDetail objectForKey:@"profile_pic"]];
+                            [dictAttendeeInfo setValue:proflURL forKey:@"user__profile_pic"];
+                        }
+                        
+                        if([dictUserDetail objectForKey:@"full_name"] == [NSNull null]){
+                            [dictAttendeeInfo setObject:@"" forKey:@"user__full_name"];
+                        } else {
+                            [dictAttendeeInfo setObject:[dictUserDetail objectForKey:@"full_name"] forKey:@"user__full_name"];
+                        }
+                        
+                        [usersAttending addObject:dictAttendeeInfo];
+                    }
+                }
+                [self showPartyInfo];
+            }
+        } else {
+            showServerError();
+        }
+    }];
+}
+
+-(void)showPartyInfo {
+    [_partyImageField loadImageFromURL:_partyImage withTempImage:@"camera_icon"];
+    _partyImageField.layer.borderWidth = 4;
+    _partyImageField.layer.borderColor = [[UIColor whiteColor] CGColor];
+    _partyImageField.layer.cornerRadius = 10;
+    _partyImageField.layer.masksToBounds = YES;
+    
+    NSInteger monthNumber = [_partyMonth integerValue];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    NSString *monthName = [[dateFormatter monthSymbols] objectAtIndex:(monthNumber-1)];
+    _partyDateTimeField.text = [NSString stringWithFormat:@"%@ %@, 2016  %@-%@", monthName, _partyDay, _partyStartTime, _partyEndTime];
+    
+    _partyNameField.text = _partyName;
+    _partyAddressField.text = _partyAddress;
+    _partyAttendingField.text = _partyAttending;
+    _partyRequestsField.text = _partyRequests;
+    _partyDescriptionField.text = _partyDescription;
+    
+    if ([[usersAttending valueForKey:@"user__full_name"] containsObject:GetUserName]) {
+        [_attendBtn setTitle:ATTENDING_BTN_TEXT forState:UIControlStateNormal];
+    } else {
+        [_attendBtn setTitle:DEFAULT_BTN_TEXT forState:UIControlStateNormal];
+    }
 }
 
 @end

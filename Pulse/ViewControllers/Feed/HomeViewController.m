@@ -4,10 +4,6 @@
 //
 
 
-
-#import "HomeViewController.h"
-#import "UIViewControllerAdditions.h"
-
 #import <QuartzCore/QuartzCore.h>
 
 #import "AccountViewController.h"
@@ -95,6 +91,8 @@
 }
 
 -(void)getFeedDetails {
+    checkNetworkReachability();
+
     NSString *urlString = [NSString stringWithFormat:@"%@", FEEDURL];
     NSMutableURLRequest *_request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:urlString]cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
                                                              timeoutInterval:60];
@@ -131,7 +129,6 @@
                     }
 
                     for (int i = 0; i < JSONValue.count; i++) {
-                        
                         NSMutableDictionary *dictResult;
                         dictResult = [JSONValue objectAtIndex:i];
                         FeedClass *feedClass = [[FeedClass alloc]init];

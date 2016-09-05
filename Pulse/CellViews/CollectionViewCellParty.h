@@ -1,12 +1,12 @@
 //
-//  CollectionViewCellImage.h
+//  CollectionViewCellParty.h
 //
 
 #import <UIKit/UIKit.h>
 #import "SDIAsyncImageView.h"
 
 
-@interface CollectionViewCellImage : UICollectionViewCell
+@interface CollectionViewCellParty : UICollectionViewCell
 
 @property (strong, nonatomic) IBOutlet SDIAsyncImageView *partyPicture;
 @property (strong, nonatomic) IBOutlet UILabel *partyDate;

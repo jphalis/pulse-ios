@@ -5,8 +5,10 @@
 
 
 #import "AppDelegate.h"
+#import "defs.h"
 #import "SettingsViewController.h"
 #import "SCLAlertView.h"
+#import "SVModalWebViewController.h"
 
 
 @interface SettingsViewController (){
@@ -74,17 +76,13 @@
 }
 
 - (IBAction)onTerms:(id)sender {
-    SCLAlertView *alert = [[SCLAlertView alloc] init];
-    alert.showAnimationType = SlideInFromLeft;
-    alert.hideAnimationType = SlideOutToBottom;
-    [alert showNotice:self title:@"Notice" subTitle:@"View terms" closeButtonTitle:@"OK" duration:0.0f];
+    SVModalWebViewController *webViewController = [[SVModalWebViewController alloc] initWithAddress:TERMSURL];
+    [self presentViewController:webViewController animated:YES completion:NULL];
 }
 
 - (IBAction)onPrivacy:(id)sender {
-    SCLAlertView *alert = [[SCLAlertView alloc] init];
-    alert.showAnimationType = SlideInFromLeft;
-    alert.hideAnimationType = SlideOutToBottom;
-    [alert showNotice:self title:@"Notice" subTitle:@"View privacy policy" closeButtonTitle:@"OK" duration:0.0f];
+    SVModalWebViewController *webViewController = [[SVModalWebViewController alloc] initWithAddress:PRIVACYURL];
+    [self presentViewController:webViewController animated:YES completion:NULL];
 }
 
 - (IBAction)onCredits:(id)sender {

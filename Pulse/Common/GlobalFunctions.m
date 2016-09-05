@@ -19,7 +19,7 @@ void checkNetworkReachability() {
         [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"Network Error"
                                                        description:NETWORK_UNAVAILABLE
                                                               type:TWMessageBarMessageTypeError
-                                                          duration:6.0];
+                                                          duration:4.0];
         //        [self showMessage:NETWORK_UNAVAILABLE];
         return;
     }

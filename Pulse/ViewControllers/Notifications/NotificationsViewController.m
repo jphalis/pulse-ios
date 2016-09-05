@@ -16,7 +16,7 @@
 #import "NotificationsViewController.h"
 #import "SCLAlertView.h"
 #import "SDIAsyncImageView.h"
-//#import "PartyViewController.h"
+#import "PartyViewController.h"
 #import "TableViewCellNotification.h"
 #import "UIViewControllerAdditions.h"
 
@@ -94,13 +94,10 @@
 -(void)getNotificationDetails:(NSString *)requestURL{
     checkNetworkReachability();
     [self setBusy:NO];
-    
-    [appDelegate showHUDAddedToView:self.view message:@""];
+
     NSString *urlString = [NSString stringWithFormat:@"%@", requestURL];
-    
     NSMutableURLRequest *_request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:urlString]cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
                                                              timeoutInterval:60];
-    
     NSString *authStr = [NSString stringWithFormat:@"%@:%@", GetUserEmail, GetUserPassword];
     NSData *plainData = [authStr dataUsingEncoding:NSUTF8StringEncoding];
     NSString *base64String = [plainData base64EncodedStringWithOptions:0];
@@ -109,17 +106,12 @@
     [_request setHTTPMethod:@"GET"];
     
     [NSURLConnection sendAsynchronousRequest:_request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error){
-        if(error != nil){
-            [appDelegate hideHUDForView2:self.view];
-        }
+
         if([data length] > 0 && error == nil){
-            [appDelegate hideHUDForView2:self.view];
-            
             NSDictionary *JSONValue = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
             
             if([JSONValue isKindOfClass:[NSDictionary class]]){
                 notificationCount = [[JSONValue objectForKey:@"count"]integerValue];
-                
                 NSArray *arrNotifResult = [JSONValue objectForKey:@"results"];
                 
                 if(notificationCount > 0){
@@ -146,13 +138,9 @@
                     }
                     [arrNotification addObject:notificationClass];
                 }
-                [appDelegate hideHUDForView2:self.view];
                 [self showNotifications];
-            } else {
-                [appDelegate hideHUDForView2:self.view];
             }
         } else {
-            [appDelegate hideHUDForView2:self.view];
             showServerError();
         }
     }];
@@ -173,7 +161,6 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
     TableViewCellNotification *cell = [tableView dequeueReusableCellWithIdentifier:@"TableViewCellNotification" forIndexPath:indexPath];
     
     if(arrNotification.count <= 0){
@@ -202,15 +189,13 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-//    NotificationClass *notificationClass = [arrNotification objectAtIndex:indexPath.row];
+    NotificationClass *notificationClass = [arrNotification objectAtIndex:indexPath.row];
     
-//    if([notificationClass.targetUrl isEqualToString:@""]){
-//        return;
-//    } else {
-//        PartyViewController *partyViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PartyViewController"];
-//        partyViewController.partyUrl = notificationClass.targetUrl;
-//        [self.navigationController pushViewController:partyViewController animated:YES];
-//    }
+    if (![notificationClass.targetUrl isEqualToString:@""]){
+        PartyViewController *partyViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PartyViewController"];
+        partyViewController.partyUrl = notificationClass.targetUrl;
+        [self.navigationController pushViewController:partyViewController animated:YES];
+    }
 }
 
 @end

@@ -4,7 +4,7 @@
 //
 
 #import "AppDelegate.h"
-#import "CollectionViewCellImage.h"
+#import "CollectionViewCellParty.h"
 #import "defs.h"
 #import "EventsViewController.h"
 #import "GlobalFunctions.h"
@@ -224,7 +224,7 @@
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    CollectionViewCellImage *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"EventCell" forIndexPath:indexPath];
+    CollectionViewCellParty *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"EventCell" forIndexPath:indexPath];
     
     PartyClass *partyClass = [arrParties objectAtIndex:indexPath.row];
 

@@ -41,6 +41,8 @@ extern AppDelegate *appDelegate;
 
 #ifdef DEBUG
     // DEV URLS
+    #define TERMSURL       @"http://127.0.0.1:8000/terms/"
+    #define PRIVACYURL     @"http://127.0.0.1:8000/privacy/"
     #define LOGINURL       @"http://127.0.0.1:8000/hidden/secure/pulse/api/auth/token/"
     #define SIGNUPURL      @"http://127.0.0.1:8000/hidden/secure/pulse/api/accounts/create/"
     #define FEEDURL        @"http://127.0.0.1:8000/hidden/secure/pulse/api/feed/"
@@ -48,25 +50,31 @@ extern AppDelegate *appDelegate;
     #define FOLLOWURL      @"http://127.0.0.1:8000/hidden/secure/pulse/api/follow/"
     #define BLOCKURL       @"http://127.0.0.1:8000/hidden/secure/pulse/api/block/"
     #define NOTIFURL       @"http://127.0.0.1:8000/hidden/secure/pulse/api/notifications/"
-    #define NOTIFUNREADURL @"http://127.0.0.1:8000/hidden/secure/pulse/api/notifications/unread/"
+    #define NOTIFAJAXURL   @"http://127.0.0.1:8000/hidden/secure/pulse/api/notifications/unread/"
     #define PARTIESURL     @"http://127.0.0.1:8000/hidden/secure/pulse/api/parties/"
     #define PARTIESOWNURL  @"http://127.0.0.1:8000/hidden/secure/pulse/api/parties/own/"
     #define PARTYURL       @"http://127.0.0.1:8000/hidden/secure/pulse/api/party/"
+    #define PARTYATTENDURL @"http://127.0.0.1:8000/hidden/secure/pulse/api/party/attend/"
+    #define PARTYCREATEURL @"http://127.0.0.1:8000/hidden/secure/pulse/api/party/create/"
     #define FLAGURL        @"http://127.0.0.1:8000/hidden/secure/pulse/api/flag/create/"
 #else
     // PROD URLS
-    #define LOGINURL       @"http://pulse-ios.herokuapp.com/hidden/secure/pulse/api/auth/token/"
-    #define SIGNUPURL      @"http://pulse-ios.herokuapp.com/hidden/secure/pulse/api/accounts/create/"
-    #define FEEDURL        @"http://pulse-ios.herokuapp.com/hidden/secure/pulse/api/feed/"
-    #define PROFILEURL     @"http://pulse-ios.herokuapp.com/hidden/secure/pulse/api/accounts/"
-    #define FOLLOWURL      @"http://pulse-ios.herokuapp.com/hidden/secure/pulse/api/follow/"
-    #define BLOCKURL       @"http://pulse-ios.herokuapp.com/hidden/secure/pulse/api/block/"
-    #define NOTIFURL       @"http://pulse-ios.herokuapp.com/hidden/secure/pulse/api/notifications/"
-    #define NOTIFUNREADURL @"http://pulse-ios.herokuapp.com/hidden/secure/pulse/api/notifications/unread/"
-    #define PARTIESURL     @"http://pulse-ios.herokuapp.com/hidden/secure/pulse/api/parties/"
-    #define PARTIESOWNURL  @"http://pulse-ios.herokuapp.com/hidden/secure/pulse/api/parties/own/"
-    #define PARTYURL       @"http://pulse-ios.herokuapp.com/hidden/secure/pulse/api/party/"
-    #define FLAGURL        @"http://pulse-ios.herokuapp.com/hidden/secure/pulse/api/flag/create/"
+    #define TERMSURL       @"https://pulse-ios.herokuapp.com/terms/"
+    #define PRIVACYURL     @"https://pulse-ios.herokuapp.com/privacy/"
+    #define LOGINURL       @"https://pulse-ios.herokuapp.com/hidden/secure/pulse/api/auth/token/"
+    #define SIGNUPURL      @"https://pulse-ios.herokuapp.com/hidden/secure/pulse/api/accounts/create/"
+    #define FEEDURL        @"https://pulse-ios.herokuapp.com/hidden/secure/pulse/api/feed/"
+    #define PROFILEURL     @"https://pulse-ios.herokuapp.com/hidden/secure/pulse/api/accounts/"
+    #define FOLLOWURL      @"https://pulse-ios.herokuapp.com/hidden/secure/pulse/api/follow/"
+    #define BLOCKURL       @"https://pulse-ios.herokuapp.com/hidden/secure/pulse/api/block/"
+    #define NOTIFURL       @"https://pulse-ios.herokuapp.com/hidden/secure/pulse/api/notifications/"
+    #define NOTIFAJAXURL   @"https://pulse-ios.herokuapp.com/hidden/secure/pulse/api/notifications/unread/"
+    #define PARTIESURL     @"https://pulse-ios.herokuapp.com/hidden/secure/pulse/api/parties/"
+    #define PARTIESOWNURL  @"https://pulse-ios.herokuapp.com/hidden/secure/pulse/api/parties/own/"
+    #define PARTYURL       @"https://pulse-ios.herokuapp.com/hidden/secure/pulse/api/party/"
+    #define PARTYATTENDURL @"https://pulse-ios.herokuapp.com/hidden/secure/pulse/api/party/attend/"
+    #define PARTYCREATEURL @"http://127.0.0.1:8000/hidden/secure/pulse/api/party/create/"
+    #define FLAGURL        @"https://pulse-ios.herokuapp.com/hidden/secure/pulse/api/flag/create/"
 #endif
 
 #define    UserDefaults       [NSUserDefaults standardUserDefaults]

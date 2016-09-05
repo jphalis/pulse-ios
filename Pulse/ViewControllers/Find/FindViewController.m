@@ -6,7 +6,7 @@
 #import <MapKit/MapKit.h>
 #import <MapKit/MKAnnotation.h>
 #import "AppDelegate.h"
-#import "CollectionViewCellImage.h"
+#import "CollectionViewCellParty.h"
 #import "defs.h"
 #import "FindViewController.h"
 #import "GlobalFunctions.h"
@@ -293,7 +293,7 @@
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    CollectionViewCellImage *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"FindCell" forIndexPath:indexPath];
+    CollectionViewCellParty *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"FindCell" forIndexPath:indexPath];
     
     PartyClass *partyClass = [arrParties objectAtIndex:indexPath.row];
 
