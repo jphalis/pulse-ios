@@ -6,10 +6,12 @@
 
 #import "AccountViewController.h"
 #import "AppDelegate.h"
+#import "CollectionViewCellImage.h"
 #import "defs.h"
 #import "EventsViewController.h"
 #import "FollowViewController.h"
 #import "GlobalFunctions.h"
+#import "PartyViewController.h"
 #import "ProfileClass.h"
 #import "SCLAlertView.h"
 #import "SettingsViewController.h"
@@ -17,26 +19,37 @@
 #import "UIViewControllerAdditions.h"
 
 
-@interface AccountViewController (){
+@interface AccountViewController () <UICollectionViewDelegateFlowLayout>{
     AppDelegate *appDelegate;
-    
+    UIRefreshControl *refreshControl;
     NSMutableDictionary *dictProfileInformation;
+    NSMutableArray *arrEventImages;
 }
 
 @end
 
 @implementation AccountViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     dictProfileInformation = [[NSMutableDictionary alloc]init];
+    arrEventImages = [[NSMutableArray alloc]init];
     [self getProfileDetails];
     
     [super viewDidLoad];
     
     appDelegate = [AppDelegate getDelegate];
+    
+    refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self action:@selector(startRefresh)
+             forControlEvents:UIControlEventValueChanged];
+    [_collectionVW addSubview:refreshControl];
+    
+    _collectionVW.alwaysBounceVertical = YES;
 }
 
--(void)viewWillAppear:(BOOL)animated{
+-(void)viewWillAppear:(BOOL)animated
+{
     // Remove label on back button
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] init];
     barButton.title = @" ";
@@ -66,9 +79,15 @@
     }
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)startRefresh
+{
+    [self getProfileDetails];
 }
 
 /*
@@ -81,7 +100,8 @@
 }
 */
 
--(void)getProfileDetails{
+-(void)getProfileDetails
+{
     checkNetworkReachability();
     [self setBusy:YES];
     
@@ -123,6 +143,8 @@
                     NSString *str = [JSONValue objectForKey:@"profile_pic"];
                     profileClass.userProfilePicture = [NSString stringWithFormat:@"https://oby.s3.amazonaws.com/media/%@", str];;
                 }
+                
+                // Followers
                 if([JSONValue objectForKey:@"follower"] == [NSNull null]){
                     profileClass.followers_count = @"0";
                     profileClass.following_count = @"0";
@@ -137,9 +159,9 @@
                     profileClass.arrfollowers = [[NSMutableArray alloc]init];
                     profileClass.arrfollowings = [[NSMutableArray alloc]init];
                     
-                    for(int j = 0; j < arrFollower.count; j++){
+                    for(int i = 0; i < arrFollower.count; i++){
                         NSMutableDictionary *dictFollowerInfo = [[NSMutableDictionary alloc]init];
-                        NSDictionary *dictUserDetail = [arrFollower objectAtIndex:j];
+                        NSDictionary *dictUserDetail = [arrFollower objectAtIndex:i];
                         
                         if([dictUserDetail objectForKey:@"user__profile_pic"] == [NSNull null]){
                             [dictFollowerInfo setObject:@"" forKey:@"user__profile_pic"];
@@ -162,9 +184,9 @@
                         
                         [profileClass.arrfollowers addObject:dictFollowerInfo];
                     }
-                    for(int k = 0; k < arrFollowing.count; k++){
+                    for(int j = 0; j < arrFollowing.count; j++){
                         NSMutableDictionary *dictFollowerInfo = [[NSMutableDictionary alloc]init];
-                        NSDictionary *dictUserDetail = [arrFollowing objectAtIndex:k];
+                        NSDictionary *dictUserDetail = [arrFollowing objectAtIndex:j];
                         
                         if (userId == GetUserID) {
                             if(appDelegate.arrFollowing.count > 0){
@@ -204,6 +226,33 @@
                     }
                 }
                 
+                // Event images
+                if(arrEventImages.count > 0){
+                    [arrEventImages removeAllObjects];
+                }
+                if([JSONValue objectForKey:@"event_images"] == [NSNull null]){
+
+                } else {
+                    NSMutableArray *arrEvents = [JSONValue objectForKey:@"event_images"];
+                    
+                    for(int k = 0; k < arrEvents.count; k++){
+                        NSMutableDictionary *dictEventInfo = [[NSMutableDictionary alloc]init];
+                        NSDictionary *dictEventDetail = [arrEvents objectAtIndex:k];
+                        
+                        if ([[dictEventDetail objectForKey:@"image"] isEqualToString:@""]){
+                            [dictEventInfo setObject:@"" forKey:@"event__image"];
+                        } else {
+                            NSString *eventImageURL = [NSString stringWithFormat:@"%@%@",@"https://oby.s3.amazonaws.com/media/",[dictEventDetail objectForKey:@"image"]];
+                            [dictEventInfo setValue:eventImageURL forKey:@"event__image"];
+                        }
+                        
+                        int partyId = [[dictEventDetail objectForKey:@"id"]intValue];
+                        [dictEventInfo setValue:[NSString stringWithFormat:@"%d", partyId] forKey:@"event__id"];
+
+                        [arrEventImages addObject:dictEventInfo];
+                    }
+                }
+                
                 [dictProfileInformation setObject:profileClass forKey:@"ProfileInfo"];
                 [self showProfileInfo];
             } else {
@@ -216,20 +265,26 @@
     }];
 }
 
--(void)showProfileInfo{
+-(void)showProfileInfo
+{
     ProfileClass *profileClass = [dictProfileInformation objectForKey:@"ProfileInfo"];
     _profileName.text = profileClass.userName;
     _eventCount.text = profileClass.event_count;
     _followerCount.text = profileClass.followers_count;
     _followingCount.text = profileClass.following_count;
     [_profilePicture loadImageFromURL:profileClass.userProfilePicture withTempImage:@"avatar_icon"];
+    
+    [refreshControl endRefreshing];
+    [_collectionVW reloadData];
 }
 
-- (IBAction)onBack:(id)sender {
+- (IBAction)onBack:(id)sender
+{
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (IBAction)onSettings:(id)sender {
+- (IBAction)onSettings:(id)sender
+{
     if([sender tag] == 1){
         SettingsViewController *settingsViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"SettingsViewController"];
         [self.navigationController pushViewController:settingsViewController animated:YES];
@@ -243,7 +298,8 @@
     }
 }
 
--(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
     if (buttonIndex == 0){
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Are you sure you want to block this user?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
         alert.delegate = self;
@@ -254,7 +310,8 @@
     }
 }
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
     if (alertView.tag == 100 && buttonIndex == 1 ) {
         checkNetworkReachability();
         ProfileClass *profileClass = [dictProfileInformation objectForKey:@"ProfileInfo"];
@@ -284,19 +341,22 @@
     }
 }
 
-- (IBAction)onProfilePictureChange:(id)sender {
+- (IBAction)onProfilePictureChange:(id)sender
+{
     SCLAlertView *alert = [[SCLAlertView alloc] init];
     alert.showAnimationType = SlideInFromLeft;
     alert.hideAnimationType = SlideOutToBottom;
     [alert showNotice:self title:@"Notice" subTitle:@"Change your profile picture here." closeButtonTitle:@"OK" duration:0.0f];
 }
 
-- (IBAction)onEvents:(id)sender {
+- (IBAction)onEvents:(id)sender
+{
     EventsViewController *eventsViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"EventsViewController"];
     [self.navigationController pushViewController:eventsViewController animated:YES];
 }
 
-- (IBAction)onViewList:(id)sender {
+- (IBAction)onViewList:(id)sender
+{
     FollowViewController *followViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"FollowViewController"];
     
     ProfileClass *profileClass = [dictProfileInformation objectForKey:@"ProfileInfo"];
@@ -315,6 +375,31 @@
         followViewController.arrDetails = profileClass.arrfollowings.copy;
     }
     [self.navigationController pushViewController:followViewController animated:YES];
+}
+
+-(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+{
+    return 1;
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return [arrEventImages count];
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    CollectionViewCellImage *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PartyImageCell" forIndexPath:indexPath];
+    NSString *imageUrl = [[arrEventImages objectAtIndex:indexPath.row] valueForKey:@"event__image"];
+    [cell.partyPicture loadImageFromURL:imageUrl withTempImage:@"avatar_icon"];
+    return cell;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    PartyViewController *partyViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PartyViewController"];
+    partyViewController.partyUrl = [NSString stringWithFormat:@"%@%@", PARTYURL, [[arrEventImages objectAtIndex:indexPath.row] valueForKey:@"event__id"]];
+    [self.navigationController pushViewController:partyViewController animated:YES];
 }
 
 @end

@@ -192,13 +192,10 @@
     
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error){
         
-        NSLog(@"Error: %@", error);
         if ([data length] > 0 && error == nil){
             [self setBusy:NO];
             
             NSDictionary *JSONValue = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
-            
-            NSLog(@"JSON: %@", JSONValue);
             
             if([JSONValue isKindOfClass:[NSDictionary class]]){
                 if([JSONValue objectForKey:@"id"]){

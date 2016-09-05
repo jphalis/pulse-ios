@@ -35,6 +35,7 @@
 		D0330E441D7C81AD0080A3CC /* SVWebViewControllerActivitySafari.m in Sources */ = {isa = PBXBuildFile; fileRef = D0330E341D7C81AD0080A3CC /* SVWebViewControllerActivitySafari.m */; };
 		D0330E451D7C81AD0080A3CC /* SVWebViewControllerActivitySafari@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0330E351D7C81AD0080A3CC /* SVWebViewControllerActivitySafari@2x.png */; };
 		D0330E461D7C81AD0080A3CC /* SVWebViewControllerActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = D0330E371D7C81AD0080A3CC /* SVWebViewControllerActivity.m */; };
+		D0330E491D7CF0730080A3CC /* CollectionViewCellImage.m in Sources */ = {isa = PBXBuildFile; fileRef = D0330E481D7CF0730080A3CC /* CollectionViewCellImage.m */; };
 		D03CEE931D569E9200D2586D /* AnimatedMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = D03CEE921D569E9200D2586D /* AnimatedMethods.m */; };
 		D03CEE961D569ECE00D2586D /* CustomButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D03CEE951D569ECE00D2586D /* CustomButton.m */; };
 		D03CEEC01D56D2D700D2586D /* AccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D03CEEA11D56D2D700D2586D /* AccountViewController.m */; };
@@ -156,6 +157,8 @@
 		D0330E371D7C81AD0080A3CC /* SVWebViewControllerActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVWebViewControllerActivity.m; sourceTree = "<group>"; };
 		D0330E381D7C81AD0080A3CC /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/SVWebViewController.strings"; sourceTree = "<group>"; };
 		D0330E391D7C81AD0080A3CC /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/SVWebViewController.strings"; sourceTree = "<group>"; };
+		D0330E471D7CF0730080A3CC /* CollectionViewCellImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionViewCellImage.h; sourceTree = "<group>"; };
+		D0330E481D7CF0730080A3CC /* CollectionViewCellImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionViewCellImage.m; sourceTree = "<group>"; };
 		D03CEE911D569E9200D2586D /* AnimatedMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimatedMethods.h; sourceTree = "<group>"; };
 		D03CEE921D569E9200D2586D /* AnimatedMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimatedMethods.m; sourceTree = "<group>"; };
 		D03CEE941D569ECE00D2586D /* CustomButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomButton.h; sourceTree = "<group>"; };
@@ -606,6 +609,8 @@
 		D0C02F871D56DBDC0033EF98 /* CellViews */ = {
 			isa = PBXGroup;
 			children = (
+				D0330E471D7CF0730080A3CC /* CollectionViewCellImage.h */,
+				D0330E481D7CF0730080A3CC /* CollectionViewCellImage.m */,
 				D01350E51D5A935A00ACD2C1 /* CollectionViewCellParty.h */,
 				D01350E61D5A935A00ACD2C1 /* CollectionViewCellParty.m */,
 				D0C02F881D56DBDC0033EF98 /* TableViewCellAccount.h */,
@@ -816,6 +821,7 @@
 				D04DBD781D5178B200BB8172 /* SCLAlertView.m in Sources */,
 				D04DBD761D5178B200BB8172 /* MBProgressHUD.m in Sources */,
 				D03CEECD1D56D2D700D2586D /* NotificationsViewController.m in Sources */,
+				D0330E491D7CF0730080A3CC /* CollectionViewCellImage.m in Sources */,
 				D06ED5141D6CAA23006AE20B /* SDIAsyncImageView.m in Sources */,
 				D0C02F8C1D56DBDC0033EF98 /* TableViewCellAccount.m in Sources */,
 				D088BC2C1D6F59280007C983 /* PartyViewController.m in Sources */,

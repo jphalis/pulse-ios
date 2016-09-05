@@ -4,27 +4,18 @@
 //
 
 
-#import <QuartzCore/QuartzCore.h>
-
-#import "AccountViewController.h"
-#import "AnimatedMethods.h"
 #import "AppDelegate.h"
-#import "CustomButton.h"
 #import "defs.h"
 #import "GlobalFunctions.h"
 #import "NotificationClass.h"
 #import "NotificationsViewController.h"
-#import "SCLAlertView.h"
 #import "SDIAsyncImageView.h"
 #import "PartyViewController.h"
 #import "TableViewCellNotification.h"
-#import "UIViewControllerAdditions.h"
 
 
 @interface NotificationsViewController (){
     AppDelegate *appDelegate;
-    
-    __weak IBOutlet UITableView *tblVW;
     
     NSInteger notificationCount;
     NSMutableArray *arrNotification;
@@ -41,11 +32,13 @@
     
     [super viewDidLoad];
     
+    appDelegate = [AppDelegate getDelegate];
+    
     refreshControl = [[UIRefreshControl alloc] init];
     [refreshControl addTarget:self action:@selector(startRefresh)
              forControlEvents:UIControlEventValueChanged];
     
-    [tblVW addSubview:refreshControl];
+    [_tblVW addSubview:refreshControl];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -80,7 +73,7 @@
  */
 
 -(void)scrollToTop{
-    [tblVW setContentOffset:CGPointZero animated:YES];
+    [_tblVW setContentOffset:CGPointZero animated:YES];
 }
 
 -(void)startRefresh{
@@ -148,7 +141,7 @@
 
 -(void)showNotifications{
     [refreshControl endRefreshing];
-    [tblVW reloadData];
+    [_tblVW reloadData];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{

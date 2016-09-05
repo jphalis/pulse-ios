@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *backBtn;
 @property (weak, nonatomic) IBOutlet UIButton *settingsBtn;
 @property (nonatomic, assign) BOOL needBack;
+@property (strong, nonatomic) IBOutlet UICollectionView *collectionVW;
 
 - (IBAction)onBack:(id)sender;
 - (IBAction)onSettings:(id)sender;
