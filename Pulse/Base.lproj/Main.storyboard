@@ -592,7 +592,7 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="625" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="QvD-WQ-Q6l">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="QvD-WQ-Q6l">
                                 <rect key="frame" x="12" y="162" width="80" height="28"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
@@ -640,7 +640,7 @@
                                     <action selector="onViewList:" destination="Gmq-Qg-9dW" eventType="touchUpInside" id="6KF-Xf-ky8"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1924" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="39S-mQ-pUi">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="39S-mQ-pUi">
                                 <rect key="frame" x="228" y="162" width="80" height="28"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
@@ -700,22 +700,23 @@
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="eHA-L5-sGd">
                                 <rect key="frame" x="0.0" y="257" width="320" height="311"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="iKS-MA-NwT">
-                                    <size key="itemSize" width="92" height="92"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="3" minimumInteritemSpacing="3" id="iKS-MA-NwT">
+                                    <size key="itemSize" width="121" height="121"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    <inset key="sectionInset" minX="3" minY="3" maxX="3" maxY="3"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PartyImageCell" id="Oky-zS-4Bj" customClass="CollectionViewCellImage">
-                                        <rect key="frame" x="0.0" y="0.0" width="92" height="92"/>
+                                        <rect key="frame" x="3" y="3" width="121" height="121"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="92" height="92"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="121" height="121"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="tw9-cJ-1Zw" customClass="SDIAsyncImageView">
-                                                    <rect key="frame" x="0.0" y="0.0" width="92" height="92"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="121" height="121"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                 </imageView>
                                             </subviews>
@@ -745,6 +746,7 @@
                         <outlet property="eventCount" destination="QvD-WQ-Q6l" id="c2J-Of-XHd"/>
                         <outlet property="followerCount" destination="m3n-XK-uRT" id="G3r-Ek-ILg"/>
                         <outlet property="followingCount" destination="39S-mQ-pUi" id="Nzw-59-YiC"/>
+                        <outlet property="lockIcon" destination="86A-Rv-g1n" id="pED-gG-OtN"/>
                         <outlet property="profileName" destination="q7B-Za-Yku" id="hMH-45-sFf"/>
                         <outlet property="profilePicture" destination="ct8-ea-6Eq" id="02T-Sc-0wO"/>
                         <outlet property="settingsBtn" destination="Wjk-4z-0d2" id="Ibp-Cf-RJ5"/>
@@ -2004,7 +2006,7 @@ only</string>
                                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                         </textView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12m" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="cZ0-rL-hqK">
-                                                            <rect key="frame" x="266" y="3" width="42" height="14"/>
+                                                            <rect key="frame" x="248" y="3" width="60" height="14"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="9"/>
                                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>

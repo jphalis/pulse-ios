@@ -14,7 +14,7 @@
 #import "FeedClass.h"
 #import "GlobalFunctions.h"
 #import "HomeViewController.h"
-#import "SCLAlertView.h"
+#import "PartyViewController.h"
 #import "SDIAsyncImageView.h"
 #import "TableViewCellFeed.h"
 #import "UIViewControllerAdditions.h"
@@ -223,20 +223,13 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    //    NotificationClass *notificationClass = [arrNotification objectAtIndex:indexPath.row];
-    
-    SCLAlertView *alert = [[SCLAlertView alloc] init];
-    alert.showAnimationType = SlideInFromLeft;
-    alert.hideAnimationType = SlideOutToBottom;
-    [alert showInfo:self title:@"Notice" subTitle:@"Load individual feed item." closeButtonTitle:@"OK" duration:0.0f];
-    
-    //    if([notificationClass.targetUrl isEqualToString:@""]){
-    //        return;
-    //    } else {
-    //        SingleNotificationViewController *singleNotificationViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"SingleNotificationViewController"];
-    //        singleNotificationViewController.singleNotificationUrl = notificationClass.targetUrl;
-    //        [self.navigationController pushViewController:singleNotificationViewController animated:YES];
-    //    }
+    FeedClass *feedClass = [arrFeed objectAtIndex:indexPath.row];
+
+    if (![feedClass.targetUrl isEqualToString:@""]){
+        PartyViewController *partyViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PartyViewController"];
+        partyViewController.partyUrl = feedClass.targetUrl;
+        [self.navigationController pushViewController:partyViewController animated:YES];
+    }
 }
 
 @end

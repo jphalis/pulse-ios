@@ -24,6 +24,8 @@
     UIRefreshControl *refreshControl;
     NSMutableDictionary *dictProfileInformation;
     NSMutableArray *arrEventImages;
+    
+    BOOL viewer_can_see;
 }
 
 @end
@@ -135,7 +137,7 @@
                 profileClass.gender = [JSONValue objectForKey:@"gender"];
                 profileClass.userName = [JSONValue objectForKey:@"full_name"];
                 profileClass.event_count = [JSONValue objectForKey:@"event_count"];
-                BOOL isPrivate = [[JSONValue objectForKey:@"is_private"]boolValue];
+                BOOL isPrivate = [[JSONValue objectForKey:@"viewer_can_see"]boolValue];
                 profileClass.isPrivate = isPrivate;
                 if([JSONValue objectForKey:@"profile_pic"] == [NSNull null]){
                     profileClass.userProfilePicture = @"";
@@ -273,6 +275,15 @@
     _followerCount.text = profileClass.followers_count;
     _followingCount.text = profileClass.following_count;
     [_profilePicture loadImageFromURL:profileClass.userProfilePicture withTempImage:@"avatar_icon"];
+    viewer_can_see = profileClass.isPrivate;
+    
+    if (viewer_can_see == 1){
+        _lockIcon.hidden = YES;
+        _collectionVW.hidden = NO;
+    } else {
+        _lockIcon.hidden = NO;
+        _collectionVW.hidden = YES;
+    }
     
     [refreshControl endRefreshing];
     [_collectionVW reloadData];
@@ -343,38 +354,44 @@
 
 - (IBAction)onProfilePictureChange:(id)sender
 {
-    SCLAlertView *alert = [[SCLAlertView alloc] init];
-    alert.showAnimationType = SlideInFromLeft;
-    alert.hideAnimationType = SlideOutToBottom;
-    [alert showNotice:self title:@"Notice" subTitle:@"Change your profile picture here." closeButtonTitle:@"OK" duration:0.0f];
+    if (_profileName.text == GetUserName){
+        SCLAlertView *alert = [[SCLAlertView alloc] init];
+        alert.showAnimationType = SlideInFromLeft;
+        alert.hideAnimationType = SlideOutToBottom;
+        [alert showNotice:self title:@"Notice" subTitle:@"Change your profile picture here." closeButtonTitle:@"OK" duration:0.0f];
+    }
 }
 
 - (IBAction)onEvents:(id)sender
 {
-    EventsViewController *eventsViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"EventsViewController"];
-    [self.navigationController pushViewController:eventsViewController animated:YES];
+    if (viewer_can_see == 1){
+        EventsViewController *eventsViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"EventsViewController"];
+        [self.navigationController pushViewController:eventsViewController animated:YES];
+    }
 }
 
 - (IBAction)onViewList:(id)sender
 {
-    FollowViewController *followViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"FollowViewController"];
-    
-    ProfileClass *profileClass = [dictProfileInformation objectForKey:@"ProfileInfo"];
-    
-    if([sender tag] == 1){
-        if([_followerCount.text isEqualToString:@"0"]){
-            return;
+    if (viewer_can_see == 1){
+        FollowViewController *followViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"FollowViewController"];
+        
+        ProfileClass *profileClass = [dictProfileInformation objectForKey:@"ProfileInfo"];
+        
+        if([sender tag] == 1){
+            if([_followerCount.text isEqualToString:@"0"]){
+                return;
+            }
+            followViewController.pageTitle = @"Followers";
+            followViewController.arrDetails = profileClass.arrfollowers.copy;
+        } else {
+            if([_followingCount.text isEqualToString:@"0"]){
+                return;
+            }
+            followViewController.pageTitle = @"Following";
+            followViewController.arrDetails = profileClass.arrfollowings.copy;
         }
-        followViewController.pageTitle = @"Followers";
-        followViewController.arrDetails = profileClass.arrfollowers.copy;
-    } else {
-        if([_followingCount.text isEqualToString:@"0"]){
-            return;
-        }
-        followViewController.pageTitle = @"Following";
-        followViewController.arrDetails = profileClass.arrfollowings.copy;
+        [self.navigationController pushViewController:followViewController animated:YES];
     }
-    [self.navigationController pushViewController:followViewController animated:YES];
 }
 
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
@@ -401,5 +418,12 @@
     partyViewController.partyUrl = [NSString stringWithFormat:@"%@%@", PARTYURL, [[arrEventImages objectAtIndex:indexPath.row] valueForKey:@"event__id"]];
     [self.navigationController pushViewController:partyViewController animated:YES];
 }
+
+//- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    NSInteger numberOfColumns = 3;
+//    CGFloat itemWidth = (CGRectGetWidth(collectionView.frame) - (numberOfColumns - 1)) / numberOfColumns;
+//    return CGSizeMake(itemWidth, itemWidth);
+//}
 
 @end
