@@ -145,7 +145,7 @@
                     partyClass.partyEndTime = [[arrPartyResult objectAtIndex:i]valueForKey:@"end_time"];
                     partyClass.partyDescription = [[arrPartyResult objectAtIndex:i]valueForKey:@"description"];
                     partyClass.partyAttendingCount = [[arrPartyResult objectAtIndex:i]valueForKey:@"attendees_count"];
-                    partyClass.partyRequestCount = [[arrPartyResult objectAtIndex:i]valueForKey:@"attendees_count"];
+                    partyClass.partyRequestCount = [[arrPartyResult objectAtIndex:i]valueForKey:@"requesters_count"];
                     
                     if([[arrPartyResult objectAtIndex:i]valueForKey:@"user_profile_pic"] == [NSNull null]){
                         partyClass.partyUserProfilePicture = @"";
@@ -186,6 +186,34 @@
                             }
                             
                             [partyClass.arrAttending addObject:dictAttendeeInfo];
+                        }
+                    }
+                    
+                    if([[arrPartyResult objectAtIndex:i]valueForKey:@"get_requesters_info"] == [NSNull null]){
+                        
+                    } else {
+                        NSMutableArray *arrRequester = [[arrPartyResult objectAtIndex:i]valueForKey:@"get_requesters_info"];
+                        
+                        partyClass.arrRequested = [[NSMutableArray alloc]init];
+                        
+                        for(int j = 0; j < arrRequester.count; j++){
+                            NSMutableDictionary *dictRequesterInfo = [[NSMutableDictionary alloc]init];
+                            NSDictionary *dictUserDetail = [arrRequester objectAtIndex:j];
+                            
+                            if([dictUserDetail objectForKey:@"profile_pic"] == [NSNull null]){
+                                [dictRequesterInfo setObject:@"" forKey:@"user__profile_pic"];
+                            } else {
+                                NSString *proflURL = [NSString stringWithFormat:@"%@%@",@"https://oby.s3.amazonaws.com/media/",[dictUserDetail objectForKey:@"profile_pic"]];
+                                [dictRequesterInfo setValue:proflURL forKey:@"user__profile_pic"];
+                            }
+                            
+                            if([dictUserDetail objectForKey:@"full_name"] == [NSNull null]){
+                                [dictRequesterInfo setObject:@"" forKey:@"user__full_name"];
+                            } else {
+                                [dictRequesterInfo setObject:[dictUserDetail objectForKey:@"full_name"] forKey:@"user__full_name"];
+                            }
+                            
+                            [partyClass.arrRequested addObject:dictRequesterInfo];
                         }
                     }
 
@@ -265,6 +293,7 @@
     partyViewController.partyAttending = partyClass.partyAttendingCount;
     partyViewController.partyRequests = partyClass.partyRequestCount;
     partyViewController.usersAttending = partyClass.arrAttending.copy;
+    partyViewController.usersRequested = partyClass.arrRequested.copy;
     
     [self.navigationController pushViewController:partyViewController animated:YES];
 }

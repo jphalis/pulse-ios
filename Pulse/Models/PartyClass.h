@@ -23,5 +23,6 @@
 @property (retain, nonatomic) NSString *partyAttendingCount;
 @property (retain, nonatomic) NSString *partyRequestCount;
 @property (nonatomic, retain) NSMutableArray *arrAttending;
+@property (nonatomic, retain) NSMutableArray *arrRequested;
 
 @end

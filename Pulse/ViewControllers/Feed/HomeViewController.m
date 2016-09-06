@@ -40,6 +40,8 @@
     
     [super viewDidLoad];
     
+    appDelegate = [AppDelegate getDelegate];
+    
     refreshControl = [[UIRefreshControl alloc] init];
     [refreshControl addTarget:self action:@selector(startRefresh)
              forControlEvents:UIControlEventValueChanged];

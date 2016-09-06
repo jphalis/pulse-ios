@@ -202,7 +202,7 @@
                     SCLAlertView *alert = [[SCLAlertView alloc] init];
                     alert.showAnimationType = SlideInFromLeft;
                     alert.hideAnimationType = SlideOutToBottom;
-                    [alert showInfo:self title:@"Notice" subTitle:@"Your party has been created." closeButtonTitle:@"OK" duration:0.0f];
+                    [alert showInfo:self title:@"Notice" subTitle:PARTY_CREATED closeButtonTitle:@"OK" duration:0.0f];
                     [alert alertIsDismissed:^{
                         [self.navigationController popToRootViewControllerAnimated:YES];
                     }];

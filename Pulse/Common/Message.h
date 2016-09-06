@@ -50,5 +50,6 @@
 #define EMPTY_END_TIME @"Please enter the end time."
 #define INVALID_MONTH @"Please enter a valid month."
 #define INVALID_DAY @"Please enter a valid day."
+#define PARTY_CREATED @"Your listing has been posted!"
 
 #endif

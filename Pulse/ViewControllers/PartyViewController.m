@@ -23,7 +23,7 @@
 
 @implementation PartyViewController
 
-@synthesize usersAttending;
+@synthesize usersAttending, usersRequested;
 
 - (void)viewDidLoad {
     if (_partyUrl){
@@ -157,7 +157,7 @@
                 }
                 _partyDescription = [JSONValue valueForKey:@"description"];
                 _partyAttending = [NSString abbreviateNumber:[[JSONValue valueForKey:@"attendees_count"]intValue]];
-                _partyRequests = [NSString abbreviateNumber:[[JSONValue valueForKey:@"attendees_count"]intValue]];
+                _partyRequests = [NSString abbreviateNumber:[[JSONValue valueForKey:@"requsters_count"]intValue]];
 
                 if (!([JSONValue valueForKey:@"get_attendees_info"] == [NSNull null])){
                     NSMutableArray *arrAttendee = [JSONValue valueForKey:@"get_attendees_info"];
@@ -181,6 +181,31 @@
                         }
                         
                         [usersAttending addObject:dictAttendeeInfo];
+                    }
+                }
+
+                if (!([JSONValue valueForKey:@"get_requesters_info"] == [NSNull null])){
+                    NSMutableArray *arrRequester = [JSONValue valueForKey:@"get_requesters_info"];
+                    usersAttending = [[NSMutableArray alloc]init];
+                    
+                    for(int i = 0; i < arrRequester.count; i++){
+                        NSMutableDictionary *dictRequesterInfo = [[NSMutableDictionary alloc]init];
+                        NSDictionary *dictUserDetail = [arrRequester objectAtIndex:i];
+                        
+                        if([dictUserDetail objectForKey:@"profile_pic"] == [NSNull null]){
+                            [dictRequesterInfo setObject:@"" forKey:@"user__profile_pic"];
+                        } else {
+                            NSString *proflURL = [NSString stringWithFormat:@"%@%@",@"https://oby.s3.amazonaws.com/media/",[dictUserDetail objectForKey:@"profile_pic"]];
+                            [dictRequesterInfo setValue:proflURL forKey:@"user__profile_pic"];
+                        }
+                        
+                        if([dictUserDetail objectForKey:@"full_name"] == [NSNull null]){
+                            [dictRequesterInfo setObject:@"" forKey:@"user__full_name"];
+                        } else {
+                            [dictRequesterInfo setObject:[dictUserDetail objectForKey:@"full_name"] forKey:@"user__full_name"];
+                        }
+                        
+                        [usersRequested addObject:dictRequesterInfo];
                     }
                 }
                 [self showPartyInfo];
