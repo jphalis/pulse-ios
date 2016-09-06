@@ -8,6 +8,7 @@
 #import "defs.h"
 #import "GlobalFunctions.h"
 #import "PartyViewController.h"
+#import "TWMessageBarManager.h"
 #import "UIViewControllerAdditions.h"
 
 
@@ -81,6 +82,55 @@
 
 - (IBAction)onBack:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (IBAction)onMore:(id)sender {
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                             delegate:self
+                                                    cancelButtonTitle:@"Cancel"
+                                               destructiveButtonTitle:@"Report Event"
+                                                    otherButtonTitles:nil];
+    [actionSheet showInView:self.view];
+}
+
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 0){
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Are you sure you want to report this event?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
+        alert.delegate = self;
+        alert.tag = 100;
+        [alert show];
+    } else if(buttonIndex == 1){
+//        NSLog(@"Cancel button clicked");
+    }
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (alertView.tag == 100 && buttonIndex == 1 ) {
+        checkNetworkReachability();
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            NSString *strURL = [NSString stringWithFormat:@"%@%@/", FLAGURL, _partyId];
+            NSURL *url = [NSURL URLWithString:strURL];
+            NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url];
+            [urlRequest setTimeoutInterval:60];
+            [urlRequest setHTTPMethod:@"POST"];
+            NSString *authStr = [NSString stringWithFormat:@"%@:%@", GetUserEmail, GetUserPassword];
+            NSData *plainData = [authStr dataUsingEncoding:NSUTF8StringEncoding];
+            NSString *base64String = [plainData base64EncodedStringWithOptions:0];
+            NSString *authValue = [NSString stringWithFormat:@"Basic %@", base64String];
+            [urlRequest setValue:authValue forHTTPHeaderField:@"Authorization"];
+            [urlRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+            
+            [NSURLConnection sendAsynchronousRequest:urlRequest queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error){
+                [self setBusy:NO];
+                [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"Success"
+                                                               description:REPORT_EVENT
+                                                                      type:TWMessageBarMessageTypeSuccess
+                                                                  duration:3.0];
+                [self.navigationController popViewControllerAnimated:YES];
+            }];
+        });
+    }
 }
 
 - (IBAction)onAttend:(id)sender {

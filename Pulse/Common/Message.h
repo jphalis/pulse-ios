@@ -41,7 +41,7 @@
 #define CHANGE_PASS_SUCCESS @"Your password has been updated successfully."
 #define CHANGE_PASS_MISMATCH @"Incorrect old password."
 
-// Create party
+// Event
 #define EMPTY_PARTY_NAME @"Please enter a name for this party first."
 #define EMPTY_PARTY_ADDRESS @"Please enter the address for the party."
 #define EMPTY_MONTH @"Please enter the starting month."
@@ -51,5 +51,6 @@
 #define INVALID_MONTH @"Please enter a valid month."
 #define INVALID_DAY @"Please enter a valid day."
 #define PARTY_CREATED @"Your listing has been posted!"
+#define REPORT_EVENT @"You have successfully reported this event."
 
 #endif

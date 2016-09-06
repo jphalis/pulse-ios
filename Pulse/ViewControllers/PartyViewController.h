@@ -7,7 +7,7 @@
 #import "SDIAsyncImageView.h"
 
 
-@interface PartyViewController : UIViewController
+@interface PartyViewController : UIViewController <UIActionSheetDelegate>
 
 @property (weak, nonatomic) IBOutlet SDIAsyncImageView *partyImageField;
 @property (weak, nonatomic) IBOutlet UILabel *partyNameField;
@@ -37,5 +37,7 @@
 
 - (IBAction)onBack:(id)sender;
 - (IBAction)onAttend:(id)sender;
+- (IBAction)onMore:(id)sender;
+
 
 @end
