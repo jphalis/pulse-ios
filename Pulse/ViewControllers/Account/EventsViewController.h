@@ -9,5 +9,6 @@
 @interface EventsViewController : UIViewController
 
 @property (strong, nonatomic) IBOutlet UICollectionView *collectionVW;
+@property (retain) NSString *userId;
 
 @end

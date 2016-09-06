@@ -24,7 +24,6 @@
     UIRefreshControl *refreshControl;
     NSMutableDictionary *dictProfileInformation;
     NSMutableArray *arrEventImages;
-    
     BOOL viewer_can_see;
 }
 
@@ -62,10 +61,6 @@
     
     [super viewWillAppear:YES];
     
-    if (GetUserName){
-        _profileName.text = GetUserName;
-    }
-    
     if (_needBack){
         _backBtn.hidden = NO;
     } else {
@@ -75,10 +70,14 @@
     if([[_userURL lastPathComponent]isEqualToString:[NSString stringWithFormat:@"%ld", (long)GetUserID]]){
         [_settingsBtn setImage:[UIImage imageNamed:@"settings_icon"] forState:UIControlStateNormal];
         _settingsBtn.tag = 1;
+        _followBtn.hidden = YES;
     } else {
         [_settingsBtn setImage:[UIImage imageNamed:@"dot_more_icon"] forState:UIControlStateNormal];
         _settingsBtn.tag = 2;
     }
+    
+    _followBtn.layer.cornerRadius = 3;
+    _eventsBtn.layer.cornerRadius = 3;
 }
 
 - (void)didReceiveMemoryWarning
@@ -271,7 +270,7 @@
 {
     ProfileClass *profileClass = [dictProfileInformation objectForKey:@"ProfileInfo"];
     _profileName.text = profileClass.userName;
-    _eventCount.text = profileClass.event_count;
+//    _eventCount.text = profileClass.event_count;
     _followerCount.text = profileClass.followers_count;
     _followingCount.text = profileClass.following_count;
     [_profilePicture loadImageFromURL:profileClass.userProfilePicture withTempImage:@"avatar_icon"];
@@ -283,6 +282,15 @@
     } else {
         _lockIcon.hidden = NO;
         _collectionVW.hidden = YES;
+    }
+
+    if (![appDelegate.arrFollowing containsObject:_profileName.text]){
+        [_followBtn setTitle:@"Follow" forState:UIControlStateNormal];
+        _followBtn.layer.borderWidth = 1;
+        _followBtn.layer.borderColor = [[UIColor whiteColor] CGColor];
+        _followBtn.backgroundColor = [UIColor clearColor];
+    } else {
+        [_followBtn setTitle:@"Following" forState:UIControlStateNormal];
     }
     
     [refreshControl endRefreshing];
@@ -366,6 +374,8 @@
 {
     if (viewer_can_see == 1){
         EventsViewController *eventsViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"EventsViewController"];
+        ProfileClass *profileClass = [dictProfileInformation objectForKey:@"ProfileInfo"];
+        eventsViewController.userId = profileClass.userId;
         [self.navigationController pushViewController:eventsViewController animated:YES];
     }
 }
@@ -392,6 +402,58 @@
         }
         [self.navigationController pushViewController:followViewController animated:YES];
     }
+}
+
+- (IBAction)onFollow:(id)sender {
+    checkNetworkReachability();
+    [self setBusy:YES];
+    
+    ProfileClass *profileClass = [dictProfileInformation objectForKey:@"ProfileInfo"];
+    
+    NSString *strURL = [NSString stringWithFormat:@"%@%@/", FOLLOWURL, profileClass.userId];
+    NSURL *url = [NSURL URLWithString:strURL];
+    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url];
+    [urlRequest setTimeoutInterval:60];
+    [urlRequest setHTTPMethod:@"POST"];
+    NSString *authStr = [NSString stringWithFormat:@"%@:%@", GetUserEmail, GetUserPassword];
+    NSData *plainData = [authStr dataUsingEncoding:NSUTF8StringEncoding];
+    NSString *base64String = [plainData base64EncodedStringWithOptions:0];
+    NSString *authValue = [NSString stringWithFormat:@"Basic %@", base64String];
+    [urlRequest setValue:authValue forHTTPHeaderField:@"Authorization"];
+    [urlRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    
+    [NSURLConnection sendAsynchronousRequest:urlRequest queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error){
+        
+        if ([data length] > 0 && error == nil){
+            NSDictionary *JSONValue = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+            
+            if(JSONValue != nil){
+                
+                if([[JSONValue allKeys]count] > 1){
+                    
+                    if ([appDelegate.arrFollowing containsObject:profileClass.userName]){
+                        for(int i = 0; i < appDelegate.arrFollowing.count; i++){
+                            if([[appDelegate.arrFollowing objectAtIndex:i]isEqualToString:profileClass.userName]){
+                                [appDelegate.arrFollowing removeObjectAtIndex:i];
+                            }
+                        }
+                        [_followBtn setTitle:@"Follow" forState:UIControlStateNormal];
+                        _followBtn.layer.borderWidth = 1;
+                        _followBtn.layer.borderColor = [[UIColor whiteColor] CGColor];
+                        _followBtn.backgroundColor = [UIColor clearColor];
+                    } else {
+                        [appDelegate.arrFollowing addObject:profileClass.userName];
+                        [_followBtn setTitle:@"Following" forState:UIControlStateNormal];
+                        _followBtn.layer.borderColor = [[UIColor clearColor] CGColor];
+                        _followBtn.backgroundColor = [UIColor colorWithRed:59/255.0 green:199/255.0 blue:114/255.0 alpha:1.0];
+                    }
+                }
+            }
+        } else {
+            showServerError();
+        }
+        [self setBusy:NO];
+    }];
 }
 
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView

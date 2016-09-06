@@ -104,7 +104,7 @@
     
     [appDelegate showHUDAddedToView:self.view message:@""];
 
-    NSString *urlString = [NSString stringWithFormat:@"%@", PARTIESOWNURL];
+    NSString *urlString = [NSString stringWithFormat:@"%@%@/", PARTIESURL, _userId];
     NSMutableURLRequest *_request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:urlString]cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
                                                              timeoutInterval:60];
     
