@@ -35,7 +35,7 @@
 
 - (void)viewDidLoad {
     arrFeed = [[NSMutableArray alloc]init];
-    
+
     [self getFeedDetails];
     
     [super viewDidLoad];
@@ -88,7 +88,6 @@
     if(arrFeed.count > 0){
         [arrFeed removeAllObjects];
     }
-    
     [self getFeedDetails];
 }
 
@@ -98,7 +97,6 @@
     NSString *urlString = [NSString stringWithFormat:@"%@", FEEDURL];
     NSMutableURLRequest *_request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:urlString]cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
                                                              timeoutInterval:60];
-    
     NSString *authStr = [NSString stringWithFormat:@"%@:%@", GetUserEmail, GetUserPassword];
     NSData *plainData = [authStr dataUsingEncoding:NSUTF8StringEncoding];
     NSString *base64String = [plainData base64EncodedStringWithOptions:0];
@@ -107,9 +105,11 @@
     [_request setHTTPMethod:@"GET"];
     
     [NSURLConnection sendAsynchronousRequest:_request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error){
+
         if (error != nil){
             [appDelegate hideHUDForView2:self.view];
         }
+
         if ([data length] > 0 && error == nil){
             [appDelegate hideHUDForView2:self.view];
             
@@ -120,6 +120,7 @@
                 showServerError();
                 return;
             }
+
             if ([JSONValue isKindOfClass:[NSArray class]]){
                 [self setBusy:NO];
                 
@@ -204,15 +205,12 @@
     FeedClass *feedClass = [arrFeed objectAtIndex:indexPath.row];
     
     cell.timeLabel.text = feedClass.time;
-    
     cell.feedText.text = feedClass.feedText;
-    
     if([feedClass.targetUrl isEqualToString:@""]){
         cell.feedText.textColor = [UIColor lightGrayColor];
     } else {
         cell.feedText.textColor = [UIColor blackColor];
     }
-    
     [cell.userProfilePicture loadImageFromURL:feedClass.senderProfilePicture withTempImage:@"avatar_icon"];
     cell.userProfilePicture.layer.cornerRadius = cell.userProfilePicture.frame.size.width / 2;
     cell.userProfilePicture.layer.masksToBounds = YES;

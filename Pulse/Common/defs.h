@@ -56,6 +56,8 @@ extern AppDelegate *appDelegate;
     #define PARTYURL       @"http://127.0.0.1:8000/hidden/secure/pulse/api/party/"
     #define PARTYATTENDURL @"http://127.0.0.1:8000/hidden/secure/pulse/api/party/attend/"
     #define PARTYCREATEURL @"http://127.0.0.1:8000/hidden/secure/pulse/api/party/create/"
+    #define PARTYACCEPTURL @"http://127.0.0.1:8000/hidden/secure/pulse/api/party/approve/"
+    #define PARTYDENYURL   @"http://127.0.0.1:8000/hidden/secure/pulse/api/party/deny/"
     #define FLAGURL        @"http://127.0.0.1:8000/hidden/secure/pulse/api/flag/create/"
 #else
     // PROD URLS
@@ -73,7 +75,9 @@ extern AppDelegate *appDelegate;
     #define PARTIESOWNURL  @"https://pulse-ios.herokuapp.com/hidden/secure/pulse/api/parties/own/"
     #define PARTYURL       @"https://pulse-ios.herokuapp.com/hidden/secure/pulse/api/party/"
     #define PARTYATTENDURL @"https://pulse-ios.herokuapp.com/hidden/secure/pulse/api/party/attend/"
-    #define PARTYCREATEURL @"http://127.0.0.1:8000/hidden/secure/pulse/api/party/create/"
+    #define PARTYCREATEURL @"https://pulse-ios.herokuapp.com/hidden/secure/pulse/api/party/create/"
+    #define PARTYACCEPTURL @"https://pulse-ios.herokuapp.com/hidden/secure/pulse/api/party/approve/"
+    #define PARTYDENYURL   @"https://pulse-ios.herokuapp.com/hidden/secure/pulse/api/party/deny/"
     #define FLAGURL        @"https://pulse-ios.herokuapp.com/hidden/secure/pulse/api/flag/create/"
 #endif
 

@@ -280,6 +280,15 @@
         previewViewController.partySize = _partySize;
         previewViewController.partyMonth = _monthField.text;
         previewViewController.partyDay = _dayField.text;
+        
+        //Get current year
+        NSDate *currentYear = [[NSDate alloc]init];
+        currentYear = [NSDate date];
+        NSDateFormatter *formatter1 = [[NSDateFormatter alloc] init];
+        [formatter1 setDateFormat:@"yyyy"];
+        NSString *currentYearString = [formatter1 stringFromDate:currentYear];
+        previewViewController.partyYear = currentYearString;
+
         previewViewController.partyStartTime = _startTimeField.text;
         previewViewController.partyEndTime = _endTimeField.text;
         previewViewController.partyDescription = _descriptionField.text;

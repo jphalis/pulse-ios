@@ -47,7 +47,7 @@
     NSInteger monthNumber = [_partyMonth integerValue];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     NSString *monthName = [[dateFormatter monthSymbols] objectAtIndex:(monthNumber-1)];
-    _partyDateTimeField.text = [NSString stringWithFormat:@"%@ %@, 2016  %@-%@", monthName, _partyDay, _partyStartTime, _partyEndTime];
+    _partyDateTimeField.text = [NSString stringWithFormat:@"%@ %@, %@  %@-%@", monthName, _partyDay, _partyYear, _partyStartTime, _partyEndTime];
     
     _partyAddressField.text = _partyAddress;
     
@@ -129,6 +129,7 @@
     [_params setObject:serverPartySize forKey:@"party_size"];
     [_params setObject:_partyMonth forKey:@"party_month"];
     [_params setObject:_partyDay forKey:@"party_day"];
+    [_params setObject:_partyYear forKey:@"party_year"];
     [_params setObject:_partyStartTime forKey:@"start_time"];
     [_params setObject:_partyEndTime forKey:@"end_time"];
     [_params setObject:_partyDescription forKey:@"description"];

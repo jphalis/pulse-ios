@@ -20,6 +20,7 @@
 @property (retain, nonatomic) NSString *partySize;
 @property (retain, nonatomic) NSString *partyMonth;
 @property (retain, nonatomic) NSString *partyDay;
+@property (retain, nonatomic) NSString *partyYear;
 @property (retain, nonatomic) NSString *partyStartTime;
 @property (retain, nonatomic) NSString *partyEndTime;
 @property (retain, nonatomic) NSString *partyDescription;

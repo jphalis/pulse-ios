@@ -14,6 +14,8 @@
 
 #define DEFAULT_BTN_TEXT @"Let's go!"
 #define ATTENDING_BTN_TEXT @"Going!"
+#define REQUEST_BTN_TEXT @"Request invite!"
+#define REQUESTED_BTN_TEXT @"Requested"
 
 
 @interface PartyViewController () {
@@ -27,6 +29,7 @@
 @synthesize usersAttending, usersRequested;
 
 - (void)viewDidLoad {
+
     if (_partyUrl){
         [self getPartyDetails];
     }
@@ -80,92 +83,6 @@
 
 #pragma mark - Functions
 
-- (IBAction)onBack:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
-- (IBAction)onMore:(id)sender {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
-                                                             delegate:self
-                                                    cancelButtonTitle:@"Cancel"
-                                               destructiveButtonTitle:@"Report Event"
-                                                    otherButtonTitles:nil];
-    [actionSheet showInView:self.view];
-}
-
--(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (buttonIndex == 0){
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Are you sure you want to report this event?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
-        alert.delegate = self;
-        alert.tag = 100;
-        [alert show];
-    } else if(buttonIndex == 1){
-//        NSLog(@"Cancel button clicked");
-    }
-}
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (alertView.tag == 100 && buttonIndex == 1 ) {
-        checkNetworkReachability();
-        
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            NSString *strURL = [NSString stringWithFormat:@"%@%@/", FLAGURL, _partyId];
-            NSURL *url = [NSURL URLWithString:strURL];
-            NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url];
-            [urlRequest setTimeoutInterval:60];
-            [urlRequest setHTTPMethod:@"POST"];
-            NSString *authStr = [NSString stringWithFormat:@"%@:%@", GetUserEmail, GetUserPassword];
-            NSData *plainData = [authStr dataUsingEncoding:NSUTF8StringEncoding];
-            NSString *base64String = [plainData base64EncodedStringWithOptions:0];
-            NSString *authValue = [NSString stringWithFormat:@"Basic %@", base64String];
-            [urlRequest setValue:authValue forHTTPHeaderField:@"Authorization"];
-            [urlRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-            
-            [NSURLConnection sendAsynchronousRequest:urlRequest queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error){
-                [self setBusy:NO];
-                [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"Success"
-                                                               description:REPORT_EVENT
-                                                                      type:TWMessageBarMessageTypeSuccess
-                                                                  duration:3.0];
-                [self.navigationController popViewControllerAnimated:YES];
-            }];
-        });
-    }
-}
-
-- (IBAction)onAttend:(id)sender {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSString *strURL = [NSString stringWithFormat:@"%@%@/", PARTYATTENDURL, _partyId];
-        NSURL *url = [NSURL URLWithString:strURL];
-        NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url];
-        [urlRequest setTimeoutInterval:60];
-        [urlRequest setHTTPMethod:@"POST"];
-        NSString *authStr = [NSString stringWithFormat:@"%@:%@", GetUserEmail, GetUserPassword];
-        NSData *plainData = [authStr dataUsingEncoding:NSUTF8StringEncoding];
-        NSString *base64String = [plainData base64EncodedStringWithOptions:0];
-        NSString *authValue = [NSString stringWithFormat:@"Basic %@", base64String];
-        [urlRequest setValue:authValue forHTTPHeaderField:@"Authorization"];
-        [urlRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-
-        [NSURLConnection sendAsynchronousRequest:urlRequest queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error){
-            
-            if ([data length] > 0 && error == nil){
-                NSDictionary *JSONValue = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
-                if (JSONValue != nil){
-                    if ([_attendBtn.titleLabel.text isEqual:DEFAULT_BTN_TEXT]){
-                        [_attendBtn setTitle:ATTENDING_BTN_TEXT forState:UIControlStateNormal];
-                    } else {
-                        [_attendBtn setTitle:DEFAULT_BTN_TEXT forState:UIControlStateNormal];
-                    }
-                }
-            } else {
-                [self showMessage:SERVER_ERROR];
-            }
-        }];
-        [self setBusy:NO];
-    });
-}
-
 -(void)getPartyDetails {
     checkNetworkReachability();
 
@@ -188,8 +105,9 @@
             if([JSONValue isKindOfClass:[NSDictionary class]]){
                 int partyId = [[JSONValue valueForKey:@"id"]intValue];
                 _partyId = [NSString stringWithFormat:@"%d", partyId];
-                // _partyInvite =
+                _partyCreator = [JSONValue valueForKey:@"user"];
                 _partyType = [JSONValue valueForKey:@"party_type"];
+                _partyInvite = [JSONValue valueForKey:@"invite_type"];
                 _partyName = [JSONValue valueForKey:@"name"];
                 _partyAddress = [JSONValue valueForKey:@"location"];
                 _partySize = [JSONValue valueForKey:@"party_size"];
@@ -197,6 +115,8 @@
                 _partyMonth = [NSString stringWithFormat:@"%d", partyMonth];
                 int partyDay = [[JSONValue valueForKey:@"party_day"]intValue];
                 _partyDay = [NSString stringWithFormat:@"%d", partyDay];
+                int partyYear = [[JSONValue valueForKey:@"party_year"]intValue];
+                _partyYear = [NSString stringWithFormat:@"%d", partyYear];
                 _partyStartTime = [JSONValue valueForKey:@"start_time"];
                 _partyEndTime = [JSONValue valueForKey:@"end_time"];
                 if ([JSONValue valueForKey:@"image"] == [NSNull null]){
@@ -236,7 +156,7 @@
 
                 if (!([JSONValue valueForKey:@"get_requesters_info"] == [NSNull null])){
                     NSMutableArray *arrRequester = [JSONValue valueForKey:@"get_requesters_info"];
-                    usersAttending = [[NSMutableArray alloc]init];
+                    usersRequested = [[NSMutableArray alloc]init];
                     
                     for(int i = 0; i < arrRequester.count; i++){
                         NSMutableDictionary *dictRequesterInfo = [[NSMutableDictionary alloc]init];
@@ -286,8 +206,120 @@
     
     if ([[usersAttending valueForKey:@"user__full_name"] containsObject:GetUserName]) {
         [_attendBtn setTitle:ATTENDING_BTN_TEXT forState:UIControlStateNormal];
-    } else {
+    }
+    else if ([_partyInvite isEqualToString:@"Invite only"] && [[usersRequested valueForKey:@"user__full_name"] containsObject:GetUserName]){
+        [_attendBtn setTitle:REQUESTED_BTN_TEXT forState:UIControlStateNormal];
+        _attendBtn.backgroundColor = [UIColor lightGrayColor];
+    }
+    else if ([_partyInvite isEqualToString:@"Invite only"] && (![[usersRequested valueForKey:@"user__full_name"] containsObject:GetUserName])){
+        [_attendBtn setTitle:REQUEST_BTN_TEXT forState:UIControlStateNormal];
+    }
+    else {
         [_attendBtn setTitle:DEFAULT_BTN_TEXT forState:UIControlStateNormal];
+    }
+}
+
+#pragma mark - Button functions
+
+- (IBAction)onBack:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (IBAction)onMore:(id)sender {
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                             delegate:self
+                                                    cancelButtonTitle:@"Cancel"
+                                               destructiveButtonTitle:@"Report Event"
+                                                    otherButtonTitles:nil];
+    [actionSheet showInView:self.view];
+}
+
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 0){
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Are you sure you want to report this event?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
+        alert.delegate = self;
+        alert.tag = 100;
+        [alert show];
+    } else if(buttonIndex == 1){
+        // NSLog(@"Cancel button clicked");
+    }
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (alertView.tag == 100 && buttonIndex == 1 ) {
+        checkNetworkReachability();
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            NSString *strURL = [NSString stringWithFormat:@"%@%@/", FLAGURL, _partyId];
+            NSURL *url = [NSURL URLWithString:strURL];
+            NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url];
+            [urlRequest setTimeoutInterval:60];
+            [urlRequest setHTTPMethod:@"POST"];
+            NSString *authStr = [NSString stringWithFormat:@"%@:%@", GetUserEmail, GetUserPassword];
+            NSData *plainData = [authStr dataUsingEncoding:NSUTF8StringEncoding];
+            NSString *base64String = [plainData base64EncodedStringWithOptions:0];
+            NSString *authValue = [NSString stringWithFormat:@"Basic %@", base64String];
+            [urlRequest setValue:authValue forHTTPHeaderField:@"Authorization"];
+            [urlRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+            
+            [NSURLConnection sendAsynchronousRequest:urlRequest queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error){
+                [self setBusy:NO];
+                [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"Success"
+                                                               description:REPORT_EVENT
+                                                                      type:TWMessageBarMessageTypeSuccess
+                                                                  duration:3.0];
+                [self.navigationController popViewControllerAnimated:YES];
+            }];
+        });
+    }
+}
+
+- (IBAction)onAttend:(id)sender {
+    if ([[usersRequested valueForKey:@"user__full_name"] containsObject:GetUserName]){
+        return;
+    } else {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            NSString *strURL = [NSString stringWithFormat:@"%@%@/", PARTYATTENDURL, _partyId];
+            NSURL *url = [NSURL URLWithString:strURL];
+            NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url];
+            [urlRequest setTimeoutInterval:60];
+            [urlRequest setHTTPMethod:@"POST"];
+            NSString *authStr = [NSString stringWithFormat:@"%@:%@", GetUserEmail, GetUserPassword];
+            NSData *plainData = [authStr dataUsingEncoding:NSUTF8StringEncoding];
+            NSString *base64String = [plainData base64EncodedStringWithOptions:0];
+            NSString *authValue = [NSString stringWithFormat:@"Basic %@", base64String];
+            [urlRequest setValue:authValue forHTTPHeaderField:@"Authorization"];
+            [urlRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+            
+            [NSURLConnection sendAsynchronousRequest:urlRequest queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error){
+                
+                if ([data length] > 0 && error == nil){
+                    NSDictionary *JSONValue = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+                    if (JSONValue != nil){
+                        if ([_attendBtn.titleLabel.text isEqual:DEFAULT_BTN_TEXT]){
+                            [_attendBtn setTitle:ATTENDING_BTN_TEXT forState:UIControlStateNormal];
+                        }
+                        else if ([_attendBtn.titleLabel.text isEqual:REQUEST_BTN_TEXT]){
+                            [_attendBtn setTitle:REQUESTED_BTN_TEXT forState:UIControlStateNormal];
+                            _attendBtn.backgroundColor = [UIColor lightGrayColor];
+                            [usersRequested addObject:GetUserName];
+                        }
+                        else {
+                            [_attendBtn setTitle:DEFAULT_BTN_TEXT forState:UIControlStateNormal];
+                        }
+                    }
+                } else {
+                    [self showMessage:SERVER_ERROR];
+                }
+            }];
+            [self setBusy:NO];
+        });
+    }
+}
+
+- (IBAction)onRequests:(id)sender {
+    if ([_partyCreator isEqualToString:GetUserName]){
+        // push to view requesters screen to approve or deny each requester
     }
 }
 

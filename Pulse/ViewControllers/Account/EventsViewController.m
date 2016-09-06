@@ -133,7 +133,9 @@
                     PartyClass *partyClass = [[PartyClass alloc]init];
                     int partyId = [[[arrPartyResult objectAtIndex:i]valueForKey:@"id"]intValue];
                     partyClass.partyId = [NSString stringWithFormat:@"%d", partyId];
+                    partyClass.partyCreator = [[arrPartyResult objectAtIndex:i]valueForKey:@"user"];
                     partyClass.partyType = [[arrPartyResult objectAtIndex:i]valueForKey:@"party_type"];
+                    partyClass.partyInvite = [[arrPartyResult objectAtIndex:i]valueForKey:@"invite_type"];
                     partyClass.partyName = [[arrPartyResult objectAtIndex:i]valueForKey:@"name"];
                     partyClass.partyAddress = [[arrPartyResult objectAtIndex:i]valueForKey:@"location"];
                     partyClass.partySize = [[arrPartyResult objectAtIndex:i]valueForKey:@"party_size"];
@@ -141,6 +143,8 @@
                     partyClass.partyMonth = [NSString stringWithFormat:@"%d", partyMonth];
                     int partyDay = [[[arrPartyResult objectAtIndex:i]valueForKey:@"party_day"]intValue];
                     partyClass.partyDay = [NSString stringWithFormat:@"%d", partyDay];
+                    int partyYear = [[[arrPartyResult objectAtIndex:i]valueForKey:@"party_year"]intValue];
+                    partyClass.partyYear = [NSString stringWithFormat:@"%d", partyYear];
                     partyClass.partyStartTime = [[arrPartyResult objectAtIndex:i]valueForKey:@"start_time"];
                     partyClass.partyEndTime = [[arrPartyResult objectAtIndex:i]valueForKey:@"end_time"];
                     partyClass.partyDescription = [[arrPartyResult objectAtIndex:i]valueForKey:@"description"];
@@ -279,7 +283,8 @@
     PartyClass *partyClass = [arrParties objectAtIndex:indexPath.row];
     
     partyViewController.partyId = partyClass.partyId;
-//    partyViewController.partyInvite = partyClass.PartyInviteType;
+    partyViewController.partyCreator = partyClass.partyCreator;
+    partyViewController.partyInvite = partyClass.partyInvite;
     partyViewController.partyType = partyClass.partyType;
     partyViewController.partyName = partyClass.partyName;
     partyViewController.partyAddress = partyClass.partyAddress;
