@@ -3,6 +3,8 @@
 //  Pulse
 //
 
+@import GooglePlaces;
+
 #import "AppDelegate.h"
 #import "AuthViewController.h"
 #import "defs.h"
@@ -48,6 +50,8 @@ MBProgressHUD *hud;
     // UIRemoteNotificationType enabledTypes = [[UIApplication sharedApplication] enabledRemoteNotificationTypes];
     
     _arrFollowing = [[NSMutableArray alloc]init];
+    
+    [GMSPlacesClient provideAPIKey:@"AIzaSyA5zV2fSBC44vo7ufcXNYVmibg8k6nXVG4"];
     
     return YES;
 }

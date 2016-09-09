@@ -12,5 +12,4 @@
 @property (strong, nonatomic) IBOutlet UITextView *feedText;
 @property (strong, nonatomic) IBOutlet UILabel *timeLabel;
 
-
 @end

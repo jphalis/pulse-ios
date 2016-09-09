@@ -4,8 +4,8 @@
 //
 
 #import "AuthViewController.h"
+#import "EmailViewController.h"
 #import "SignInViewController.h"
-#import "SignUpViewController.h"
 
 @interface AuthViewController ()
 
@@ -59,7 +59,7 @@
 }
 
 - (IBAction)doSignUp:(id)sender {
-    SignUpViewController *signUpViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"SignUpViewController"];
-    [self.navigationController pushViewController:signUpViewController animated:YES];
+    EmailViewController *emailViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"EmailViewController"];
+    [self.navigationController pushViewController:emailViewController animated:YES];
 }
 @end

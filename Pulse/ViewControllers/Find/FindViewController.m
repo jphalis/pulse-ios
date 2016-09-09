@@ -201,6 +201,12 @@
                                 [dictAttendeeInfo setValue:proflURL forKey:@"user__profile_pic"];
                             }
                             
+                            if([dictUserDetail objectForKey:@"id"] == [NSNull null]){
+                                [dictAttendeeInfo setObject:@"" forKey:@"user__id"];
+                            } else {
+                                [dictAttendeeInfo setObject:[NSString stringWithFormat:@"%@",[dictUserDetail objectForKey:@"id"]] forKey:@"user__id"];
+                            }
+                            
                             if([dictUserDetail objectForKey:@"full_name"] == [NSNull null]){
                                 [dictAttendeeInfo setObject:@"" forKey:@"user__full_name"];
                             } else {
@@ -227,6 +233,12 @@
                             } else {
                                 NSString *proflURL = [NSString stringWithFormat:@"%@%@",@"https://oby.s3.amazonaws.com/media/",[dictUserDetail objectForKey:@"profile_pic"]];
                                 [dictRequesterInfo setValue:proflURL forKey:@"user__profile_pic"];
+                            }
+                            
+                            if([dictUserDetail objectForKey:@"id"] == [NSNull null]){
+                                [dictRequesterInfo setObject:@"" forKey:@"user__id"];
+                            } else {
+                                [dictRequesterInfo setObject:[NSString stringWithFormat:@"%@",[dictUserDetail objectForKey:@"id"]] forKey:@"user__id"];
                             }
                             
                             if([dictUserDetail objectForKey:@"full_name"] == [NSNull null]){
@@ -367,8 +379,8 @@
     partyViewController.partyDescription = partyClass.partyDescription;
     partyViewController.partyAttending = partyClass.partyAttendingCount;
     partyViewController.partyRequests = partyClass.partyRequestCount;
-    partyViewController.usersAttending = partyClass.arrAttending.copy;
-    partyViewController.usersRequested = partyClass.arrRequested.copy;
+    partyViewController.usersAttending = partyClass.arrAttending.mutableCopy;
+    partyViewController.usersRequested = partyClass.arrRequested.mutableCopy;
 
     [self.navigationController pushViewController:partyViewController animated:YES];
 }

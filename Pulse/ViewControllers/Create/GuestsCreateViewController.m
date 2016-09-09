@@ -12,8 +12,10 @@
 #import "SCLAlertView.h"
 #import "UIViewControllerAdditions.h"
 
+#import <GooglePlaces/GooglePlaces.h>
 
-@interface GuestsCreateViewController () <UIActionSheetDelegate> {
+
+@interface GuestsCreateViewController () <UIActionSheetDelegate, GMSAutocompleteViewControllerDelegate> {
     AppDelegate *appDelegate;
 }
 
@@ -35,7 +37,6 @@ enum{
     appDelegate = [AppDelegate getDelegate];
     
     _partyNameField.delegate = self;
-    _partyAddressField.delegate = self;
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -70,6 +71,56 @@ enum{
     // Pass the selected object to the new view controller.
 }
 */
+
+#pragma mark - Google Functions
+
+// Present the autocomplete view controller when the button is pressed.
+- (IBAction)onLaunchClicked:(id)sender {
+    GMSAutocompleteViewController *acController = [[GMSAutocompleteViewController alloc] init];
+    acController.delegate = self;
+    [[UINavigationBar appearance] setBarTintColor:[UIColor darkGrayColor]];
+    [[UINavigationBar appearance] setTintColor:[UIColor lightGrayColor]];
+    acController.tableCellBackgroundColor = [UIColor darkGrayColor];
+    acController.primaryTextHighlightColor = [UIColor whiteColor];
+    acController.primaryTextColor = [UIColor lightGrayColor];
+    acController.secondaryTextColor = [UIColor lightGrayColor];
+    acController.tableCellSeparatorColor = [UIColor whiteColor];
+    [self presentViewController:acController animated:YES completion:nil];
+}
+
+// Handle the user's selection.
+- (void)viewController:(GMSAutocompleteViewController *)viewController
+didAutocompleteWithPlace:(GMSPlace *)place {
+    [self dismissViewControllerAnimated:YES completion:nil];
+    // Do something with the selected place.
+//    NSLog(@"Place name %@", place.name);
+//    NSLog(@"Place address %@", place.formattedAddress);
+//    NSLog(@"Place attributions %@", place.attributions.string);
+//    NSLog(@"Place latitude %f", place.coordinate.latitude);
+//    NSLog(@"Place longitude %f", place.coordinate.longitude);
+    _partyAddressField.text = place.formattedAddress;
+}
+
+- (void)viewController:(GMSAutocompleteViewController *)viewController
+didFailAutocompleteWithError:(NSError *)error {
+    [self dismissViewControllerAnimated:YES completion:nil];
+    // TODO: handle the error.
+//    NSLog(@"Error: %@", [error description]);
+}
+
+// User canceled the operation.
+- (void)wasCancelled:(GMSAutocompleteViewController *)viewController {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+// Turn the network activity indicator on and off again.
+- (void)didRequestAutocompletePredictions:(GMSAutocompleteViewController *)viewController {
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+}
+
+- (void)didUpdateAutocompletePredictions:(GMSAutocompleteViewController *)viewController {
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+}
 
 #pragma mark - Functions
 
@@ -109,16 +160,12 @@ enum{
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     if (textField.tag == 0){
-        [_partyAddressField becomeFirstResponder];
-    }
-    else if(textField.tag == 1){
-        [_partyAddressField resignFirstResponder];
+        [_partyNameField resignFirstResponder];
     }
     return YES;
 }
 
 - (BOOL)checkParty{
-    
     SCLAlertView *alert = [[SCLAlertView alloc] init];
     
     if ([_partyNameField.text isEqualToString:@""]){
@@ -134,9 +181,6 @@ enum{
         alert.showAnimationType = SlideInFromLeft;
         alert.hideAnimationType = SlideOutToBottom;
         [alert showNotice:self title:@"Notice" subTitle:EMPTY_PARTY_ADDRESS closeButtonTitle:@"OK" duration:0.0f];
-        [alert alertIsDismissed:^{
-            [_partyAddressField becomeFirstResponder];
-        }];
         return NO;
     }
     return YES;

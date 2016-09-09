@@ -392,13 +392,13 @@
                 return;
             }
             followViewController.pageTitle = @"Followers";
-            followViewController.arrDetails = profileClass.arrfollowers.copy;
+            followViewController.arrDetails = profileClass.arrfollowers.mutableCopy;
         } else {
             if([_followingCount.text isEqualToString:@"0"]){
                 return;
             }
             followViewController.pageTitle = @"Following";
-            followViewController.arrDetails = profileClass.arrfollowings.copy;
+            followViewController.arrDetails = profileClass.arrfollowings.mutableCopy;
         }
         [self.navigationController pushViewController:followViewController animated:YES];
     }

@@ -13,6 +13,4 @@
 @property (strong, nonatomic) IBOutlet UITextView *userName;
 @property (strong, nonatomic) IBOutlet UIButton *followBtn;
 
-- (IBAction)onFollow:(id)sender;
-
 @end

@@ -16,6 +16,4 @@
     // Configure the view for the selected state
 }
 
-- (IBAction)onFollow:(id)sender {
-}
 @end

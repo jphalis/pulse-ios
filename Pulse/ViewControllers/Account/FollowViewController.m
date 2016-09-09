@@ -121,7 +121,6 @@
 
 -(IBAction)followUser:(UIButton *)sender {
     checkNetworkReachability();
-    [self.view endEditing:YES];
     [self setBusy:YES];
 
     NSString *strURL = [NSString stringWithFormat:@"%@%@/", FOLLOWURL, _userId];

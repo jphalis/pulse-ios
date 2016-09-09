@@ -53,4 +53,8 @@
 #define PARTY_CREATED @"Your listing has been posted!"
 #define REPORT_EVENT @"You have successfully reported this event."
 
+// Requests
+#define APPROVE_USER @"You have approved this user's request."
+#define DENY_USER @"You have denied this user's request."
+
 #endif
