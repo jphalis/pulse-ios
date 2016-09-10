@@ -76,8 +76,10 @@
         _settingsBtn.tag = 2;
     }
     
-    _followBtn.layer.cornerRadius = 3;
+    _eventsBtn.layer.borderWidth = 1;
+    _eventsBtn.layer.borderColor = [[UIColor lightGrayColor] CGColor];
     _eventsBtn.layer.cornerRadius = 3;
+    _followBtn.layer.cornerRadius = 3;
 }
 
 - (void)didReceiveMemoryWarning
@@ -121,9 +123,6 @@
     [_request setHTTPMethod:@"GET"];
     
     [NSURLConnection sendAsynchronousRequest:_request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error){
-        if(error != nil){
-            [self setBusy:NO];
-        }
         
         if ([data length] > 0 && error == nil){
             NSDictionary *JSONValue = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
@@ -142,7 +141,8 @@
                     profileClass.userProfilePicture = @"";
                 } else {
                     NSString *str = [JSONValue objectForKey:@"profile_pic"];
-                    profileClass.userProfilePicture = [NSString stringWithFormat:@"https://oby.s3.amazonaws.com/media/%@", str];;
+                    profileClass.userProfilePicture = [NSString stringWithFormat:@"https://oby.s3.amazonaws.com/media/%@", str];
+                    SetUserProPic(profileClass.userProfilePicture);
                 }
                 
                 // Followers

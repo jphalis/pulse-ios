@@ -8,9 +8,10 @@
 #import "CreateViewController.h"
 #import "CustomTabViewController.h"
 #import "defs.h"
-#import "FindViewController.h"
+//#import "FindViewController.h"
 #import "HomeViewController.h"
 #import "NotificationsViewController.h"
+#import "PulseViewController.h"
 
 
 enum {
@@ -68,13 +69,15 @@ enum {
 
 -(void)LoadTabBar{
     HomeViewController *homeViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"HomeViewController"];
-    FindViewController *findViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"FindViewController"];
+//    FindViewController *findViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"FindViewController"];
+    PulseViewController *pulseViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PulseViewController"];
     CreateViewController *createViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"CreateViewController"];
     NotificationsViewController *notificationsViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"NotificationsViewController"];
     AccountViewController *accountViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"AccountViewController"];
     
     UINavigationController *navController1 = [[UINavigationController alloc]initWithRootViewController:homeViewController];
-    UINavigationController *navController2 = [[UINavigationController alloc]initWithRootViewController:findViewController];
+//    UINavigationController *navController2 = [[UINavigationController alloc]initWithRootViewController:findViewController];
+    UINavigationController *navController2 = [[UINavigationController alloc]initWithRootViewController:pulseViewController];
     UINavigationController *navController3 = [[UINavigationController alloc]initWithRootViewController:createViewController];
     UINavigationController *navController4 = [[UINavigationController alloc]initWithRootViewController:notificationsViewController];
     UINavigationController *navController5 = [[UINavigationController alloc]initWithRootViewController:accountViewController];
@@ -152,7 +155,11 @@ enum {
             [btn setSelected:YES];
 
             UIView *bottomBorder = [[UIView alloc] initWithFrame:CGRectMake(0, btn.frame.size.height - 4.0f, btn.frame.size.width, 4)];
-            bottomBorder.backgroundColor = [UIColor colorWithRed:(171/255.0) green:(14/255.0) blue:(27/255.0) alpha:1.0];
+            if (currentIndex == 12){
+                bottomBorder.backgroundColor = [UIColor colorWithRed:(41/255.0) green:(46/255.0) blue:(50/255.0) alpha:1.0];
+            } else {
+                bottomBorder.backgroundColor = [UIColor colorWithRed:(171/255.0) green:(14/255.0) blue:(27/255.0) alpha:1.0];
+            }
             [btn addSubview:bottomBorder];
         }
     }

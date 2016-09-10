@@ -9,6 +9,7 @@
 
 @property (nonatomic, strong) NSString *notificationCount;
 @property (nonatomic, retain) NSMutableArray *results;
+@property (nonatomic, retain) NSString *sender;
 @property (nonatomic, retain) NSString *senderUrl;
 @property (nonatomic, retain) NSString *senderProfilePicture;
 @property (nonatomic, retain) NSString *objectId;

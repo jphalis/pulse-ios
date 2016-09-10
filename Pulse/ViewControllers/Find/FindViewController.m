@@ -53,6 +53,11 @@
              forControlEvents:UIControlEventValueChanged];
     [_collectionVW addSubview:refreshControl];
     _collectionVW.alwaysBounceVertical = YES;
+    
+    // Go back when swipe right
+    UISwipeGestureRecognizer *viewRight = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swipeRight:)];
+    viewRight.direction = UISwipeGestureRecognizerDirectionRight;
+    [self.view addGestureRecognizer:viewRight];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -101,6 +106,16 @@
 */
 
 #pragma mark - Functions
+
+-(void)swipeRight:(UISwipeGestureRecognizer *)gestureRecognizer
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (IBAction)onBack:(id)sender
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 -(void)startRefresh{
     if(arrParties.count > 0){

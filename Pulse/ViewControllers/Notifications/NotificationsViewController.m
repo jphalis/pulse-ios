@@ -4,7 +4,9 @@
 //
 
 
+#import "AccountViewController.h"
 #import "AppDelegate.h"
+#import "CustomButton.h"
 #import "defs.h"
 #import "GlobalFunctions.h"
 #import "NotificationClass.h"
@@ -116,6 +118,7 @@
                     NotificationClass *notificationClass = [[NotificationClass alloc]init];
                     int userId = [[[arrNotifResult objectAtIndex:i]valueForKey:@"id"]intValue];
                     notificationClass.objectId = [NSString stringWithFormat:@"%d", userId];
+                    notificationClass.sender = [[arrNotifResult objectAtIndex:i]valueForKey:@"sender"];
                     notificationClass.senderUrl = [[arrNotifResult objectAtIndex:i]valueForKey:@"sender_url"];
                     if([[arrNotifResult objectAtIndex:i]valueForKey:@"sender_profile_picture"] == [NSNull null]){
                         notificationClass.senderProfilePicture = @"";
@@ -162,17 +165,21 @@
     
     NotificationClass *notificationClass = [arrNotification objectAtIndex:indexPath.row];
     
-    cell.notificationTextField.text = notificationClass.notificationText;
+    NSString *originalText = [NSString stringWithFormat:@"%@ %@", notificationClass.sender, notificationClass.notificationText];
+    NSMutableAttributedString *formattedText = [[NSMutableAttributedString alloc] initWithString:originalText];
+    [formattedText addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:171/255.0 green:14/255.0 blue:27/255.0 alpha:1.0] range:[originalText rangeOfString:notificationClass.sender]];
+    cell.notificationTextField.attributedText = formattedText;
     
     if([notificationClass.targetUrl isEqualToString:@""]){
         cell.notificationTextField.textColor = [UIColor lightGrayColor];
-    } else {
-        cell.notificationTextField.textColor = [UIColor blackColor];
     }
     
     [cell.senderProfilePicture loadImageFromURL:notificationClass.senderProfilePicture withTempImage:@"avatar_icon"];
     cell.senderProfilePicture.layer.cornerRadius = cell.senderProfilePicture.frame.size.width / 2;
     cell.senderProfilePicture.layer.masksToBounds = YES;
+    
+    [cell.profileBtn setTag:indexPath.row];
+    [cell.profileBtn addTarget:self action:@selector(showUser:) forControlEvents:UIControlEventTouchUpInside];
     
     UIView *bottomBorder = [[UIView alloc] initWithFrame:CGRectMake(0, cell.frame.size.height - 1, cell.frame.size.width, 1)];
     bottomBorder.backgroundColor = [UIColor colorWithRed:(234/255.0) green:(234/255.0) blue:(234/255.0) alpha:1.0];
@@ -189,6 +196,17 @@
         partyViewController.partyUrl = notificationClass.targetUrl;
         [self.navigationController pushViewController:partyViewController animated:YES];
     }
+}
+
+#pragma mark - Functions
+
+-(void)showUser:(CustomButton*)sender{
+    NotificationClass *notificationClass = [arrNotification objectAtIndex:sender.tag];
+    
+    AccountViewController *accountViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"AccountViewController"];
+    accountViewController.userURL = notificationClass.senderUrl;
+    accountViewController.needBack = YES;
+    [self.navigationController pushViewController:accountViewController animated:YES];
 }
 
 @end

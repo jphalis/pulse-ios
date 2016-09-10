@@ -46,7 +46,6 @@
 		D03CEEC81D56D2D700D2586D /* InviteCreateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D03CEEB31D56D2D700D2586D /* InviteCreateViewController.m */; };
 		D03CEEC91D56D2D700D2586D /* PreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D03CEEB51D56D2D700D2586D /* PreviewViewController.m */; };
 		D03CEECA1D56D2D700D2586D /* CustomTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D03CEEB71D56D2D700D2586D /* CustomTabViewController.m */; };
-		D03CEECB1D56D2D700D2586D /* FindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D03CEEBA1D56D2D700D2586D /* FindViewController.m */; };
 		D03CEECD1D56D2D700D2586D /* NotificationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D03CEEBF1D56D2D700D2586D /* NotificationsViewController.m */; };
 		D04A41311D50F22D00C850FB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D04A41331D50F22D00C850FB /* Main.storyboard */; };
 		D04DBD761D5178B200BB8172 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = D04DBD501D5178B200BB8172 /* MBProgressHUD.m */; };
@@ -80,6 +79,8 @@
 		D0ACF2221D7F8FB800A65C14 /* TableViewCellRequests.m in Sources */ = {isa = PBXBuildFile; fileRef = D0ACF2211D7F8FB800A65C14 /* TableViewCellRequests.m */; };
 		D0ACF2261D7F902200A65C14 /* PartyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0ACF2251D7F902200A65C14 /* PartyViewController.m */; };
 		D0ACF2291D7F903C00A65C14 /* RequestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0ACF2281D7F903C00A65C14 /* RequestsViewController.m */; };
+		D0BC2F5D1D84775B00237E33 /* PulseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BC2F5A1D84775B00237E33 /* PulseViewController.m */; };
+		D0BC2F5E1D84775B00237E33 /* FindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BC2F5C1D84775B00237E33 /* FindViewController.m */; };
 		D0C02F831D56D69F0033EF98 /* FollowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C02F821D56D69F0033EF98 /* FollowViewController.m */; };
 		D0C02F8C1D56DBDC0033EF98 /* TableViewCellAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C02F891D56DBDC0033EF98 /* TableViewCellAccount.m */; };
 		D0C02F8D1D56DBDC0033EF98 /* TableViewCellNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C02F8B1D56DBDC0033EF98 /* TableViewCellNotification.m */; };
@@ -198,8 +199,6 @@
 		D03CEEB51D56D2D700D2586D /* PreviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreviewViewController.m; sourceTree = "<group>"; };
 		D03CEEB61D56D2D700D2586D /* CustomTabViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTabViewController.h; sourceTree = "<group>"; };
 		D03CEEB71D56D2D700D2586D /* CustomTabViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTabViewController.m; sourceTree = "<group>"; };
-		D03CEEB91D56D2D700D2586D /* FindViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindViewController.h; sourceTree = "<group>"; };
-		D03CEEBA1D56D2D700D2586D /* FindViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindViewController.m; sourceTree = "<group>"; };
 		D03CEEBE1D56D2D700D2586D /* NotificationsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationsViewController.h; sourceTree = "<group>"; };
 		D03CEEBF1D56D2D700D2586D /* NotificationsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationsViewController.m; sourceTree = "<group>"; };
 		D04A41321D50F22D00C850FB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -261,6 +260,10 @@
 		D0ACF2251D7F902200A65C14 /* PartyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PartyViewController.m; sourceTree = "<group>"; };
 		D0ACF2271D7F903C00A65C14 /* RequestsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestsViewController.h; sourceTree = "<group>"; };
 		D0ACF2281D7F903C00A65C14 /* RequestsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestsViewController.m; sourceTree = "<group>"; };
+		D0BC2F591D84775B00237E33 /* PulseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PulseViewController.h; sourceTree = "<group>"; };
+		D0BC2F5A1D84775B00237E33 /* PulseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PulseViewController.m; sourceTree = "<group>"; };
+		D0BC2F5B1D84775B00237E33 /* FindViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindViewController.h; sourceTree = "<group>"; };
+		D0BC2F5C1D84775B00237E33 /* FindViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindViewController.m; sourceTree = "<group>"; };
 		D0C02F811D56D69F0033EF98 /* FollowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FollowViewController.h; sourceTree = "<group>"; };
 		D0C02F821D56D69F0033EF98 /* FollowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FollowViewController.m; sourceTree = "<group>"; };
 		D0C02F881D56DBDC0033EF98 /* TableViewCellAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewCellAccount.h; sourceTree = "<group>"; };
@@ -474,7 +477,7 @@
 				D0F73CB01D83498800DA8CC1 /* Authentication */,
 				D03CEEAB1D56D2D700D2586D /* Create */,
 				D09D4BAA1D624E8F00D285F3 /* Feed */,
-				D03CEEB81D56D2D700D2586D /* Find */,
+				D0BC2F581D84775B00237E33 /* Find */,
 				D03CEEBD1D56D2D700D2586D /* Notifications */,
 				D0ACF2231D7F902200A65C14 /* Party */,
 				D03CEEB61D56D2D700D2586D /* CustomTabViewController.h */,
@@ -513,15 +516,6 @@
 				D03CEEB51D56D2D700D2586D /* PreviewViewController.m */,
 			);
 			path = Create;
-			sourceTree = "<group>";
-		};
-		D03CEEB81D56D2D700D2586D /* Find */ = {
-			isa = PBXGroup;
-			children = (
-				D03CEEB91D56D2D700D2586D /* FindViewController.h */,
-				D03CEEBA1D56D2D700D2586D /* FindViewController.m */,
-			);
-			path = Find;
 			sourceTree = "<group>";
 		};
 		D03CEEBD1D56D2D700D2586D /* Notifications */ = {
@@ -671,6 +665,17 @@
 				D0ACF2281D7F903C00A65C14 /* RequestsViewController.m */,
 			);
 			path = Party;
+			sourceTree = "<group>";
+		};
+		D0BC2F581D84775B00237E33 /* Find */ = {
+			isa = PBXGroup;
+			children = (
+				D0BC2F591D84775B00237E33 /* PulseViewController.h */,
+				D0BC2F5A1D84775B00237E33 /* PulseViewController.m */,
+				D0BC2F5B1D84775B00237E33 /* FindViewController.h */,
+				D0BC2F5C1D84775B00237E33 /* FindViewController.m */,
+			);
+			path = Find;
 			sourceTree = "<group>";
 		};
 		D0C02F871D56DBDC0033EF98 /* CellViews */ = {
@@ -902,6 +907,7 @@
 				D0330E461D7C81AD0080A3CC /* SVWebViewControllerActivity.m in Sources */,
 				D03CEEC51D56D2D700D2586D /* CreateViewController.m in Sources */,
 				D04DBD791D5178B200BB8172 /* SCLAlertViewResponder.m in Sources */,
+				D0BC2F5D1D84775B00237E33 /* PulseViewController.m in Sources */,
 				D03CEE931D569E9200D2586D /* AnimatedMethods.m in Sources */,
 				D03CEEC81D56D2D700D2586D /* InviteCreateViewController.m in Sources */,
 				D0F73CBD1D83498800DA8CC1 /* AuthViewController.m in Sources */,
@@ -918,9 +924,9 @@
 				D03CEECD1D56D2D700D2586D /* NotificationsViewController.m in Sources */,
 				D0330E491D7CF0730080A3CC /* CollectionViewCellImage.m in Sources */,
 				D06ED5141D6CAA23006AE20B /* SDIAsyncImageView.m in Sources */,
+				D0BC2F5E1D84775B00237E33 /* FindViewController.m in Sources */,
 				D0C02F8C1D56DBDC0033EF98 /* TableViewCellAccount.m in Sources */,
 				D03CEE961D569ECE00D2586D /* CustomButton.m in Sources */,
-				D03CEECB1D56D2D700D2586D /* FindViewController.m in Sources */,
 				D06ED5161D6CAA23006AE20B /* UIImageExtras.m in Sources */,
 				D06ED5151D6CAA23006AE20B /* UIImage+GIF.m in Sources */,
 				D04DBD851D5178B200BB8172 /* TWMessageBarManager.m in Sources */,

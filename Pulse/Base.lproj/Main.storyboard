@@ -270,6 +270,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="64" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" red="0.16078431369999999" green="0.18039215689999999" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
+                                        <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="6" maxY="0.0"/>
                                         <state key="normal" image="home_icon_default">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -278,20 +279,6 @@
                                         </state>
                                         <connections>
                                             <action selector="onTabSelectionChange:" destination="Saq-DF-Rbu" eventType="touchUpInside" id="QvZ-qY-mPJ"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" tag="11" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="mAG-Lx-4aU">
-                                        <rect key="frame" x="64" y="0.0" width="64" height="40"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" red="0.16078431369999999" green="0.18039215689999999" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
-                                        <state key="normal" image="find_icon_default">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <state key="selected" image="find_icon_active">
-                                            <color key="titleColor" red="0.59999999999999998" green="0.0" blue="0.08235294118" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="onTabSelectionChange:" destination="Saq-DF-Rbu" eventType="touchUpInside" id="6p2-aR-Sts"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="12" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="yj4-pC-Iy5">
@@ -312,6 +299,7 @@
                                         <rect key="frame" x="192" y="0.0" width="64" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" red="0.16078431369999999" green="0.18039215689999999" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
+                                        <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="6" maxY="0.0"/>
                                         <state key="normal" image="notifications_icon_default">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -326,6 +314,7 @@
                                         <rect key="frame" x="256" y="0.0" width="64" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" red="0.16078431369999999" green="0.18039215689999999" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
+                                        <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="6" maxY="0.0"/>
                                         <state key="normal" image="account_icon_default">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -336,11 +325,25 @@
                                             <action selector="onTabSelectionChange:" destination="Saq-DF-Rbu" eventType="touchUpInside" id="iO8-U0-gCt"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" tag="11" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="mAG-Lx-4aU">
+                                        <rect key="frame" x="64" y="0.0" width="64" height="40"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.16078431369999999" green="0.18039215689999999" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
+                                        <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="6" maxY="0.0"/>
+                                        <state key="normal" image="find_icon_default">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="selected" image="find_icon_active">
+                                            <color key="titleColor" red="0.59999999999999998" green="0.0" blue="0.08235294118" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="onTabSelectionChange:" destination="Saq-DF-Rbu" eventType="touchUpInside" id="6p2-aR-Sts"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.93999999999999995" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.16078431369999999" green="0.18039215689999999" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.16078431369999999" green="0.18039215689999999" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <connections>
                         <outlet property="tabView" destination="8i2-5V-hKL" id="2Zc-Im-XtP"/>
@@ -618,7 +621,6 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="E2G-vo-dO7" userLabel="Events Btn">
                                 <rect key="frame" x="16" y="161" width="72" height="18"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.29019609089999998" green="0.60784316059999999" blue="0.90196079019999997" alpha="0.69442349137931036" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <state key="normal" title="Events">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1409,15 +1411,20 @@ only</string>
                                                             <rect key="frame" x="60.5" y="11.5" width="234" height="39"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
                                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                         </textView>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="qre-je-SnH" userLabel="Profile Btn">
+                                                            <rect key="frame" x="0.0" y="8" width="64" height="40.5"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                                        </button>
                                                     </subviews>
                                                 </view>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="notificationTextField" destination="dRf-Jv-Bwf" id="LFc-Hk-4N2"/>
+                                            <outlet property="profileBtn" destination="qre-je-SnH" id="KtE-cT-ftS"/>
                                             <outlet property="senderProfilePicture" destination="f4K-bY-nfW" id="OpC-Gx-Oyu"/>
                                         </connections>
                                     </tableViewCell>
@@ -1902,6 +1909,14 @@ only</string>
                                     <outlet property="delegate" destination="eHs-VU-LqX" id="3Qc-2h-aYQ"/>
                                 </connections>
                             </collectionView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="lZe-sl-h6g" userLabel="Back Btn">
+                                <rect key="frame" x="3" y="33" width="23" height="26"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="back_icon_white"/>
+                                <connections>
+                                    <action selector="onBack:" destination="eHs-VU-LqX" eventType="touchUpInside" id="hlX-CX-amb"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -1913,7 +1928,7 @@ only</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bfb-R8-pjo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1922.5" y="-275.5"/>
+            <point key="canvasLocation" x="2305.5" y="-267.5"/>
         </scene>
         <!--Home View Controller-->
         <scene sceneID="bt5-k2-hnp">
@@ -1974,12 +1989,17 @@ only</string>
                                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="WuA-rV-CYc" userLabel="Profile Btn">
+                                                            <rect key="frame" x="0.0" y="8" width="64" height="40.5"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                                        </button>
                                                     </subviews>
                                                 </view>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="feedText" destination="Hvx-NF-h6g" id="8jA-6a-APs"/>
+                                            <outlet property="profileBtn" destination="WuA-rV-CYc" id="9ND-HG-uCb"/>
                                             <outlet property="timeLabel" destination="cZ0-rL-hqK" id="CwZ-Jj-jTO"/>
                                             <outlet property="userProfilePicture" destination="xkN-WH-zEf" id="vhL-eQ-uPV"/>
                                         </connections>
@@ -2327,7 +2347,7 @@ only</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3uQ-0a-0M0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2290" y="-325"/>
+            <point key="canvasLocation" x="2673" y="-317"/>
         </scene>
         <!--Requests View Controller-->
         <scene sceneID="HEi-CA-Lai">
@@ -2427,7 +2447,7 @@ only</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="V8p-Az-Dyd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2630" y="-325"/>
+            <point key="canvasLocation" x="3013" y="-317"/>
         </scene>
         <!--Name View Controller-->
         <scene sceneID="bjC-av-lFP">
@@ -2678,6 +2698,33 @@ only</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6nD-AQ-qc3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1014" y="75"/>
+        </scene>
+        <!--Pulse View Controller-->
+        <scene sceneID="NAN-Fz-x0u">
+            <objects>
+                <viewController storyboardIdentifier="PulseViewController" id="FiO-xL-3Os" customClass="PulseViewController" sceneMemberID="viewController">
+                    <view key="view" tag="1" contentMode="scaleToFill" id="ofq-W3-dxa">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap to find events" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="cK9-JI-s2X">
+                                <rect key="frame" x="24" y="345" width="272" height="43"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.16078431369999999" green="0.18039215689999999" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="descriptionLabel" destination="cK9-JI-s2X" id="wMe-s1-fZD"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rRM-EK-NxE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1922" y="-317"/>
         </scene>
     </scenes>
     <resources>

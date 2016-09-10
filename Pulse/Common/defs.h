@@ -98,6 +98,9 @@ extern AppDelegate *appDelegate;
 #define    SetUserName(x)     [[NSUserDefaults standardUserDefaults] setObject:(x) forKey:@"UserName"]
 #define    GetUserName        [[NSUserDefaults standardUserDefaults] objectForKey:@"UserName"]
 
+#define    SetUserProPic(x)   [[NSUserDefaults standardUserDefaults] setObject:(x) forKey:@"UserProPic"]
+#define    GetUserProPic      [[NSUserDefaults standardUserDefaults] objectForKey:@"UserProPic"]
+
 #define    SetisFullView(x)   [[NSUserDefaults standardUserDefaults] setBool:(x) forKey:@"FullView"]
 #define    GetsFullView       [[NSUserDefaults standardUserDefaults] boolForKey:@"FullView"]
 

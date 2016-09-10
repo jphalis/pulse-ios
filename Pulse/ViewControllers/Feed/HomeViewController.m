@@ -144,7 +144,7 @@
                         if([dictResult objectForKey:@"sender_url"] == [NSNull null]){
                             feedClass.senderUrl = @"";
                         } else {
-                            feedClass.senderUrl = [dictResult objectForKey:@"sender"];
+                            feedClass.senderUrl = [dictResult objectForKey:@"sender_url"];
                         }
                         if([dictResult objectForKey:@"sender_profile_picture"] == [NSNull null]){
                             feedClass.senderProfilePicture = @"";
@@ -205,15 +205,21 @@
     FeedClass *feedClass = [arrFeed objectAtIndex:indexPath.row];
     
     cell.timeLabel.text = feedClass.time;
-    cell.feedText.text = feedClass.feedText;
+    
+    NSString *originalText = [NSString stringWithFormat:@"%@ %@", feedClass.sender, feedClass.feedText];
+    NSMutableAttributedString *formattedText = [[NSMutableAttributedString alloc] initWithString:originalText];
+    [formattedText addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:171/255.0 green:14/255.0 blue:27/255.0 alpha:1.0] range:[originalText rangeOfString:feedClass.sender]];
+    cell.feedText.attributedText = formattedText;
+    
     if([feedClass.targetUrl isEqualToString:@""]){
         cell.feedText.textColor = [UIColor lightGrayColor];
-    } else {
-        cell.feedText.textColor = [UIColor blackColor];
     }
     [cell.userProfilePicture loadImageFromURL:feedClass.senderProfilePicture withTempImage:@"avatar_icon"];
     cell.userProfilePicture.layer.cornerRadius = cell.userProfilePicture.frame.size.width / 2;
     cell.userProfilePicture.layer.masksToBounds = YES;
+    
+    [cell.profileBtn setTag:indexPath.row];
+    [cell.profileBtn addTarget:self action:@selector(showUser:) forControlEvents:UIControlEventTouchUpInside];
     
     UIView *bottomBorder = [[UIView alloc] initWithFrame:CGRectMake(0, cell.frame.size.height - 1, cell.frame.size.width, 1)];
     bottomBorder.backgroundColor = [UIColor colorWithRed:(234/255.0) green:(234/255.0) blue:(234/255.0) alpha:1.0];
@@ -230,6 +236,17 @@
         partyViewController.partyUrl = feedClass.targetUrl;
         [self.navigationController pushViewController:partyViewController animated:YES];
     }
+}
+
+#pragma mark - Functions
+
+-(void)showUser:(CustomButton*)sender{
+    FeedClass *feedClass = [arrFeed objectAtIndex:sender.tag];
+    
+    AccountViewController *accountViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"AccountViewController"];
+    accountViewController.userURL = feedClass.senderUrl;
+    accountViewController.needBack = YES;
+    [self.navigationController pushViewController:accountViewController animated:YES];
 }
 
 @end
