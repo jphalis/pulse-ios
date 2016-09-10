@@ -202,7 +202,7 @@
                         }
                         else
                         {
-                            NSString *proflURL = [NSString stringWithFormat:@"%@%@",@"https://oby.s3.amazonaws.com/media/",[dictUserDetail objectForKey:@"profile_pic"]];
+                            NSString *proflURL = [NSString stringWithFormat:@"%@%@", @"https://oby.s3.amazonaws.com/media/", [dictUserDetail objectForKey:@"profile_pic"]];
                             [dictRequesterInfo setValue:proflURL forKey:@"user__profile_pic"];
                         }
                         
