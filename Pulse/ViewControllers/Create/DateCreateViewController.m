@@ -277,6 +277,8 @@
         previewViewController.partyType = _partyType;
         previewViewController.partyName = _partyName;
         previewViewController.partyAddress = _partyAddress;
+        previewViewController.partyLatitude = _partyLatitude;
+        previewViewController.partyLongitude = _partyLongitude;
         previewViewController.partySize = _partySize;
         previewViewController.partyMonth = _monthField.text;
         previewViewController.partyDay = _dayField.text;

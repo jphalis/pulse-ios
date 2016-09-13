@@ -116,6 +116,8 @@
     
     [_params setObject:_partyName forKey:@"name"];
     [_params setObject:_partyAddress forKey:@"location"];
+    [_params setObject:_partyLatitude forKey:@"latitude"];
+    [_params setObject:_partyLongitude forKey:@"longitude"];
     NSString *serverPartySize;
     if ([_partySize isEqualToString:@"1-25"]){
         serverPartySize = @"10";

@@ -7,7 +7,7 @@
 #import "AppDelegate.h"
 #import "defs.h"
 #import "GlobalFunctions.h"
-#import "GuestsCreateViewController.h"
+#import "InviteCreateViewController.h"
 #import "CreateViewController.h"
 #import "UIViewControllerAdditions.h"
 
@@ -69,45 +69,45 @@ enum{
     
     switch ([sender tag]) {
         case BTNCUSTOM:{
-            GuestsCreateViewController *guestsCreateViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"GuestsCreateViewController"];
-            guestsCreateViewController.partyType = @"Custom";
-            [self.navigationController pushViewController:guestsCreateViewController animated:YES];
+            InviteCreateViewController *inviteCreateViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"InviteCreateViewController"];
+            inviteCreateViewController.partyType = @"Custom";
+            [self.navigationController pushViewController:inviteCreateViewController animated:YES];
             break;
         }
         case BTNSOCIAL:{
-            GuestsCreateViewController *guestsCreateViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"GuestsCreateViewController"];
-            guestsCreateViewController.partyType = @"Social";
-            [self.navigationController pushViewController:guestsCreateViewController animated:YES];
+            InviteCreateViewController *inviteCreateViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"InviteCreateViewController"];
+            inviteCreateViewController.partyType = @"Social";
+            [self.navigationController pushViewController:inviteCreateViewController animated:YES];
             break;
         }
         case BTNHOLIDAY:{
-            GuestsCreateViewController *guestsCreateViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"GuestsCreateViewController"];
-            guestsCreateViewController.partyType = @"Holiday";
-            [self.navigationController pushViewController:guestsCreateViewController animated:YES];
+            InviteCreateViewController *inviteCreateViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"InviteCreateViewController"];
+            inviteCreateViewController.partyType = @"Holiday";
+            [self.navigationController pushViewController:inviteCreateViewController animated:YES];
             break;
         }
         case BTNEVENT:{
-            GuestsCreateViewController *guestsCreateViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"GuestsCreateViewController"];
-            guestsCreateViewController.partyType = @"Event";
-            [self.navigationController pushViewController:guestsCreateViewController animated:YES];
+            InviteCreateViewController *inviteCreateViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"InviteCreateViewController"];
+            inviteCreateViewController.partyType = @"Event";
+            [self.navigationController pushViewController:inviteCreateViewController animated:YES];
             break;
         }
         case BTNRAGER:{
-            GuestsCreateViewController *guestsCreateViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"GuestsCreateViewController"];
-            guestsCreateViewController.partyType = @"Rager";
-            [self.navigationController pushViewController:guestsCreateViewController animated:YES];
+            InviteCreateViewController *inviteCreateViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"InviteCreateViewController"];
+            inviteCreateViewController.partyType = @"Rager";
+            [self.navigationController pushViewController:inviteCreateViewController animated:YES];
             break;
         }
         case BTNTHEMED:{
-            GuestsCreateViewController *guestsCreateViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"GuestsCreateViewController"];
-            guestsCreateViewController.partyType = @"Themed";
-            [self.navigationController pushViewController:guestsCreateViewController animated:YES];
+            InviteCreateViewController *inviteCreateViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"InviteCreateViewController"];
+            inviteCreateViewController.partyType = @"Themed";
+            [self.navigationController pushViewController:inviteCreateViewController animated:YES];
             break;
         }
         case BTNCELEBRATION:{
-            GuestsCreateViewController *guestsCreateViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"GuestsCreateViewController"];
-            guestsCreateViewController.partyType = @"Celebration";
-            [self.navigationController pushViewController:guestsCreateViewController animated:YES];
+            InviteCreateViewController *inviteCreateViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"InviteCreateViewController"];
+            inviteCreateViewController.partyType = @"Celebration";
+            [self.navigationController pushViewController:inviteCreateViewController animated:YES];
             break;
         }
         default: {

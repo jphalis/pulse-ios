@@ -142,7 +142,7 @@
                 }
                 _partyDescription = [JSONValue valueForKey:@"description"];
                 _partyAttending = [NSString abbreviateNumber:[[JSONValue valueForKey:@"attendees_count"]intValue]];
-                _partyRequests = [NSString abbreviateNumber:[[JSONValue valueForKey:@"requsters_count"]intValue]];
+                _partyRequests = [NSString abbreviateNumber:[[JSONValue valueForKey:@"requesters_count"]intValue]];
 
                 if (!([JSONValue valueForKey:@"get_attendees_info"] == [NSNull null]))
                 {

@@ -106,6 +106,7 @@
 		D0F73CC01D83498800DA8CC1 /* PasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F73CB81D83498800DA8CC1 /* PasswordViewController.m */; };
 		D0F73CC11D83498800DA8CC1 /* SignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F73CBA1D83498800DA8CC1 /* SignInViewController.m */; };
 		D0F73CC21D83498800DA8CC1 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F73CBC1D83498800DA8CC1 /* SignUpViewController.m */; };
+		D0FFE3E01D88692500237604 /* AnnotationClass.m in Sources */ = {isa = PBXBuildFile; fileRef = D0FFE3DF1D88692500237604 /* AnnotationClass.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -300,6 +301,8 @@
 		D0F73CBA1D83498800DA8CC1 /* SignInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignInViewController.m; sourceTree = "<group>"; };
 		D0F73CBB1D83498800DA8CC1 /* SignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
 		D0F73CBC1D83498800DA8CC1 /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
+		D0FFE3DE1D8868D300237604 /* AnnotationClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnnotationClass.h; sourceTree = "<group>"; };
+		D0FFE3DF1D88692500237604 /* AnnotationClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnnotationClass.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -708,6 +711,8 @@
 				D01350E91D5A99BA00ACD2C1 /* PartyClass.m */,
 				D0C02F921D56DC100033EF98 /* ProfileClass.h */,
 				D0C02F931D56DC100033EF98 /* ProfileClass.m */,
+				D0FFE3DE1D8868D300237604 /* AnnotationClass.h */,
+				D0FFE3DF1D88692500237604 /* AnnotationClass.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -921,6 +926,7 @@
 				D06ED5131D6CAA23006AE20B /* AsyncImageView.m in Sources */,
 				D04DBD781D5178B200BB8172 /* SCLAlertView.m in Sources */,
 				D04DBD761D5178B200BB8172 /* MBProgressHUD.m in Sources */,
+				D0FFE3E01D88692500237604 /* AnnotationClass.m in Sources */,
 				D03CEECD1D56D2D700D2586D /* NotificationsViewController.m in Sources */,
 				D0330E491D7CF0730080A3CC /* CollectionViewCellImage.m in Sources */,
 				D06ED5141D6CAA23006AE20B /* SDIAsyncImageView.m in Sources */,

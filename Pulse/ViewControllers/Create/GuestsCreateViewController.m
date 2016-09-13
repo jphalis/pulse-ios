@@ -94,11 +94,10 @@ didAutocompleteWithPlace:(GMSPlace *)place {
     [self dismissViewControllerAnimated:YES completion:nil];
     // Do something with the selected place.
 //    NSLog(@"Place name %@", place.name);
-//    NSLog(@"Place address %@", place.formattedAddress);
 //    NSLog(@"Place attributions %@", place.attributions.string);
-//    NSLog(@"Place latitude %f", place.coordinate.latitude);
-//    NSLog(@"Place longitude %f", place.coordinate.longitude);
     _partyAddressField.text = place.formattedAddress;
+    _partyLatitude = [NSString stringWithFormat:@"%.8f", place.coordinate.latitude];
+    _partyLongitude = [NSString stringWithFormat:@"%.8f", place.coordinate.longitude];
 }
 
 - (void)viewController:(GMSAutocompleteViewController *)viewController
@@ -194,9 +193,7 @@ didFailAutocompleteWithError:(NSError *)error {
 }
 
 - (IBAction)onClick:(id)sender {
-    
     if ([self checkParty] == 1){
-    
         switch ([sender tag]) {
             case BTNSMALL:{
                 _smallPartyIcon.layer.borderWidth = 3;
@@ -258,13 +255,17 @@ didFailAutocompleteWithError:(NSError *)error {
 }
 
 - (IBAction)onProceed:(id)sender {
-    DateCreateViewController *dateCreateViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"DateCreateViewController"];
-    dateCreateViewController.partyInvite = _partyInvite;
-    dateCreateViewController.partyType = _partyType;
-    dateCreateViewController.partyName = _partyNameField.text;
-    dateCreateViewController.partyAddress = _partyAddressField.text;
-    dateCreateViewController.partySize = _partySize;
-    [self.navigationController pushViewController:dateCreateViewController animated:YES];
+    if ([self checkParty]){
+        DateCreateViewController *dateCreateViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"DateCreateViewController"];
+        dateCreateViewController.partyInvite = _partyInvite;
+        dateCreateViewController.partyType = _partyType;
+        dateCreateViewController.partyName = _partyNameField.text;
+        dateCreateViewController.partyAddress = _partyAddressField.text;
+        dateCreateViewController.partyLatitude = _partyLatitude;
+        dateCreateViewController.partyLongitude = _partyLongitude;
+        dateCreateViewController.partySize = _partySize;
+        [self.navigationController pushViewController:dateCreateViewController animated:YES];
+    }
 }
 
 @end

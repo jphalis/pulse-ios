@@ -10,6 +10,7 @@
 #import "defs.h"
 #import "FindViewController.h"
 #import "GlobalFunctions.h"
+#import "AnnotationClass.h"
 #import "PartyClass.h"
 #import "SCLAlertView.h"
 #import "SDIAsyncImageView.h"
@@ -35,11 +36,12 @@
 }
 
 - (void)viewDidLoad {
+    arrParties = [[NSMutableArray alloc]init];
+    _annotations = [[NSMutableArray alloc]init];
     [self getPartyDetails];
 
     [super viewDidLoad];
     
-    arrParties = [[NSMutableArray alloc]init];
     appDelegate = [AppDelegate getDelegate];
     
     _mapView.delegate = self;
@@ -166,11 +168,14 @@
                     PartyClass *partyClass = [[PartyClass alloc]init];
                     int partyId = [[[arrPartyResult objectAtIndex:i]valueForKey:@"id"]intValue];
                     partyClass.partyId = [NSString stringWithFormat:@"%d", partyId];
+                    partyClass.partyUrl = [[arrPartyResult objectAtIndex:i]valueForKey:@"party_url"];
                     partyClass.partyCreator = [[arrPartyResult objectAtIndex:i]valueForKey:@"user"];
                     partyClass.partyType = [[arrPartyResult objectAtIndex:i]valueForKey:@"party_type"];
                     partyClass.partyInvite = [[arrPartyResult objectAtIndex:i]valueForKey:@"invite_type"];
                     partyClass.partyName = [[arrPartyResult objectAtIndex:i]valueForKey:@"name"];
                     partyClass.partyAddress = [[arrPartyResult objectAtIndex:i]valueForKey:@"location"];
+                    partyClass.partyLatitude = [[arrPartyResult objectAtIndex:i]valueForKey:@"latitude"];
+                    partyClass.partyLongitude = [[arrPartyResult objectAtIndex:i]valueForKey:@"longitude"];
                     partyClass.partySize = [[arrPartyResult objectAtIndex:i]valueForKey:@"party_size"];
                     int partyMonth = [[[arrPartyResult objectAtIndex:i]valueForKey:@"party_month"]intValue];
                     partyClass.partyMonth = [NSString stringWithFormat:@"%d", partyMonth];
@@ -281,6 +286,26 @@
 }
 
 -(void)showParties{
+    // Pins for events
+    for(int i = 0; i < arrParties.count; i++){
+        PartyClass *partyClass = [arrParties objectAtIndex:i];
+        if ([partyClass.partyLatitude isEqual:[NSNull null]] || [partyClass.partyLongitude isEqual:[NSNull null]]){
+            // NSLog(@"Empty coordinates");
+        } else {
+            NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
+            f.numberStyle = NSNumberFormatterDecimalStyle;
+            NSNumber *lat = [f numberFromString:partyClass.partyLatitude];
+            NSNumber *lon = [f numberFromString:partyClass.partyLongitude];
+            AnnotationClass *event_pin = [[AnnotationClass alloc] init];
+            event_pin.latitude = lat;
+            event_pin.longitude = lon;
+            event_pin.title = partyClass.partyName;
+            event_pin.annotationUrl = partyClass.partyUrl;
+            [_mapView addAnnotation:event_pin];
+            [_annotations addObject:event_pin];
+        }
+    }
+
     [refreshControl endRefreshing];
     [_collectionVW reloadData];
 }
@@ -336,6 +361,46 @@
     return [NSString stringWithFormat:@"%f", locationManager.location.altitude];
 }
 
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation {
+    // If the annotation is the user location, just return nil.
+    if ([annotation isKindOfClass:[MKUserLocation class]])
+        return nil;
+    
+    // Handle any custom annotations.
+    if ([annotation isKindOfClass:[MKPointAnnotation class]]) {
+        // Try to dequeue an existing pin view first.
+        MKPinAnnotationView *pinView = (MKPinAnnotationView*)[mapView dequeueReusableAnnotationViewWithIdentifier:@"CustomPinAnnotationView"];
+        
+        if (!pinView) {
+            // If an existing pin view was not available, create one.
+            pinView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation
+                                                      reuseIdentifier:@"CustomPinAnnotationView"];
+            pinView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+            pinView.pinColor = MKPinAnnotationColorRed;
+            pinView.animatesDrop = YES;
+            pinView.canShowCallout = YES;
+        } else {
+            pinView.annotation = annotation;
+    }
+        return pinView;
+    }
+    return nil;
+}
+
+- (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
+
+    AnnotationClass *selectedAnnotation = view.annotation;
+    PartyViewController *partyViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PartyViewController"];
+    partyViewController.partyUrl = selectedAnnotation.annotationUrl;
+    [self.navigationController pushViewController:partyViewController animated:YES];
+//    NSLog(@"%@", view.annotation.title);
+}
+
+- (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKPinAnnotationView *)view {
+    view.pinColor = MKPinAnnotationColorPurple;
+//    NSLog(@"%@", selectedAnnotation.title);
+}
+
 #pragma mark - Collection View
 
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
@@ -376,28 +441,30 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     
     tapCellIndex = indexPath.row;
-    PartyClass *partyClass = [arrParties objectAtIndex:indexPath.row];
+    AnnotationClass *annotation = (AnnotationClass *)[_annotations objectAtIndex:indexPath.row];
+    [_mapView selectAnnotation:annotation animated:YES];
     
-    PartyViewController *partyViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PartyViewController"];
-    partyViewController.partyId = partyClass.partyId;
-    partyViewController.partyCreator = partyClass.partyCreator;
-    partyViewController.partyInvite = partyClass.partyInvite;
-    partyViewController.partyType = partyClass.partyType;
-    partyViewController.partyName = partyClass.partyName;
-    partyViewController.partyAddress = partyClass.partyAddress;
-    partyViewController.partySize = partyClass.partySize;
-    partyViewController.partyMonth = partyClass.partyMonth;
-    partyViewController.partyDay = partyClass.partyDay;
-    partyViewController.partyStartTime = partyClass.partyStartTime;
-    partyViewController.partyEndTime = partyClass.partyEndTime;
-    partyViewController.partyImage = partyClass.partyImage;
-    partyViewController.partyDescription = partyClass.partyDescription;
-    partyViewController.partyAttending = partyClass.partyAttendingCount;
-    partyViewController.partyRequests = partyClass.partyRequestCount;
-    partyViewController.usersAttending = partyClass.arrAttending.mutableCopy;
-    partyViewController.usersRequested = partyClass.arrRequested.mutableCopy;
-
-    [self.navigationController pushViewController:partyViewController animated:YES];
+//    PartyClass *partyClass = [arrParties objectAtIndex:indexPath.row];
+//    PartyViewController *partyViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PartyViewController"];
+//    partyViewController.partyId = partyClass.partyId;
+//    partyViewController.partyCreator = partyClass.partyCreator;
+//    partyViewController.partyInvite = partyClass.partyInvite;
+//    partyViewController.partyType = partyClass.partyType;
+//    partyViewController.partyName = partyClass.partyName;
+//    partyViewController.partyAddress = partyClass.partyAddress;
+//    partyViewController.partySize = partyClass.partySize;
+//    partyViewController.partyMonth = partyClass.partyMonth;
+//    partyViewController.partyDay = partyClass.partyDay;
+//    partyViewController.partyStartTime = partyClass.partyStartTime;
+//    partyViewController.partyEndTime = partyClass.partyEndTime;
+//    partyViewController.partyImage = partyClass.partyImage;
+//    partyViewController.partyDescription = partyClass.partyDescription;
+//    partyViewController.partyAttending = partyClass.partyAttendingCount;
+//    partyViewController.partyRequests = partyClass.partyRequestCount;
+//    partyViewController.usersAttending = partyClass.arrAttending.mutableCopy;
+//    partyViewController.usersRequested = partyClass.arrRequested.mutableCopy;
+//
+//    [self.navigationController pushViewController:partyViewController animated:YES];
 }
 
 @end

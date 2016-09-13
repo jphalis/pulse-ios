@@ -16,6 +16,8 @@
 @property (retain, nonatomic) NSString *partyInvite;
 @property (retain, nonatomic) NSString *partyType;
 @property (retain, nonatomic) NSString *partySize;
+@property (retain, nonatomic) NSString *partyLatitude;
+@property (retain, nonatomic) NSString *partyLongitude;
 
 - (IBAction)onLocation:(id)sender;
 - (IBAction)onClick:(id)sender;

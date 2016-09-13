@@ -21,6 +21,8 @@
 @property (retain, nonatomic) NSString *partyName;
 @property (retain, nonatomic) NSString *partyAddress;
 @property (retain, nonatomic) NSString *partySize;
+@property (retain, nonatomic) NSString *partyLatitude;
+@property (retain, nonatomic) NSString *partyLongitude;
 
 - (IBAction)onPrevious:(id)sender;
 - (IBAction)onScratch:(id)sender;

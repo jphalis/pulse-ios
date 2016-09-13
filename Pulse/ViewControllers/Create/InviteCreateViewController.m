@@ -64,7 +64,6 @@ enum{
 #pragma mark - Functions
 
 - (IBAction)onClick:(id)sender {
-    
     switch ([sender tag]) {
         case BTNOPEN:{
             _openPartyIcon.layer.borderWidth = 3;
@@ -102,6 +101,10 @@ enum{
     }
 }
 
+- (IBAction)onPrevious:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (IBAction)onScratch:(id)sender {
     UIActionSheet *actionSheet = [[UIActionSheet alloc]
                                   initWithTitle:@"Are you sure you want to scratch this party?"
@@ -122,6 +125,7 @@ enum{
 
 - (IBAction)onProceed:(id)sender {
     GuestsCreateViewController *guestsCreateViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"GuestsCreateViewController"];
+    guestsCreateViewController.partyType = _partyType;
     guestsCreateViewController.partyInvite = _partyInvite;
     [self.navigationController pushViewController:guestsCreateViewController animated:YES];
 }

@@ -13,9 +13,9 @@
 @property (weak, nonatomic) IBOutlet UIButton *exclusivePartyIcon;
 @property (retain, nonatomic) NSString *partyInvite;
 @property (retain, nonatomic) NSString *partyType;
-@property (retain, nonatomic) NSString *partySize;
 
 - (IBAction)onClick:(id)sender;
+- (IBAction)onPrevious:(id)sender;
 - (IBAction)onScratch:(id)sender;
 - (IBAction)onProceed:(id)sender;
 
