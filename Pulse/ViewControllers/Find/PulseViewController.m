@@ -48,7 +48,7 @@
     buttonTop.frame = CGRectMake(0, 0, 100, 100);
     buttonTop.center = self.view.center;
 
-    if (GetUserProPic){
+    if ([[GetUserProPic lastPathComponent] isEqual:[NSNull null]]){
         NSURL *url = [NSURL URLWithString:GetUserProPic];
         NSData *data = [NSData dataWithContentsOfURL:url];
         UIImage *image = [UIImage imageWithData:data];
