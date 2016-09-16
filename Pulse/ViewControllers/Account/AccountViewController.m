@@ -3,6 +3,7 @@
 //  Pulse
 //
 
+#import <Photos/Photos.h>
 
 #import "AccountViewController.h"
 #import "AppDelegate.h"
@@ -36,6 +37,9 @@
     dictProfileInformation = [[NSMutableDictionary alloc]init];
     arrEventImages = [[NSMutableArray alloc]init];
     [self getProfileDetails];
+    
+    _profilePicture.layer.cornerRadius = _profilePicture.frame.size.width / 2;
+    _profilePicture.clipsToBounds = YES;
     
     [super viewDidLoad];
     
@@ -360,14 +364,197 @@
     }
 }
 
+#pragma mark - Add Image
+
 - (IBAction)onProfilePictureChange:(id)sender
 {
     if (_profileName.text == GetUserName){
-        SCLAlertView *alert = [[SCLAlertView alloc] init];
-        alert.showAnimationType = SlideInFromLeft;
-        alert.hideAnimationType = SlideOutToBottom;
-        [alert showNotice:self title:@"Notice" subTitle:@"Change your profile picture here." closeButtonTitle:@"OK" duration:0.0f];
+        [self requestAuthorizationWithRedirectionToSettings];
     }
+}
+
+- (void)requestAuthorizationWithRedirectionToSettings {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        PHAuthorizationStatus status = [PHPhotoLibrary authorizationStatus];
+        if (status == PHAuthorizationStatusAuthorized)
+        {
+            // We have permission
+            [self handleChangingImage];
+        }
+        else
+        {
+            // No permission. Trying to normally request it
+            [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
+                if (status != PHAuthorizationStatusAuthorized)
+                {
+                    // User doesn't give us permission. Showing alert with redirection to settings
+                    // Getting description string from info.plist file
+                    NSString *accessDescription = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"NSPhotoLibraryUsageDescription"];
+                    UIAlertController * alertController = [UIAlertController alertControllerWithTitle:accessDescription message:@"To give permissions tap on 'Change Settings' button" preferredStyle:UIAlertControllerStyleAlert];
+                    
+                    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
+                    [alertController addAction:cancelAction];
+                    
+                    UIAlertAction *settingsAction = [UIAlertAction actionWithTitle:@"Change Settings" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+                    }];
+                    [alertController addAction:settingsAction];
+                    
+                    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
+                }
+            }];
+        }
+    });
+}
+
+- (void)handleChangingImage {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Profile picture" message:@"" preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    UIAlertAction *pickFromGallery = [UIAlertAction actionWithTitle:@"Take a photo" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        
+        if([UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera]) {
+            
+            UIImagePickerController* picker = [[UIImagePickerController alloc] init];
+            picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+            picker.delegate = self;
+            [self presentViewController:picker animated:YES completion:NULL];
+        } else {
+            return;
+        }
+    }];
+    
+    UIAlertAction *takeAPicture = [UIAlertAction actionWithTitle:@"Choose a photo" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        
+        if ([UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypePhotoLibrary]) {
+            
+            UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+            picker.delegate = self;
+            picker.editing = NO;
+            picker.allowsEditing = NO;
+            picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+            [self presentViewController:picker animated:YES completion:NULL];
+        } else {
+            return;
+        }
+    }];
+    
+    UIAlertAction* cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * action) {
+        // Do something on cancel
+    }];
+    
+    [alertController addAction:pickFromGallery];
+    [alertController addAction:takeAPicture];
+    [alertController addAction:cancel];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)info {
+    
+    //    UIImage *image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
+    _profilePicture.image = image;
+    [self setBusy:YES];
+    checkNetworkReachability();
+    ProfileClass *profileClass = [dictProfileInformation objectForKey:@"ProfileInfo"];
+    
+    NSString *myUniqueName = [NSString stringWithFormat:@"%@-%lu", @"image", (unsigned long)([[NSDate date] timeIntervalSince1970]*10.0)];
+    
+    NSMutableDictionary* _params = [[NSMutableDictionary alloc] init];
+    [_params setObject:_profileName.text forKey:@"full_name"];
+    [_params setObject:GetUserEmail forKey:@"email"];
+    
+    // the boundary string : a random string, that will not repeat in post data, to separate post data fields.
+    NSString *BoundaryConstant = @"----------V2ymHFg03ehbqgZCaKO6jy";
+    
+    // string constant for the post parameter 'file'. My server uses this name: `file`. Your's may differ
+    NSString *FileParamConstant = @"profile_pic";
+    
+    // the server url to which the image (or the media) is uploaded. Use your server url here
+    NSString *urlStr = [NSString stringWithFormat:@"%@%@/", PROFILEURL, profileClass.userId];
+    NSURL *requestURL = [NSURL URLWithString:urlStr];
+    
+    // create request
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+    [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
+    [request setHTTPShouldHandleCookies:NO];
+    [request setTimeoutInterval:30];
+    [request setHTTPMethod:@"PUT"];
+    
+    // set Content-Type in HTTP header
+    NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@", BoundaryConstant];
+    [request setValue:contentType forHTTPHeaderField: @"Content-Type"];
+    
+    // post body
+    NSMutableData *body = [NSMutableData data];
+    
+    // add params (all params are strings)
+    for (NSString *param in _params) {
+        [body appendData:[[NSString stringWithFormat:@"--%@\r\n", BoundaryConstant] dataUsingEncoding:NSUTF8StringEncoding]];
+        [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"\r\n\r\n", param] dataUsingEncoding:NSUTF8StringEncoding]];
+        [body appendData:[[NSString stringWithFormat:@"%@\r\n", [_params objectForKey:param]] dataUsingEncoding:NSUTF8StringEncoding]];
+    }
+    
+    // add image data
+    NSData *imageData;
+    imageData = UIImageJPEGRepresentation(_profilePicture.image, 1.0);
+    if (imageData){
+        [body appendData:[[NSString stringWithFormat:@"--%@\r\n", BoundaryConstant] dataUsingEncoding:NSUTF8StringEncoding]];
+        [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"; filename=\"%@.jpg\"\r\n", FileParamConstant,myUniqueName] dataUsingEncoding:NSUTF8StringEncoding]];
+        [body appendData:[@"Content-Type: image/jpeg\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+        [body appendData:imageData];
+        [body appendData:[[NSString stringWithFormat:@"\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
+    }
+    
+    [body appendData:[[NSString stringWithFormat:@"--%@--\r\n", BoundaryConstant] dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    // setting the body of the post to the reqeust
+    [request setHTTPBody:body];
+    
+    NSString *authStr = [NSString stringWithFormat:@"%@:%@", GetUserEmail, GetUserPassword];
+    NSData *plainData = [authStr dataUsingEncoding:NSUTF8StringEncoding];
+    NSString *base64String = [plainData base64EncodedStringWithOptions:0];
+    NSString *authValue = [NSString stringWithFormat:@"Basic %@", base64String];
+    [request setValue:authValue forHTTPHeaderField:@"Authorization"];
+    
+    // set the content-length
+    NSString *postLength = [NSString stringWithFormat:@"%lu", (unsigned long)[body length]];
+    [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
+    
+    // set URL
+    [request setURL:requestURL];
+    
+    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error){
+        
+        if ([data length] > 0 && error == nil){
+            [self setBusy:NO];
+            
+            NSDictionary * JSONValue = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
+            
+            NSLog(@"JSON: %@", JSONValue);
+            
+            if([JSONValue isKindOfClass:[NSDictionary class]]){
+                NSString *profilePic;
+                if([JSONValue objectForKey:@"profile_picture"] == [NSNull null]){
+                    profilePic = @"";
+                } else {
+                    profilePic = [JSONValue objectForKey:@"profile_picture"];
+                }
+                SetUserProPic(profilePic);
+                [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"Success"
+                                                               description:@"Your profile picture has been updated."
+                                                                      type:TWMessageBarMessageTypeSuccess
+                                                                  duration:3.0];
+            }
+        } else {
+            showServerError();
+        }
+    }];
+    [self setBusy:NO];
+    [picker dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+    [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)onEvents:(id)sender

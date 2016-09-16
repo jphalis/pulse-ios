@@ -837,6 +837,8 @@
 				pt,
 				"zh-Hans",
 				"zh-Hant",
+				ca,
+				it,
 			);
 			mainGroup = 13F77D2A1D2EE581003EF38D;
 			productRefGroup = 13F77D341D2EE581003EF38D /* Products */;

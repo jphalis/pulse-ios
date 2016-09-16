@@ -7,7 +7,7 @@
 #import "SDIAsyncImageView.h"
 
 
-@interface AccountViewController : UIViewController <UIActionSheetDelegate>
+@interface AccountViewController : UIViewController <UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet SDIAsyncImageView *profilePicture;
 @property (weak, nonatomic) IBOutlet UILabel *profileName;

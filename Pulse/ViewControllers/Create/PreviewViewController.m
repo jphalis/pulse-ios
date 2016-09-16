@@ -3,6 +3,7 @@
 //  Pulse
 //
 
+#import <Photos/Photos.h>
 
 #import "AppDelegate.h"
 #import "defs.h"
@@ -21,6 +22,11 @@
 @implementation PreviewViewController
 
 - (void)viewDidLoad {
+    _partyImageField.layer.borderWidth = 4;
+    _partyImageField.layer.borderColor = [[UIColor whiteColor] CGColor];
+    _partyImageField.layer.cornerRadius = 10;
+    _partyImageField.layer.masksToBounds = YES;
+
     [super viewDidLoad];
     
     appDelegate = [AppDelegate getDelegate];
@@ -36,11 +42,6 @@
     appDelegate.tabbar.tabView.hidden = YES;
     
     [super viewWillAppear:YES];
-    
-    _partyImageField.layer.borderWidth = 4;
-    _partyImageField.layer.borderColor = [[UIColor whiteColor] CGColor];
-    _partyImageField.layer.cornerRadius = 10;
-    _partyImageField.layer.masksToBounds = YES;
     
     _partyNameField.text = _partyName;
     
@@ -79,14 +80,100 @@
 }
 */
 
-#pragma mark - Functions
+#pragma mark - Image picker
 
 - (IBAction)addImage:(id)sender {
-    SCLAlertView *alert = [[SCLAlertView alloc] init];
-    alert.showAnimationType = SlideInFromLeft;
-    alert.hideAnimationType = SlideOutToBottom;
-    [alert showInfo:self title:@"Notice" subTitle:@"Add image here." closeButtonTitle:@"OK" duration:0.0f];
+    [self requestAuthorizationWithRedirectionToSettings];
 }
+
+- (void)requestAuthorizationWithRedirectionToSettings {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        PHAuthorizationStatus status = [PHPhotoLibrary authorizationStatus];
+        if (status == PHAuthorizationStatusAuthorized)
+        {
+            // We have permission
+            [self handleChangingImage];
+        }
+        else
+        {
+            // No permission. Trying to normally request it
+            [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
+                if (status != PHAuthorizationStatusAuthorized)
+                {
+                    // User doesn't give us permission. Showing alert with redirection to settings
+                    // Getting description string from info.plist file
+                    NSString *accessDescription = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"NSPhotoLibraryUsageDescription"];
+                    UIAlertController * alertController = [UIAlertController alertControllerWithTitle:accessDescription message:@"To give permissions tap on 'Change Settings' button" preferredStyle:UIAlertControllerStyleAlert];
+                    
+                    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
+                    [alertController addAction:cancelAction];
+                    
+                    UIAlertAction *settingsAction = [UIAlertAction actionWithTitle:@"Change Settings" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+                    }];
+                    [alertController addAction:settingsAction];
+                    
+                    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
+                }
+            }];
+        }
+    });
+}
+
+- (void)handleChangingImage {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Event picture" message:@"" preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    UIAlertAction *pickFromGallery = [UIAlertAction actionWithTitle:@"Take a photo" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        
+        if([UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera]) {
+            
+            UIImagePickerController* picker = [[UIImagePickerController alloc] init];
+            picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+            picker.delegate = self;
+            [self presentViewController:picker animated:YES completion:NULL];
+        } else {
+            return;
+        }
+    }];
+    
+    UIAlertAction *takeAPicture = [UIAlertAction actionWithTitle:@"Choose a photo" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        
+        if ([UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypePhotoLibrary]) {
+            
+            UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+            picker.delegate = self;
+            picker.editing = NO;
+            picker.allowsEditing = NO;
+            picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+            [self presentViewController:picker animated:YES completion:NULL];
+        } else {
+            return;
+        }
+    }];
+    
+    UIAlertAction* cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * action) {
+        // Do something on cancel
+    }];
+    
+    [alertController addAction:pickFromGallery];
+    [alertController addAction:takeAPicture];
+    [alertController addAction:cancel];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)info {
+    
+    //    UIImage *image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
+    _partyImageField.image = image;
+    [picker dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+    [picker dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - Functions
 
 - (IBAction)onPrevious:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];

@@ -4,11 +4,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SDIAsyncImageView.h"
 
 
-@interface PreviewViewController : UIViewController
+@interface PreviewViewController : UIViewController <UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
-@property (weak, nonatomic) IBOutlet UIImageView *partyImageField;
+@property (weak, nonatomic) IBOutlet SDIAsyncImageView *partyImageField;
 @property (weak, nonatomic) IBOutlet UILabel *partyNameField;
 @property (weak, nonatomic) IBOutlet UILabel *partyDateTimeField;
 @property (weak, nonatomic) IBOutlet UILabel *partyAddressField;
