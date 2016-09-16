@@ -17,6 +17,7 @@
 #define ATTENDING_BTN_TEXT @"Going!"
 #define REQUEST_BTN_TEXT @"Request invite!"
 #define REQUESTED_BTN_TEXT @"Requested"
+#define INVITE_ONLY_BTN_TEXT @"Invite only event"
 
 
 @interface PartyViewController ()
@@ -245,10 +246,20 @@
     _partyImageField.layer.cornerRadius = 10;
     _partyImageField.layer.masksToBounds = YES;
     
+    if ([_partyInvite isEqualToString:@"Open"]) {
+        [_inviteIcon setImage:[UIImage imageNamed:@"open_icon"]];
+    }
+    else if ([_partyInvite isEqualToString:@"Invite only"]) {
+        [_inviteIcon setImage:[UIImage imageNamed:@"invite_only_icon"]];
+    }
+    else if ([_partyInvite isEqualToString:@"Request + approval"]) {
+        [_inviteIcon setImage:[UIImage imageNamed:@"request_icon"]];
+    }
+    
     NSInteger monthNumber = [_partyMonth integerValue];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     NSString *monthName = [[dateFormatter monthSymbols] objectAtIndex:(monthNumber-1)];
-    _partyDateTimeField.text = [NSString stringWithFormat:@"%@ %@, 2016  %@-%@", monthName, _partyDay, _partyStartTime, _partyEndTime];
+    _partyDateTimeField.text = [NSString stringWithFormat:@"%@ %@, %@  %@-%@", monthName, _partyDay, _partyYear, _partyStartTime, _partyEndTime];
     
     _partyNameField.text = _partyName;
     _partyAddressField.text = _partyAddress;
@@ -261,13 +272,20 @@
         [_attendBtn setTitle:ATTENDING_BTN_TEXT forState:UIControlStateNormal];
     }
     else if ([_partyInvite isEqualToString:@"Invite only"] &&
+             (!([_partyCreator isEqualToString:GetUserName])))
+    {
+        [_attendBtn setTitle:INVITE_ONLY_BTN_TEXT forState:UIControlStateNormal];
+        _attendBtn.backgroundColor = [UIColor lightGrayColor];
+        _attendBtn.userInteractionEnabled = NO;
+    }
+    else if ([_partyInvite isEqualToString:@"Request + approval"] &&
              [[usersRequested valueForKey:@"user__full_name"] containsObject:GetUserName] &&
              (!([_partyCreator isEqualToString:GetUserName])))
     {
         [_attendBtn setTitle:REQUESTED_BTN_TEXT forState:UIControlStateNormal];
         _attendBtn.backgroundColor = [UIColor lightGrayColor];
     }
-    else if ([_partyInvite isEqualToString:@"Invite only"] &&
+    else if ([_partyInvite isEqualToString:@"Request + approval"] &&
              (![[usersRequested valueForKey:@"user__full_name"] containsObject:GetUserName]) &&
              (!([_partyCreator isEqualToString:GetUserName])))
     {
@@ -276,7 +294,7 @@
     else
     {
         [_attendBtn setTitle:DEFAULT_BTN_TEXT forState:UIControlStateNormal];
-    }
+    }   
 }
 
 #pragma mark - Button functions
@@ -380,6 +398,10 @@
                             [_attendBtn setTitle:REQUESTED_BTN_TEXT forState:UIControlStateNormal];
                             _attendBtn.backgroundColor = [UIColor lightGrayColor];
                             [usersRequested addObject:GetUserName];
+                        }
+                        else if ([_attendBtn.titleLabel.text isEqual:INVITE_ONLY_BTN_TEXT])
+                        {
+                            return;
                         }
                         else
                         {

@@ -8,6 +8,7 @@
 @implementation TableViewCellRequests
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     // Initialization code
 }
 

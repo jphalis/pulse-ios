@@ -8,8 +8,8 @@
 
 @interface DateCreateViewController : UIViewController <UITextFieldDelegate, UITextViewDelegate>
 
-@property (weak, nonatomic) IBOutlet UITextField *monthField;
-@property (weak, nonatomic) IBOutlet UITextField *dayField;
+@property (weak, nonatomic) IBOutlet UITextField *dateField;
+@property (strong, nonatomic) UIDatePicker *datePickerView;
 @property (strong, nonatomic) UIDatePicker *startPickerView;
 @property (strong, nonatomic) UIDatePicker *endPickerView;
 @property (weak, nonatomic) IBOutlet UITextField *startTimeField;
@@ -23,6 +23,9 @@
 @property (retain, nonatomic) NSString *partySize;
 @property (retain, nonatomic) NSString *partyLatitude;
 @property (retain, nonatomic) NSString *partyLongitude;
+@property (retain, nonatomic) NSString *partyMonth;
+@property (retain, nonatomic) NSString *partyDay;
+@property (retain, nonatomic) NSString *partyYear;
 
 - (IBAction)onPrevious:(id)sender;
 - (IBAction)onScratch:(id)sender;

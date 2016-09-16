@@ -275,7 +275,7 @@
     NSInteger monthNumber = [partyClass.partyMonth integerValue];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     NSString *monthName = [[dateFormatter monthSymbols] objectAtIndex:(monthNumber-1)];
-    cell.partyDate.text = [NSString stringWithFormat:@"%@ %@, 2016", monthName, partyClass.partyDay];
+    cell.partyDate.text = [NSString stringWithFormat:@"%@ %@, %@", monthName, partyClass.partyDay, partyClass.partyYear];
     cell.partyTime.text = [NSString stringWithFormat:@"%@ - %@", partyClass.partyStartTime, partyClass.partyEndTime];
     [cell.userProfilePicture loadImageFromURL:partyClass.partyUserProfilePicture withTempImage:@"avatar_icon"];
     cell.userProfilePicture.layer.cornerRadius = cell.userProfilePicture.frame.size.width / 2;

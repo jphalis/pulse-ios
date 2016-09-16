@@ -9,6 +9,7 @@
 #import "GlobalFunctions.h"
 #import "GuestsCreateViewController.h"
 #import "InviteCreateViewController.h"
+#import "SCLAlertView.h"
 #import "UIViewControllerAdditions.h"
 
 
@@ -69,19 +70,9 @@ enum{
             _openPartyIcon.layer.borderWidth = 3;
             _openPartyIcon.layer.borderColor = [[UIColor greenColor] CGColor];
             _openPartyIcon.layer.cornerRadius = _openPartyIcon.frame.size.width / 2;
-            _partyInvite = @"open (no pass required)";
+            _partyInvite = @"15";
             
             _requestPartyIcon.layer.borderWidth = 0;
-            _exclusivePartyIcon.layer.borderWidth = 0;
-            break;
-        }
-        case BTNREQUEST:{
-            _requestPartyIcon.layer.borderWidth = 3;
-            _requestPartyIcon.layer.borderColor = [[UIColor greenColor] CGColor];
-            _requestPartyIcon.layer.cornerRadius = _requestPartyIcon.frame.size.width / 2;
-            _partyInvite = @"request + approval";
-            
-            _openPartyIcon.layer.borderWidth = 0;
             _exclusivePartyIcon.layer.borderWidth = 0;
             break;
         }
@@ -89,10 +80,20 @@ enum{
             _exclusivePartyIcon.layer.borderWidth = 3;
             _exclusivePartyIcon.layer.borderColor = [[UIColor greenColor] CGColor];
             _exclusivePartyIcon.layer.cornerRadius = _exclusivePartyIcon.frame.size.width / 2;
-            _partyInvite = @"invite only";
+            _partyInvite = @"16";
             
             _openPartyIcon.layer.borderWidth = 0;
             _requestPartyIcon.layer.borderWidth = 0;
+            break;
+        }
+        case BTNREQUEST:{
+            _requestPartyIcon.layer.borderWidth = 3;
+            _requestPartyIcon.layer.borderColor = [[UIColor greenColor] CGColor];
+            _requestPartyIcon.layer.cornerRadius = _requestPartyIcon.frame.size.width / 2;
+            _partyInvite = @"17";
+            
+            _openPartyIcon.layer.borderWidth = 0;
+            _exclusivePartyIcon.layer.borderWidth = 0;
             break;
         }
         default: {
@@ -124,10 +125,17 @@ enum{
 }
 
 - (IBAction)onProceed:(id)sender {
-    GuestsCreateViewController *guestsCreateViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"GuestsCreateViewController"];
-    guestsCreateViewController.partyType = _partyType;
-    guestsCreateViewController.partyInvite = _partyInvite;
-    [self.navigationController pushViewController:guestsCreateViewController animated:YES];
+    if (!_partyInvite){
+        SCLAlertView *alert = [[SCLAlertView alloc] init];
+        alert.showAnimationType = SlideInFromLeft;
+        alert.hideAnimationType = SlideOutToBottom;
+        [alert showNotice:self title:@"Notice" subTitle:@"Please select an invitation type" closeButtonTitle:@"OK" duration:0.0f];
+    } else {
+        GuestsCreateViewController *guestsCreateViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"GuestsCreateViewController"];
+        guestsCreateViewController.partyType = _partyType;
+        guestsCreateViewController.partyInvite = _partyInvite;
+        [self.navigationController pushViewController:guestsCreateViewController animated:YES];
+    }
 }
 
 @end

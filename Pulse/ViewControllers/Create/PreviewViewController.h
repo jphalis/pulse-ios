@@ -12,6 +12,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *partyNameField;
 @property (weak, nonatomic) IBOutlet UILabel *partyDateTimeField;
 @property (weak, nonatomic) IBOutlet UILabel *partyAddressField;
+@property (weak, nonatomic) IBOutlet UIImageView *inviteIcon;
 @property (weak, nonatomic) IBOutlet UITextView *partyDescriptionField;
 @property (retain, nonatomic) NSString *partyInvite;
 @property (retain, nonatomic) NSString *partyType;

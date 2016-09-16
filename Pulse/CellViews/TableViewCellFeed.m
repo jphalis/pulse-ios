@@ -8,6 +8,7 @@
 @implementation TableViewCellFeed
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     // Initialization code
 }
 

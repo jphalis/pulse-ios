@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 47;
+	objectVersion = 48;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -68,6 +68,8 @@
 		D04DBD871D5178B200BB8172 /* StringUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = D04DBD721D5178B200BB8172 /* StringUtil.m */; };
 		D04DBD881D5178B200BB8172 /* UIViewControllerAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D04DBD751D5178B200BB8172 /* UIViewControllerAdditions.m */; };
 		D04DBD8E1D5178CD00BB8172 /* GlobalFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = D04DBD8C1D5178CD00BB8172 /* GlobalFunctions.m */; };
+		D06B7E0C1D888B7900381C20 /* PartyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D06B7E081D888B7900381C20 /* PartyViewController.m */; };
+		D06B7E0D1D888B7900381C20 /* RequestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D06B7E0A1D888B7900381C20 /* RequestsViewController.m */; };
 		D06ED5131D6CAA23006AE20B /* AsyncImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D06ED50C1D6CAA23006AE20B /* AsyncImageView.m */; };
 		D06ED5141D6CAA23006AE20B /* SDIAsyncImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D06ED50E1D6CAA23006AE20B /* SDIAsyncImageView.m */; };
 		D06ED5151D6CAA23006AE20B /* UIImage+GIF.m in Sources */ = {isa = PBXBuildFile; fileRef = D06ED5101D6CAA23006AE20B /* UIImage+GIF.m */; };
@@ -77,8 +79,6 @@
 		D09D4BAD1D624E8F00D285F3 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D09D4BAC1D624E8F00D285F3 /* HomeViewController.m */; };
 		D09D4BB01D624EF000D285F3 /* FeedClass.m in Sources */ = {isa = PBXBuildFile; fileRef = D09D4BAF1D624EF000D285F3 /* FeedClass.m */; };
 		D0ACF2221D7F8FB800A65C14 /* TableViewCellRequests.m in Sources */ = {isa = PBXBuildFile; fileRef = D0ACF2211D7F8FB800A65C14 /* TableViewCellRequests.m */; };
-		D0ACF2261D7F902200A65C14 /* PartyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0ACF2251D7F902200A65C14 /* PartyViewController.m */; };
-		D0ACF2291D7F903C00A65C14 /* RequestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0ACF2281D7F903C00A65C14 /* RequestsViewController.m */; };
 		D0BC2F5D1D84775B00237E33 /* PulseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BC2F5A1D84775B00237E33 /* PulseViewController.m */; };
 		D0BC2F5E1D84775B00237E33 /* FindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BC2F5C1D84775B00237E33 /* FindViewController.m */; };
 		D0C02F831D56D69F0033EF98 /* FollowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C02F821D56D69F0033EF98 /* FollowViewController.m */; };
@@ -240,6 +240,10 @@
 		D04DBD8B1D5178CD00BB8172 /* GlobalFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobalFunctions.h; sourceTree = "<group>"; };
 		D04DBD8C1D5178CD00BB8172 /* GlobalFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlobalFunctions.m; sourceTree = "<group>"; };
 		D04DBD8D1D5178CD00BB8172 /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Message.h; sourceTree = "<group>"; };
+		D06B7E071D888B7900381C20 /* PartyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PartyViewController.h; sourceTree = "<group>"; };
+		D06B7E081D888B7900381C20 /* PartyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PartyViewController.m; sourceTree = "<group>"; };
+		D06B7E091D888B7900381C20 /* RequestsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestsViewController.h; sourceTree = "<group>"; };
+		D06B7E0A1D888B7900381C20 /* RequestsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestsViewController.m; sourceTree = "<group>"; };
 		D06ED50B1D6CAA23006AE20B /* AsyncImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncImageView.h; sourceTree = "<group>"; };
 		D06ED50C1D6CAA23006AE20B /* AsyncImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncImageView.m; sourceTree = "<group>"; };
 		D06ED50D1D6CAA23006AE20B /* SDIAsyncImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDIAsyncImageView.h; sourceTree = "<group>"; };
@@ -257,10 +261,6 @@
 		D09D4BAF1D624EF000D285F3 /* FeedClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedClass.m; sourceTree = "<group>"; };
 		D0ACF2201D7F8FB800A65C14 /* TableViewCellRequests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewCellRequests.h; sourceTree = "<group>"; };
 		D0ACF2211D7F8FB800A65C14 /* TableViewCellRequests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewCellRequests.m; sourceTree = "<group>"; };
-		D0ACF2241D7F902200A65C14 /* PartyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PartyViewController.h; sourceTree = "<group>"; };
-		D0ACF2251D7F902200A65C14 /* PartyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PartyViewController.m; sourceTree = "<group>"; };
-		D0ACF2271D7F903C00A65C14 /* RequestsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestsViewController.h; sourceTree = "<group>"; };
-		D0ACF2281D7F903C00A65C14 /* RequestsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestsViewController.m; sourceTree = "<group>"; };
 		D0BC2F591D84775B00237E33 /* PulseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PulseViewController.h; sourceTree = "<group>"; };
 		D0BC2F5A1D84775B00237E33 /* PulseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PulseViewController.m; sourceTree = "<group>"; };
 		D0BC2F5B1D84775B00237E33 /* FindViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindViewController.h; sourceTree = "<group>"; };
@@ -482,7 +482,7 @@
 				D09D4BAA1D624E8F00D285F3 /* Feed */,
 				D0BC2F581D84775B00237E33 /* Find */,
 				D03CEEBD1D56D2D700D2586D /* Notifications */,
-				D0ACF2231D7F902200A65C14 /* Party */,
+				D06B7E041D888B7900381C20 /* Party */,
 				D03CEEB61D56D2D700D2586D /* CustomTabViewController.h */,
 				D03CEEB71D56D2D700D2586D /* CustomTabViewController.m */,
 			);
@@ -509,12 +509,12 @@
 			children = (
 				D03CEEAC1D56D2D700D2586D /* CreateViewController.h */,
 				D03CEEAD1D56D2D700D2586D /* CreateViewController.m */,
-				D03CEEAE1D56D2D700D2586D /* DateCreateViewController.h */,
-				D03CEEAF1D56D2D700D2586D /* DateCreateViewController.m */,
-				D03CEEB01D56D2D700D2586D /* GuestsCreateViewController.h */,
-				D03CEEB11D56D2D700D2586D /* GuestsCreateViewController.m */,
 				D03CEEB21D56D2D700D2586D /* InviteCreateViewController.h */,
 				D03CEEB31D56D2D700D2586D /* InviteCreateViewController.m */,
+				D03CEEB01D56D2D700D2586D /* GuestsCreateViewController.h */,
+				D03CEEB11D56D2D700D2586D /* GuestsCreateViewController.m */,
+				D03CEEAE1D56D2D700D2586D /* DateCreateViewController.h */,
+				D03CEEAF1D56D2D700D2586D /* DateCreateViewController.m */,
 				D03CEEB41D56D2D700D2586D /* PreviewViewController.h */,
 				D03CEEB51D56D2D700D2586D /* PreviewViewController.m */,
 			);
@@ -635,6 +635,17 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
+		D06B7E041D888B7900381C20 /* Party */ = {
+			isa = PBXGroup;
+			children = (
+				D06B7E071D888B7900381C20 /* PartyViewController.h */,
+				D06B7E081D888B7900381C20 /* PartyViewController.m */,
+				D06B7E091D888B7900381C20 /* RequestsViewController.h */,
+				D06B7E0A1D888B7900381C20 /* RequestsViewController.m */,
+			);
+			path = Party;
+			sourceTree = "<group>";
+		};
 		D06ED50A1D6CAA23006AE20B /* AsyncImage */ = {
 			isa = PBXGroup;
 			children = (
@@ -657,17 +668,6 @@
 				D09D4BAC1D624E8F00D285F3 /* HomeViewController.m */,
 			);
 			path = Feed;
-			sourceTree = "<group>";
-		};
-		D0ACF2231D7F902200A65C14 /* Party */ = {
-			isa = PBXGroup;
-			children = (
-				D0ACF2241D7F902200A65C14 /* PartyViewController.h */,
-				D0ACF2251D7F902200A65C14 /* PartyViewController.m */,
-				D0ACF2271D7F903C00A65C14 /* RequestsViewController.h */,
-				D0ACF2281D7F903C00A65C14 /* RequestsViewController.m */,
-			);
-			path = Party;
 			sourceTree = "<group>";
 		};
 		D0BC2F581D84775B00237E33 /* Find */ = {
@@ -798,12 +798,13 @@
 		13F77D2B1D2EE581003EF38D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = domain;
 				TargetAttributes = {
 					13F77D321D2EE581003EF38D = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = Y64H65SHZL;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.Maps.iOS = {
 								enabled = 1;
@@ -821,7 +822,7 @@
 				};
 			};
 			buildConfigurationList = 13F77D2E1D2EE581003EF38D /* Build configuration list for PBXProject "Pulse" */;
-			compatibilityVersion = "Xcode 6.3";
+			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -905,7 +906,6 @@
 				D04DBD7B1D5178B200BB8172 /* SCLButton.m in Sources */,
 				D0ACF2221D7F8FB800A65C14 /* TableViewCellRequests.m in Sources */,
 				D03CEEC71D56D2D700D2586D /* GuestsCreateViewController.m in Sources */,
-				D0ACF2291D7F903C00A65C14 /* RequestsViewController.m in Sources */,
 				D04DBD871D5178B200BB8172 /* StringUtil.m in Sources */,
 				D01350E71D5A935A00ACD2C1 /* CollectionViewCellParty.m in Sources */,
 				D0330E3D1D7C81AD0080A3CC /* SVWebViewController.m in Sources */,
@@ -920,6 +920,7 @@
 				D0C02F911D56DBF30033EF98 /* NotificationClass.m in Sources */,
 				D0F73CBF1D83498800DA8CC1 /* NameViewController.m in Sources */,
 				D04DBD7D1D5178B200BB8172 /* SCLTimerDisplay.m in Sources */,
+				D06B7E0C1D888B7900381C20 /* PartyViewController.m in Sources */,
 				D0F73CC11D83498800DA8CC1 /* SignInViewController.m in Sources */,
 				13F77D3B1D2EE581003EF38D /* AppDelegate.m in Sources */,
 				D04DBD861D5178B200BB8172 /* NSString+Additions.m in Sources */,
@@ -940,10 +941,10 @@
 				D0C02F8D1D56DBDC0033EF98 /* TableViewCellNotification.m in Sources */,
 				D09D4BAD1D624E8F00D285F3 /* HomeViewController.m in Sources */,
 				D01350EA1D5A99BA00ACD2C1 /* PartyClass.m in Sources */,
+				D06B7E0D1D888B7900381C20 /* RequestsViewController.m in Sources */,
 				D03CEEC91D56D2D700D2586D /* PreviewViewController.m in Sources */,
 				13F77D381D2EE581003EF38D /* main.m in Sources */,
 				D03CEECA1D56D2D700D2586D /* CustomTabViewController.m in Sources */,
-				D0ACF2261D7F902200A65C14 /* PartyViewController.m in Sources */,
 				D0330E401D7C81AD0080A3CC /* SVWebViewControllerActivityChrome.m in Sources */,
 				D04DBD7A1D5178B200BB8172 /* SCLAlertViewStyleKit.m in Sources */,
 				D0330E441D7C81AD0080A3CC /* SVWebViewControllerActivitySafari.m in Sources */,
@@ -1034,6 +1035,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -1044,13 +1046,17 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = Y64H65SHZL;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1067,7 +1073,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1079,6 +1085,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -1089,13 +1096,17 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = Y64H65SHZL;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1106,7 +1117,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1120,18 +1131,20 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				DEVELOPMENT_TEAM = Y64H65SHZL;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = Pulse/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.domain.pulse;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "9b2b1bc5-ae47-4efd-bff9-40964359161b";
+				PROVISIONING_PROFILE_SPECIFIER = Pulse;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -1142,18 +1155,20 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				DEVELOPMENT_TEAM = Y64H65SHZL;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = Pulse/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.domain.pulse;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "9b2b1bc5-ae47-4efd-bff9-40964359161b";
+				PROVISIONING_PROFILE_SPECIFIER = Pulse;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

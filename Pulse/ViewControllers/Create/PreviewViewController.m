@@ -52,6 +52,16 @@
     _partyAddressField.text = _partyAddress;
     
     _partyDescriptionField.text = _partyDescription;
+    
+    if ([_partyInvite isEqualToString:@"15"]) {
+        [_inviteIcon setImage:[UIImage imageNamed:@"open_icon"]];
+    }
+    else if ([_partyInvite isEqualToString:@"16"]) {
+        [_inviteIcon setImage:[UIImage imageNamed:@"invite_only_icon"]];
+    }
+    else if ([_partyInvite isEqualToString:@"17"]) {
+        [_inviteIcon setImage:[UIImage imageNamed:@"request_icon"]];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -89,7 +99,7 @@
     NSString *myUniqueName = [NSString stringWithFormat:@"%@-%lu", @"event", (unsigned long)([[NSDate date] timeIntervalSince1970]*10.0)];
 
     NSMutableDictionary* _params = [[NSMutableDictionary alloc] init];
-    // [_params setObject:_partyInvite forKey:@"invite_type"];
+     [_params setObject:_partyInvite forKey:@"invite_type"];
     NSString *serverPartyType;
     if ([_partyType isEqualToString:@"Custom"]){
         serverPartyType = @"0";

@@ -107,6 +107,9 @@
     [cell.denyBtn addTarget:self action:@selector(denyUser:) forControlEvents:UIControlEventTouchUpInside];
     cell.denyBtn.tag = indexPath.row;
     
+    [[cell.approveBtn imageView] setContentMode: UIViewContentModeScaleAspectFit];
+    [[cell.denyBtn imageView] setContentMode: UIViewContentModeScaleAspectFit];
+    
     UIView *bottomBorder = [[UIView alloc] initWithFrame:CGRectMake(0, cell.frame.size.height - 1, cell.frame.size.width, 1)];
     bottomBorder.backgroundColor = [UIColor colorWithRed:(234/255.0) green:(234/255.0) blue:(234/255.0) alpha:1.0];
     [cell.contentView addSubview:bottomBorder];
