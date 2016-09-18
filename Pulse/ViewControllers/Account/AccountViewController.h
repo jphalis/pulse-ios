@@ -12,7 +12,7 @@
 @property (weak, nonatomic) IBOutlet SDIAsyncImageView *profilePicture;
 @property (weak, nonatomic) IBOutlet UILabel *profileName;
 @property (weak, nonatomic) IBOutlet UIButton *followBtn;
-//@property (weak, nonatomic) IBOutlet UILabel *eventCount;
+@property (weak, nonatomic) IBOutlet UILabel *eventCount;
 @property (weak, nonatomic) IBOutlet UILabel *followerCount;
 @property (weak, nonatomic) IBOutlet UILabel *followingCount;
 @property (weak, nonatomic) IBOutlet UIButton *backBtn;

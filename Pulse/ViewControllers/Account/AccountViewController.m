@@ -80,10 +80,10 @@
         _settingsBtn.tag = 2;
     }
     
-    _eventsBtn.layer.borderWidth = 1;
-    _eventsBtn.layer.borderColor = [[UIColor lightGrayColor] CGColor];
-    _eventsBtn.layer.cornerRadius = 3;
-    _followBtn.layer.cornerRadius = 3;
+//    _eventsBtn.layer.borderWidth = 1;
+//    _eventsBtn.layer.borderColor = [[UIColor lightGrayColor] CGColor];
+//    _eventsBtn.layer.cornerRadius = 3;
+//    _followBtn.layer.cornerRadius = 3;
 }
 
 - (void)didReceiveMemoryWarning
@@ -274,7 +274,7 @@
 {
     ProfileClass *profileClass = [dictProfileInformation objectForKey:@"ProfileInfo"];
     _profileName.text = profileClass.userName;
-//    _eventCount.text = profileClass.event_count;
+    _eventCount.text = profileClass.event_count;
     _followerCount.text = profileClass.followers_count;
     _followingCount.text = profileClass.following_count;
     [_profilePicture loadImageFromURL:profileClass.userProfilePicture withTempImage:@"avatar_icon"];
@@ -289,12 +289,14 @@
     }
 
     if (![appDelegate.arrFollowing containsObject:_profileName.text]){
-        [_followBtn setTitle:@"Follow" forState:UIControlStateNormal];
-        _followBtn.layer.borderWidth = 1;
-        _followBtn.layer.borderColor = [[UIColor whiteColor] CGColor];
-        _followBtn.backgroundColor = [UIColor clearColor];
+//        [_followBtn setTitle:@"Follow" forState:UIControlStateNormal];
+//        _followBtn.layer.borderWidth = 1;
+//        _followBtn.layer.borderColor = [[UIColor whiteColor] CGColor];
+//        _followBtn.backgroundColor = [UIColor clearColor];
+        [_followBtn setImage:[UIImage imageNamed:@"plus_sign_icon"] forState:UIControlStateNormal];
     } else {
-        [_followBtn setTitle:@"Following" forState:UIControlStateNormal];
+//        [_followBtn setTitle:@"Following" forState:UIControlStateNormal];
+        [_followBtn setImage:[UIImage imageNamed:@"checkmark_icon"] forState:UIControlStateNormal];
     }
     
     [refreshControl endRefreshing];
@@ -624,15 +626,17 @@
                                 [appDelegate.arrFollowing removeObjectAtIndex:i];
                             }
                         }
-                        [_followBtn setTitle:@"Follow" forState:UIControlStateNormal];
-                        _followBtn.layer.borderWidth = 1;
-                        _followBtn.layer.borderColor = [[UIColor whiteColor] CGColor];
-                        _followBtn.backgroundColor = [UIColor clearColor];
+//                        [_followBtn setTitle:@"Follow" forState:UIControlStateNormal];
+//                        _followBtn.layer.borderWidth = 1;
+//                        _followBtn.layer.borderColor = [[UIColor whiteColor] CGColor];
+//                        _followBtn.backgroundColor = [UIColor clearColor];
+                        [_followBtn setImage:[UIImage imageNamed:@"plus_sign_icon"] forState:UIControlStateNormal];
                     } else {
                         [appDelegate.arrFollowing addObject:profileClass.userName];
-                        [_followBtn setTitle:@"Following" forState:UIControlStateNormal];
-                        _followBtn.layer.borderColor = [[UIColor clearColor] CGColor];
-                        _followBtn.backgroundColor = [UIColor colorWithRed:59/255.0 green:199/255.0 blue:114/255.0 alpha:1.0];
+//                        [_followBtn setTitle:@"Following" forState:UIControlStateNormal];
+//                        _followBtn.layer.borderColor = [[UIColor clearColor] CGColor];
+//                        _followBtn.backgroundColor = [UIColor colorWithRed:59/255.0 green:199/255.0 blue:114/255.0 alpha:1.0];
+                        [_followBtn setImage:[UIImage imageNamed:@"checkmark_icon"] forState:UIControlStateNormal];
                     }
                 }
             }
