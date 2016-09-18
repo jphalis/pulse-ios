@@ -195,7 +195,6 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
     TableViewCellFeed *cell = [tableView dequeueReusableCellWithIdentifier:@"TableViewCellFeed" forIndexPath:indexPath];
     
     if(arrFeed.count <= 0){
@@ -206,10 +205,43 @@
     
     cell.timeLabel.text = feedClass.time;
     
-    NSString *originalText = [NSString stringWithFormat:@"%@ %@", feedClass.sender, feedClass.feedText];
-    NSMutableAttributedString *formattedText = [[NSMutableAttributedString alloc] initWithString:originalText];
-    [formattedText addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:171/255.0 green:14/255.0 blue:27/255.0 alpha:1.0] range:[originalText rangeOfString:feedClass.sender]];
-    cell.feedText.attributedText = formattedText;
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didRecognizeTapGesture:)];
+    [cell.feedText addGestureRecognizer:tapGesture];
+    
+    NSMutableParagraphStyle *paragraph = [[NSMutableParagraphStyle alloc] init];
+    NSMutableAttributedString *feedTextAttributedString = [[NSMutableAttributedString alloc] initWithString:@"{0} {1} {2} {3}" attributes:@{ NSForegroundColorAttributeName: [UIColor blackColor]}];
+    
+    NSAttributedString *senderAttributedString = [[NSAttributedString alloc] initWithString:feedClass.sender attributes:@{@"senderTag" : @(YES), NSForegroundColorAttributeName: [UIColor colorWithRed:171/255.0 green:14/255.0 blue:27/255.0 alpha:1.0]}];
+    
+    NSRange range = [feedClass.feedText rangeOfString:@" " options:NSBackwardsSearch];
+    
+    NSString *result = [feedClass.feedText substringToIndex:range.location];
+    NSAttributedString *textAttributedString = [[NSAttributedString alloc] initWithString:result attributes:@{NSForegroundColorAttributeName: [UIColor blackColor]}];
+    
+    NSString *result2 = [feedClass.feedText substringFromIndex:range.location+1];
+    NSAttributedString *eventAttributedString = [[NSAttributedString alloc] initWithString:result2 attributes:@{@"eventTag" : @(YES), NSForegroundColorAttributeName: [UIColor colorWithRed:171/255.0 green:14/255.0 blue:27/255.0 alpha:1.0]}];
+    
+    NSAttributedString *extraAttributedString = [[NSAttributedString alloc] initWithString:@"" attributes:@{NSForegroundColorAttributeName: [UIColor blackColor]}];
+    
+    NSRange range0 = [[feedTextAttributedString string] rangeOfString:@"{0}"];
+    if(range0.location != NSNotFound)
+        [feedTextAttributedString replaceCharactersInRange:range0 withAttributedString:senderAttributedString];
+    
+    NSRange range1 = [[feedTextAttributedString string] rangeOfString:@"{1}"];
+    if(range1.location != NSNotFound)
+        [feedTextAttributedString replaceCharactersInRange:range1 withAttributedString:textAttributedString];
+
+    NSRange range2 = [[feedTextAttributedString string] rangeOfString:@"{2}"];
+    if(range2.location != NSNotFound)
+        [feedTextAttributedString replaceCharactersInRange:range2 withAttributedString:eventAttributedString];
+    
+    NSRange range3 = [[feedTextAttributedString string] rangeOfString:@"{3}"];
+    if(range3.location != NSNotFound)
+        [feedTextAttributedString replaceCharactersInRange:range3 withAttributedString:extraAttributedString];
+    
+    [feedTextAttributedString addAttribute:NSParagraphStyleAttributeName value:paragraph range:NSMakeRange(0, [feedTextAttributedString length])];
+    
+    cell.feedText.attributedText = feedTextAttributedString;
     
     if([feedClass.targetUrl isEqualToString:@""]){
         cell.feedText.textColor = [UIColor lightGrayColor];
@@ -228,14 +260,56 @@
     return cell;
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    FeedClass *feedClass = [arrFeed objectAtIndex:indexPath.row];
-
-    if (![feedClass.targetUrl isEqualToString:@""]){
-        PartyViewController *partyViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PartyViewController"];
-        partyViewController.partyUrl = feedClass.targetUrl;
-        [self.navigationController pushViewController:partyViewController animated:YES];
+-(void)didRecognizeTapGesture:(UITapGestureRecognizer *)recognizer {
+    UITextView *textView = (UITextView *)recognizer.view;
+    NSLayoutManager *layoutManager = textView.layoutManager;
+    CGPoint location = [recognizer locationInView:textView];
+    location.x -= textView.textContainerInset.left;
+    location.y -= textView.textContainerInset.top;
+    
+    NSUInteger characterIndex;
+    characterIndex = [layoutManager characterIndexForPoint:location
+                                           inTextContainer:textView.textContainer
+                  fractionOfDistanceBetweenInsertionPoints:NULL];
+    
+    if (characterIndex < textView.textStorage.length) {
+        NSRange range0;
+        NSRange range1;
+        id termsValue = [textView.textStorage attribute:@"senderTag" atIndex:characterIndex effectiveRange:&range0];
+        id policyValue = [textView.textStorage attribute:@"eventTag" atIndex:characterIndex effectiveRange:&range1];
+        
+        CGPoint location = [recognizer locationInView:tblVW];
+        NSIndexPath *ipath = [tblVW indexPathForRowAtPoint:location];
+        FeedClass *feedClass = [arrFeed objectAtIndex:ipath.row];
+        
+        if(termsValue) {
+            AccountViewController *accountViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"AccountViewController"];
+            accountViewController.userURL = feedClass.senderUrl;
+            accountViewController.needBack = YES;
+            [self.navigationController pushViewController:accountViewController animated:YES];
+            return;
+        }
+        
+        if(policyValue) {
+            if (![feedClass.targetUrl isEqualToString:@""]) {
+                PartyViewController *partyViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PartyViewController"];
+                partyViewController.partyUrl = feedClass.targetUrl;
+                [self.navigationController pushViewController:partyViewController animated:YES];
+            }
+            return;
+        }
     }
+}
+
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+//    FeedClass *feedClass = [arrFeed objectAtIndex:indexPath.row];
+//
+//    if (![feedClass.targetUrl isEqualToString:@""]){
+//        PartyViewController *partyViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PartyViewController"];
+//        partyViewController.partyUrl = feedClass.targetUrl;
+//        [self.navigationController pushViewController:partyViewController animated:YES];
+//    }
 }
 
 #pragma mark - Functions

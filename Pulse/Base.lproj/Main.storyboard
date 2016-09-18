@@ -1983,7 +1983,7 @@ only</string>
                                                             <frame key="frameInset" minX="14" minY="42.50%" width="40" height="40"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                         </imageView>
-                                                        <textView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" editable="NO" text="Sample Text" selectable="NO" id="Hvx-NF-h6g" userLabel="Feed Text Field">
+                                                        <textView clipsSubviews="YES" contentMode="scaleToFill" editable="NO" text="Sample Text" selectable="NO" id="Hvx-NF-h6g" userLabel="Feed Text Field">
                                                             <frame key="frameInset" minX="19.56%" minY="15.83%" width="76.01%" height="72.50%"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2006,7 +2006,7 @@ only</string>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="feedText" destination="Hvx-NF-h6g" id="8jA-6a-APs"/>
+                                            <outlet property="feedText" destination="Hvx-NF-h6g" id="M6S-vM-e8W"/>
                                             <outlet property="profileBtn" destination="WuA-rV-CYc" id="9ND-HG-uCb"/>
                                             <outlet property="timeLabel" destination="cZ0-rL-hqK" id="CwZ-Jj-jTO"/>
                                             <outlet property="userProfilePicture" destination="xkN-WH-zEf" id="vhL-eQ-uPV"/>
@@ -2023,7 +2023,7 @@ only</string>
                     </view>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
-                        <outlet property="tblVW" destination="RfF-hs-Tw9" id="XuZ-a1-UcT"/>
+                        <outlet property="tblVW" destination="RfF-hs-Tw9" id="FvQ-JK-Q6P"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A3B-f7-yD7" userLabel="First Responder" sceneMemberID="firstResponder"/>
