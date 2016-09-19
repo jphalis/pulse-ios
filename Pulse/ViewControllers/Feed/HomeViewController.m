@@ -275,14 +275,14 @@
     if (characterIndex < textView.textStorage.length) {
         NSRange range0;
         NSRange range1;
-        id termsValue = [textView.textStorage attribute:@"senderTag" atIndex:characterIndex effectiveRange:&range0];
-        id policyValue = [textView.textStorage attribute:@"eventTag" atIndex:characterIndex effectiveRange:&range1];
+        id userValue = [textView.textStorage attribute:@"senderTag" atIndex:characterIndex effectiveRange:&range0];
+        id eventValue = [textView.textStorage attribute:@"eventTag" atIndex:characterIndex effectiveRange:&range1];
         
         CGPoint location = [recognizer locationInView:tblVW];
         NSIndexPath *ipath = [tblVW indexPathForRowAtPoint:location];
         FeedClass *feedClass = [arrFeed objectAtIndex:ipath.row];
         
-        if(termsValue) {
+        if(userValue) {
             AccountViewController *accountViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"AccountViewController"];
             accountViewController.userURL = feedClass.senderUrl;
             accountViewController.needBack = YES;
@@ -290,7 +290,7 @@
             return;
         }
         
-        if(policyValue) {
+        if(eventValue) {
             if (![feedClass.targetUrl isEqualToString:@""]) {
                 PartyViewController *partyViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PartyViewController"];
                 partyViewController.partyUrl = feedClass.targetUrl;

@@ -165,10 +165,43 @@
     
     NotificationClass *notificationClass = [arrNotification objectAtIndex:indexPath.row];
     
-    NSString *originalText = [NSString stringWithFormat:@"%@ %@", notificationClass.sender, notificationClass.notificationText];
-    NSMutableAttributedString *formattedText = [[NSMutableAttributedString alloc] initWithString:originalText];
-    [formattedText addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:171/255.0 green:14/255.0 blue:27/255.0 alpha:1.0] range:[originalText rangeOfString:notificationClass.sender]];
-    cell.notificationTextField.attributedText = formattedText;
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didRecognizeTapGesture:)];
+    [cell.notificationTextField addGestureRecognizer:tapGesture];
+    
+    NSMutableParagraphStyle *paragraph = [[NSMutableParagraphStyle alloc] init];
+    NSMutableAttributedString *notifTextAttributedString = [[NSMutableAttributedString alloc] initWithString:@"{0} {1} {2} {3}" attributes:@{ NSForegroundColorAttributeName: [UIColor blackColor]}];
+    
+    NSAttributedString *senderAttributedString = [[NSAttributedString alloc] initWithString:notificationClass.sender attributes:@{@"senderTag" : @(YES), NSForegroundColorAttributeName: [UIColor colorWithRed:171/255.0 green:14/255.0 blue:27/255.0 alpha:1.0]}];
+    
+    NSRange range = [notificationClass.notificationText rangeOfString:@" " options:NSBackwardsSearch];
+    
+    NSString *result = [notificationClass.notificationText substringToIndex:range.location];
+    NSAttributedString *textAttributedString = [[NSAttributedString alloc] initWithString:result attributes:@{NSForegroundColorAttributeName: [UIColor blackColor]}];
+    
+    NSString *result2 = [notificationClass.notificationText substringFromIndex:range.location+1];
+    NSAttributedString *eventAttributedString = [[NSAttributedString alloc] initWithString:result2 attributes:@{@"eventTag" : @(YES), NSForegroundColorAttributeName: [UIColor colorWithRed:171/255.0 green:14/255.0 blue:27/255.0 alpha:1.0]}];
+    
+    NSAttributedString *extraAttributedString = [[NSAttributedString alloc] initWithString:@"" attributes:@{NSForegroundColorAttributeName: [UIColor blackColor]}];
+    
+    NSRange range0 = [[notifTextAttributedString string] rangeOfString:@"{0}"];
+    if(range0.location != NSNotFound)
+        [notifTextAttributedString replaceCharactersInRange:range0 withAttributedString:senderAttributedString];
+    
+    NSRange range1 = [[notifTextAttributedString string] rangeOfString:@"{1}"];
+    if(range1.location != NSNotFound)
+        [notifTextAttributedString replaceCharactersInRange:range1 withAttributedString:textAttributedString];
+    
+    NSRange range2 = [[notifTextAttributedString string] rangeOfString:@"{2}"];
+    if(range2.location != NSNotFound)
+        [notifTextAttributedString replaceCharactersInRange:range2 withAttributedString:eventAttributedString];
+    
+    NSRange range3 = [[notifTextAttributedString string] rangeOfString:@"{3}"];
+    if(range3.location != NSNotFound)
+        [notifTextAttributedString replaceCharactersInRange:range3 withAttributedString:extraAttributedString];
+    
+    [notifTextAttributedString addAttribute:NSParagraphStyleAttributeName value:paragraph range:NSMakeRange(0, [notifTextAttributedString length])];
+    
+    cell.notificationTextField.attributedText = notifTextAttributedString;
     
     if([notificationClass.targetUrl isEqualToString:@""]){
         cell.notificationTextField.textColor = [UIColor lightGrayColor];
@@ -188,14 +221,55 @@
     return cell;
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NotificationClass *notificationClass = [arrNotification objectAtIndex:indexPath.row];
+-(void)didRecognizeTapGesture:(UITapGestureRecognizer *)recognizer {
+    UITextView *textView = (UITextView *)recognizer.view;
+    NSLayoutManager *layoutManager = textView.layoutManager;
+    CGPoint location = [recognizer locationInView:textView];
+    location.x -= textView.textContainerInset.left;
+    location.y -= textView.textContainerInset.top;
     
-    if (![notificationClass.targetUrl isEqualToString:@""]){
-        PartyViewController *partyViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PartyViewController"];
-        partyViewController.partyUrl = notificationClass.targetUrl;
-        [self.navigationController pushViewController:partyViewController animated:YES];
+    NSUInteger characterIndex;
+    characterIndex = [layoutManager characterIndexForPoint:location
+                                           inTextContainer:textView.textContainer
+                  fractionOfDistanceBetweenInsertionPoints:NULL];
+    
+    if (characterIndex < textView.textStorage.length) {
+        NSRange range0;
+        NSRange range1;
+        id userValue = [textView.textStorage attribute:@"senderTag" atIndex:characterIndex effectiveRange:&range0];
+        id eventValue = [textView.textStorage attribute:@"eventTag" atIndex:characterIndex effectiveRange:&range1];
+        
+        CGPoint location = [recognizer locationInView:_tblVW];
+        NSIndexPath *ipath = [_tblVW indexPathForRowAtPoint:location];
+        NotificationClass *notificationClass = [arrNotification objectAtIndex:ipath.row];
+        
+        if(userValue) {
+            AccountViewController *accountViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"AccountViewController"];
+            accountViewController.userURL = notificationClass.senderUrl;
+            accountViewController.needBack = YES;
+            [self.navigationController pushViewController:accountViewController animated:YES];
+            return;
+        }
+        
+        if(eventValue) {
+            if (![notificationClass.targetUrl isEqualToString:@""]) {
+                PartyViewController *partyViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PartyViewController"];
+                partyViewController.partyUrl = notificationClass.targetUrl;
+                [self.navigationController pushViewController:partyViewController animated:YES];
+            }
+            return;
+        }
     }
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+//    NotificationClass *notificationClass = [arrNotification objectAtIndex:indexPath.row];
+//    
+//    if (![notificationClass.targetUrl isEqualToString:@""]){
+//        PartyViewController *partyViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PartyViewController"];
+//        partyViewController.partyUrl = notificationClass.targetUrl;
+//        [self.navigationController pushViewController:partyViewController animated:YES];
+//    }
 }
 
 #pragma mark - Functions

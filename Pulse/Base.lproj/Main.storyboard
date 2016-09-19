@@ -1423,7 +1423,7 @@ only</string>
                                                             <frame key="frameInset" minX="14" minY="42.50%" width="40" height="40"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                         </imageView>
-                                                        <textView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" editable="NO" text="Sample Text" selectable="NO" id="dRf-Jv-Bwf">
+                                                        <textView clipsSubviews="YES" contentMode="scaleToFill" editable="NO" text="Sample Text" selectable="NO" id="dRf-Jv-Bwf">
                                                             <frame key="frameInset" minX="19.56%" minY="19.17%" width="76.01%" height="65.00%"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
