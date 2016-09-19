@@ -258,6 +258,7 @@ didFailAutocompleteWithError:(NSError *)error {
     if ([self checkParty]){
         DateCreateViewController *dateCreateViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"DateCreateViewController"];
         dateCreateViewController.partyInvite = _partyInvite;
+        dateCreateViewController.usersInvited = _usersInvited;
         dateCreateViewController.partyType = _partyType;
         dateCreateViewController.partyName = _partyNameField.text;
         dateCreateViewController.partyAddress = _partyAddressField.text;

@@ -232,6 +232,40 @@
                             [partyClass.arrRequested addObject:dictRequesterInfo];
                         }
                     }
+                    
+                    if([[arrPartyResult objectAtIndex:i]valueForKey:@"get_invited_users_info"] == [NSNull null]){
+                        
+                    } else {
+                        NSMutableArray *arrInvited = [[arrPartyResult objectAtIndex:i]valueForKey:@"get_invited_users_info"];
+                        
+                        partyClass.arrInvited = [[NSMutableArray alloc]init];
+                        
+                        for(int j = 0; j < arrInvited.count; j++){
+                            NSMutableDictionary *dictInvitedInfo = [[NSMutableDictionary alloc]init];
+                            NSDictionary *dictUserDetail = [arrInvited objectAtIndex:j];
+                            
+                            if([dictUserDetail objectForKey:@"profile_pic"] == [NSNull null]){
+                                [dictInvitedInfo setObject:@"" forKey:@"user__profile_pic"];
+                            } else {
+                                NSString *proflURL = [NSString stringWithFormat:@"%@%@",@"https://oby.s3.amazonaws.com/media/",[dictUserDetail objectForKey:@"profile_pic"]];
+                                [dictInvitedInfo setValue:proflURL forKey:@"user__profile_pic"];
+                            }
+                            
+                            if([dictUserDetail objectForKey:@"id"] == [NSNull null]){
+                                [dictInvitedInfo setObject:@"" forKey:@"user__id"];
+                            } else {
+                                [dictInvitedInfo setObject:[NSString stringWithFormat:@"%@",[dictUserDetail objectForKey:@"id"]] forKey:@"user__id"];
+                            }
+                            
+                            if([dictUserDetail objectForKey:@"full_name"] == [NSNull null]){
+                                [dictInvitedInfo setObject:@"" forKey:@"user__full_name"];
+                            } else {
+                                [dictInvitedInfo setObject:[dictUserDetail objectForKey:@"full_name"] forKey:@"user__full_name"];
+                            }
+                            
+                            [partyClass.arrInvited addObject:dictInvitedInfo];
+                        }
+                    }
 
                     [arrParties addObject:partyClass];
                 }

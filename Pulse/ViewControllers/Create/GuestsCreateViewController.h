@@ -14,6 +14,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *mediumPartyIcon;
 @property (weak, nonatomic) IBOutlet UIButton *largePartyIcon;
 @property (retain, nonatomic) NSString *partyInvite;
+@property (retain, nonatomic) NSString *usersInvited;
 @property (retain, nonatomic) NSString *partyType;
 @property (retain, nonatomic) NSString *partySize;
 @property (retain, nonatomic) NSString *partyLatitude;

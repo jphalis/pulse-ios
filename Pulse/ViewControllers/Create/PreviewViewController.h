@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *inviteIcon;
 @property (weak, nonatomic) IBOutlet UITextView *partyDescriptionField;
 @property (retain, nonatomic) NSString *partyInvite;
+@property (retain, nonatomic) NSString *usersInvited;
 @property (retain, nonatomic) NSString *partyType;
 @property (retain, nonatomic) NSString *partyName;
 @property (retain, nonatomic) NSString *partyAddress;

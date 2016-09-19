@@ -89,6 +89,7 @@
     NSMutableDictionary *dictUser = [arrDetails objectAtIndex:indexPath.row];
     
     _userName = [dictUser objectForKey:@"user__full_name"];
+    _userProfilePic = [dictUser objectForKey:@"user__profile_pic"];
     _userId = [dictUser objectForKey:@"user__id"];
     
     [cell.userProfilePicture loadImageFromURL:[dictUser objectForKey:@"user__profile_pic"] withTempImage:@"avatar_icon"];
@@ -100,7 +101,7 @@
     if (cell.userName.text == GetUserName){
         cell.followBtn.hidden = YES;
     } else {
-        if ([appDelegate.arrFollowing containsObject:_userName]){
+        if ([[appDelegate.arrFollowing valueForKey:@"user__full_name"] containsObject:_userName]){
             UIImage *followImage = [UIImage imageNamed:@"checkmark_icon.png"];
             [cell.followBtn setImage:followImage forState:UIControlStateNormal];
         } else {
@@ -144,12 +145,12 @@
 
                 if([[JSONValue allKeys]count] > 1){
 
-                    if ([appDelegate.arrFollowing containsObject:_userName]){
+                    if ([[appDelegate.arrFollowing valueForKey:@"user__full_name"] containsObject:_userName]){
                         UIImage *followImage = [UIImage imageNamed:@"plus_sign_icon.png"];
                         [sender setImage:followImage forState:UIControlStateNormal];
                         
                         for(int i = 0; i < appDelegate.arrFollowing.count; i++){
-                            if([[appDelegate.arrFollowing objectAtIndex:i]isEqualToString:_userName]){
+                            if([[[appDelegate.arrFollowing objectAtIndex:i] valueForKey:@"user__full_name"] isEqualToString:_userName]){
                                 [appDelegate.arrFollowing removeObjectAtIndex:i];
                             }
                         }
@@ -163,7 +164,12 @@
                         UIImage *followImage = [UIImage imageNamed:@"checkmark_icon.png"];
                         [sender setImage:followImage forState:UIControlStateNormal];
                         
-                        [appDelegate.arrFollowing addObject:_userName];
+                        NSMutableDictionary *dictFollowerInfo = [[NSMutableDictionary alloc]init];
+                        [dictFollowerInfo setValue:_userName forKey:@"user__full_name"];
+                        [dictFollowerInfo setValue:_userId forKey:@"user__id"];
+                        [dictFollowerInfo setValue:_userProfilePic forKey:@"user__profile_pic"];
+                        
+                        [appDelegate.arrFollowing addObject:dictFollowerInfo];
                         
                         NSInteger row = sender.tag;
                         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
@@ -181,8 +187,9 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSMutableDictionary *dictUser = [arrDetails objectAtIndex:indexPath.row];
     AccountViewController *accountViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"AccountViewController"];
-    accountViewController.userURL = [NSString stringWithFormat:@"%@%@/", PROFILEURL, _userId];
+    accountViewController.userURL = [NSString stringWithFormat:@"%@%@/", PROFILEURL, [dictUser objectForKey:@"user__id"]];
     accountViewController.needBack = YES;
     [self.navigationController pushViewController:accountViewController animated:YES];
 }

@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UITextView *descriptionField;
 @property (weak, nonatomic) IBOutlet UILabel *descriptionTextCount;
 @property (retain, nonatomic) NSString *partyInvite;
+@property (retain, nonatomic) NSString *usersInvited;
 @property (retain, nonatomic) NSString *partyType;
 @property (retain, nonatomic) NSString *partyName;
 @property (retain, nonatomic) NSString *partyAddress;

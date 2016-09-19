@@ -195,6 +195,8 @@ MBProgressHUD *hud;
     [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"UserName"];
     [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"UserEmail"];
     [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"UserPassword"];
+    [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"UserProPic"];
+    [self.arrFollowing removeAllObjects];
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
     UINavigationController *navController = [storyboard instantiateViewControllerWithIdentifier:@"NavigationControllerPulse"];

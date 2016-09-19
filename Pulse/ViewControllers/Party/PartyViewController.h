@@ -37,10 +37,12 @@
 @property (retain, nonatomic) NSString *partyRequests;
 @property (retain, nonatomic) NSMutableArray *usersAttending;
 @property (retain, nonatomic) NSMutableArray *usersRequested;
+@property (retain, nonatomic) NSMutableArray *usersInvited;
 
 - (IBAction)onBack:(id)sender;
 - (IBAction)onAttend:(id)sender;
 - (IBAction)onMore:(id)sender;
+- (IBAction)onAttendees:(id)sender;
 - (IBAction)onRequests:(id)sender;
 
 @end

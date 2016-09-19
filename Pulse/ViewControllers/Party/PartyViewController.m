@@ -6,6 +6,7 @@
 
 #import "AppDelegate.h"
 #import "defs.h"
+#import "FollowViewController.h"
 #import "GlobalFunctions.h"
 #import "PartyViewController.h"
 #import "RequestsViewController.h"
@@ -29,7 +30,7 @@
 
 @implementation PartyViewController
 
-@synthesize usersAttending, usersRequested;
+@synthesize usersAttending, usersRequested, usersInvited;
 
 - (void)viewDidLoad
 {
@@ -228,6 +229,49 @@
                         [usersRequested addObject:dictRequesterInfo];
                     }
                 }
+                
+                if (!([JSONValue valueForKey:@"get_invited_users_info"] == [NSNull null]))
+                {
+                    NSMutableArray *arrInvited = [JSONValue valueForKey:@"get_invited_users_info"];
+                    usersInvited = [[NSMutableArray alloc]init];
+                    
+                    for(int i = 0; i < arrInvited.count; i++)
+                    {
+                        NSMutableDictionary *dictInvitedInfo = [[NSMutableDictionary alloc]init];
+                        NSDictionary *dictUserDetail = [arrInvited objectAtIndex:i];
+                        
+                        if([dictUserDetail objectForKey:@"profile_pic"] == [NSNull null])
+                        {
+                            [dictInvitedInfo setObject:@"" forKey:@"user__profile_pic"];
+                        }
+                        else
+                        {
+                            NSString *proflURL = [NSString stringWithFormat:@"%@%@",@"https://oby.s3.amazonaws.com/media/",[dictUserDetail objectForKey:@"profile_pic"]];
+                            [dictInvitedInfo setValue:proflURL forKey:@"user__profile_pic"];
+                        }
+                        
+                        if([dictUserDetail objectForKey:@"id"] == [NSNull null])
+                        {
+                            [dictInvitedInfo setObject:@"" forKey:@"user__id"];
+                        }
+                        else
+                        {
+                            [dictInvitedInfo setObject:[NSString stringWithFormat:@"%@",[dictUserDetail objectForKey:@"id"]] forKey:@"user__id"];
+                        }
+                        
+                        if([dictUserDetail objectForKey:@"full_name"] == [NSNull null])
+                        {
+                            [dictInvitedInfo setObject:@"" forKey:@"user__full_name"];
+                        }
+                        else
+                        {
+                            [dictInvitedInfo setObject:[dictUserDetail objectForKey:@"full_name"] forKey:@"user__full_name"];
+                        }
+                        
+                        [usersInvited addObject:dictInvitedInfo];
+                    }
+                }
+
                 [self showPartyInfo];
             }
         }
@@ -267,17 +311,21 @@
     _partyRequestsField.text = _partyRequests;
     _partyDescriptionField.text = _partyDescription;
     
+    // viewing user is attending party
     if ([[usersAttending valueForKey:@"user__full_name"] containsObject:GetUserName])
     {
         [_attendBtn setTitle:ATTENDING_BTN_TEXT forState:UIControlStateNormal];
     }
+    // party is invite only and viewing user is not on list
     else if ([_partyInvite isEqualToString:@"Invite only"] &&
-             (!([_partyCreator isEqualToString:GetUserName])))
+             (!([_partyCreator isEqualToString:GetUserName])) &&
+             (!([[usersInvited valueForKey:@"user__full_name"] containsObject:GetUserName])))
     {
         [_attendBtn setTitle:INVITE_ONLY_BTN_TEXT forState:UIControlStateNormal];
         _attendBtn.backgroundColor = [UIColor lightGrayColor];
         _attendBtn.userInteractionEnabled = NO;
     }
+    // party requires a request and viewing user has already requested
     else if ([_partyInvite isEqualToString:@"Request + approval"] &&
              [[usersRequested valueForKey:@"user__full_name"] containsObject:GetUserName] &&
              (!([_partyCreator isEqualToString:GetUserName])))
@@ -285,6 +333,7 @@
         [_attendBtn setTitle:REQUESTED_BTN_TEXT forState:UIControlStateNormal];
         _attendBtn.backgroundColor = [UIColor lightGrayColor];
     }
+    // party requires a request and viewing user has not already requested
     else if ([_partyInvite isEqualToString:@"Request + approval"] &&
              (![[usersRequested valueForKey:@"user__full_name"] containsObject:GetUserName]) &&
              (!([_partyCreator isEqualToString:GetUserName])))
@@ -428,6 +477,14 @@
         requestsViewController.partyId = _partyId;
         [self.navigationController pushViewController:requestsViewController animated:YES];
     }
+}
+
+- (IBAction)onAttendees:(id)sender
+{
+    FollowViewController *followViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"FollowViewController"];
+    followViewController.pageTitle = @"Attendees";
+    followViewController.arrDetails = usersAttending.mutableCopy;
+    [self.navigationController pushViewController:followViewController animated:YES];
 }
 
 @end

@@ -186,7 +186,7 @@
     NSString *myUniqueName = [NSString stringWithFormat:@"%@-%lu", @"event", (unsigned long)([[NSDate date] timeIntervalSince1970]*10.0)];
 
     NSMutableDictionary* _params = [[NSMutableDictionary alloc] init];
-     [_params setObject:_partyInvite forKey:@"invite_type"];
+
     NSString *serverPartyType;
     if ([_partyType isEqualToString:@"Custom"]){
         serverPartyType = @"0";
@@ -211,6 +211,8 @@
     }
     [_params setObject:serverPartyType forKey:@"party_type"];
     
+    [_params setObject:_partyInvite forKey:@"invite_type"];
+    [_params setObject:_usersInvited forKey:@"invited_user_ids"];
     [_params setObject:_partyName forKey:@"name"];
     [_params setObject:_partyAddress forKey:@"location"];
     [_params setObject:_partyLatitude forKey:@"latitude"];

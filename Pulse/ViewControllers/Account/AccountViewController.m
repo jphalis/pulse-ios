@@ -189,22 +189,14 @@
                         
                         [profileClass.arrfollowers addObject:dictFollowerInfo];
                     }
+                    if (userId == GetUserID) {
+                        if(appDelegate.arrFollowing.count > 0){
+                            [appDelegate.arrFollowing removeAllObjects];
+                        }
+                    }
                     for(int j = 0; j < arrFollowing.count; j++){
                         NSMutableDictionary *dictFollowerInfo = [[NSMutableDictionary alloc]init];
                         NSDictionary *dictUserDetail = [arrFollowing objectAtIndex:j];
-                        
-                        if (userId == GetUserID) {
-                            if(appDelegate.arrFollowing.count > 0){
-                                [appDelegate.arrFollowing removeAllObjects];
-                            }
-                            if([dictUserDetail objectForKey:@"user__full_name"] == [NSNull null]){
-                                [dictFollowerInfo setObject:@"" forKey:@"user__full_name"];
-                            } else {
-                                [dictFollowerInfo setObject:[dictUserDetail objectForKey:@"user__full_name"] forKey:@"user__full_name"];
-                            }
-                            NSString *userName = [dictFollowerInfo objectForKey:@"user__full_name"];
-                            [appDelegate.arrFollowing addObject:userName];
-                        }
                         
                         if([dictUserDetail objectForKey:@"user__profile_pic"] == [NSNull null]){
                             [dictFollowerInfo setObject:@"" forKey:@"user__profile_pic"];
@@ -226,6 +218,10 @@
                         
                         NSString *fullName = [dictFollowerInfo objectForKey:@"user__full_name"];
                         [dictFollowerInfo setValue:fullName forKey:@"user__full_name"];
+                        
+                        if (userId == GetUserID) {
+                            [appDelegate.arrFollowing addObject:dictFollowerInfo];
+                        }
                         
                         [profileClass.arrfollowings addObject:dictFollowerInfo];
                     }
@@ -288,7 +284,7 @@
         _collectionVW.hidden = YES;
     }
 
-    if (![appDelegate.arrFollowing containsObject:_profileName.text]){
+    if (![[appDelegate.arrFollowing valueForKey:@"user__full_name"] containsObject:_profileName.text]){
 //        [_followBtn setTitle:@"Follow" forState:UIControlStateNormal];
 //        _followBtn.layer.borderWidth = 1;
 //        _followBtn.layer.borderColor = [[UIColor whiteColor] CGColor];
@@ -531,8 +527,6 @@
             
             NSDictionary * JSONValue = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
             
-            NSLog(@"JSON: %@", JSONValue);
-            
             if([JSONValue isKindOfClass:[NSDictionary class]]){
                 NSString *profilePic;
                 if([JSONValue objectForKey:@"profile_picture"] == [NSNull null]){
@@ -620,9 +614,9 @@
                 
                 if([[JSONValue allKeys]count] > 1){
                     
-                    if ([appDelegate.arrFollowing containsObject:profileClass.userName]){
+                    if ([[appDelegate.arrFollowing valueForKey:@"user__full_name"] containsObject:profileClass.userName]){
                         for(int i = 0; i < appDelegate.arrFollowing.count; i++){
-                            if([[appDelegate.arrFollowing objectAtIndex:i]isEqualToString:profileClass.userName]){
+                            if([[[appDelegate.arrFollowing objectAtIndex:i] valueForKey:@"user__full_name"] isEqualToString:profileClass.userName]){
                                 [appDelegate.arrFollowing removeObjectAtIndex:i];
                             }
                         }
@@ -632,7 +626,12 @@
 //                        _followBtn.backgroundColor = [UIColor clearColor];
                         [_followBtn setImage:[UIImage imageNamed:@"plus_sign_icon"] forState:UIControlStateNormal];
                     } else {
-                        [appDelegate.arrFollowing addObject:profileClass.userName];
+                        NSMutableDictionary *dictFollowerInfo = [[NSMutableDictionary alloc]init];
+                        [dictFollowerInfo setObject:profileClass.userName forKey:@"user__full_name"];
+                        [dictFollowerInfo setObject:profileClass.userId forKey:@"user__id"];
+                        [dictFollowerInfo setObject:profileClass.userProfilePicture forKey:@"user__profile_pic"];
+                        [appDelegate.arrFollowing addObject:dictFollowerInfo];
+
 //                        [_followBtn setTitle:@"Following" forState:UIControlStateNormal];
 //                        _followBtn.layer.borderColor = [[UIColor clearColor] CGColor];
 //                        _followBtn.backgroundColor = [UIColor colorWithRed:59/255.0 green:199/255.0 blue:114/255.0 alpha:1.0];
