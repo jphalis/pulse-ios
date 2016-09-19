@@ -88,10 +88,6 @@
     
     NSMutableDictionary *dictUser = [arrDetails objectAtIndex:indexPath.row];
     
-    _userName = [dictUser objectForKey:@"user__full_name"];
-    _userProfilePic = [dictUser objectForKey:@"user__profile_pic"];
-    _userId = [dictUser objectForKey:@"user__id"];
-    
     [cell.userProfilePicture loadImageFromURL:[dictUser objectForKey:@"user__profile_pic"] withTempImage:@"avatar_icon"];
     cell.userProfilePicture.layer.cornerRadius = cell.userProfilePicture.frame.size.width / 2;
     cell.userProfilePicture.layer.masksToBounds = YES;
@@ -101,7 +97,7 @@
     if (cell.userName.text == GetUserName){
         cell.followBtn.hidden = YES;
     } else {
-        if ([[appDelegate.arrFollowing valueForKey:@"user__full_name"] containsObject:_userName]){
+        if ([[appDelegate.arrFollowing valueForKey:@"user__full_name"] containsObject:[dictUser objectForKey:@"user__full_name"]]){
             UIImage *followImage = [UIImage imageNamed:@"checkmark_icon.png"];
             [cell.followBtn setImage:followImage forState:UIControlStateNormal];
         } else {
@@ -111,7 +107,7 @@
     }
     
     [cell.followBtn addTarget:self action:@selector(followUser:) forControlEvents:UIControlEventTouchUpInside];
-    cell.followBtn.tag = indexPath.row;
+    [cell.followBtn setTag:indexPath.row];
     
     UIView *bottomBorder = [[UIView alloc] initWithFrame:CGRectMake(0, cell.frame.size.height - 1, cell.frame.size.width, 1)];
     bottomBorder.backgroundColor = [UIColor colorWithRed:(234/255.0) green:(234/255.0) blue:(234/255.0) alpha:1.0];
@@ -123,8 +119,11 @@
 -(IBAction)followUser:(UIButton *)sender {
     checkNetworkReachability();
     [self setBusy:YES];
+    
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[sender tag] inSection:0];
+    NSMutableDictionary *dictUser = [arrDetails objectAtIndex:indexPath.row];
 
-    NSString *strURL = [NSString stringWithFormat:@"%@%@/", FOLLOWURL, _userId];
+    NSString *strURL = [NSString stringWithFormat:@"%@%@/", FOLLOWURL, [dictUser objectForKey:@"user__id"]];
     NSURL *url = [NSURL URLWithString:strURL];
     NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url];
     [urlRequest setTimeoutInterval:60];
@@ -145,12 +144,12 @@
 
                 if([[JSONValue allKeys]count] > 1){
 
-                    if ([[appDelegate.arrFollowing valueForKey:@"user__full_name"] containsObject:_userName]){
+                    if ([[appDelegate.arrFollowing valueForKey:@"user__full_name"] containsObject:[dictUser objectForKey:@"user__full_name"]]){
                         UIImage *followImage = [UIImage imageNamed:@"plus_sign_icon.png"];
                         [sender setImage:followImage forState:UIControlStateNormal];
                         
                         for(int i = 0; i < appDelegate.arrFollowing.count; i++){
-                            if([[[appDelegate.arrFollowing objectAtIndex:i] valueForKey:@"user__full_name"] isEqualToString:_userName]){
+                            if([[[appDelegate.arrFollowing objectAtIndex:i] valueForKey:@"user__full_name"] isEqualToString:[dictUser objectForKey:@"user__full_name"]]){
                                 [appDelegate.arrFollowing removeObjectAtIndex:i];
                             }
                         }
@@ -165,9 +164,9 @@
                         [sender setImage:followImage forState:UIControlStateNormal];
                         
                         NSMutableDictionary *dictFollowerInfo = [[NSMutableDictionary alloc]init];
-                        [dictFollowerInfo setValue:_userName forKey:@"user__full_name"];
-                        [dictFollowerInfo setValue:_userId forKey:@"user__id"];
-                        [dictFollowerInfo setValue:_userProfilePic forKey:@"user__profile_pic"];
+                        [dictFollowerInfo setValue:[dictUser objectForKey:@"user__full_name"] forKey:@"user__full_name"];
+                        [dictFollowerInfo setValue:[dictUser objectForKey:@"user__id"] forKey:@"user__id"];
+                        [dictFollowerInfo setValue:[dictUser objectForKey:@"user__profile_pic"] forKey:@"user__profile_pic"];
                         
                         [appDelegate.arrFollowing addObject:dictFollowerInfo];
                         

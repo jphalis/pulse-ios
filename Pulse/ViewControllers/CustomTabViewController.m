@@ -65,6 +65,73 @@ enum {
     
     appDelegate.arrViewControllers = [[NSMutableArray alloc]init];
     appDelegate.tabbar = self;
+    
+    [self getArrFollowing];
+    
+//    if ([timer isValid]) {
+//        [timer invalidate], timer = nil;
+//    }
+//    
+//    timer = [NSTimer scheduledTimerWithTimeInterval:7 target:self selector:@selector(getArrFollowing) userInfo:nil repeats:YES];
+}
+
+- (void)getArrFollowing {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSString *urlString = [NSString stringWithFormat:@"%@%ld/", PROFILEURL, (long)GetUserID];
+        
+        NSMutableURLRequest *_request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:urlString]cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
+                                                                 timeoutInterval:60];
+        
+        NSString *authStr = [NSString stringWithFormat:@"%@:%@", GetUserEmail, GetUserPassword];
+        NSData *plainData = [authStr dataUsingEncoding:NSUTF8StringEncoding];
+        NSString *base64String = [plainData base64EncodedStringWithOptions:0];
+        NSString *authValue = [NSString stringWithFormat:@"Basic %@", base64String];
+        [_request setValue:authValue forHTTPHeaderField:@"Authorization"];
+        [_request setHTTPMethod:@"GET"];
+        
+        [NSURLConnection sendAsynchronousRequest:_request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error){
+            if ([data length] > 0 && error == nil){
+                NSDictionary *JSONValue = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+                
+                if([JSONValue isKindOfClass:[NSDictionary class]]){
+                    
+                    if([JSONValue objectForKey:@"follower"] == [NSNull null]){
+                        return;
+                    } else {
+                        NSDictionary *dictFollower = [JSONValue objectForKey:@"follower"];
+                        NSMutableArray *arrFollowing = [dictFollower objectForKey:@"get_following_info"];
+                        for(int j = 0; j < arrFollowing.count; j++){
+                            NSMutableDictionary *dictFollowerInfo = [[NSMutableDictionary alloc]init];
+                            NSDictionary *dictUserDetail = [arrFollowing objectAtIndex:j];
+                            
+                            if([dictUserDetail objectForKey:@"user__profile_pic"] == [NSNull null]){
+                                [dictFollowerInfo setObject:@"" forKey:@"user__profile_pic"];
+                            } else {
+                                NSString *proflURL = [NSString stringWithFormat:@"%@%@",@"https://oby.s3.amazonaws.com/media/",[dictUserDetail objectForKey:@"user__profile_pic"]];
+                                [dictFollowerInfo setValue:proflURL forKey:@"user__profile_pic"];
+                            }
+                            if([dictUserDetail objectForKey:@"user__full_name"] == [NSNull null]){
+                                [dictFollowerInfo setObject:@"" forKey:@"user__full_name"];
+                            } else {
+                                [dictFollowerInfo setObject:[dictUserDetail objectForKey:@"user__full_name"] forKey:@"user__full_name"];
+                            }
+                            
+                            if([dictUserDetail objectForKey:@"user__id"] == [NSNull null]){
+                                [dictFollowerInfo setObject:@"" forKey:@"user__id"];
+                            } else {
+                                [dictFollowerInfo setObject:[NSString stringWithFormat:@"%@",[dictUserDetail objectForKey:@"user__id"]] forKey:@"user__id"];
+                            }
+                            
+                            NSString *fullName = [dictFollowerInfo objectForKey:@"user__full_name"];
+                            [dictFollowerInfo setValue:fullName forKey:@"user__full_name"];
+                            
+                            [appDelegate.arrFollowing addObject:dictFollowerInfo];
+                        }
+                    }
+                }
+            }
+        }];
+    });
 }
 
 -(void)LoadTabBar{
