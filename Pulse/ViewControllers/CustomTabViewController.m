@@ -107,7 +107,7 @@ enum {
                             if([dictUserDetail objectForKey:@"user__profile_pic"] == [NSNull null]){
                                 [dictFollowerInfo setObject:@"" forKey:@"user__profile_pic"];
                             } else {
-                                NSString *proflURL = [NSString stringWithFormat:@"%@%@",@"https://oby.s3.amazonaws.com/media/",[dictUserDetail objectForKey:@"user__profile_pic"]];
+                                NSString *proflURL = [NSString stringWithFormat:@"%@%@", S3_BUCKET, [dictUserDetail objectForKey:@"user__profile_pic"]];
                                 [dictFollowerInfo setValue:proflURL forKey:@"user__profile_pic"];
                             }
                             if([dictUserDetail objectForKey:@"user__full_name"] == [NSNull null]){

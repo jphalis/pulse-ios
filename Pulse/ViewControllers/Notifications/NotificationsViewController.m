@@ -124,7 +124,7 @@
                         notificationClass.senderProfilePicture = @"";
                     } else {
                         NSString *str = [[arrNotifResult objectAtIndex:i]valueForKey:@"sender_profile_picture"];
-                        notificationClass.senderProfilePicture = [NSString stringWithFormat:@"https://oby.s3.amazonaws.com/media/%@", str];
+                        notificationClass.senderProfilePicture = [NSString stringWithFormat:@"%@%@", S3_BUCKET, str];
                     }
                     notificationClass.notificationText = [[arrNotifResult objectAtIndex:i]valueForKey:@"__str__"];
                     if([[arrNotifResult objectAtIndex:i]valueForKey:@"target_url"] != [NSNull null]){

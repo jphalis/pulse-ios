@@ -145,7 +145,7 @@
                     profileClass.userProfilePicture = @"";
                 } else {
                     NSString *str = [JSONValue objectForKey:@"profile_pic"];
-                    profileClass.userProfilePicture = [NSString stringWithFormat:@"https://oby.s3.amazonaws.com/media/%@", str];
+                    profileClass.userProfilePicture = [NSString stringWithFormat:@"%@%@", S3_BUCKET, str];
                     SetUserProPic(profileClass.userProfilePicture);
                 }
                 
@@ -171,7 +171,7 @@
                         if([dictUserDetail objectForKey:@"user__profile_pic"] == [NSNull null]){
                             [dictFollowerInfo setObject:@"" forKey:@"user__profile_pic"];
                         } else {
-                            NSString *proflURL = [NSString stringWithFormat:@"%@%@",@"https://oby.s3.amazonaws.com/media/",[dictUserDetail objectForKey:@"user__profile_pic"]];
+                            NSString *proflURL = [NSString stringWithFormat:@"%@%@", S3_BUCKET, [dictUserDetail objectForKey:@"user__profile_pic"]];
                             [dictFollowerInfo setValue:proflURL forKey:@"user__profile_pic"];
                         }
                         
@@ -201,7 +201,7 @@
                         if([dictUserDetail objectForKey:@"user__profile_pic"] == [NSNull null]){
                             [dictFollowerInfo setObject:@"" forKey:@"user__profile_pic"];
                         } else {
-                            NSString *proflURL = [NSString stringWithFormat:@"%@%@",@"https://oby.s3.amazonaws.com/media/",[dictUserDetail objectForKey:@"user__profile_pic"]];
+                            NSString *proflURL = [NSString stringWithFormat:@"%@%@", S3_BUCKET, [dictUserDetail objectForKey:@"user__profile_pic"]];
                             [dictFollowerInfo setValue:proflURL forKey:@"user__profile_pic"];
                         }
                         if([dictUserDetail objectForKey:@"user__full_name"] == [NSNull null]){
@@ -243,7 +243,7 @@
                         if ([[dictEventDetail objectForKey:@"image"] isEqualToString:@""]){
                             [dictEventInfo setObject:@"" forKey:@"event__image"];
                         } else {
-                            NSString *eventImageURL = [NSString stringWithFormat:@"%@%@",@"https://oby.s3.amazonaws.com/media/",[dictEventDetail objectForKey:@"image"]];
+                            NSString *eventImageURL = [NSString stringWithFormat:@"%@%@", S3_BUCKET, [dictEventDetail objectForKey:@"image"]];
                             [dictEventInfo setValue:eventImageURL forKey:@"event__image"];
                         }
                         
