@@ -139,8 +139,7 @@
                 }
                 else
                 {
-                    NSString *str = [JSONValue valueForKey:@"image"];
-                    _partyImage = [NSString stringWithFormat:@"%@%@", S3_BUCKET, str];
+                    _partyImage = [JSONValue valueForKey:@"image"];
                 }
                 _partyDescription = [JSONValue valueForKey:@"description"];
                 _partyAttending = [NSString abbreviateNumber:[[JSONValue valueForKey:@"attendees_count"]intValue]];
@@ -162,8 +161,7 @@
                         }
                         else
                         {
-                            NSString *proflURL = [NSString stringWithFormat:@"%@%@", S3_BUCKET, [dictUserDetail objectForKey:@"profile_pic"]];
-                            [dictAttendeeInfo setValue:proflURL forKey:@"user__profile_pic"];
+                            [dictAttendeeInfo setValue:[dictUserDetail objectForKey:@"profile_pic"] forKey:@"user__profile_pic"];
                         }
                         
                         if([dictUserDetail objectForKey:@"id"] == [NSNull null])
@@ -204,8 +202,7 @@
                         }
                         else
                         {
-                            NSString *proflURL = [NSString stringWithFormat:@"%@%@", S3_BUCKET, [dictUserDetail objectForKey:@"profile_pic"]];
-                            [dictRequesterInfo setValue:proflURL forKey:@"user__profile_pic"];
+                            [dictRequesterInfo setValue:[dictUserDetail objectForKey:@"profile_pic"] forKey:@"user__profile_pic"];
                         }
                         
                         if([dictUserDetail objectForKey:@"id"] == [NSNull null])
@@ -246,8 +243,7 @@
                         }
                         else
                         {
-                            NSString *proflURL = [NSString stringWithFormat:@"%@%@", S3_BUCKET, [dictUserDetail objectForKey:@"profile_pic"]];
-                            [dictInvitedInfo setValue:proflURL forKey:@"user__profile_pic"];
+                            [dictInvitedInfo setValue:[dictUserDetail objectForKey:@"profile_pic"] forKey:@"user__profile_pic"];
                         }
                         
                         if([dictUserDetail objectForKey:@"id"] == [NSNull null])

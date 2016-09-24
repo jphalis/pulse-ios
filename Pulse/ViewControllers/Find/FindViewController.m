@@ -192,15 +192,13 @@
                     if([[arrPartyResult objectAtIndex:i]valueForKey:@"user_profile_pic"] == [NSNull null]){
                         partyClass.partyUserProfilePicture = @"";
                     } else {
-                        NSString *str = [[arrPartyResult objectAtIndex:i]valueForKey:@"user_profile_pic"];
-                        partyClass.partyUserProfilePicture = [NSString stringWithFormat:@"%@%@", S3_BUCKET, str];
+                        partyClass.partyUserProfilePicture = [[arrPartyResult objectAtIndex:i]valueForKey:@"user_profile_pic"];
                     }
                     
                     if([[arrPartyResult objectAtIndex:i]valueForKey:@"image"] == [NSNull null]){
                         partyClass.partyImage = @"";
                     } else {
-                        NSString *str2 = [[arrPartyResult objectAtIndex:i]valueForKey:@"image"];
-                        partyClass.partyImage = [NSString stringWithFormat:@"%@%@", S3_BUCKET, str2];
+                        partyClass.partyImage = [[arrPartyResult objectAtIndex:i]valueForKey:@"image"];
                     }
                     
                     if([[arrPartyResult objectAtIndex:i]valueForKey:@"get_attendees_info"] == [NSNull null]){
@@ -217,8 +215,7 @@
                             if([dictUserDetail objectForKey:@"profile_pic"] == [NSNull null]){
                                 [dictAttendeeInfo setObject:@"" forKey:@"user__profile_pic"];
                             } else {
-                                NSString *proflURL = [NSString stringWithFormat:@"%@%@", S3_BUCKET, [dictUserDetail objectForKey:@"profile_pic"]];
-                                [dictAttendeeInfo setValue:proflURL forKey:@"user__profile_pic"];
+                                [dictAttendeeInfo setValue:[dictUserDetail objectForKey:@"profile_pic"] forKey:@"user__profile_pic"];
                             }
                             
                             if([dictUserDetail objectForKey:@"id"] == [NSNull null]){
@@ -251,8 +248,7 @@
                             if([dictUserDetail objectForKey:@"profile_pic"] == [NSNull null]){
                                 [dictRequesterInfo setObject:@"" forKey:@"user__profile_pic"];
                             } else {
-                                NSString *proflURL = [NSString stringWithFormat:@"%@%@", S3_BUCKET, [dictUserDetail objectForKey:@"profile_pic"]];
-                                [dictRequesterInfo setValue:proflURL forKey:@"user__profile_pic"];
+                                [dictRequesterInfo setValue:[dictUserDetail objectForKey:@"profile_pic"] forKey:@"user__profile_pic"];
                             }
                             
                             if([dictUserDetail objectForKey:@"id"] == [NSNull null]){

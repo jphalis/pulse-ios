@@ -149,7 +149,7 @@
                         if([dictResult objectForKey:@"sender_profile_picture"] == [NSNull null]){
                             feedClass.senderProfilePicture = @"";
                         } else {
-                            feedClass.senderProfilePicture = [NSString stringWithFormat:@"%@%@", S3_BUCKET, [dictResult objectForKey:@"sender_profile_picture"]];
+                            feedClass.senderProfilePicture = [dictResult objectForKey:@"sender_profile_picture"];
                         }
                         if([dictResult objectForKey:@"__str__"] == [NSNull null]){
                             feedClass.feedText = @"";
