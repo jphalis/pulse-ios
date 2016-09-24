@@ -51,7 +51,7 @@ MBProgressHUD *hud;
     
     _arrFollowing = [[NSMutableArray alloc]init];
     
-    [GMSPlacesClient provideAPIKey:@"AIzaSyA5zV2fSBC44vo7ufcXNYVmibg8k6nXVG4"];
+    [GMSPlacesClient provideAPIKey:@"AIzaSyBkOYnlH6Ht1T4_Z6uM0IF9HCxBSkByNcc"];
     
     return YES;
 }

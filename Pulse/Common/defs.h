@@ -40,7 +40,7 @@ extern AppDelegate *appDelegate;
 #define HideNetworkActivityIndicator()      [UIApplication sharedApplication].networkActivityIndicatorVisible = NO
 
 // URLs
-#define S3_BUCKET         @"https://oby.s3.amazonaws.com/media/"
+#define S3_BUCKET         @"https://pulseapplication.s3.amazonaws.com/media/"
 #ifdef DEBUG
     #define BASEURL       @"http://127.0.0.1:8000/"
 #else
