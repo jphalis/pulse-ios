@@ -310,7 +310,7 @@
     cell.userProfilePicture.layer.masksToBounds = YES;
     cell.partyName.text = partyClass.partyName;
     cell.partyAddress.text = partyClass.partyAddress;
-    [cell.partyPicture loadImageFromURL:partyClass.partyImage withTempImage:@"grid_icon"];
+    [cell.partyPicture loadImageFromURL:partyClass.partyImage withTempImage:@"balloons_icon"];
     cell.partyAttending.text = partyClass.partyAttendingCount;
     cell.partyRequests.text = partyClass.partyRequestCount;
     

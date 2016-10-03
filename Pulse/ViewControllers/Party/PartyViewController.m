@@ -10,6 +10,7 @@
 #import "GlobalFunctions.h"
 #import "PartyViewController.h"
 #import "RequestsViewController.h"
+#import "SCLAlertView.h"
 #import "TWMessageBarManager.h"
 #import "UIViewControllerAdditions.h"
 
@@ -280,7 +281,7 @@
 
 -(void)showPartyInfo
 {
-    [_partyImageField loadImageFromURL:_partyImage withTempImage:@"camera_icon"];
+    [_partyImageField loadImageFromURL:_partyImage withTempImage:@"balloons_icon"];
     _partyImageField.layer.borderWidth = 4;
     _partyImageField.layer.borderColor = [[UIColor whiteColor] CGColor];
     _partyImageField.layer.cornerRadius = 10;
@@ -472,6 +473,13 @@
         requestsViewController.arrDetails = usersRequested.mutableCopy;
         requestsViewController.partyId = _partyId;
         [self.navigationController pushViewController:requestsViewController animated:YES];
+    }
+    else
+    {
+        SCLAlertView *alert = [[SCLAlertView alloc] init];
+        alert.showAnimationType = SlideInFromLeft;
+        alert.hideAnimationType = SlideOutToBottom;
+        [alert showNotice:self title:@"Notice" subTitle:@"You must be the event creator to view this" closeButtonTitle:@"OK" duration:0.0f];
     }
 }
 

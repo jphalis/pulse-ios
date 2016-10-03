@@ -54,6 +54,28 @@
     
     _partyDescriptionField.text = _partyDescription;
     
+    if ([_partyType isEqualToString:@"Custom"]) {
+        [_inviteIcon setImage:[UIImage imageNamed:@"custom_icon"]];
+    }
+    else if ([_partyType isEqualToString:@"Social"]) {
+        [_inviteIcon setImage:[UIImage imageNamed:@"social_icon"]];
+    }
+    else if ([_partyType isEqualToString:@"Holiday"]) {
+        [_inviteIcon setImage:[UIImage imageNamed:@"holiday_icon"]];
+    }
+    else if ([_partyType isEqualToString:@"Event"]) {
+        [_inviteIcon setImage:[UIImage imageNamed:@"event_icon"]];
+    }
+    else if ([_partyType isEqualToString:@"Rager"]) {
+        [_inviteIcon setImage:[UIImage imageNamed:@"rager_icon"]];
+    }
+    else if ([_partyType isEqualToString:@"Themed"]) {
+        [_inviteIcon setImage:[UIImage imageNamed:@"themed_icon"]];
+    }
+    else if ([_partyType isEqualToString:@"Celebration"]) {
+        [_inviteIcon setImage:[UIImage imageNamed:@"celebration_icon"]];
+    }
+    
     if ([_partyInvite isEqualToString:@"15"]) {
         [_inviteIcon setImage:[UIImage imageNamed:@"open_icon"]];
     }
@@ -267,7 +289,7 @@
     
     // add image data
     NSData *imageData = UIImageJPEGRepresentation(_partyImageField.image, 1.0);
-    if (imageData && !([[UIImage imageNamed:@"camera_icon" ] isEqual:_partyImageField.image])){
+    if (imageData && !([[UIImage imageNamed:@"balloons_icon" ] isEqual:_partyImageField.image])){
         [body appendData:[[NSString stringWithFormat:@"--%@\r\n", BoundaryConstant] dataUsingEncoding:NSUTF8StringEncoding]];
         [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"; filename=\"%@.jpg\"\r\n", FileParamConstant,myUniqueName] dataUsingEncoding:NSUTF8StringEncoding]];
         [body appendData:[@"Content-Type: image/jpeg\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];

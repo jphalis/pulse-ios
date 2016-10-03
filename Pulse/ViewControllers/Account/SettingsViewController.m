@@ -69,10 +69,10 @@
 }
 
 - (IBAction)onNotifications:(id)sender {
-    SCLAlertView *alert = [[SCLAlertView alloc] init];
-    alert.showAnimationType = SlideInFromLeft;
-    alert.hideAnimationType = SlideOutToBottom;
-    [alert showNotice:self title:@"Notice" subTitle:@"Trigger notifications" closeButtonTitle:@"OK" duration:0.0f];
+//    SCLAlertView *alert = [[SCLAlertView alloc] init];
+//    alert.showAnimationType = SlideInFromLeft;
+//    alert.hideAnimationType = SlideOutToBottom;
+//    [alert showNotice:self title:@"Notice" subTitle:@"Trigger notifications" closeButtonTitle:@"OK" duration:0.0f];
 }
 
 - (IBAction)onTerms:(id)sender {
@@ -85,18 +85,11 @@
     [self presentViewController:webViewController animated:YES completion:NULL];
 }
 
-- (IBAction)onCredits:(id)sender {
-    SCLAlertView *alert = [[SCLAlertView alloc] init];
-    alert.showAnimationType = SlideInFromLeft;
-    alert.hideAnimationType = SlideOutToBottom;
-    [alert showNotice:self title:@"Notice" subTitle:@"View credits" closeButtonTitle:@"OK" duration:0.0f];
-}
-
 - (IBAction)onLinkAccounts:(id)sender {
     SCLAlertView *alert = [[SCLAlertView alloc] init];
     alert.showAnimationType = SlideInFromLeft;
     alert.hideAnimationType = SlideOutToBottom;
-    [alert showNotice:self title:@"Notice" subTitle:@"Link accounts" closeButtonTitle:@"OK" duration:0.0f];
+    [alert showNotice:self title:@"Notice" subTitle:@"This feature is coming soon." closeButtonTitle:@"OK" duration:0.0f];
 }
 
 - (IBAction)onSignOut:(id)sender {

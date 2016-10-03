@@ -656,7 +656,7 @@
 {
     CollectionViewCellImage *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PartyImageCell" forIndexPath:indexPath];
     NSString *imageUrl = [[arrEventImages objectAtIndex:indexPath.row] valueForKey:@"event__image"];
-    [cell.partyPicture loadImageFromURL:imageUrl withTempImage:@"avatar_icon"];
+    [cell.partyPicture loadImageFromURL:imageUrl withTempImage:@"balloons_icon"];
     return cell;
 }
 
