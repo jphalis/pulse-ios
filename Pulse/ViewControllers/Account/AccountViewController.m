@@ -444,9 +444,10 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)info {
     
+    [self setBusy:YES];
+    
     //    UIImage *image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
     _profilePicture.image = image;
-    [self setBusy:YES];
     checkNetworkReachability();
     ProfileClass *profileClass = [dictProfileInformation objectForKey:@"ProfileInfo"];
     
@@ -525,10 +526,10 @@
             
             if([JSONValue isKindOfClass:[NSDictionary class]]){
                 NSString *profilePic;
-                if([JSONValue objectForKey:@"profile_picture"] == [NSNull null]){
+                if([JSONValue objectForKey:@"profile_pic"] == [NSNull null]){
                     profilePic = @"";
                 } else {
-                    profilePic = [JSONValue objectForKey:@"profile_picture"];
+                    profilePic = [JSONValue objectForKey:@"profile_pic"];
                 }
                 SetUserProPic(profilePic);
                 [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"Success"

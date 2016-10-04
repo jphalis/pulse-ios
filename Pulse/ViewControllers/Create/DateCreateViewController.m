@@ -105,7 +105,7 @@
     NSDate *aDate = [monthFormatter dateFromString:components[0]];
     NSDateComponents *components2 = [[NSCalendar currentCalendar] components:NSCalendarUnitMonth fromDate:aDate];
 
-    NSString *month = [NSString stringWithFormat:@"%ld", [components2 month]];
+    NSString *month = [NSString stringWithFormat:@"%ld", (long)[components2 month]];
     NSString *day = [[components[1] stringByReplacingOccurrencesOfString:@"," withString:@""]
                                stringByTrimmingCharactersInSet: [NSCharacterSet symbolCharacterSet]];
     NSString *year = components[2];
