@@ -8,6 +8,7 @@
 #import "AppDelegate.h"
 #import "defs.h"
 #import "GlobalFunctions.h"
+#import "PartyViewController.h"
 #import "PreviewViewController.h"
 #import "SCLAlertView.h"
 #import "UIViewControllerAdditions.h"
@@ -253,8 +254,17 @@
     [_params setObject:_partyMonth forKey:@"party_month"];
     [_params setObject:_partyDay forKey:@"party_day"];
     [_params setObject:_partyYear forKey:@"party_year"];
-    [_params setObject:_partyStartTime forKey:@"start_time"];
-    [_params setObject:_partyEndTime forKey:@"end_time"];
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateFormat = @"hh:mm a";
+    NSDate *start_time = [dateFormatter dateFromString:_partyStartTime];
+    NSDate *end_time = [dateFormatter dateFromString:_partyEndTime];
+    dateFormatter.dateFormat = @"HH:mm";
+    NSString *start_time_24 = [dateFormatter stringFromDate:start_time];
+    NSString *end_time_24 = [dateFormatter stringFromDate:end_time];
+    [_params setObject:start_time_24 forKey:@"start_time"];
+    [_params setObject:end_time_24 forKey:@"end_time"];
+
     [_params setObject:_partyDescription forKey:@"description"];
     
     // the boundary string : a random string, that will not repeat in post data, to separate post data fields.
@@ -328,7 +338,11 @@
                     alert.hideAnimationType = SlideOutToBottom;
                     [alert showInfo:self title:@"Notice" subTitle:PARTY_CREATED closeButtonTitle:@"OK" duration:0.0f];
                     [alert alertIsDismissed:^{
-                        [self.navigationController popToRootViewControllerAnimated:YES];
+                        // [self.navigationController popToRootViewControllerAnimated:YES];
+                        PartyViewController *partyViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PartyViewController"];
+                        partyViewController.partyUrl = [JSONValue objectForKey:@"party_url"];
+                        partyViewController.popToRoot = YES;
+                        [self.navigationController pushViewController:partyViewController animated:YES];
                     }];
                 }
             }

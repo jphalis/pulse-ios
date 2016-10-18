@@ -28,6 +28,7 @@
 @property (retain, nonatomic) NSString *partyDay;
 @property (retain, nonatomic) NSString *partyYear;
 
+- (IBAction)onNow:(id)sender;
 - (IBAction)onPrevious:(id)sender;
 - (IBAction)onScratch:(id)sender;
 - (IBAction)onProceed:(id)sender;

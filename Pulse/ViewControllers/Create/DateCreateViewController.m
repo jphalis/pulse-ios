@@ -91,6 +91,35 @@
 }
 */
 
+- (IBAction)onNow:(id)sender {
+    // Date
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"LLLL dd, YYYY"];
+    NSDate *now = [NSDate date];
+    _dateField.text = [dateFormatter stringFromDate:now];
+    
+    NSString *dateString = [dateFormatter stringFromDate:now];
+    NSArray *components = [dateString componentsSeparatedByString:@" "];
+    NSDateFormatter *monthFormatter =[[NSDateFormatter alloc] init];
+    [monthFormatter setDateFormat:@"MM"];
+    NSDate *aDate = [monthFormatter dateFromString:components[0]];
+    NSDateComponents *components2 = [[NSCalendar currentCalendar] components:NSCalendarUnitMonth fromDate:aDate];
+    
+    NSString *month = [NSString stringWithFormat:@"%ld", (long)[components2 month]];
+    NSString *day = [[components[1] stringByReplacingOccurrencesOfString:@"," withString:@""]
+                     stringByTrimmingCharactersInSet: [NSCharacterSet symbolCharacterSet]];
+    NSString *year = components[2];
+    
+    _partyMonth = month;
+    _partyDay = day;
+    _partyYear = year;
+    
+    // Time
+    NSDateFormatter *timeFormatter = [[NSDateFormatter alloc] init];
+    [timeFormatter setDateFormat:@"h:mm a"];
+    _startTimeField.text = [timeFormatter stringFromDate:now];
+}
+
 #pragma mark - Picker views
 
 -(void)updateDateLabel:(UIDatePicker *)sender {

@@ -15,7 +15,7 @@
 #import <GooglePlaces/GooglePlaces.h>
 
 
-@interface GuestsCreateViewController () <UIActionSheetDelegate, GMSAutocompleteViewControllerDelegate> {
+@interface GuestsCreateViewController () <CLLocationManagerDelegate, UIActionSheetDelegate, GMSAutocompleteViewControllerDelegate> {
     AppDelegate *appDelegate;
 }
 
@@ -29,7 +29,11 @@ enum{
 
 @end
 
-@implementation GuestsCreateViewController
+@implementation GuestsCreateViewController {
+    CLLocationManager *locationManager;
+    CLGeocoder *geocoder;
+    CLPlacemark *placemark;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -37,6 +41,9 @@ enum{
     appDelegate = [AppDelegate getDelegate];
     
     _partyNameField.delegate = self;
+
+    locationManager = [[CLLocationManager alloc] init];
+    geocoder = [[CLGeocoder alloc] init];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -185,12 +192,52 @@ didFailAutocompleteWithError:(NSError *)error {
     return YES;
 }
 
+#pragma mark - Current Location
+
 - (IBAction)onLocation:(id)sender {
-    SCLAlertView *alert = [[SCLAlertView alloc] init];
-    alert.showAnimationType = SlideInFromLeft;
-    alert.hideAnimationType = SlideOutToBottom;
-    [alert showInfo:self title:@"Notice" subTitle:@"Current location will be rendered here." closeButtonTitle:@"OK" duration:0.0f];
+    locationManager.delegate = self;
+    locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    
+    [locationManager startUpdatingLocation];
+    [locationManager requestWhenInUseAuthorization];
 }
+
+-(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
+    UIAlertView *errorAlert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"There was an error retrieving your location" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    [errorAlert show];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation{
+    
+    // NSLog(@"didUpdateToLocation: %@", newLocation);
+    CLLocation *currentLocation = newLocation;
+    
+    if (currentLocation != nil) {
+        _partyLatitude = [NSString stringWithFormat:@"%.8f", currentLocation.coordinate.latitude];
+        _partyLongitude = [NSString stringWithFormat:@"%.8f", currentLocation.coordinate.longitude];
+    }
+    
+    // Stop Location Manager
+    [locationManager stopUpdatingLocation];
+    
+    // NSLog(@"Resolving the Address");
+    [geocoder reverseGeocodeLocation:currentLocation completionHandler:^(NSArray *placemarks, NSError *error) {
+        // NSLog(@"Found placemarks: %@, error: %@", placemarks, error);
+        if (error == nil && [placemarks count] > 0) {
+            placemark = [placemarks lastObject];
+            _partyAddressField.text = [NSString stringWithFormat:@"%@ %@\n%@ %@\n%@\n%@",
+                                       placemark.subThoroughfare, placemark.thoroughfare,
+                                       placemark.postalCode, placemark.locality,
+                                       placemark.administrativeArea,
+                                       placemark.country];
+        } else {
+            // NSLog(@"%@", error.debugDescription);
+        }
+    } ];
+    
+}
+
+#pragma mark - Party Size
 
 - (IBAction)onClick:(id)sender {
     if ([self checkParty] == 1){

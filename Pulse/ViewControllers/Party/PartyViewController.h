@@ -38,6 +38,7 @@
 @property (retain, nonatomic) NSMutableArray *usersAttending;
 @property (retain, nonatomic) NSMutableArray *usersRequested;
 @property (retain, nonatomic) NSMutableArray *usersInvited;
+@property (nonatomic, assign) BOOL popToRoot;
 
 - (IBAction)onBack:(id)sender;
 - (IBAction)onAttend:(id)sender;

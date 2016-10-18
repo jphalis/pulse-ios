@@ -347,7 +347,13 @@
 
 - (IBAction)onBack:(id)sender
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    if (_popToRoot) {
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }
+    else
+    {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 - (IBAction)onMore:(id)sender
