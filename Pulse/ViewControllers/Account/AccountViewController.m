@@ -51,6 +51,8 @@
     [_collectionVW addSubview:refreshControl];
     
     _collectionVW.alwaysBounceVertical = YES;
+    
+    _profileBio.delegate = self;
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -139,6 +141,11 @@
                 profileClass.gender = [JSONValue objectForKey:@"gender"];
                 profileClass.userName = [JSONValue objectForKey:@"full_name"];
                 profileClass.event_count = [JSONValue objectForKey:@"event_count"];
+                if([JSONValue objectForKey:@"bio"] == [NSNull null]){
+                    profileClass.bio = @"";
+                } else {
+                    profileClass.bio = [JSONValue objectForKey:@"bio"];
+                }
                 BOOL isPrivate = [[JSONValue objectForKey:@"viewer_can_see"]boolValue];
                 profileClass.isPrivate = isPrivate;
                 if([JSONValue objectForKey:@"profile_pic"] == [NSNull null]){
@@ -269,6 +276,7 @@
     _eventCount.text = profileClass.event_count;
     _followerCount.text = profileClass.followers_count;
     _followingCount.text = profileClass.following_count;
+    _profileBio.text = profileClass.bio;
     [_profilePicture loadImageFromURL:profileClass.userProfilePicture withTempImage:@"avatar_icon"];
     viewer_can_see = profileClass.isPrivate;
     
@@ -548,6 +556,99 @@
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
     [picker dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - Text Field
+-(BOOL)textFieldShouldBeginEditing:(UITextField*)textField {
+    if ([_profileName.text isEqualToString:GetUserName]){
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField{
+    [self animateTextField: textField up: YES];
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField{
+    [self animateTextField: textField up: NO];
+}
+
+- (void)animateTextField:(UITextField*)textField up: (BOOL) up{
+    float val;
+    
+    if(self.view.frame.size.height == 480){
+        val = 0.75;
+    } else {
+        val = 0.65;
+    }
+    
+    const int movementDistance = val * textField.frame.origin.y;
+    const float movementDuration = 0.3f;
+    
+    int movement = (up ? -movementDistance : movementDistance);
+    
+    [UIView beginAnimations: @"anim" context: nil];
+    [UIView setAnimationBeginsFromCurrentState: YES];
+    [UIView setAnimationDuration: movementDuration];
+    self.view.frame = CGRectOffset(self.view.frame, 0, movement);
+    
+    [UIView commitAnimations];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    if (textField.tag == 0){
+        [_profileBio resignFirstResponder];
+        [self updateBio];
+    }
+    return YES;
+}
+
+- (void)updateBio {
+    checkNetworkReachability();
+    [self.view endEditing:YES];
+    [self setBusy:YES];
+    
+    SCLAlertView *alert = [[SCLAlertView alloc] init];
+    ProfileClass *profileClass = [dictProfileInformation objectForKey:@"ProfileInfo"];
+    
+    NSString *params = [NSString stringWithFormat:@"full_name=%@&email=%@&bio=%@", _profileName.text, GetUserEmail, _profileBio.text];
+    
+    NSMutableData *bodyData = [[NSMutableData alloc] initWithData:[params dataUsingEncoding:NSUTF8StringEncoding]];
+    NSString *postLength = [NSString stringWithFormat:@"%lu",(unsigned long)[bodyData length]];
+    NSString *urlStr = [NSString stringWithFormat:@"%@%@/", PROFILEURL, profileClass.userId];
+    NSURL *requestURL = [NSURL URLWithString:urlStr];
+    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:requestURL];
+    [urlRequest setTimeoutInterval:60];
+    [urlRequest setHTTPMethod:@"PUT"];
+    NSString *authStr = [NSString stringWithFormat:@"%@:%@", GetUserEmail, GetUserPassword];
+    NSData *plainData = [authStr dataUsingEncoding:NSUTF8StringEncoding];
+    NSString *base64String = [plainData base64EncodedStringWithOptions:0];
+    NSString *authValue = [NSString stringWithFormat:@"Basic %@", base64String];
+    [urlRequest setValue:authValue forHTTPHeaderField:@"Authorization"];
+    [urlRequest setValue:postLength forHTTPHeaderField:@"Content-Length"];
+    [urlRequest setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"content-type"];
+    [urlRequest setValue:@"multipart/form-data" forHTTPHeaderField:@"enctype"];
+    [urlRequest setHTTPBody:bodyData];
+    
+    [NSURLConnection sendAsynchronousRequest:urlRequest queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error){
+        
+        if ([data length] > 0 && error == nil){
+            NSDictionary *JSONValue = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+            
+            NSLog(@"%@", JSONValue);
+            
+            if(JSONValue != nil){
+                alert.showAnimationType = SlideInFromLeft;
+                alert.hideAnimationType = SlideOutToBottom;
+                [alert showNotice:self title:@"Notice" subTitle:@"Your profile has been updated." closeButtonTitle:@"OK" duration:0.0f];
+            }
+        } else {
+            showServerError();
+        }
+        [self setBusy:NO];
+    }];
 }
 
 - (IBAction)onEvents:(id)sender

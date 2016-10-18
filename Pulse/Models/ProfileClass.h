@@ -16,6 +16,7 @@
 @property (nonatomic, retain) NSString *event_count;
 @property (nonatomic, retain) NSString *followers_count;
 @property (nonatomic, retain) NSString *following_count;
+@property (nonatomic, retain) NSString *bio;
 @property (nonatomic, assign) BOOL isPrivate;
 
 @end

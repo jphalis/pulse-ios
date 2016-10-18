@@ -7,6 +7,6 @@
 
 @implementation ProfileClass
 
-@synthesize userId, gender, userName, userProfilePicture, arrfollowers, arrfollowings, event_count, followers_count, following_count, isPrivate;
+@synthesize userId, gender, userName, userProfilePicture, arrfollowers, arrfollowings, event_count, followers_count, following_count, bio, isPrivate;
 
 @end

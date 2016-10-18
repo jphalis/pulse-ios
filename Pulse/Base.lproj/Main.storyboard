@@ -670,8 +670,16 @@
                                     <action selector="onEvents:" destination="Gmq-Qg-9dW" eventType="touchUpInside" id="PuD-4P-2iJ"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="axW-0t-ES8">
+                                <frame key="frameInset" minY="52.02%" height="0.30%"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.16078431369999999" green="0.18039215689999999" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="eHA-L5-sGd">
-                                <frame key="frameInset" height="64.92%"/>
+                                <frame key="frameInset" height="47.38%"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="3" minimumInteritemSpacing="3" id="iKS-MA-NwT">
@@ -704,10 +712,17 @@
                                     <outlet property="delegate" destination="Gmq-Qg-9dW" id="af6-gY-ktM"/>
                                 </connections>
                             </collectionView>
-                            <imageView userInteractionEnabled="NO" alpha="0.14999999999999999" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lock_icon" id="86A-Rv-g1n">
-                                <frame key="frameInset" minX="34.27%" minY="55.40%" width="31.33%" height="17.62%"/>
+                            <imageView userInteractionEnabled="NO" alpha="0.14999999999999999" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="lock_icon" id="86A-Rv-g1n">
+                                <frame key="frameInset" minX="34.27%" minY="67.09%" width="31.33%" height="17.62%"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Bio" minimumFontSize="15" clearButtonMode="whileEditing" id="uBY-Nc-QFE" userLabel="Bio">
+                                <frame key="frameInset" minX="6" minY="35.23%" height="16.19%" maxX="6"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
@@ -720,6 +735,7 @@
                         <outlet property="followerCount" destination="m3n-XK-uRT" id="G3r-Ek-ILg"/>
                         <outlet property="followingCount" destination="39S-mQ-pUi" id="Nzw-59-YiC"/>
                         <outlet property="lockIcon" destination="86A-Rv-g1n" id="pED-gG-OtN"/>
+                        <outlet property="profileBio" destination="uBY-Nc-QFE" id="MxO-8p-Z9p"/>
                         <outlet property="profileName" destination="q7B-Za-Yku" id="hMH-45-sFf"/>
                         <outlet property="profilePicture" destination="ct8-ea-6Eq" id="02T-Sc-0wO"/>
                         <outlet property="settingsBtn" destination="Wjk-4z-0d2" id="Ibp-Cf-RJ5"/>
