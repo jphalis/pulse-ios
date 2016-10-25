@@ -5,6 +5,7 @@
 
 #import <MapKit/MapKit.h>
 #import <MapKit/MKAnnotation.h>
+#import <QuartzCore/QuartzCore.h>
 #import "AppDelegate.h"
 #import "CollectionViewCellParty.h"
 #import "defs.h"
@@ -75,7 +76,10 @@
     
     [super viewWillAppear:YES];
     
+    
     // Initialize map
+    _currentLocBtn.layer.cornerRadius = 3;
+    
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0 &&
         [CLLocationManager authorizationStatus] != kCLAuthorizationStatusAuthorizedWhenInUse
         ) {
@@ -84,7 +88,6 @@
         [locationManager startUpdatingLocation];
     }
     locationManager.distanceFilter = kCLDistanceFilterNone;
-    // locationManager.distanceFilter = 250;
     locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     [locationManager startUpdatingLocation];
     
@@ -299,8 +302,7 @@
             NSNumber *lat = [f numberFromString:partyClass.partyLatitude];
             NSNumber *lon = [f numberFromString:partyClass.partyLongitude];
             
-            CLLocation *currentLocation = [[CLLocation alloc]initWithLatitude:locationManager.location.coordinate.latitude longitude:locationManager.location.coordinate.longitude
-                               ];
+            CLLocation *currentLocation = [[CLLocation alloc]initWithLatitude:locationManager.location.coordinate.latitude longitude:locationManager.location.coordinate.longitude];
             CLLocation *eventLocation = [[CLLocation alloc] initWithLatitude:[lat floatValue] longitude:[lon floatValue]];
             NSInteger distanceFromCurrentLocation = [eventLocation distanceFromLocation:currentLocation]/1609.344; // meters to miles
 
@@ -323,14 +325,20 @@
 
 #pragma mark - Map
 
+- (IBAction)onCurrentLocation:(id)sender {
+    CLLocation *currentLocation = [[CLLocation alloc]initWithLatitude:locationManager.location.coordinate.latitude longitude:locationManager.location.coordinate.longitude];
+    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(currentLocation.coordinate, 5000, 5000);
+    [_mapView setRegion:[_mapView regionThatFits:region] animated:YES];
+}
+
 -(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
     UIAlertView *errorAlert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"There was an error retrieving your location" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
     [errorAlert show];
 }
 
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation{
-    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(userLocation.coordinate, 5000, 5000);
-    [self.mapView setRegion:[self.mapView regionThatFits:region] animated:YES];
+//    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(userLocation.coordinate, 5000, 5000);
+//    [_mapView setRegion:[_mapView regionThatFits:region] animated:YES];
 }
 
 - (void)locationManager:(CLLocationManager*)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)locationServiceStatus {
@@ -443,7 +451,29 @@
     cell.userProfilePicture.clipsToBounds = YES;
     cell.partyName.text = partyClass.partyName;
     cell.partyAddress.text = partyClass.partyAddress;
-    [cell.partyPicture loadImageFromURL:partyClass.partyImage withTempImage:@"balloons_icon"];
+    
+    if ([partyClass.partyType isEqualToString:@"Custom"]) {
+        [cell.partyPicture loadImageFromURL:partyClass.partyImage withTempImage:@"custom_icon"];
+    }
+    else if ([partyClass.partyType isEqualToString:@"Social"]) {
+        [cell.partyPicture loadImageFromURL:partyClass.partyImage withTempImage:@"social_icon"];
+    }
+    else if ([partyClass.partyType isEqualToString:@"Holiday"]) {
+        [cell.partyPicture loadImageFromURL:partyClass.partyImage withTempImage:@"holiday_icon"];
+    }
+    else if ([partyClass.partyType isEqualToString:@"Event"]) {
+        [cell.partyPicture loadImageFromURL:partyClass.partyImage withTempImage:@"event_icon"];
+    }
+    else if ([partyClass.partyType isEqualToString:@"Rager"]) {
+        [cell.partyPicture loadImageFromURL:partyClass.partyImage withTempImage:@"rager_icon"];
+    }
+    else if ([partyClass.partyType isEqualToString:@"Themed"]) {
+        [cell.partyPicture loadImageFromURL:partyClass.partyImage withTempImage:@"themed_icon"];
+    }
+    else if ([partyClass.partyType isEqualToString:@"Celebration"]) {
+        [cell.partyPicture loadImageFromURL:partyClass.partyImage withTempImage:@"celebration_icon"];
+    }
+    
     cell.partyAttending.text = partyClass.partyAttendingCount;
     cell.partyRequests.text = partyClass.partyRequestCount;
     

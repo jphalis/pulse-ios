@@ -218,11 +218,12 @@ enum {
             [btn setSelected:YES];
 
             UIView *bottomBorder = [[UIView alloc] initWithFrame:CGRectMake(0, btn.frame.size.height - 4.0f, btn.frame.size.width, 4)];
-            if (currentIndex == 12){
-                bottomBorder.backgroundColor = [UIColor colorWithRed:(41/255.0) green:(46/255.0) blue:(50/255.0) alpha:1.0];
-            } else {
-                bottomBorder.backgroundColor = [UIColor colorWithRed:(171/255.0) green:(14/255.0) blue:(27/255.0) alpha:1.0];
-            }
+            bottomBorder.backgroundColor = [UIColor colorWithRed:(171/255.0) green:(14/255.0) blue:(27/255.0) alpha:1.0];
+//            if (currentIndex == 12){
+//                bottomBorder.backgroundColor = [UIColor colorWithRed:(41/255.0) green:(46/255.0) blue:(50/255.0) alpha:1.0];
+//            } else {
+//                bottomBorder.backgroundColor = [UIColor colorWithRed:(171/255.0) green:(14/255.0) blue:(27/255.0) alpha:1.0];
+//            }
             [btn addSubview:bottomBorder];
         }
     }

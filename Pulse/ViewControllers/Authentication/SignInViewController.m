@@ -88,6 +88,9 @@
     [self.navigationController pushViewController:emailViewController animated:YES];
 }
 
+- (IBAction)onForgot:(id)sender {
+}
+
 #pragma mark - Functions
 
 -(BOOL)validateFields{

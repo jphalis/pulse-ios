@@ -167,42 +167,78 @@
     [cell.notificationTextField addGestureRecognizer:tapGesture];
     
     NSMutableParagraphStyle *paragraph = [[NSMutableParagraphStyle alloc] init];
-    NSMutableAttributedString *notifTextAttributedString = [[NSMutableAttributedString alloc] initWithString:@"{0} {1} {2} {3}" attributes:@{ NSForegroundColorAttributeName: [UIColor blackColor]}];
     
-    NSAttributedString *senderAttributedString = [[NSAttributedString alloc] initWithString:notificationClass.sender attributes:@{@"senderTag" : @(YES), NSForegroundColorAttributeName: [UIColor colorWithRed:171/255.0 green:14/255.0 blue:27/255.0 alpha:1.0]}];
-    
-    NSRange range = [notificationClass.notificationText rangeOfString:@" " options:NSBackwardsSearch];
-    
-    NSString *result = [notificationClass.notificationText substringToIndex:range.location];
-    NSAttributedString *textAttributedString = [[NSAttributedString alloc] initWithString:result attributes:@{NSForegroundColorAttributeName: [UIColor blackColor]}];
-    
-    NSString *result2 = [notificationClass.notificationText substringFromIndex:range.location+1];
-    NSAttributedString *eventAttributedString = [[NSAttributedString alloc] initWithString:result2 attributes:@{@"eventTag" : @(YES), NSForegroundColorAttributeName: [UIColor colorWithRed:171/255.0 green:14/255.0 blue:27/255.0 alpha:1.0]}];
-    
-    NSAttributedString *extraAttributedString = [[NSAttributedString alloc] initWithString:@"" attributes:@{NSForegroundColorAttributeName: [UIColor blackColor]}];
-    
-    NSRange range0 = [[notifTextAttributedString string] rangeOfString:@"{0}"];
-    if(range0.location != NSNotFound)
-        [notifTextAttributedString replaceCharactersInRange:range0 withAttributedString:senderAttributedString];
-    
-    NSRange range1 = [[notifTextAttributedString string] rangeOfString:@"{1}"];
-    if(range1.location != NSNotFound)
-        [notifTextAttributedString replaceCharactersInRange:range1 withAttributedString:textAttributedString];
-    
-    NSRange range2 = [[notifTextAttributedString string] rangeOfString:@"{2}"];
-    if(range2.location != NSNotFound)
-        [notifTextAttributedString replaceCharactersInRange:range2 withAttributedString:eventAttributedString];
-    
-    NSRange range3 = [[notifTextAttributedString string] rangeOfString:@"{3}"];
-    if(range3.location != NSNotFound)
-        [notifTextAttributedString replaceCharactersInRange:range3 withAttributedString:extraAttributedString];
-    
-    [notifTextAttributedString addAttribute:NSParagraphStyleAttributeName value:paragraph range:NSMakeRange(0, [notifTextAttributedString length])];
-    
-    cell.notificationTextField.attributedText = notifTextAttributedString;
-    
+    // Without target_url
     if([notificationClass.targetUrl isEqualToString:@""]){
-        cell.notificationTextField.textColor = [UIColor lightGrayColor];
+        NSMutableAttributedString *notifTextAttributedString = [[NSMutableAttributedString alloc] initWithString:@"{0} {1} {2} {3}" attributes:@{ NSForegroundColorAttributeName: [UIColor lightGrayColor]}];
+        
+        NSAttributedString *senderAttributedString = [[NSAttributedString alloc] initWithString:notificationClass.sender attributes:@{@"senderTag" : @(YES), NSForegroundColorAttributeName: [UIColor colorWithRed:171/255.0 green:14/255.0 blue:27/255.0 alpha:1.0]}];
+        
+        NSRange range = [notificationClass.notificationText rangeOfString:@" " options:NSBackwardsSearch];
+        
+        NSString *result = [notificationClass.notificationText substringToIndex:range.location];
+        NSAttributedString *textAttributedString = [[NSAttributedString alloc] initWithString:result attributes:@{NSForegroundColorAttributeName: [UIColor lightGrayColor]}];
+        
+        NSString *result2 = [notificationClass.notificationText substringFromIndex:range.location+1];
+        NSAttributedString *eventAttributedString = [[NSAttributedString alloc] initWithString:result2 attributes:@{@"eventTag" : @(YES), NSForegroundColorAttributeName: [UIColor lightGrayColor]}];
+        
+        NSAttributedString *extraAttributedString = [[NSAttributedString alloc] initWithString:@"" attributes:@{NSForegroundColorAttributeName: [UIColor lightGrayColor]}];
+        
+        NSRange range0 = [[notifTextAttributedString string] rangeOfString:@"{0}"];
+        if(range0.location != NSNotFound)
+            [notifTextAttributedString replaceCharactersInRange:range0 withAttributedString:senderAttributedString];
+        
+        NSRange range1 = [[notifTextAttributedString string] rangeOfString:@"{1}"];
+        if(range1.location != NSNotFound)
+            [notifTextAttributedString replaceCharactersInRange:range1 withAttributedString:textAttributedString];
+        
+        NSRange range2 = [[notifTextAttributedString string] rangeOfString:@"{2}"];
+        if(range2.location != NSNotFound)
+            [notifTextAttributedString replaceCharactersInRange:range2 withAttributedString:eventAttributedString];
+        
+        NSRange range3 = [[notifTextAttributedString string] rangeOfString:@"{3}"];
+        if(range3.location != NSNotFound)
+            [notifTextAttributedString replaceCharactersInRange:range3 withAttributedString:extraAttributedString];
+        
+        [notifTextAttributedString addAttribute:NSParagraphStyleAttributeName value:paragraph range:NSMakeRange(0, [notifTextAttributedString length])];
+        
+        cell.notificationTextField.attributedText = notifTextAttributedString;
+    }
+    // With target_url
+    else {
+        NSMutableAttributedString *notifTextAttributedString = [[NSMutableAttributedString alloc] initWithString:@"{0} {1} {2} {3}" attributes:@{ NSForegroundColorAttributeName: [UIColor blackColor]}];
+        
+        NSAttributedString *senderAttributedString = [[NSAttributedString alloc] initWithString:notificationClass.sender attributes:@{@"senderTag" : @(YES), NSForegroundColorAttributeName: [UIColor colorWithRed:171/255.0 green:14/255.0 blue:27/255.0 alpha:1.0]}];
+        
+        NSRange range = [notificationClass.notificationText rangeOfString:@" " options:NSBackwardsSearch];
+        
+        NSString *result = [notificationClass.notificationText substringToIndex:range.location];
+        NSAttributedString *textAttributedString = [[NSAttributedString alloc] initWithString:result attributes:@{NSForegroundColorAttributeName: [UIColor blackColor]}];
+        
+        NSString *result2 = [notificationClass.notificationText substringFromIndex:range.location+1];
+        NSAttributedString *eventAttributedString = [[NSAttributedString alloc] initWithString:result2 attributes:@{@"eventTag" : @(YES), NSForegroundColorAttributeName: [UIColor colorWithRed:171/255.0 green:14/255.0 blue:27/255.0 alpha:1.0]}];
+        
+        NSAttributedString *extraAttributedString = [[NSAttributedString alloc] initWithString:@"" attributes:@{NSForegroundColorAttributeName: [UIColor blackColor]}];
+        
+        NSRange range0 = [[notifTextAttributedString string] rangeOfString:@"{0}"];
+        if(range0.location != NSNotFound)
+            [notifTextAttributedString replaceCharactersInRange:range0 withAttributedString:senderAttributedString];
+        
+        NSRange range1 = [[notifTextAttributedString string] rangeOfString:@"{1}"];
+        if(range1.location != NSNotFound)
+            [notifTextAttributedString replaceCharactersInRange:range1 withAttributedString:textAttributedString];
+        
+        NSRange range2 = [[notifTextAttributedString string] rangeOfString:@"{2}"];
+        if(range2.location != NSNotFound)
+            [notifTextAttributedString replaceCharactersInRange:range2 withAttributedString:eventAttributedString];
+        
+        NSRange range3 = [[notifTextAttributedString string] rangeOfString:@"{3}"];
+        if(range3.location != NSNotFound)
+            [notifTextAttributedString replaceCharactersInRange:range3 withAttributedString:extraAttributedString];
+        
+        [notifTextAttributedString addAttribute:NSParagraphStyleAttributeName value:paragraph range:NSMakeRange(0, [notifTextAttributedString length])];
+        
+        cell.notificationTextField.attributedText = notifTextAttributedString;
     }
     
     [cell.senderProfilePicture loadImageFromURL:notificationClass.senderProfilePicture withTempImage:@"avatar_icon"];

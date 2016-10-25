@@ -87,6 +87,8 @@ enum{
             _requestPartyIcon.layer.borderWidth = 0;
             _exclusivePartyIcon.layer.borderWidth = 0;
             
+            _visibilityLabel.text = @"Open event!";
+            
             [userInviteViewController.view removeFromSuperview];
             
             break;
@@ -99,9 +101,13 @@ enum{
             
             _openPartyIcon.layer.borderWidth = 0;
             _requestPartyIcon.layer.borderWidth = 0;
+            
+            _visibilityLabel.text = @"Invite only event!";
 
             userInviteViewController.view.frame = CGRectMake(0, 300, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height);
-            userInviteViewController.arrDetails = appDelegate.arrFollowing;
+            NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"user__full_name" ascending:YES];
+            NSArray *sortedArray = [appDelegate.arrFollowing sortedArrayUsingDescriptors:@[sort]];
+            userInviteViewController.arrDetails = sortedArray;
 
             [UIView animateWithDuration:0.5
                                   delay:0.1
@@ -133,6 +139,8 @@ enum{
             
             _openPartyIcon.layer.borderWidth = 0;
             _exclusivePartyIcon.layer.borderWidth = 0;
+            
+            _visibilityLabel.text = @"Request and approval event!";
             
             [userInviteViewController.view removeFromSuperview];
             

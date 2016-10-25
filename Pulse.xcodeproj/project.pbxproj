@@ -74,6 +74,7 @@
 		D04DBD871D5178B200BB8172 /* StringUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = D04DBD721D5178B200BB8172 /* StringUtil.m */; };
 		D04DBD881D5178B200BB8172 /* UIViewControllerAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D04DBD751D5178B200BB8172 /* UIViewControllerAdditions.m */; };
 		D04DBD8E1D5178CD00BB8172 /* GlobalFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = D04DBD8C1D5178CD00BB8172 /* GlobalFunctions.m */; };
+		D052849C1DBFB97C00CA15AA /* ForgotViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D052849B1DBFB97C00CA15AA /* ForgotViewController.m */; };
 		D06B7E0C1D888B7900381C20 /* PartyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D06B7E081D888B7900381C20 /* PartyViewController.m */; };
 		D06B7E0D1D888B7900381C20 /* RequestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D06B7E0A1D888B7900381C20 /* RequestsViewController.m */; };
 		D06ED5131D6CAA23006AE20B /* AsyncImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D06ED50C1D6CAA23006AE20B /* AsyncImageView.m */; };
@@ -254,6 +255,8 @@
 		D04DBD8B1D5178CD00BB8172 /* GlobalFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobalFunctions.h; sourceTree = "<group>"; };
 		D04DBD8C1D5178CD00BB8172 /* GlobalFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlobalFunctions.m; sourceTree = "<group>"; };
 		D04DBD8D1D5178CD00BB8172 /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Message.h; sourceTree = "<group>"; };
+		D052849A1DBFB97C00CA15AA /* ForgotViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgotViewController.h; sourceTree = "<group>"; };
+		D052849B1DBFB97C00CA15AA /* ForgotViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgotViewController.m; sourceTree = "<group>"; };
 		D06B7E071D888B7900381C20 /* PartyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PartyViewController.h; sourceTree = "<group>"; };
 		D06B7E081D888B7900381C20 /* PartyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PartyViewController.m; sourceTree = "<group>"; };
 		D06B7E091D888B7900381C20 /* RequestsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestsViewController.h; sourceTree = "<group>"; };
@@ -734,6 +737,8 @@
 				D0F73CB21D83498800DA8CC1 /* AuthViewController.m */,
 				D0F73CB31D83498800DA8CC1 /* EmailViewController.h */,
 				D0F73CB41D83498800DA8CC1 /* EmailViewController.m */,
+				D052849A1DBFB97C00CA15AA /* ForgotViewController.h */,
+				D052849B1DBFB97C00CA15AA /* ForgotViewController.m */,
 				D0F73CB51D83498800DA8CC1 /* NameViewController.h */,
 				D0F73CB61D83498800DA8CC1 /* NameViewController.m */,
 				D0F73CB71D83498800DA8CC1 /* PasswordViewController.h */,
@@ -957,6 +962,7 @@
 				D09D4BAD1D624E8F00D285F3 /* HomeViewController.m in Sources */,
 				D01350EA1D5A99BA00ACD2C1 /* PartyClass.m in Sources */,
 				D06B7E0D1D888B7900381C20 /* RequestsViewController.m in Sources */,
+				D052849C1DBFB97C00CA15AA /* ForgotViewController.m in Sources */,
 				13F77D381D2EE581003EF38D /* main.m in Sources */,
 				D03CEECA1D56D2D700D2586D /* CustomTabViewController.m in Sources */,
 				D0330E401D7C81AD0080A3CC /* SVWebViewControllerActivityChrome.m in Sources */,

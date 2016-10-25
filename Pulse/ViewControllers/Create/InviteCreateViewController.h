@@ -13,6 +13,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *exclusivePartyIcon;
 @property (retain, nonatomic) NSString *partyInvite;
 @property (retain, nonatomic) NSString *partyType;
+@property (weak, nonatomic) IBOutlet UILabel *visibilityLabel;
 @property (retain, nonatomic) NSMutableArray *usersInvited;
 
 - (IBAction)onClick:(id)sender;

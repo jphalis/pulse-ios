@@ -260,10 +260,10 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-//    AccountViewController *accountViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"AccountViewController"];
-//    accountViewController.userURL = [NSString stringWithFormat:@"%@%@/", PROFILEURL, _userId];
-//    accountViewController.needBack = YES;
-//    [self.navigationController pushViewController:accountViewController animated:YES];
+    AccountViewController *accountViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"AccountViewController"];
+    accountViewController.userURL = [NSString stringWithFormat:@"%@%@/", PROFILEURL, _userId];
+    accountViewController.needBack = YES;
+    [self.navigationController pushViewController:accountViewController animated:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{

@@ -8,7 +8,7 @@
 @interface UserInviteViewController : UIViewController
 
 @property (strong, nonatomic) IBOutlet UITableView *tblVW;
-@property (strong, nonatomic) NSMutableArray *arrDetails;
+@property (strong, nonatomic) NSArray *arrDetails;
 
 @property (nonatomic, copy) void (^editInvitedUsers)(NSMutableArray *response);
 

@@ -12,8 +12,10 @@
 @property (strong, nonatomic) IBOutlet UICollectionView *collectionVW;
 @property (strong, nonatomic) IBOutlet MKMapView *mapView;
 @property (nonatomic, retain) NSMutableArray *annotations;
+@property (weak, nonatomic) IBOutlet UIButton *currentLocBtn;
 
 - (IBAction)onBack:(id)sender;
+- (IBAction)onCurrentLocation:(id)sender;
 
 @end
 

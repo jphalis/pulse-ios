@@ -281,7 +281,28 @@
 
 -(void)showPartyInfo
 {
-    [_partyImageField loadImageFromURL:_partyImage withTempImage:@"balloons_icon"];
+    if ([_partyType isEqualToString:@"Custom"]) {
+        [_partyImageField loadImageFromURL:_partyImage withTempImage:@"custom_icon"];
+    }
+    else if ([_partyType isEqualToString:@"Social"]) {
+        [_partyImageField loadImageFromURL:_partyImage withTempImage:@"social_icon"];
+    }
+    else if ([_partyType isEqualToString:@"Holiday"]) {
+        [_partyImageField loadImageFromURL:_partyImage withTempImage:@"holiday_icon"];
+    }
+    else if ([_partyType isEqualToString:@"Event"]) {
+        [_partyImageField loadImageFromURL:_partyImage withTempImage:@"event_icon"];
+    }
+    else if ([_partyType isEqualToString:@"Rager"]) {
+        [_partyImageField loadImageFromURL:_partyImage withTempImage:@"rager_icon"];
+    }
+    else if ([_partyType isEqualToString:@"Themed"]) {
+        [_partyImageField loadImageFromURL:_partyImage withTempImage:@"themed_icon"];
+    }
+    else if ([_partyType isEqualToString:@"Celebration"]) {
+        [_partyImageField loadImageFromURL:_partyImage withTempImage:@"celebration_icon"];
+    }
+    
     _partyImageField.layer.borderWidth = 4;
     _partyImageField.layer.borderColor = [[UIColor whiteColor] CGColor];
     _partyImageField.layer.cornerRadius = 10;
