@@ -8,7 +8,6 @@
 #import "CreateViewController.h"
 #import "CustomTabViewController.h"
 #import "defs.h"
-//#import "FindViewController.h"
 #import "HomeViewController.h"
 #import "NotificationsViewController.h"
 #import "PulseViewController.h"
@@ -135,14 +134,12 @@ enum {
 
 -(void)LoadTabBar{
     HomeViewController *homeViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"HomeViewController"];
-//    FindViewController *findViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"FindViewController"];
     PulseViewController *pulseViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PulseViewController"];
     CreateViewController *createViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"CreateViewController"];
     NotificationsViewController *notificationsViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"NotificationsViewController"];
     AccountViewController *accountViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"AccountViewController"];
     
     UINavigationController *navController1 = [[UINavigationController alloc]initWithRootViewController:homeViewController];
-//    UINavigationController *navController2 = [[UINavigationController alloc]initWithRootViewController:findViewController];
     UINavigationController *navController2 = [[UINavigationController alloc]initWithRootViewController:pulseViewController];
     UINavigationController *navController3 = [[UINavigationController alloc]initWithRootViewController:createViewController];
     UINavigationController *navController4 = [[UINavigationController alloc]initWithRootViewController:notificationsViewController];

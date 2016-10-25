@@ -6,9 +6,10 @@
 @import GooglePlaces;
 
 #import "AppDelegate.h"
-#import "AuthViewController.h"
+//#import "AuthViewController.h"
 #import "defs.h"
 #import "MBProgressHUD.h"
+#import "SignInViewController.h"
 #import "UIViewControllerAdditions.h"
 
 
@@ -28,7 +29,7 @@ MBProgressHUD *hud;
     if(GetUserEmail == nil){
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
         UINavigationController *navController = [storyboard instantiateViewControllerWithIdentifier:@"NavigationControllerPulse"];
-        AuthViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"AuthViewController"];
+        SignInViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"SignInViewController"];
         navController.viewControllers = @[vc];
         [self.window setRootViewController:navController];
     }
@@ -200,7 +201,7 @@ MBProgressHUD *hud;
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
     UINavigationController *navController = [storyboard instantiateViewControllerWithIdentifier:@"NavigationControllerPulse"];
-    AuthViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"AuthViewController"];
+    SignInViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"SignInViewController"];
     navController.viewControllers = @[vc];
     [self.window setRootViewController:navController];
 }

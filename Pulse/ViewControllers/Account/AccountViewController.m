@@ -69,8 +69,10 @@
     
     if (_needBack){
         _backBtn.hidden = NO;
+        _backBtn2.hidden = NO;
     } else {
         _backBtn.hidden = YES;
+        _backBtn2.hidden = YES;
     }
     
     if([[_userURL lastPathComponent]isEqualToString:[NSString stringWithFormat:@"%ld", (long)GetUserID]]){

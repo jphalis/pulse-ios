@@ -57,24 +57,31 @@
     
     if ([_partyType isEqualToString:@"Custom"]) {
         [_inviteIcon setImage:[UIImage imageNamed:@"custom_icon"]];
+        [_partyImageField setImage:[UIImage imageNamed:@"custom_icon"]];
     }
     else if ([_partyType isEqualToString:@"Social"]) {
         [_inviteIcon setImage:[UIImage imageNamed:@"social_icon"]];
+        [_partyImageField setImage:[UIImage imageNamed:@"social_icon"]];
     }
     else if ([_partyType isEqualToString:@"Holiday"]) {
         [_inviteIcon setImage:[UIImage imageNamed:@"holiday_icon"]];
+        [_partyImageField setImage:[UIImage imageNamed:@"holiday_icon"]];
     }
     else if ([_partyType isEqualToString:@"Event"]) {
         [_inviteIcon setImage:[UIImage imageNamed:@"event_icon"]];
+        [_partyImageField setImage:[UIImage imageNamed:@"event_icon"]];
     }
     else if ([_partyType isEqualToString:@"Rager"]) {
         [_inviteIcon setImage:[UIImage imageNamed:@"rager_icon"]];
+        [_partyImageField setImage:[UIImage imageNamed:@"rager_icon"]];
     }
     else if ([_partyType isEqualToString:@"Themed"]) {
         [_inviteIcon setImage:[UIImage imageNamed:@"themed_icon"]];
+        [_partyImageField setImage:[UIImage imageNamed:@"themed_icon"]];
     }
     else if ([_partyType isEqualToString:@"Celebration"]) {
         [_inviteIcon setImage:[UIImage imageNamed:@"celebration_icon"]];
+        [_partyImageField setImage:[UIImage imageNamed:@"celebration_icon"]];
     }
     
     if ([_partyInvite isEqualToString:@"15"]) {

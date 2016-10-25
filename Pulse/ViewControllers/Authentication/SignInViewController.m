@@ -5,6 +5,7 @@
 
 #import "CustomTabViewController.h"
 #import "defs.h"
+#import "EmailViewController.h"
 #import "GlobalFunctions.h"
 #import "SignInViewController.h"
 #import "SCLAlertView.h"
@@ -82,6 +83,11 @@
     }
 }
 
+- (IBAction)onSignUp:(id)sender {
+    EmailViewController *emailViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"EmailViewController"];
+    [self.navigationController pushViewController:emailViewController animated:YES];
+}
+
 #pragma mark - Functions
 
 -(BOOL)validateFields{
@@ -133,6 +139,36 @@
         return isValidChar && length <= 60;
     }
     return YES;
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField{
+    [self animateTextField: textField up: YES];
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField{
+    [self animateTextField: textField up: NO];
+}
+
+- (void)animateTextField:(UITextField*)textField up: (BOOL) up{
+    float val;
+    
+    if(self.view.frame.size.height == 480){
+        val = 0.75;
+    } else {
+        val = 0.65;
+    }
+    
+    const int movementDistance = val * textField.frame.origin.y;
+    const float movementDuration = 0.3f;
+    
+    int movement = (up ? -movementDistance : movementDistance);
+    
+    [UIView beginAnimations: @"anim" context: nil];
+    [UIView setAnimationBeginsFromCurrentState: YES];
+    [UIView setAnimationDuration: movementDuration];
+    self.view.frame = CGRectOffset(self.view.frame, 0, movement);
+    
+    [UIView commitAnimations];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {

@@ -124,6 +124,37 @@
     return YES;
 }
 
+- (void)textFieldDidBeginEditing:(UITextField *)textField{
+    [self animateTextField: textField up: YES];
+    _emailField.placeholder = nil;
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField{
+    [self animateTextField: textField up: NO];
+}
+
+- (void)animateTextField:(UITextField*)textField up: (BOOL) up{
+    float val;
+    
+    if(self.view.frame.size.height == 480){
+        val = 0.75;
+    } else {
+        val = 0.65;
+    }
+    
+    const int movementDistance = val * textField.frame.origin.y;
+    const float movementDuration = 0.3f;
+    
+    int movement = (up ? -movementDistance : movementDistance);
+    
+    [UIView beginAnimations: @"anim" context: nil];
+    [UIView setAnimationBeginsFromCurrentState: YES];
+    [UIView setAnimationDuration: movementDuration];
+    self.view.frame = CGRectOffset(self.view.frame, 0, movement);
+    
+    [UIView commitAnimations];
+}
+
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     if (textField.tag == 0){
         [_emailField resignFirstResponder];

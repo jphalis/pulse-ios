@@ -13,5 +13,6 @@
 
 - (IBAction)onBack:(id)sender;
 - (IBAction)onDone:(id)sender;
+- (IBAction)onSignUp:(id)sender;
 
 @end

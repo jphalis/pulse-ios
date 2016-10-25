@@ -176,7 +176,7 @@
                     [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"Success"
                                                                    description:APPROVE_USER
                                                                           type:TWMessageBarMessageTypeSuccess
-                                                                      duration:1.0];
+                                                                      duration:2.0];
                 }
             }
         }
@@ -247,7 +247,7 @@
                      [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"Success"
                                                                     description:DENY_USER
                                                                            type:TWMessageBarMessageTypeInfo
-                                                                       duration:1.0];
+                                                                       duration:2.0];
                  }
              }
          }

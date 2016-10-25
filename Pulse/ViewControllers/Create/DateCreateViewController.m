@@ -218,10 +218,6 @@
     return YES;
 }
 
-- (void)textViewDidBeginEditing:(UITextView *)textView{
-    
-}
-
 - (void)textViewDidEndEditing:(UITextView *)textView{
     [self animateTextView:textView up: NO];
 }

@@ -23,6 +23,7 @@
     
     NSInteger partyCount;
     NSMutableArray *arrParties;
+    NSMutableArray *arrVisibleParties;
     UIRefreshControl *refreshControl;
     NSInteger tapCellIndex;
 }
@@ -37,6 +38,7 @@
 
 - (void)viewDidLoad {
     arrParties = [[NSMutableArray alloc]init];
+    arrVisibleParties = [[NSMutableArray alloc]init];
     _annotations = [[NSMutableArray alloc]init];
     [self getPartyDetails];
 
@@ -283,8 +285,12 @@
 
 -(void)showParties{
     // Pins for events
+    [_mapView removeAnnotations:_mapView.annotations];
+    [_annotations removeAllObjects];
+    
     for(int i = 0; i < arrParties.count; i++){
         PartyClass *partyClass = [arrParties objectAtIndex:i];
+
         if ([partyClass.partyLatitude isEqual:[NSNull null]] || [partyClass.partyLongitude isEqual:[NSNull null]]){
             // NSLog(@"Empty coordinates");
         } else {
@@ -292,13 +298,22 @@
             f.numberStyle = NSNumberFormatterDecimalStyle;
             NSNumber *lat = [f numberFromString:partyClass.partyLatitude];
             NSNumber *lon = [f numberFromString:partyClass.partyLongitude];
-            AnnotationClass *event_pin = [[AnnotationClass alloc] init];
-            event_pin.latitude = lat;
-            event_pin.longitude = lon;
-            event_pin.title = partyClass.partyName;
-            event_pin.annotationUrl = partyClass.partyUrl;
-            [_mapView addAnnotation:event_pin];
-            [_annotations addObject:event_pin];
+            
+            CLLocation *currentLocation = [[CLLocation alloc]initWithLatitude:locationManager.location.coordinate.latitude longitude:locationManager.location.coordinate.longitude
+                               ];
+            CLLocation *eventLocation = [[CLLocation alloc] initWithLatitude:[lat floatValue] longitude:[lon floatValue]];
+            NSInteger distanceFromCurrentLocation = [eventLocation distanceFromLocation:currentLocation]/1609.344; // meters to miles
+
+            if (distanceFromCurrentLocation <= 10) {
+                AnnotationClass *event_pin = [[AnnotationClass alloc] init];
+                event_pin.latitude = lat;
+                event_pin.longitude = lon;
+                event_pin.title = partyClass.partyName;
+                event_pin.annotationUrl = partyClass.partyUrl;
+                [_mapView addAnnotation:event_pin];
+                [_annotations addObject:event_pin];
+                [arrVisibleParties addObject:partyClass];
+            }
         }
     }
 
@@ -404,7 +419,7 @@
 }
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return [arrParties count];
+    return [arrVisibleParties count];
 }
 
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -415,7 +430,7 @@
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     CollectionViewCellParty *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"FindCell" forIndexPath:indexPath];
     
-    PartyClass *partyClass = [arrParties objectAtIndex:indexPath.row];
+    PartyClass *partyClass = [arrVisibleParties objectAtIndex:indexPath.row];
 
     NSInteger monthNumber = [partyClass.partyMonth integerValue];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -425,6 +440,7 @@
     [cell.userProfilePicture loadImageFromURL:partyClass.partyUserProfilePicture withTempImage:@"avatar_icon"];
     cell.userProfilePicture.layer.cornerRadius = cell.userProfilePicture.frame.size.width / 2;
     cell.userProfilePicture.layer.masksToBounds = YES;
+    cell.userProfilePicture.clipsToBounds = YES;
     cell.partyName.text = partyClass.partyName;
     cell.partyAddress.text = partyClass.partyAddress;
     [cell.partyPicture loadImageFromURL:partyClass.partyImage withTempImage:@"balloons_icon"];
