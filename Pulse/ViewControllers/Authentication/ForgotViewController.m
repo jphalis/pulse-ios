@@ -72,16 +72,59 @@
 
 - (IBAction)onDone:(id)sender {
     if([self validateFields]){
-
-        // Send reset email
-
+        checkNetworkReachability();
+        [self.view endEditing:YES];
+        [self setBusy:YES];
+        
         SCLAlertView *alert = [[SCLAlertView alloc] init];
-        alert.showAnimationType = SlideInFromLeft;
-        alert.hideAnimationType = SlideOutToBottom;
-        [alert showEdit:self title:@"Notice" subTitle:@"Please check your email to reset your password." closeButtonTitle:@"OK" duration:0.0f];
-        [alert alertIsDismissed:^{
-            [self.navigationController popViewControllerAnimated:YES];
-        }];
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            NSString *params = [NSString stringWithFormat:@"email=%@",[_emailField.text Trim]];
+            NSMutableData *bodyData = [[NSMutableData alloc] initWithData:[params dataUsingEncoding:NSUTF8StringEncoding]];
+            NSString *postLength = [NSString stringWithFormat:@"%lu",(unsigned long)[bodyData length]];
+            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@", FORGOTPASS]];
+            NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url];
+            [urlRequest setTimeoutInterval:60];
+            [urlRequest setHTTPMethod:@"POST"];
+            [urlRequest setValue:postLength forHTTPHeaderField:@"Content-Length"];
+            [urlRequest setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"content-type"];
+            [urlRequest setValue:@"multipart/form-data" forHTTPHeaderField:@"enctype"];
+            [urlRequest setHTTPBody:bodyData];
+            
+            [NSURLConnection sendAsynchronousRequest:urlRequest queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error){
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    if ([data length] > 0 && error == nil){
+                        NSDictionary * JSONValue = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
+                        
+                        if([JSONValue isKindOfClass:[NSDictionary class]]){
+                            if([[JSONValue objectForKey:@"success"]isEqualToString:@"Password reset e-mail has been sent."]){
+                                [self setBusy:NO];
+                                alert.showAnimationType = SlideInFromLeft;
+                                alert.hideAnimationType = SlideOutToBottom;
+                                [alert showEdit:self title:@"Notice" subTitle:@"Please check your email to reset your password." closeButtonTitle:@"OK" duration:0.0f];
+                                [alert alertIsDismissed:^{
+                                    [self.navigationController popViewControllerAnimated:YES];
+                                }];
+                            }
+                            else {
+                                [self setBusy:NO];
+                                alert.showAnimationType = SlideInFromLeft;
+                                alert.hideAnimationType = SlideOutToBottom;
+                                [alert showNotice:self title:@"Notice" subTitle:@"That email does not exist." closeButtonTitle:@"OK" duration:0.0f];
+                            }
+                            _emailField.text = @"";
+                        }
+                        else {
+                            showServerError();
+                        }
+                    }
+                    else {
+                        showServerError();
+                    }
+                });
+            }];
+        });
     }
 }
 

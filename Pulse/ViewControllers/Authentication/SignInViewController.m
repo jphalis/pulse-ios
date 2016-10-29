@@ -6,6 +6,7 @@
 #import "CustomTabViewController.h"
 #import "defs.h"
 #import "EmailViewController.h"
+#import "ForgotViewController.h"
 #import "GlobalFunctions.h"
 #import "SignInViewController.h"
 #import "SCLAlertView.h"
@@ -89,6 +90,8 @@
 }
 
 - (IBAction)onForgot:(id)sender {
+    ForgotViewController *forgotViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"ForgotViewController"];
+    [self.navigationController pushViewController:forgotViewController animated:YES];
 }
 
 #pragma mark - Functions

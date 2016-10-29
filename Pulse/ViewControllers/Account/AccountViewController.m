@@ -25,6 +25,7 @@
     UIRefreshControl *refreshControl;
     NSMutableDictionary *dictProfileInformation;
     NSMutableArray *arrEventImages;
+    NSMutableArray *arrUserImages;
     BOOL viewer_can_see;
 }
 
@@ -36,6 +37,7 @@
 {
     dictProfileInformation = [[NSMutableDictionary alloc]init];
     arrEventImages = [[NSMutableArray alloc]init];
+    arrUserImages = [[NSMutableArray alloc]init];
     [self getProfileDetails];
     
     _profilePicture.layer.cornerRadius = _profilePicture.frame.size.width / 2;
@@ -157,6 +159,46 @@
                     SetUserProPic(profileClass.userProfilePicture);
                 }
                 
+                // Photos
+                if(!([JSONValue objectForKey:@"photos"] == [NSNull null])){
+                    if(arrUserImages.count > 0){
+                        [arrUserImages removeAllObjects];
+                    }
+
+                    NSMutableArray *arrPhotos = [JSONValue objectForKey:@"photos"];
+    
+                    for(int i = 0; i < arrPhotos.count; i++){
+                        NSMutableDictionary *dictPhotoInfo = [[NSMutableDictionary alloc]init];
+                        NSDictionary *dictPhotoDetail = [arrPhotos objectAtIndex:i];
+                        
+                        if([dictPhotoDetail objectForKey:@"id"] == [NSNull null]){
+                            [dictPhotoInfo setObject:@"" forKey:@"user__id"];
+                        } else {
+                            [dictPhotoInfo setValue:[dictPhotoDetail objectForKey:@"id"] forKey:@"user__id"];
+                        }
+                        
+                        if([dictPhotoDetail objectForKey:@"user"] == [NSNull null]){
+                            [dictPhotoInfo setObject:@"" forKey:@"user__full_name"];
+                        } else {
+                            [dictPhotoInfo setValue:[dictPhotoDetail objectForKey:@"user"] forKey:@"user__full_name"];
+                        }
+                        
+                        if([dictPhotoDetail objectForKey:@"user_url"] == [NSNull null]){
+                            [dictPhotoInfo setObject:@"" forKey:@"user__url"];
+                        } else {
+                            [dictPhotoInfo setValue:[dictPhotoDetail objectForKey:@"user_url"] forKey:@"user__url"];
+                        }
+                        
+                        if([dictPhotoDetail objectForKey:@"photo"] == [NSNull null]){
+                            [dictPhotoInfo setObject:@"" forKey:@"photo"];
+                        } else {
+                            [dictPhotoInfo setValue:[dictPhotoDetail objectForKey:@"photo"] forKey:@"photo"];
+                        }
+                        
+                        [arrUserImages addObject:dictPhotoInfo];
+                    }
+                }
+                
                 // Followers
                 if([JSONValue objectForKey:@"follower"] == [NSNull null]){
                     profileClass.followers_count = @"0";
@@ -261,8 +303,6 @@
                 
                 [dictProfileInformation setObject:profileClass forKey:@"ProfileInfo"];
                 [self showProfileInfo];
-            } else {
-
             }
         } else {
             showServerError();
@@ -770,12 +810,5 @@
     partyViewController.partyUrl = [NSString stringWithFormat:@"%@%@/", PARTYURL, [[arrEventImages objectAtIndex:indexPath.row] valueForKey:@"event__id"]];
     [self.navigationController pushViewController:partyViewController animated:YES];
 }
-
-//- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    NSInteger numberOfColumns = 3;
-//    CGFloat itemWidth = (CGRectGetWidth(collectionView.frame) - (numberOfColumns - 1)) / numberOfColumns;
-//    return CGSizeMake(itemWidth, itemWidth);
-//}
 
 @end

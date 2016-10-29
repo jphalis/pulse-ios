@@ -50,6 +50,7 @@ extern AppDelegate *appDelegate;
 #define APIURL            BASEURL "hidden/secure/pulse/api/"
 #define LOGINURL          APIURL "auth/token/"
 #define SIGNUPURL         APIURL "accounts/create/"
+#define FORGOTPASS        APIURL "password/reset/"
 #define FEEDURL           APIURL "feed/"
 #define PROFILEURL        APIURL "accounts/"
 #define FOLLOWURL         APIURL "follow/"

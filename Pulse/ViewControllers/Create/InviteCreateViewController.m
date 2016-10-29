@@ -87,7 +87,7 @@ enum{
             _requestPartyIcon.layer.borderWidth = 0;
             _exclusivePartyIcon.layer.borderWidth = 0;
             
-            _visibilityLabel.text = @"Open event!";
+            _visibilityLabel.text = @"Anyone can see your post, including its time and location.";
             
             [userInviteViewController.view removeFromSuperview];
             
@@ -102,7 +102,7 @@ enum{
             _openPartyIcon.layer.borderWidth = 0;
             _requestPartyIcon.layer.borderWidth = 0;
             
-            _visibilityLabel.text = @"Invite only event!";
+            _visibilityLabel.text = @"Anyone can see your post, but time and location will be withheld until you approve a request.";
 
             userInviteViewController.view.frame = CGRectMake(0, 300, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height);
             NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"user__full_name" ascending:YES];
@@ -140,7 +140,7 @@ enum{
             _openPartyIcon.layer.borderWidth = 0;
             _exclusivePartyIcon.layer.borderWidth = 0;
             
-            _visibilityLabel.text = @"Request and approval event!";
+            _visibilityLabel.text = @"No one can see your post. Only those who you invite will be notified.";
             
             [userInviteViewController.view removeFromSuperview];
             

@@ -236,7 +236,6 @@
                                 </state>
                                 <connections>
                                     <action selector="onForgot:" destination="ZQO-Y4-SDF" eventType="touchUpInside" id="uzD-Qk-SBs"/>
-                                    <action selector="onSignUp:" destination="ZQO-Y4-SDF" eventType="touchUpInside" id="9MF-6b-CZf"/>
                                 </connections>
                             </button>
                         </subviews>
