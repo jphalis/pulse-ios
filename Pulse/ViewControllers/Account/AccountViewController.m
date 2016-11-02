@@ -19,7 +19,6 @@
 #import "TWMessageBarManager.h"
 #import "UIViewControllerAdditions.h"
 
-
 @interface AccountViewController () <UICollectionViewDelegateFlowLayout>{
     AppDelegate *appDelegate;
     UIRefreshControl *refreshControl;
@@ -85,11 +84,6 @@
         [_settingsBtn setImage:[UIImage imageNamed:@"dot_more_icon"] forState:UIControlStateNormal];
         _settingsBtn.tag = 2;
     }
-    
-//    _eventsBtn.layer.borderWidth = 1;
-//    _eventsBtn.layer.borderColor = [[UIColor lightGrayColor] CGColor];
-//    _eventsBtn.layer.cornerRadius = 3;
-//    _followBtn.layer.cornerRadius = 3;
 }
 
 - (void)didReceiveMemoryWarning
@@ -273,31 +267,29 @@
                         
                         [profileClass.arrfollowings addObject:dictFollowerInfo];
                     }
-                }
-                
-                // Event images
-                if(arrEventImages.count > 0){
-                    [arrEventImages removeAllObjects];
-                }
-                if([JSONValue objectForKey:@"event_images"] == [NSNull null]){
-
-                } else {
-                    NSMutableArray *arrEvents = [JSONValue objectForKey:@"event_images"];
                     
-                    for(int k = 0; k < arrEvents.count; k++){
-                        NSMutableDictionary *dictEventInfo = [[NSMutableDictionary alloc]init];
-                        NSDictionary *dictEventDetail = [arrEvents objectAtIndex:k];
+                    // Event images
+                    if(arrEventImages.count > 0){
+                        [arrEventImages removeAllObjects];
+                    }
+                    if(!([JSONValue objectForKey:@"event_images"] == [NSNull null])){
+                        NSMutableArray *arrEvents = [JSONValue objectForKey:@"event_images"];
                         
-                        if ([[dictEventDetail objectForKey:@"image"] isEqualToString:@""]){
-                            [dictEventInfo setObject:@"" forKey:@"event__image"];
-                        } else {
-                            [dictEventInfo setValue:[dictEventDetail objectForKey:@"image"] forKey:@"event__image"];
+                        for(int k = 0; k < arrEvents.count; k++){
+                            NSMutableDictionary *dictEventInfo = [[NSMutableDictionary alloc]init];
+                            NSDictionary *dictEventDetail = [arrEvents objectAtIndex:k];
+                            
+                            if ([[dictEventDetail objectForKey:@"image"] isEqualToString:@""]){
+                                [dictEventInfo setObject:@"" forKey:@"event__image"];
+                            } else {
+                                [dictEventInfo setValue:[dictEventDetail objectForKey:@"image"] forKey:@"event__image"];
+                            }
+                            
+                            int partyId = [[dictEventDetail objectForKey:@"id"]intValue];
+                            [dictEventInfo setValue:[NSString stringWithFormat:@"%d", partyId] forKey:@"event__id"];
+                            
+                            [arrEventImages addObject:dictEventInfo];
                         }
-                        
-                        int partyId = [[dictEventDetail objectForKey:@"id"]intValue];
-                        [dictEventInfo setValue:[NSString stringWithFormat:@"%d", partyId] forKey:@"event__id"];
-
-                        [arrEventImages addObject:dictEventInfo];
                     }
                 }
                 
@@ -324,22 +316,27 @@
     
     if (viewer_can_see == 1){
         _lockIcon.hidden = YES;
-        _collectionVW.hidden = NO;
+        _collectionVW.hidden = YES;
     } else {
         _lockIcon.hidden = NO;
         _collectionVW.hidden = YES;
     }
-
+    
     if (![[appDelegate.arrFollowing valueForKey:@"user__full_name"] containsObject:_profileName.text]){
-//        [_followBtn setTitle:@"Follow" forState:UIControlStateNormal];
-//        _followBtn.layer.borderWidth = 1;
-//        _followBtn.layer.borderColor = [[UIColor whiteColor] CGColor];
-//        _followBtn.backgroundColor = [UIColor clearColor];
         [_followBtn setImage:[UIImage imageNamed:@"plus_sign_icon"] forState:UIControlStateNormal];
     } else {
-//        [_followBtn setTitle:@"Following" forState:UIControlStateNormal];
         [_followBtn setImage:[UIImage imageNamed:@"checkmark_icon"] forState:UIControlStateNormal];
     }
+    
+    [_userImagesBtn setTitleColor:[UIColor colorWithRed:(171/255.0) green:(14/255.0) blue:(27/255.0) alpha:1.0] forState:UIControlStateNormal];
+    CALayer *border = [CALayer layer];
+    border.backgroundColor = [[UIColor colorWithRed:(171/255.0) green:(14/255.0) blue:(27/255.0) alpha:1.0] CGColor];
+    border.frame = CGRectMake(0, 30, _userImagesBtn.frame.size.width, 2);
+    [_userImagesBtn.layer addSublayer:border];
+    
+    CALayer *border2 = [CALayer layer];
+    border2.frame = CGRectMake(0, 0, 0, 0);
+    [_eventImagesBtn.layer addSublayer:border2];
     
     [refreshControl endRefreshing];
     [_collectionVW reloadData];
@@ -373,7 +370,7 @@
         alert.tag = 100;
         [alert show];
     } else if(buttonIndex == 1){
-        //        NSLog(@"Cancel button clicked");
+        // NSLog(@"Cancel button clicked");
     }
 }
 
@@ -458,7 +455,7 @@
         
         if([UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera]) {
             
-            UIImagePickerController* picker = [[UIImagePickerController alloc] init];
+            UIImagePickerController *picker = [[UIImagePickerController alloc] init];
             picker.sourceType = UIImagePickerControllerSourceTypeCamera;
             picker.delegate = self;
             [self presentViewController:picker animated:YES completion:NULL];
@@ -482,7 +479,7 @@
         }
     }];
     
-    UIAlertAction* cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * action) {
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * action) {
         // Do something on cancel
     }];
     
@@ -496,7 +493,6 @@
     
     [self setBusy:YES];
     
-    //    UIImage *image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
     _profilePicture.image = image;
     checkNetworkReachability();
     ProfileClass *profileClass = [dictProfileInformation objectForKey:@"ProfileInfo"];
@@ -621,9 +617,9 @@
     float val;
     
     if(self.view.frame.size.height == 480){
-        val = 0.75;
+        val = 0.70;
     } else {
-        val = 0.65;
+        val = 0.60;
     }
     
     const int movementDistance = val * textField.frame.origin.y;
@@ -678,8 +674,6 @@
         
         if ([data length] > 0 && error == nil){
             NSDictionary *JSONValue = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
-            
-            NSLog(@"%@", JSONValue);
             
             if(JSONValue != nil){
                 alert.showAnimationType = SlideInFromLeft;
@@ -760,10 +754,6 @@
                                 [appDelegate.arrFollowing removeObjectAtIndex:i];
                             }
                         }
-//                        [_followBtn setTitle:@"Follow" forState:UIControlStateNormal];
-//                        _followBtn.layer.borderWidth = 1;
-//                        _followBtn.layer.borderColor = [[UIColor whiteColor] CGColor];
-//                        _followBtn.backgroundColor = [UIColor clearColor];
                         [_followBtn setImage:[UIImage imageNamed:@"plus_sign_icon"] forState:UIControlStateNormal];
                     } else {
                         NSMutableDictionary *dictFollowerInfo = [[NSMutableDictionary alloc]init];
@@ -771,10 +761,6 @@
                         [dictFollowerInfo setObject:profileClass.userId forKey:@"user__id"];
                         [dictFollowerInfo setObject:profileClass.userProfilePicture forKey:@"user__profile_pic"];
                         [appDelegate.arrFollowing addObject:dictFollowerInfo];
-
-//                        [_followBtn setTitle:@"Following" forState:UIControlStateNormal];
-//                        _followBtn.layer.borderColor = [[UIColor clearColor] CGColor];
-//                        _followBtn.backgroundColor = [UIColor colorWithRed:59/255.0 green:199/255.0 blue:114/255.0 alpha:1.0];
                         [_followBtn setImage:[UIImage imageNamed:@"checkmark_icon"] forState:UIControlStateNormal];
                     }
                 }
@@ -785,6 +771,52 @@
         [self setBusy:NO];
     }];
 }
+
+- (IBAction)onVerify:(id)sender {
+    // Go to add mobile number screen
+}
+
+- (IBAction)onEventImages:(id)sender {
+    [_eventImagesBtn setTitleColor:[UIColor colorWithRed:(171/255.0) green:(14/255.0) blue:(27/255.0) alpha:1.0] forState:UIControlStateNormal];
+    [_userImagesBtn setTitleColor:[UIColor colorWithRed:(41/255.0) green:(46/255.0) blue:(50/255.0) alpha:1.0] forState:UIControlStateNormal];
+
+    if ([_eventImagesBtn.layer.sublayers count] > 1) {
+        [[_eventImagesBtn.layer.sublayers objectAtIndex:1] removeFromSuperlayer];
+        CALayer *border = [CALayer layer];
+        border.backgroundColor = [[UIColor colorWithRed:(171/255.0) green:(14/255.0) blue:(27/255.0) alpha:1.0] CGColor];
+        border.frame = CGRectMake(0, 30, _eventImagesBtn.frame.size.width, 2);
+        [_eventImagesBtn.layer addSublayer:border];
+    }
+    if ([_userImagesBtn.layer.sublayers count] > 1) {
+        [[_userImagesBtn.layer.sublayers objectAtIndex:1] removeFromSuperlayer];
+        CALayer *border2 = [CALayer layer];
+        border2.frame = CGRectMake(0, 0, 0, 0);
+        [_userImagesBtn.layer addSublayer:border2];
+    }
+    _collectionVW.hidden = NO;
+}
+
+- (IBAction)onUserImages:(id)sender {
+    [_userImagesBtn setTitleColor:[UIColor colorWithRed:(171/255.0) green:(14/255.0) blue:(27/255.0) alpha:1.0] forState:UIControlStateNormal];
+    [_eventImagesBtn setTitleColor:[UIColor colorWithRed:(41/255.0) green:(46/255.0) blue:(50/255.0) alpha:1.0] forState:UIControlStateNormal];
+    
+    if ([_userImagesBtn.layer.sublayers count] > 1) {
+        [[_userImagesBtn.layer.sublayers objectAtIndex:1] removeFromSuperlayer];
+        CALayer *border = [CALayer layer];
+        border.backgroundColor = [[UIColor colorWithRed:(171/255.0) green:(14/255.0) blue:(27/255.0) alpha:1.0] CGColor];
+        border.frame = CGRectMake(0, 30, _userImagesBtn.frame.size.width, 2);
+        [_userImagesBtn.layer addSublayer:border];
+    }
+    if ([_eventImagesBtn.layer.sublayers count] > 1) {
+        [[_eventImagesBtn.layer.sublayers objectAtIndex:1] removeFromSuperlayer];
+        CALayer *border2 = [CALayer layer];
+        border2.frame = CGRectMake(0, 0, 0, 0);
+        [_eventImagesBtn.layer addSublayer:border2];
+    }
+    _collectionVW.hidden = YES;
+}
+
+#pragma mark - CollectionView
 
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {

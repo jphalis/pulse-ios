@@ -12,6 +12,7 @@
 @property (weak, nonatomic) IBOutlet SDIAsyncImageView *profilePicture;
 @property (weak, nonatomic) IBOutlet UILabel *profileName;
 @property (weak, nonatomic) IBOutlet UIButton *followBtn;
+@property (weak, nonatomic) IBOutlet UIButton *verifyBtn;
 @property (weak, nonatomic) IBOutlet UILabel *eventCount;
 @property (weak, nonatomic) IBOutlet UILabel *followerCount;
 @property (weak, nonatomic) IBOutlet UILabel *followingCount;
@@ -19,10 +20,12 @@
 @property (weak, nonatomic) IBOutlet UIButton *backBtn2;
 @property (weak, nonatomic) IBOutlet UIButton *settingsBtn;
 @property (weak, nonatomic) IBOutlet UIButton *eventsBtn;
-@property (strong, nonatomic) IBOutlet UITextField *profileBio;
+@property (weak, nonatomic) IBOutlet UITextField *profileBio;
 @property (weak, nonatomic) IBOutlet UIImageView *lockIcon;
-@property (strong, nonatomic) NSString *userURL;
+@property (weak, nonatomic) IBOutlet UIButton *userImagesBtn;
+@property (weak, nonatomic) IBOutlet UIButton *eventImagesBtn;
 @property (strong, nonatomic) IBOutlet UICollectionView *collectionVW;
+@property (strong, nonatomic) NSString *userURL;
 @property (nonatomic, assign) BOOL needBack;
 
 - (IBAction)onBack:(id)sender;
@@ -31,5 +34,8 @@
 - (IBAction)onEvents:(id)sender;
 - (IBAction)onViewList:(id)sender;
 - (IBAction)onFollow:(id)sender;
+- (IBAction)onVerify:(id)sender;
+- (IBAction)onUserImages:(id)sender;
+- (IBAction)onEventImages:(id)sender;
 
 @end

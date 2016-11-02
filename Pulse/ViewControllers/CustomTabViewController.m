@@ -74,7 +74,7 @@ enum {
 //    timer = [NSTimer scheduledTimerWithTimeInterval:7 target:self selector:@selector(getArrFollowing) userInfo:nil repeats:YES];
 }
 
-- (void)getArrFollowing {
+-(void)getArrFollowing {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSString *urlString = [NSString stringWithFormat:@"%@%ld/", PROFILEURL, (long)GetUserID];
         

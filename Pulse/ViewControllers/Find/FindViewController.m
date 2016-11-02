@@ -132,12 +132,6 @@
     [self getPartyDetails];
 }
 
--(void)scrollToTop{
-    [UIView animateWithDuration:0.5 animations:^(void){
-        [_collectionVW scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
-    }];
-}
-
 -(void)getPartyDetails {
     checkNetworkReachability();
     [self setBusy:NO];
