@@ -19,7 +19,8 @@
 #import "TWMessageBarManager.h"
 #import "UIViewControllerAdditions.h"
 
-@interface AccountViewController () <UICollectionViewDelegateFlowLayout>{
+@interface AccountViewController () <UICollectionViewDelegateFlowLayout, KIImagePagerDelegate, KIImagePagerDataSource>{
+    
     AppDelegate *appDelegate;
     UIRefreshControl *refreshControl;
     NSMutableDictionary *dictProfileInformation;
@@ -84,6 +85,19 @@
         [_settingsBtn setImage:[UIImage imageNamed:@"dot_more_icon"] forState:UIControlStateNormal];
         _settingsBtn.tag = 2;
     }
+    
+    _imagePager.slideshowTimeInterval = 0.0f;
+    _imagePager.slideshowShouldCallScrollToDelegate = YES;
+    _imagePager.captionBackgroundColor = [UIColor clearColor];
+    _imagePager.imageCounterDisabled = YES;
+}
+
+- (void) viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    _imagePager.pageControl.currentPageIndicatorTintColor = [UIColor colorWithRed:(171/255.0) green:(14/255.0) blue:(27/255.0) alpha:1.0];
+    _imagePager.pageControl.pageIndicatorTintColor = [UIColor whiteColor];
 }
 
 - (void)didReceiveMemoryWarning
@@ -316,9 +330,11 @@
     
     if (viewer_can_see == 1){
         _lockIcon.hidden = YES;
+        _imagePager.hidden = NO;
         _collectionVW.hidden = YES;
     } else {
         _lockIcon.hidden = NO;
+        _imagePager.hidden = YES;
         _collectionVW.hidden = YES;
     }
     
@@ -337,6 +353,9 @@
     CALayer *border2 = [CALayer layer];
     border2.frame = CGRectMake(0, 0, 0, 0);
     [_eventImagesBtn.layer addSublayer:border2];
+    
+    [self arrayWithImages:_imagePager];
+    [_imagePager reloadData];
     
     [refreshControl endRefreshing];
     [_collectionVW reloadData];
@@ -793,6 +812,7 @@
         border2.frame = CGRectMake(0, 0, 0, 0);
         [_userImagesBtn.layer addSublayer:border2];
     }
+    _imagePager.hidden = YES;
     _collectionVW.hidden = NO;
 }
 
@@ -813,7 +833,32 @@
         border2.frame = CGRectMake(0, 0, 0, 0);
         [_eventImagesBtn.layer addSublayer:border2];
     }
+    _imagePager.hidden = NO;
     _collectionVW.hidden = YES;
+}
+
+#pragma mark - KIImagePager DataSource
+
+- (NSArray *) arrayWithImages:(KIImagePager*)pager
+{
+    return [arrUserImages valueForKey:@"photo"];
+}
+
+- (UIViewContentMode) contentModeForImage:(NSUInteger)image inPager:(KIImagePager *)pager
+{
+    return UIViewContentModeScaleAspectFill;
+}
+
+#pragma mark - KIImagePager Delegate
+
+- (void) imagePager:(KIImagePager *)imagePager didScrollToIndex:(NSUInteger)index
+{
+    // NSLog(@"%s %lu", __PRETTY_FUNCTION__, (unsigned long)index);
+}
+
+- (void) imagePager:(KIImagePager *)imagePager didSelectImageAtIndex:(NSUInteger)index
+{
+    // NSLog(@"%s %lu", __PRETTY_FUNCTION__, (unsigned long)index);
 }
 
 #pragma mark - CollectionView

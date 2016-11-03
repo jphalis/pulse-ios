@@ -4,12 +4,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "KIImagePager.h"
 #import "SDIAsyncImageView.h"
 
 
 @interface AccountViewController : UIViewController <UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet SDIAsyncImageView *profilePicture;
+@property (weak, nonatomic) IBOutlet KIImagePager *imagePager;
 @property (weak, nonatomic) IBOutlet UILabel *profileName;
 @property (weak, nonatomic) IBOutlet UIButton *followBtn;
 @property (weak, nonatomic) IBOutlet UIButton *verifyBtn;

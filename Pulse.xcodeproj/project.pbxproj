@@ -84,6 +84,7 @@
 		D08E5F851D4AF25600A58F80 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D08E5F841D4AF25600A58F80 /* MapKit.framework */; };
 		D09D4BAD1D624E8F00D285F3 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D09D4BAC1D624E8F00D285F3 /* HomeViewController.m */; };
 		D09D4BB01D624EF000D285F3 /* FeedClass.m in Sources */ = {isa = PBXBuildFile; fileRef = D09D4BAF1D624EF000D285F3 /* FeedClass.m */; };
+		D0B0787D1DCBA3170038E587 /* KIImagePager.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B0787C1DCBA3170038E587 /* KIImagePager.m */; };
 		D0BC2F5D1D84775B00237E33 /* PulseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BC2F5A1D84775B00237E33 /* PulseViewController.m */; };
 		D0BC2F5E1D84775B00237E33 /* FindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BC2F5C1D84775B00237E33 /* FindViewController.m */; };
 		D0C02F831D56D69F0033EF98 /* FollowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C02F821D56D69F0033EF98 /* FollowViewController.m */; };
@@ -274,6 +275,8 @@
 		D09D4BAC1D624E8F00D285F3 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		D09D4BAE1D624EF000D285F3 /* FeedClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedClass.h; sourceTree = "<group>"; };
 		D09D4BAF1D624EF000D285F3 /* FeedClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedClass.m; sourceTree = "<group>"; };
+		D0B0787B1DCBA3170038E587 /* KIImagePager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KIImagePager.h; sourceTree = "<group>"; };
+		D0B0787C1DCBA3170038E587 /* KIImagePager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KIImagePager.m; sourceTree = "<group>"; };
 		D0BC2F591D84775B00237E33 /* PulseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PulseViewController.h; sourceTree = "<group>"; };
 		D0BC2F5A1D84775B00237E33 /* PulseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PulseViewController.m; sourceTree = "<group>"; };
 		D0BC2F5B1D84775B00237E33 /* FindViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindViewController.h; sourceTree = "<group>"; };
@@ -566,6 +569,7 @@
 			isa = PBXGroup;
 			children = (
 				D06ED50A1D6CAA23006AE20B /* AsyncImage */,
+				D0B0787A1DCBA2F90038E587 /* ImagePager */,
 				D04DBD511D5178B200BB8172 /* Reachability */,
 				D04DBD541D5178B200BB8172 /* SCLAlertView */,
 				D04DBD641D5178B200BB8172 /* StatusBarNotifications */,
@@ -700,6 +704,15 @@
 				D09D4BAC1D624E8F00D285F3 /* HomeViewController.m */,
 			);
 			path = Feed;
+			sourceTree = "<group>";
+		};
+		D0B0787A1DCBA2F90038E587 /* ImagePager */ = {
+			isa = PBXGroup;
+			children = (
+				D0B0787B1DCBA3170038E587 /* KIImagePager.h */,
+				D0B0787C1DCBA3170038E587 /* KIImagePager.m */,
+			);
+			name = ImagePager;
 			sourceTree = "<group>";
 		};
 		D0BC2F581D84775B00237E33 /* Find */ = {
@@ -933,6 +946,7 @@
 				D0C02F911D56DBF30033EF98 /* NotificationClass.m in Sources */,
 				D044E1531D90341100AB81BC /* DateCreateViewController.m in Sources */,
 				D0F73CBF1D83498800DA8CC1 /* NameViewController.m in Sources */,
+				D0B0787D1DCBA3170038E587 /* KIImagePager.m in Sources */,
 				D04DBD7D1D5178B200BB8172 /* SCLTimerDisplay.m in Sources */,
 				D06B7E0C1D888B7900381C20 /* PartyViewController.m in Sources */,
 				D0F73CC11D83498800DA8CC1 /* SignInViewController.m in Sources */,

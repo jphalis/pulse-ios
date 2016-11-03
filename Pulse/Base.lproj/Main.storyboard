@@ -543,7 +543,7 @@
             </objects>
             <point key="canvasLocation" x="2508.5" y="404.5"/>
         </scene>
-        <!--Account View Controller-->
+        <!--Data Source-->
         <scene sceneID="2ef-PJ-OhJ">
             <objects>
                 <viewController storyboardIdentifier="AccountViewController" id="Gmq-Qg-9dW" customClass="AccountViewController" sceneMemberID="viewController">
@@ -813,6 +813,14 @@
                                     <outlet property="delegate" destination="Gmq-Qg-9dW" id="ZVE-Tf-oan"/>
                                 </connections>
                             </collectionView>
+                            <view contentMode="scaleToFill" misplaced="YES" id="E1R-KY-O4v" customClass="KIImagePager">
+                                <rect key="frame" x="0.0" y="372" width="375" height="245"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="Gmq-Qg-9dW" id="yx2-Lc-UGG"/>
+                                    <outlet property="delegate" destination="Gmq-Qg-9dW" id="nqT-bG-IuL"/>
+                                </connections>
+                            </view>
                             <imageView userInteractionEnabled="NO" alpha="0.14999999999999999" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="lock_icon" id="86A-Rv-g1n">
                                 <rect key="frame" x="128" y="447" width="117.5" height="117.5"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
@@ -821,6 +829,7 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <connections>
+                        <outlet property="_imagePager" destination="E1R-KY-O4v" id="0V0-oG-gWN"/>
                         <outlet property="backBtn" destination="Q1I-yG-rKe" id="eL6-bH-FMl"/>
                         <outlet property="backBtn2" destination="PLM-5o-wGH" id="TxM-gl-X6y"/>
                         <outlet property="collectionVW" destination="z8C-TO-0r0" id="HsW-ub-FeU"/>
