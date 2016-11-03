@@ -27,6 +27,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *userImagesBtn;
 @property (weak, nonatomic) IBOutlet UIButton *eventImagesBtn;
 @property (strong, nonatomic) IBOutlet UICollectionView *collectionVW;
+@property (weak, nonatomic) IBOutlet UIButton *userImageNewBtn;
 @property (strong, nonatomic) NSString *userURL;
 @property (nonatomic, assign) BOOL needBack;
 
@@ -39,5 +40,6 @@
 - (IBAction)onVerify:(id)sender;
 - (IBAction)onUserImages:(id)sender;
 - (IBAction)onEventImages:(id)sender;
+- (IBAction)onAddNewPhoto:(id)sender;
 
 @end

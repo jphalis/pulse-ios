@@ -816,6 +816,7 @@
                             <view contentMode="scaleToFill" misplaced="YES" id="E1R-KY-O4v" customClass="KIImagePager">
                                 <rect key="frame" x="0.0" y="372" width="375" height="245"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="dataSource" destination="Gmq-Qg-9dW" id="yx2-Lc-UGG"/>
                                     <outlet property="delegate" destination="Gmq-Qg-9dW" id="nqT-bG-IuL"/>
@@ -825,6 +826,18 @@
                                 <rect key="frame" x="128" y="447" width="117.5" height="117.5"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="top" buttonType="roundedRect" lineBreakMode="middleTruncation" id="7aY-6a-4i9">
+                                <rect key="frame" x="330" y="573" width="40" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.12890660762786865" green="0.14494165778160095" blue="0.15746468305587769" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="30"/>
+                                <state key="normal" title="+">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onAddNewPhoto:" destination="Gmq-Qg-9dW" eventType="touchUpInside" id="Q6U-zI-m4R"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
@@ -844,6 +857,7 @@
                         <outlet property="profileName" destination="q7B-Za-Yku" id="hMH-45-sFf"/>
                         <outlet property="profilePicture" destination="ct8-ea-6Eq" id="02T-Sc-0wO"/>
                         <outlet property="settingsBtn" destination="Wjk-4z-0d2" id="Ibp-Cf-RJ5"/>
+                        <outlet property="userImageNewBtn" destination="7aY-6a-4i9" id="Gsa-PH-MZc"/>
                         <outlet property="userImagesBtn" destination="jSh-hC-i1x" id="Itj-tq-4js"/>
                         <outlet property="verifyBtn" destination="88I-U8-o73" id="I2B-bD-psn"/>
                     </connections>

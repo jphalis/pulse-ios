@@ -43,6 +43,8 @@
     _profilePicture.layer.cornerRadius = _profilePicture.frame.size.width / 2;
     _profilePicture.clipsToBounds = YES;
     
+    _userImageNewBtn.layer.cornerRadius = _userImageNewBtn.frame.size.width / 2;
+    
     [super viewDidLoad];
     
     appDelegate = [AppDelegate getDelegate];
@@ -331,10 +333,12 @@
     if (viewer_can_see == 1){
         _lockIcon.hidden = YES;
         _imagePager.hidden = NO;
+        _userImageNewBtn.hidden = NO;
         _collectionVW.hidden = YES;
     } else {
         _lockIcon.hidden = NO;
         _imagePager.hidden = YES;
+        _userImageNewBtn.hidden = YES;
         _collectionVW.hidden = YES;
     }
     
@@ -356,6 +360,10 @@
     
     [self arrayWithImages:_imagePager];
     [_imagePager reloadData];
+    
+    if (GetUserName != _profileName.text){
+        _userImageNewBtn.hidden = YES;
+    }
     
     [refreshControl endRefreshing];
     [_collectionVW reloadData];
@@ -470,10 +478,9 @@
 - (void)handleChangingImage {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Profile picture" message:@"" preferredStyle:UIAlertControllerStyleActionSheet];
     
-    UIAlertAction *pickFromGallery = [UIAlertAction actionWithTitle:@"Take a photo" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+    UIAlertAction *takeAPicture = [UIAlertAction actionWithTitle:@"Take a photo" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
         
         if([UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera]) {
-            
             UIImagePickerController *picker = [[UIImagePickerController alloc] init];
             picker.sourceType = UIImagePickerControllerSourceTypeCamera;
             picker.delegate = self;
@@ -483,10 +490,9 @@
         }
     }];
     
-    UIAlertAction *takeAPicture = [UIAlertAction actionWithTitle:@"Choose a photo" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+    UIAlertAction *pickFromGallery = [UIAlertAction actionWithTitle:@"Choose a photo" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
         
         if ([UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypePhotoLibrary]) {
-            
             UIImagePickerController *picker = [[UIImagePickerController alloc] init];
             picker.delegate = self;
             picker.editing = NO;
@@ -619,9 +625,8 @@
 -(BOOL)textFieldShouldBeginEditing:(UITextField*)textField {
     if ([_profileName.text isEqualToString:GetUserName]){
         return YES;
-    } else {
-        return NO;
     }
+    return NO;
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField{
@@ -813,6 +818,7 @@
         [_userImagesBtn.layer addSublayer:border2];
     }
     _imagePager.hidden = YES;
+    _userImageNewBtn.hidden = YES;
     _collectionVW.hidden = NO;
 }
 
@@ -834,29 +840,38 @@
         [_eventImagesBtn.layer addSublayer:border2];
     }
     _imagePager.hidden = NO;
+    if (GetUserName == _profileName.text){
+        _userImageNewBtn.hidden = NO;
+    } else {
+        _userImageNewBtn.hidden = YES;
+    }
     _collectionVW.hidden = YES;
+}
+
+- (IBAction)onAddNewPhoto:(id)sender {
+    [self requestAuthorizationWithRedirectionToSettings];
 }
 
 #pragma mark - KIImagePager DataSource
 
-- (NSArray *) arrayWithImages:(KIImagePager*)pager
+- (NSArray *)arrayWithImages:(KIImagePager*)pager
 {
     return [arrUserImages valueForKey:@"photo"];
 }
 
-- (UIViewContentMode) contentModeForImage:(NSUInteger)image inPager:(KIImagePager *)pager
+- (UIViewContentMode)contentModeForImage:(NSUInteger)image inPager:(KIImagePager *)pager
 {
     return UIViewContentModeScaleAspectFill;
 }
 
 #pragma mark - KIImagePager Delegate
 
-- (void) imagePager:(KIImagePager *)imagePager didScrollToIndex:(NSUInteger)index
+- (void)imagePager:(KIImagePager *)imagePager didScrollToIndex:(NSUInteger)index
 {
     // NSLog(@"%s %lu", __PRETTY_FUNCTION__, (unsigned long)index);
 }
 
-- (void) imagePager:(KIImagePager *)imagePager didSelectImageAtIndex:(NSUInteger)index
+- (void)imagePager:(KIImagePager *)imagePager didSelectImageAtIndex:(NSUInteger)index
 {
     // NSLog(@"%s %lu", __PRETTY_FUNCTION__, (unsigned long)index);
 }
