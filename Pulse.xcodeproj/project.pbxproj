@@ -87,6 +87,7 @@
 		D0B0787D1DCBA3170038E587 /* KIImagePager.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B0787C1DCBA3170038E587 /* KIImagePager.m */; };
 		D0BC2F5D1D84775B00237E33 /* PulseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BC2F5A1D84775B00237E33 /* PulseViewController.m */; };
 		D0BC2F5E1D84775B00237E33 /* FindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BC2F5C1D84775B00237E33 /* FindViewController.m */; };
+		D0BDD5791DCD214200F360DE /* PhoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BDD5781DCD214200F360DE /* PhoneViewController.m */; };
 		D0C02F831D56D69F0033EF98 /* FollowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C02F821D56D69F0033EF98 /* FollowViewController.m */; };
 		D0C02F911D56DBF30033EF98 /* NotificationClass.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C02F901D56DBF30033EF98 /* NotificationClass.m */; };
 		D0C02F941D56DC100033EF98 /* ProfileClass.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C02F931D56DC100033EF98 /* ProfileClass.m */; };
@@ -281,6 +282,8 @@
 		D0BC2F5A1D84775B00237E33 /* PulseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PulseViewController.m; sourceTree = "<group>"; };
 		D0BC2F5B1D84775B00237E33 /* FindViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindViewController.h; sourceTree = "<group>"; };
 		D0BC2F5C1D84775B00237E33 /* FindViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindViewController.m; sourceTree = "<group>"; };
+		D0BDD5771DCD214200F360DE /* PhoneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhoneViewController.h; sourceTree = "<group>"; };
+		D0BDD5781DCD214200F360DE /* PhoneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhoneViewController.m; sourceTree = "<group>"; };
 		D0C02F811D56D69F0033EF98 /* FollowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FollowViewController.h; sourceTree = "<group>"; };
 		D0C02F821D56D69F0033EF98 /* FollowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FollowViewController.m; sourceTree = "<group>"; };
 		D0C02F8F1D56DBF30033EF98 /* NotificationClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationClass.h; sourceTree = "<group>"; };
@@ -756,6 +759,8 @@
 				D0F73CB61D83498800DA8CC1 /* NameViewController.m */,
 				D0F73CB71D83498800DA8CC1 /* PasswordViewController.h */,
 				D0F73CB81D83498800DA8CC1 /* PasswordViewController.m */,
+				D0BDD5771DCD214200F360DE /* PhoneViewController.h */,
+				D0BDD5781DCD214200F360DE /* PhoneViewController.m */,
 				D0F73CB91D83498800DA8CC1 /* SignInViewController.h */,
 				D0F73CBA1D83498800DA8CC1 /* SignInViewController.m */,
 				D0F73CBB1D83498800DA8CC1 /* SignUpViewController.h */,
@@ -935,6 +940,7 @@
 				D00ECE401D6E4C5F0067CA9A /* EventsViewController.m in Sources */,
 				D044E1571D90341100AB81BC /* UserInviteViewController.m in Sources */,
 				D04DBD7B1D5178B200BB8172 /* SCLButton.m in Sources */,
+				D0BDD5791DCD214200F360DE /* PhoneViewController.m in Sources */,
 				D04DBD871D5178B200BB8172 /* StringUtil.m in Sources */,
 				D0330E3D1D7C81AD0080A3CC /* SVWebViewController.m in Sources */,
 				D0330E461D7C81AD0080A3CC /* SVWebViewControllerActivity.m in Sources */,

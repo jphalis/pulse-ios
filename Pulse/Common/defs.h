@@ -48,23 +48,24 @@ extern AppDelegate *appDelegate;
 #define TERMSURL          BASEURL "terms/"
 #define PRIVACYURL        BASEURL "privacy/"
 #define APIURL            BASEURL "hidden/secure/pulse/api/"
-#define LOGINURL          APIURL "auth/token/"
-#define SIGNUPURL         APIURL "accounts/create/"
-#define FORGOTPASS        APIURL "password/reset/"
-#define FEEDURL           APIURL "feed/"
-#define PROFILEURL        APIURL "accounts/"
-#define FOLLOWURL         APIURL "follow/"
-#define BLOCKURL          APIURL "block/"
-#define NOTIFURL          APIURL "notifications/"
-#define NOTIFAJAXURL      APIURL "notifications/unread/"
-#define PARTIESURL        APIURL "parties/"
-#define PARTIESOWNURL     APIURL "parties/own/"
-#define PARTYURL          APIURL "party/"
-#define PARTYATTENDURL    APIURL "party/attend/"
-#define PARTYCREATEURL    APIURL "party/create/"
-#define PARTYACCEPTURL    APIURL "party/approve/"
-#define PARTYDENYURL      APIURL "party/deny/"
-#define FLAGURL           APIURL "flag/create/"
+#define LOGINURL          APIURL  "auth/token/"
+#define SIGNUPURL         APIURL  "accounts/create/"
+#define FORGOTPASS        APIURL  "password/reset/"
+#define FEEDURL           APIURL  "feed/"
+#define PROFILEURL        APIURL  "accounts/"
+#define PHOTOUPLOAD       APIURL  "accounts/photos/create/"
+#define FOLLOWURL         APIURL  "follow/"
+#define BLOCKURL          APIURL  "block/"
+#define NOTIFURL          APIURL  "notifications/"
+#define NOTIFAJAXURL      APIURL  "notifications/unread/"
+#define PARTIESURL        APIURL  "parties/"
+#define PARTIESOWNURL     APIURL  "parties/own/"
+#define PARTYURL          APIURL  "party/"
+#define PARTYATTENDURL    APIURL  "party/attend/"
+#define PARTYCREATEURL    APIURL  "party/create/"
+#define PARTYACCEPTURL    APIURL  "party/approve/"
+#define PARTYDENYURL      APIURL  "party/deny/"
+#define FLAGURL           APIURL  "flag/create/"
 
 #define    UserDefaults       [NSUserDefaults standardUserDefaults]
 
@@ -85,6 +86,9 @@ extern AppDelegate *appDelegate;
 
 #define    SetUserProPic(x)   [[NSUserDefaults standardUserDefaults] setObject:(x) forKey:@"UserProPic"]
 #define    GetUserProPic      [[NSUserDefaults standardUserDefaults] objectForKey:@"UserProPic"]
+
+#define    SetUserPhone(x)     [[NSUserDefaults standardUserDefaults] setObject:(x) forKey:@"UserPhone"]
+#define    GetUserPhone        [[NSUserDefaults standardUserDefaults] objectForKey:@"UserPhone"]
 
 #define    SetisFullView(x)   [[NSUserDefaults standardUserDefaults] setBool:(x) forKey:@"FullView"]
 #define    GetsFullView       [[NSUserDefaults standardUserDefaults] boolForKey:@"FullView"]

@@ -34,7 +34,6 @@
 //Validation Methods
 +(BOOL)validateEmail:(NSString *)email ;
 +(BOOL)isValidCharacter:(NSString*)string filterCharSet:(NSString*)set;
--(NSString*)formatNumber:(NSString*)mobileNumber;
 -(NSInteger)getLength:(NSString*)mobileNumber;
 
 -(void)userLogout;

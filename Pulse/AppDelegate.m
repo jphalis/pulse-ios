@@ -167,19 +167,6 @@ MBProgressHUD *hud;
     return [string isEqualToString:filtered];
 }
 
--(NSString*)formatNumber:(NSString*)mobileNumber{
-    mobileNumber = [mobileNumber stringByReplacingOccurrencesOfString:@"(" withString:@""];
-    mobileNumber = [mobileNumber stringByReplacingOccurrencesOfString:@")" withString:@""];
-    mobileNumber = [mobileNumber stringByReplacingOccurrencesOfString:@" " withString:@""];
-    mobileNumber = [mobileNumber stringByReplacingOccurrencesOfString:@"-" withString:@""];
-    mobileNumber = [mobileNumber stringByReplacingOccurrencesOfString:@"+" withString:@""];
-    NSInteger length = [mobileNumber length];
-    if(length > 10) {
-        mobileNumber = [mobileNumber substringFromIndex: length-10];
-    }
-    return mobileNumber;
-}
-
 -(NSInteger)getLength:(NSString*)mobileNumber{
     mobileNumber = [mobileNumber stringByReplacingOccurrencesOfString:@"(" withString:@""];
     mobileNumber = [mobileNumber stringByReplacingOccurrencesOfString:@")" withString:@""];
@@ -197,6 +184,7 @@ MBProgressHUD *hud;
     [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"UserEmail"];
     [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"UserPassword"];
     [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"UserProPic"];
+    [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"UserPhone"];
     [self.arrFollowing removeAllObjects];
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];

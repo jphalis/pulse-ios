@@ -13,6 +13,7 @@
 #import "FollowViewController.h"
 #import "GlobalFunctions.h"
 #import "PartyViewController.h"
+#import "PhoneViewController.h"
 #import "ProfileClass.h"
 #import "SCLAlertView.h"
 #import "SettingsViewController.h"
@@ -27,6 +28,7 @@
     NSMutableArray *arrEventImages;
     NSMutableArray *arrUserImages;
     BOOL viewer_can_see;
+    NSString *imagePickerLabel;
 }
 
 @end
@@ -92,9 +94,15 @@
     _imagePager.slideshowShouldCallScrollToDelegate = YES;
     _imagePager.captionBackgroundColor = [UIColor clearColor];
     _imagePager.imageCounterDisabled = YES;
+    
+    if (GetUserPhone){
+        [_verifyBtn setImage:[UIImage imageNamed:@"verified_icon"] forState:UIControlStateNormal];
+    } else {
+        [_verifyBtn setImage:[UIImage imageNamed:@"unverified_icon"] forState:UIControlStateNormal];
+    }
 }
 
-- (void) viewDidAppear:(BOOL)animated
+- (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     
@@ -159,6 +167,12 @@
                     profileClass.bio = @"";
                 } else {
                     profileClass.bio = [JSONValue objectForKey:@"bio"];
+                }
+                if ([[JSONValue objectForKey:@"phone_number"] isEqualToString:@""]){
+                    profileClass.phoneNumber = @"";
+                } else {
+                    profileClass.phoneNumber = [JSONValue objectForKey:@"phone_number"];
+                    SetUserPhone([JSONValue objectForKey:@"phone_number"]);
                 }
                 BOOL isPrivate = [[JSONValue objectForKey:@"viewer_can_see"]boolValue];
                 profileClass.isPrivate = isPrivate;
@@ -330,6 +344,12 @@
     [_profilePicture loadImageFromURL:profileClass.userProfilePicture withTempImage:@"avatar_icon"];
     viewer_can_see = profileClass.isPrivate;
     
+    if ([profileClass.phoneNumber isEqualToString:@""]){
+        [_verifyBtn setImage:[UIImage imageNamed:@"unverified_icon"] forState:UIControlStateNormal];
+    } else {
+        [_verifyBtn setImage:[UIImage imageNamed:@"verified_icon"] forState:UIControlStateNormal];
+    }
+    
     if (viewer_can_see == 1){
         _lockIcon.hidden = YES;
         _imagePager.hidden = NO;
@@ -438,6 +458,7 @@
 {
     if (_profileName.text == GetUserName){
         [self requestAuthorizationWithRedirectionToSettings];
+        imagePickerLabel = @"profile_picture";
     }
 }
 
@@ -476,7 +497,15 @@
 }
 
 - (void)handleChangingImage {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Profile picture" message:@"" preferredStyle:UIAlertControllerStyleActionSheet];
+    NSString *controller_title;
+    
+    if ([imagePickerLabel isEqualToString:@"profile_picture"]){
+        controller_title = @"Profile Picture";
+    } else {
+        controller_title = @"User Image";
+    }
+    
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:controller_title message:@"" preferredStyle:UIAlertControllerStyleActionSheet];
     
     UIAlertAction *takeAPicture = [UIAlertAction actionWithTitle:@"Take a photo" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
         
@@ -518,7 +547,9 @@
     
     [self setBusy:YES];
     
-    _profilePicture.image = image;
+    if ([imagePickerLabel isEqualToString:@"profile_picture"]){
+        _profilePicture.image = image;
+    }
     checkNetworkReachability();
     ProfileClass *profileClass = [dictProfileInformation objectForKey:@"ProfileInfo"];
     
@@ -532,10 +563,21 @@
     NSString *BoundaryConstant = @"----------V2ymHFg03ehbqgZCaKO6jy";
     
     // string constant for the post parameter 'file'. My server uses this name: `file`. Your's may differ
-    NSString *FileParamConstant = @"profile_pic";
+    NSString *FileParamConstant;
+    if ([imagePickerLabel isEqualToString:@"profile_picture"]){
+        FileParamConstant = @"profile_pic";
+    } else {
+        FileParamConstant = @"photo";
+    }
     
+    NSString *webUrl;
+    if ([imagePickerLabel isEqualToString:@"profile_picture"]){
+        webUrl = [NSString stringWithFormat:@"%@%@/", PROFILEURL, profileClass.userId];
+    } else {
+        webUrl = PHOTOUPLOAD;
+    }
     // the server url to which the image (or the media) is uploaded. Use your server url here
-    NSString *urlStr = [NSString stringWithFormat:@"%@%@/", PROFILEURL, profileClass.userId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@", webUrl];
     NSURL *requestURL = [NSURL URLWithString:urlStr];
     
     // create request
@@ -543,7 +585,11 @@
     [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
     [request setHTTPShouldHandleCookies:NO];
     [request setTimeoutInterval:30];
-    [request setHTTPMethod:@"PUT"];
+    if ([imagePickerLabel isEqualToString:@"profile_picture"]){
+        [request setHTTPMethod:@"PUT"];
+    } else {
+        [request setHTTPMethod:@"POST"];
+    }
     
     // set Content-Type in HTTP header
     NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@", BoundaryConstant];
@@ -596,17 +642,27 @@
             NSDictionary * JSONValue = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
             
             if([JSONValue isKindOfClass:[NSDictionary class]]){
-                NSString *profilePic;
-                if([JSONValue objectForKey:@"profile_pic"] == [NSNull null]){
-                    profilePic = @"";
-                } else {
-                    profilePic = [JSONValue objectForKey:@"profile_pic"];
+                
+                if([JSONValue objectForKey:@"profile_pic"]){
+                    NSString *profilePic;
+                    if([JSONValue objectForKey:@"profile_pic"] == [NSNull null]){
+                        profilePic = @"";
+                    } else {
+                        profilePic = [JSONValue objectForKey:@"profile_pic"];
+                    }
+                    SetUserProPic(profilePic);
+                    [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"Success"
+                                                                   description:@"Your profile picture has been updated."
+                                                                          type:TWMessageBarMessageTypeSuccess
+                                                                      duration:3.0];
                 }
-                SetUserProPic(profilePic);
-                [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"Success"
-                                                               description:@"Your profile picture has been updated."
-                                                                      type:TWMessageBarMessageTypeSuccess
-                                                                  duration:3.0];
+                else if ([JSONValue objectForKey:@"photo"]){
+                    [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"Success"
+                                                                   description:@"Your photo has been uploaded."
+                                                                          type:TWMessageBarMessageTypeSuccess
+                                                                      duration:3.0];
+                    [self startRefresh];
+                }
             }
         } else {
             showServerError();
@@ -797,7 +853,15 @@
 }
 
 - (IBAction)onVerify:(id)sender {
-    // Go to add mobile number screen
+    if (GetUserPhone){
+        return;
+    } else {
+        PhoneViewController *phoneViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PhoneViewController"];
+        ProfileClass *profileClass = [dictProfileInformation objectForKey:@"ProfileInfo"];
+        phoneViewController.profileName = _profileName.text;
+        phoneViewController.profileId = profileClass.userId;
+        [self.navigationController pushViewController:phoneViewController animated:YES];
+    }
 }
 
 - (IBAction)onEventImages:(id)sender {
@@ -850,6 +914,7 @@
 
 - (IBAction)onAddNewPhoto:(id)sender {
     [self requestAuthorizationWithRedirectionToSettings];
+    imagePickerLabel = @"user_image";
 }
 
 #pragma mark - KIImagePager DataSource
