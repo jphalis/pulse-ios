@@ -260,6 +260,33 @@
                             [partyClass.arrInvited addObject:dictInvitedInfo];
                         }
                     }
+                    
+                    if([[arrPartyResult objectAtIndex:i]valueForKey:@"get_likers_info"] == [NSNull null]){
+                        
+                    } else {
+                        NSMutableArray *arrLiked = [[arrPartyResult objectAtIndex:i]valueForKey:@"get_likers_info"];
+                        
+                        partyClass.arrLiked = [[NSMutableArray alloc]init];
+                        
+                        for(int j = 0; j < arrLiked.count; j++){
+                            NSMutableDictionary *dictLikerInfo = [[NSMutableDictionary alloc]init];
+                            NSDictionary *dictUserDetail = [arrLiked objectAtIndex:j];
+                            
+                            if([dictUserDetail objectForKey:@"id"] == [NSNull null]){
+                                [dictLikerInfo setObject:@"" forKey:@"user__id"];
+                            } else {
+                                [dictLikerInfo setObject:[NSString stringWithFormat:@"%@",[dictUserDetail objectForKey:@"id"]] forKey:@"user__id"];
+                            }
+                            
+                            if([dictUserDetail objectForKey:@"full_name"] == [NSNull null]){
+                                [dictLikerInfo setObject:@"" forKey:@"user__full_name"];
+                            } else {
+                                [dictLikerInfo setObject:[dictUserDetail objectForKey:@"full_name"] forKey:@"user__full_name"];
+                            }
+                            
+                            [partyClass.arrLiked addObject:dictLikerInfo];
+                        }
+                    }
 
                     [arrParties addObject:partyClass];
                 }
@@ -339,6 +366,7 @@
     partyViewController.partyRequests = partyClass.partyRequestCount;
     partyViewController.usersAttending = partyClass.arrAttending.mutableCopy;
     partyViewController.usersRequested = partyClass.arrRequested.mutableCopy;
+    partyViewController.usersLiked = partyClass.arrLiked.mutableCopy;
     
     [self.navigationController pushViewController:partyViewController animated:YES];
 }

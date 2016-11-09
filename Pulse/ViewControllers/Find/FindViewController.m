@@ -128,6 +128,10 @@
     if(arrParties.count > 0){
         [arrParties removeAllObjects];
     }
+    
+    if(arrVisibleParties.count > 0){
+        [arrVisibleParties removeAllObjects];
+    }
 
     [self getPartyDetails];
 }
@@ -159,6 +163,7 @@
             NSDictionary *JSONValue = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
             
             if([JSONValue isKindOfClass:[NSDictionary class]]){
+                
                 partyCount = [[JSONValue objectForKey:@"count"]integerValue];
                 
                 NSArray *arrPartyResult = [JSONValue objectForKey:@"results"];
@@ -443,8 +448,16 @@
     cell.userProfilePicture.layer.cornerRadius = cell.userProfilePicture.frame.size.width / 2;
     cell.userProfilePicture.layer.masksToBounds = YES;
     cell.userProfilePicture.clipsToBounds = YES;
-    cell.partyName.text = partyClass.partyName;
-    cell.partyAddress.text = partyClass.partyAddress;
+    if ([partyClass.partyInvite isEqualToString:@"Invite only"] &&
+        (!([partyClass.partyCreator isEqualToString:GetUserName])) &&
+        (!([[partyClass.arrAttending valueForKey:@"user__full_name"] containsObject:GetUserName])))
+    {
+        cell.partyName.hidden = YES;
+        cell.partyAddress.hidden = YES;
+    } else {
+        cell.partyName.text = partyClass.partyName;
+        cell.partyAddress.text = partyClass.partyAddress;
+    }
     
     if ([partyClass.partyType isEqualToString:@"Custom"]) {
         [cell.partyPicture loadImageFromURL:partyClass.partyImage withTempImage:@"custom_icon"];

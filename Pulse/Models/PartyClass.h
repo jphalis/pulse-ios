@@ -30,5 +30,6 @@
 @property (nonatomic, retain) NSMutableArray *arrAttending;
 @property (nonatomic, retain) NSMutableArray *arrRequested;
 @property (nonatomic, retain) NSMutableArray *arrInvited;
+@property (nonatomic, retain) NSMutableArray *arrLiked;
 
 @end

@@ -18,7 +18,10 @@
 @property (weak, nonatomic) IBOutlet UITextView *partyDescriptionField;
 @property (weak, nonatomic) IBOutlet UIImageView *inviteIcon;
 @property (weak, nonatomic) IBOutlet UIButton *attendBtn;
+@property (weak, nonatomic) IBOutlet UIImageView *likeImg;
+@property (weak, nonatomic) IBOutlet UILabel *likeCountLabel;
 @property (retain, nonatomic) NSString *partyUrl;
+@property (retain, nonatomic) NSString *creatorUrl;
 @property (retain, nonatomic) NSString *partyId;
 @property (retain, nonatomic) NSString *partyCreator;
 @property (retain, nonatomic) NSString *partyInvite;
@@ -38,6 +41,7 @@
 @property (retain, nonatomic) NSMutableArray *usersAttending;
 @property (retain, nonatomic) NSMutableArray *usersRequested;
 @property (retain, nonatomic) NSMutableArray *usersInvited;
+@property (retain, nonatomic) NSMutableArray *usersLiked;
 @property (nonatomic, assign) BOOL popToRoot;
 
 - (IBAction)onBack:(id)sender;
@@ -45,5 +49,6 @@
 - (IBAction)onMore:(id)sender;
 - (IBAction)onAttendees:(id)sender;
 - (IBAction)onRequests:(id)sender;
+- (IBAction)onLike:(id)sender;
 
 @end

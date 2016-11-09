@@ -4,6 +4,7 @@
 //
 
 
+#import "AccountViewController.h"
 #import "AppDelegate.h"
 #import "defs.h"
 #import "FollowViewController.h"
@@ -31,7 +32,7 @@
 
 @implementation PartyViewController
 
-@synthesize usersAttending, usersRequested, usersInvited;
+@synthesize usersAttending, usersRequested, usersInvited, usersLiked;
 
 - (void)viewDidLoad
 {
@@ -121,6 +122,7 @@
                 int partyId = [[JSONValue valueForKey:@"id"]intValue];
                 _partyId = [NSString stringWithFormat:@"%d", partyId];
                 _partyCreator = [JSONValue valueForKey:@"user"];
+                _creatorUrl = [JSONValue valueForKey:@"user_url"];
                 _partyType = [JSONValue valueForKey:@"party_type"];
                 _partyInvite = [JSONValue valueForKey:@"invite_type"];
                 _partyName = [JSONValue valueForKey:@"name"];
@@ -268,6 +270,38 @@
                         [usersInvited addObject:dictInvitedInfo];
                     }
                 }
+                
+                if (!([JSONValue valueForKey:@"get_likers_info"] == [NSNull null]))
+                {
+                    NSMutableArray *arrLiked = [JSONValue valueForKey:@"get_likers_info"];
+                    usersLiked = [[NSMutableArray alloc]init];
+                    
+                    for(int i = 0; i < arrLiked.count; i++)
+                    {
+                        NSMutableDictionary *dictLikerInfo = [[NSMutableDictionary alloc]init];
+                        NSDictionary *dictUserDetail = [arrLiked objectAtIndex:i];
+                        
+                        if([dictUserDetail objectForKey:@"id"] == [NSNull null])
+                        {
+                            [dictLikerInfo setObject:@"" forKey:@"user__id"];
+                        }
+                        else
+                        {
+                            [dictLikerInfo setObject:[NSString stringWithFormat:@"%@", [dictUserDetail objectForKey:@"id"]] forKey:@"user__id"];
+                        }
+                        
+                        if([dictUserDetail objectForKey:@"full_name"] == [NSNull null])
+                        {
+                            [dictLikerInfo setObject:@"" forKey:@"user__full_name"];
+                        }
+                        else
+                        {
+                            [dictLikerInfo setObject:[dictUserDetail objectForKey:@"full_name"] forKey:@"user__full_name"];
+                        }
+                        
+                        [usersLiked addObject:dictLikerInfo];
+                    }
+                }
 
                 [self showPartyInfo];
             }
@@ -329,6 +363,13 @@
     _partyRequestsField.text = _partyRequests;
     _partyDescriptionField.text = _partyDescription;
     
+    if ([[usersLiked valueForKey:@"user__full_name"] containsObject:GetUserName])
+    {
+        [_likeImg setImage:[UIImage imageNamed:@"like_icon_active"]];
+        _likeCountLabel.textColor = [UIColor whiteColor];
+    }
+    _likeCountLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)[usersLiked count]];
+    
     // viewing user is attending party
     if ([[usersAttending valueForKey:@"user__full_name"] containsObject:GetUserName])
     {
@@ -342,6 +383,9 @@
         [_attendBtn setTitle:INVITE_ONLY_BTN_TEXT forState:UIControlStateNormal];
         _attendBtn.backgroundColor = [UIColor lightGrayColor];
         _attendBtn.userInteractionEnabled = NO;
+        _partyNameField.hidden = YES;
+        _partyAddressField.hidden = YES;
+        
     }
     // party requires a request and viewing user has already requested
     else if ([_partyInvite isEqualToString:@"Request + approval"] &&
@@ -383,7 +427,7 @@
                                                              delegate:self
                                                     cancelButtonTitle:@"Cancel"
                                                destructiveButtonTitle:@"Report Event"
-                                                    otherButtonTitles:nil];
+                                                    otherButtonTitles:@"View Host", nil];
     [actionSheet showInView:self.view];
 }
 
@@ -398,7 +442,14 @@
     }
     else if(buttonIndex == 1)
     {
-        // NSLog(@"Cancel button clicked");
+        AccountViewController *accountViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"AccountViewController"];
+        accountViewController.userURL = _creatorUrl;
+        accountViewController.needBack = YES;
+        [self.navigationController pushViewController:accountViewController animated:YES];
+    }
+    else if(buttonIndex == 2)
+    {
+//        NSLog(@"Cancel button clicked");
     }
 }
 
@@ -438,9 +489,7 @@
     if ([[usersRequested valueForKey:@"user__full_name"] containsObject:GetUserName])
     {
         return;
-    }
-    else
-    {
+    } else {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             NSString *strURL = [NSString stringWithFormat:@"%@%@/", PARTYATTENDURL, _partyId];
             NSURL *url = [NSURL URLWithString:strURL];
@@ -500,9 +549,7 @@
         requestsViewController.arrDetails = usersRequested.mutableCopy;
         requestsViewController.partyId = _partyId;
         [self.navigationController pushViewController:requestsViewController animated:YES];
-    }
-    else
-    {
+    } else {
         SCLAlertView *alert = [[SCLAlertView alloc] init];
         alert.showAnimationType = SlideInFromLeft;
         alert.hideAnimationType = SlideOutToBottom;
@@ -516,6 +563,66 @@
     followViewController.pageTitle = @"Attendees";
     followViewController.arrDetails = usersAttending.mutableCopy;
     [self.navigationController pushViewController:followViewController animated:YES];
+}
+
+- (IBAction)onLike:(id)sender {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSString *strURL = [NSString stringWithFormat:@"%@%@/", PARTYLIKEURL, _partyId];
+        NSURL *url = [NSURL URLWithString:strURL];
+        NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url];
+        [urlRequest setTimeoutInterval:60];
+        [urlRequest setHTTPMethod:@"POST"];
+        NSString *authStr = [NSString stringWithFormat:@"%@:%@", GetUserEmail, GetUserPassword];
+        NSData *plainData = [authStr dataUsingEncoding:NSUTF8StringEncoding];
+        NSString *base64String = [plainData base64EncodedStringWithOptions:0];
+        NSString *authValue = [NSString stringWithFormat:@"Basic %@", base64String];
+        [urlRequest setValue:authValue forHTTPHeaderField:@"Authorization"];
+        [urlRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        
+        [NSURLConnection sendAsynchronousRequest:urlRequest queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error){
+            
+            if ([data length] > 0 && error == nil)
+            {
+                NSDictionary *JSONValue = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+                
+                if (JSONValue != nil)
+                {
+                    int likecount = (int)[usersLiked count];
+
+                    if ([[usersLiked valueForKey:@"user__full_name"] containsObject:GetUserName])
+                    {
+                        for(int i = 0; i < [usersLiked count]; i++){
+                            NSMutableDictionary *dict = [usersLiked objectAtIndex:i];
+                            
+                            if ([[dict objectForKey:@"user__full_name"]isEqualToString:GetUserName]){
+                                [usersLiked removeObjectAtIndex:i];
+                            }
+                        }
+
+                        [_likeImg setImage:[UIImage imageNamed:@"like_icon_default"]];
+                        _likeCountLabel.textColor = [UIColor colorWithRed:165/255.0 green:169/255.0 blue:171/255.0 alpha:1.0];
+                        likecount--;
+                    }
+                    else
+                    {
+                        NSMutableDictionary *dictUser = [[NSMutableDictionary alloc]init];
+                        [dictUser setValue:GetUserName forKey:@"user__full_name"];
+                        [usersLiked addObject:dictUser];
+
+                        [_likeImg setImage:[UIImage imageNamed:@"like_icon_active"]];
+                        _likeCountLabel.textColor = [UIColor whiteColor];
+                        likecount++;
+                    }
+                    _likeCountLabel.text = [NSString stringWithFormat:@"%d", likecount];
+                }
+            }
+            else
+            {
+                [self showMessage:SERVER_ERROR];
+            }
+        }];
+        [self setBusy:NO];
+    });
 }
 
 @end
