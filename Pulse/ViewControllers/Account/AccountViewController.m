@@ -100,6 +100,8 @@
     } else {
         [_verifyBtn setImage:[UIImage imageNamed:@"unverified_icon"] forState:UIControlStateNormal];
     }
+    
+    _profileBio.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -585,15 +587,18 @@
     [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
     [request setHTTPShouldHandleCookies:NO];
     [request setTimeoutInterval:30];
+
+    NSString *method;
     if ([imagePickerLabel isEqualToString:@"profile_picture"]){
-        [request setHTTPMethod:@"PUT"];
+        method = @"PUT";
     } else {
-        [request setHTTPMethod:@"POST"];
+        method = @"POST";
     }
+    [request setHTTPMethod:method];
     
     // set Content-Type in HTTP header
     NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@", BoundaryConstant];
-    [request setValue:contentType forHTTPHeaderField: @"Content-Type"];
+    [request setValue:contentType forHTTPHeaderField:@"Content-Type"];
     
     // post body
     NSMutableData *body = [NSMutableData data];
@@ -607,10 +612,14 @@
     
     // add image data
     NSData *imageData;
-    imageData = UIImageJPEGRepresentation(_profilePicture.image, 1.0);
+    if ([imagePickerLabel isEqualToString:@"profile_picture"]){
+        imageData = UIImageJPEGRepresentation(_profilePicture.image, 1.0);}
+    else {
+        imageData = UIImageJPEGRepresentation(image, 1.0);
+    }
     if (imageData){
         [body appendData:[[NSString stringWithFormat:@"--%@\r\n", BoundaryConstant] dataUsingEncoding:NSUTF8StringEncoding]];
-        [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"; filename=\"%@.jpg\"\r\n", FileParamConstant,myUniqueName] dataUsingEncoding:NSUTF8StringEncoding]];
+        [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"; filename=\"%@.jpg\"\r\n", FileParamConstant, myUniqueName] dataUsingEncoding:NSUTF8StringEncoding]];
         [body appendData:[@"Content-Type: image/jpeg\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
         [body appendData:imageData];
         [body appendData:[[NSString stringWithFormat:@"\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
