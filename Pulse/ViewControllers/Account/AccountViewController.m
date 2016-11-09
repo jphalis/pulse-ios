@@ -23,7 +23,6 @@
 @interface AccountViewController () <UICollectionViewDelegateFlowLayout, KIImagePagerDelegate, KIImagePagerDataSource>{
     
     AppDelegate *appDelegate;
-    UIRefreshControl *refreshControl;
     NSMutableDictionary *dictProfileInformation;
     NSMutableArray *arrEventImages;
     NSMutableArray *arrUserImages;
@@ -50,11 +49,6 @@
     [super viewDidLoad];
     
     appDelegate = [AppDelegate getDelegate];
-    
-    refreshControl = [[UIRefreshControl alloc] init];
-    [refreshControl addTarget:self action:@selector(startRefresh)
-             forControlEvents:UIControlEventValueChanged];
-    [_collectionVW addSubview:refreshControl];
     
     _collectionVW.alwaysBounceVertical = YES;
     
@@ -116,11 +110,6 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
--(void)startRefresh
-{
-    [self getProfileDetails];
 }
 
 /*
@@ -373,7 +362,7 @@
     [_userImagesBtn setTitleColor:[UIColor colorWithRed:(171/255.0) green:(14/255.0) blue:(27/255.0) alpha:1.0] forState:UIControlStateNormal];
     CALayer *border = [CALayer layer];
     border.backgroundColor = [[UIColor colorWithRed:(171/255.0) green:(14/255.0) blue:(27/255.0) alpha:1.0] CGColor];
-    border.frame = CGRectMake(0, 30, _userImagesBtn.frame.size.width, 2);
+    border.frame = CGRectMake(0, 28, _userImagesBtn.frame.size.width, 2);
     [_userImagesBtn.layer addSublayer:border];
     
     CALayer *border2 = [CALayer layer];
@@ -386,8 +375,7 @@
     if (GetUserName != _profileName.text){
         _userImageNewBtn.hidden = YES;
     }
-    
-    [refreshControl endRefreshing];
+
     [_collectionVW reloadData];
 }
 
@@ -670,7 +658,6 @@
                                                                    description:@"Your photo has been uploaded."
                                                                           type:TWMessageBarMessageTypeSuccess
                                                                       duration:3.0];
-                    [self startRefresh];
                 }
             }
         } else {
@@ -881,7 +868,7 @@
         [[_eventImagesBtn.layer.sublayers objectAtIndex:1] removeFromSuperlayer];
         CALayer *border = [CALayer layer];
         border.backgroundColor = [[UIColor colorWithRed:(171/255.0) green:(14/255.0) blue:(27/255.0) alpha:1.0] CGColor];
-        border.frame = CGRectMake(0, 30, _eventImagesBtn.frame.size.width, 2);
+        border.frame = CGRectMake(0, 28, _eventImagesBtn.frame.size.width, 2);
         [_eventImagesBtn.layer addSublayer:border];
     }
     if ([_userImagesBtn.layer.sublayers count] > 1) {
@@ -903,7 +890,7 @@
         [[_userImagesBtn.layer.sublayers objectAtIndex:1] removeFromSuperlayer];
         CALayer *border = [CALayer layer];
         border.backgroundColor = [[UIColor colorWithRed:(171/255.0) green:(14/255.0) blue:(27/255.0) alpha:1.0] CGColor];
-        border.frame = CGRectMake(0, 30, _userImagesBtn.frame.size.width, 2);
+        border.frame = CGRectMake(0, 28, _userImagesBtn.frame.size.width, 2);
         [_userImagesBtn.layer addSublayer:border];
     }
     if ([_eventImagesBtn.layer.sublayers count] > 1) {

@@ -721,7 +721,7 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Bio" minimumFontSize="15" clearButtonMode="whileEditing" id="uBY-Nc-QFE" userLabel="Bio">
-                                <rect key="frame" x="6" y="235" width="363" height="90"/>
+                                <rect key="frame" x="6" y="241" width="363" height="84"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -735,23 +735,9 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="jSh-hC-i1x" userLabel="Photos Btn">
-                                <rect key="frame" x="40" y="333" width="102" height="30"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <state key="normal" title="Photos">
-                                    <color key="titleColor" red="0.16014787554740906" green="0.18017485737800598" blue="0.19686511158943176" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <state key="selected">
-                                    <color key="titleColor" red="0.6705882353" green="0.054901960780000002" blue="0.1058823529" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="onUserImages:" destination="Gmq-Qg-9dW" eventType="touchUpInside" id="2KM-QW-k61"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Nyc-Zl-ySW" userLabel="Events Btn">
-                                <rect key="frame" x="233" y="333" width="102" height="30"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <rect key="frame" x="206" y="333" width="150" height="26"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <state key="normal" title="Events">
                                     <color key="titleColor" red="0.16014787550000001" green="0.1801748574" blue="0.1968651116" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -764,7 +750,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hfa-TV-b44" userLabel="Vertical Divider">
-                                <rect key="frame" x="187" y="333" width="1" height="29"/>
+                                <rect key="frame" x="187" y="335" width="1" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.73333333329999995" green="0.72941176470000002" blue="0.76078431369999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -772,7 +758,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="oGV-sl-Hg5">
-                                <rect key="frame" x="0.0" y="368" width="375" height="1"/>
+                                <rect key="frame" x="0.0" y="370" width="375" height="1"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.73333333329999995" green="0.72941176470000002" blue="0.76078431369999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -780,7 +766,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="z8C-TO-0r0">
-                                <rect key="frame" x="0.0" y="370" width="375" height="297"/>
+                                <rect key="frame" x="0.0" y="377" width="375" height="290"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="3" minimumInteritemSpacing="3" id="cRr-Tz-Loh">
@@ -814,7 +800,7 @@
                                 </connections>
                             </collectionView>
                             <view contentMode="scaleToFill" misplaced="YES" id="E1R-KY-O4v" customClass="KIImagePager">
-                                <rect key="frame" x="0.0" y="372" width="375" height="245"/>
+                                <rect key="frame" x="0.0" y="377" width="375" height="240"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <connections>
@@ -827,15 +813,29 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="top" buttonType="roundedRect" lineBreakMode="middleTruncation" id="7aY-6a-4i9">
-                                <rect key="frame" x="330" y="573" width="40" height="40"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <rect key="frame" x="330" y="569" width="37" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.12890660762786865" green="0.14494165778160095" blue="0.15746468305587769" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="30"/>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="28"/>
                                 <state key="normal" title="+">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="onAddNewPhoto:" destination="Gmq-Qg-9dW" eventType="touchUpInside" id="Q6U-zI-m4R"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="jSh-hC-i1x" userLabel="Photos Btn">
+                                <rect key="frame" x="19" y="333" width="150" height="26"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="Photos">
+                                    <color key="titleColor" red="0.16014787554740906" green="0.18017485737800598" blue="0.19686511158943176" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <state key="selected">
+                                    <color key="titleColor" red="0.6705882353" green="0.054901960780000002" blue="0.1058823529" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="onUserImages:" destination="Gmq-Qg-9dW" eventType="touchUpInside" id="2KM-QW-k61"/>
                                 </connections>
                             </button>
                         </subviews>
