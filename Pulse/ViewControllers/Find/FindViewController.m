@@ -89,12 +89,18 @@
     }
     locationManager.distanceFilter = kCLDistanceFilterNone;
     locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    [locationManager startUpdatingLocation];
     
     _mapView.showsUserLocation = YES;
     [_mapView setMapType:MKMapTypeStandard];
     [_mapView setZoomEnabled:YES];
     [_mapView setScrollEnabled:YES];
+    
+    CLLocation *location = [locationManager location];
+    CLLocationCoordinate2D coordinate = [location coordinate];
+    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(coordinate, 5000, 5000);
+    [_mapView setRegion:[_mapView regionThatFits:region] animated:YES];
+    
+    [locationManager startUpdatingLocation];
 }
 
 - (void)didReceiveMemoryWarning {
