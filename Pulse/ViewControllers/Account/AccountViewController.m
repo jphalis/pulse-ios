@@ -853,7 +853,7 @@
 }
 
 - (IBAction)onVerify:(id)sender {
-    if (GetUserPhone){
+    if ((GetUserPhone) || !([GetUserName isEqualToString:_profileName.text])){
         return;
     } else {
         PhoneViewController *phoneViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PhoneViewController"];
