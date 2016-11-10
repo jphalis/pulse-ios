@@ -47,8 +47,11 @@
     buttonTop = [UIButton buttonWithType:UIButtonTypeCustom];
     buttonTop.frame = CGRectMake(0, 0, 100, 100);
     buttonTop.center = self.view.center;
+    buttonTop.layer.cornerRadius = buttonTop.frame.size.width / 2;
+    buttonTop.clipsToBounds = YES;
+    buttonTop.layer.masksToBounds = YES;
 
-    if ([[GetUserProPic lastPathComponent] isEqual:[NSNull null]]){
+    if (GetUserProPic){
         NSURL *url = [NSURL URLWithString:GetUserProPic];
         NSData *data = [NSData dataWithContentsOfURL:url];
         UIImage *image = [UIImage imageWithData:data];
@@ -58,7 +61,6 @@
         [buttonTop setBackgroundImage:[UIImage imageNamed:@"avatar_icon"] forState:UIControlStateNormal];
         [buttonTop setBackgroundImage:[UIImage imageNamed:@"avatar_icon"] forState:UIControlStateSelected];
     }
-//    [button setTitle:@"Button" forState:UIControlStateNormal];
     
     c = [[UIView alloc] initWithFrame:button.bounds];
     c.backgroundColor = [UIColor colorWithRed:(171/255.0) green:(14/255.0) blue:(27/255.0) alpha:1.0];
