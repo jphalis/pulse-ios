@@ -43,6 +43,7 @@
     
     _profilePicture.layer.cornerRadius = _profilePicture.frame.size.width / 2;
     _profilePicture.clipsToBounds = YES;
+    _profilePicture.layer.masksToBounds = YES;
     
     _userImageNewBtn.layer.cornerRadius = _userImageNewBtn.frame.size.width / 2;
     
@@ -53,7 +54,19 @@
     _collectionVW.alwaysBounceVertical = YES;
     
     _profileBio.delegate = self;
+    
+    self.automaticallyAdjustsScrollViewInsets = false;
+    _scrollView.contentInset = UIEdgeInsetsZero;
+    _scrollView.scrollIndicatorInsets = UIEdgeInsetsZero;
+    _scrollView.contentOffset = CGPointMake(0.0, 0.0);
 }
+
+//- (void)viewDidLayoutSubviews
+//{
+//    [super viewDidLayoutSubviews];
+//    [_scrollView setContentSize:CGSizeMake(self.view.frame.size.width, 800)];
+//    _scrollView.frame = CGRectMake(0, 0, self.view.frame.size.width, 800);
+//}
 
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -104,6 +117,9 @@
     
     _imagePager.pageControl.currentPageIndicatorTintColor = [UIColor colorWithRed:(171/255.0) green:(14/255.0) blue:(27/255.0) alpha:1.0];
     _imagePager.pageControl.pageIndicatorTintColor = [UIColor whiteColor];
+    
+    [_scrollView setContentSize:CGSizeMake(self.view.frame.size.width, 800)];
+//    _scrollView.frame = CGRectMake(self.view.frame.origin.y, self.view.frame.origin.x, self.view.frame.size.width, 800);
 }
 
 - (void)didReceiveMemoryWarning
@@ -362,7 +378,7 @@
     [_userImagesBtn setTitleColor:[UIColor colorWithRed:(171/255.0) green:(14/255.0) blue:(27/255.0) alpha:1.0] forState:UIControlStateNormal];
     CALayer *border = [CALayer layer];
     border.backgroundColor = [[UIColor colorWithRed:(171/255.0) green:(14/255.0) blue:(27/255.0) alpha:1.0] CGColor];
-    border.frame = CGRectMake(0, 28, _userImagesBtn.frame.size.width, 2);
+    border.frame = CGRectMake(0, 30, _userImagesBtn.frame.size.width, 2);
     [_userImagesBtn.layer addSublayer:border];
     
     CALayer *border2 = [CALayer layer];
@@ -868,7 +884,7 @@
         [[_eventImagesBtn.layer.sublayers objectAtIndex:1] removeFromSuperlayer];
         CALayer *border = [CALayer layer];
         border.backgroundColor = [[UIColor colorWithRed:(171/255.0) green:(14/255.0) blue:(27/255.0) alpha:1.0] CGColor];
-        border.frame = CGRectMake(0, 28, _eventImagesBtn.frame.size.width, 2);
+        border.frame = CGRectMake(0, 30, _eventImagesBtn.frame.size.width, 2);
         [_eventImagesBtn.layer addSublayer:border];
     }
     if ([_userImagesBtn.layer.sublayers count] > 1) {
@@ -890,7 +906,7 @@
         [[_userImagesBtn.layer.sublayers objectAtIndex:1] removeFromSuperlayer];
         CALayer *border = [CALayer layer];
         border.backgroundColor = [[UIColor colorWithRed:(171/255.0) green:(14/255.0) blue:(27/255.0) alpha:1.0] CGColor];
-        border.frame = CGRectMake(0, 28, _userImagesBtn.frame.size.width, 2);
+        border.frame = CGRectMake(0, 30, _userImagesBtn.frame.size.width, 2);
         [_userImagesBtn.layer addSublayer:border];
     }
     if ([_eventImagesBtn.layer.sublayers count] > 1) {

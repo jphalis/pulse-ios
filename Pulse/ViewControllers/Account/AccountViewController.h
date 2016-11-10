@@ -10,6 +10,8 @@
 
 @interface AccountViewController : UIViewController <UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextFieldDelegate>
 
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet UIView *scroller;
 @property (weak, nonatomic) IBOutlet SDIAsyncImageView *profilePicture;
 @property (weak, nonatomic) IBOutlet KIImagePager *imagePager;
 @property (weak, nonatomic) IBOutlet UILabel *profileName;
