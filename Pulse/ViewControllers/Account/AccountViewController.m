@@ -54,6 +54,7 @@
     _collectionVW.alwaysBounceVertical = YES;
     
     _profileBio.delegate = self;
+    _profileName.delegate = self;
     
     self.automaticallyAdjustsScrollViewInsets = false;
     _scrollView.contentInset = UIEdgeInsetsZero;
@@ -698,20 +699,20 @@
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField{
-    [self animateTextField: textField up: YES];
+    [self animateTextField:textField up:YES];
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField{
-    [self animateTextField: textField up: NO];
+    [self animateTextField:textField up:NO];
 }
 
 - (void)animateTextField:(UITextField*)textField up: (BOOL) up{
     float val;
     
     if(self.view.frame.size.height == 480){
-        val = 0.70;
+        val = 0.50;
     } else {
-        val = 0.60;
+        val = 0.50;
     }
     
     const int movementDistance = val * textField.frame.origin.y;
@@ -728,10 +729,9 @@
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    if (textField.tag == 0){
-        [_profileBio resignFirstResponder];
-        [self updateBio];
-    }
+    [_profileBio resignFirstResponder];
+    [_profileName resignFirstResponder];
+    [self updateBio];
     return YES;
 }
 
@@ -768,6 +768,7 @@
             NSDictionary *JSONValue = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
             
             if(JSONValue != nil){
+                SetUserName(_profileName.text);
                 alert.showAnimationType = SlideInFromLeft;
                 alert.hideAnimationType = SlideOutToBottom;
                 [alert showNotice:self title:@"Notice" subTitle:@"Your profile has been updated." closeButtonTitle:@"OK" duration:0.0f];

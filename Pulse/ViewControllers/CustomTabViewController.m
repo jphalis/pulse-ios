@@ -202,10 +202,12 @@ enum {
     previousIndex = currentIndex;
     currentIndex = btn.tag;
     
-    if (btn.tag == previousIndex){
+    if (btn.tag == previousIndex)
+    {
        // return;
     }
-    else {
+    else
+    {
         if (previousIndex != 0){
             UIButton *btnpreviousIndex = (UIButton*)[tabView viewWithTag:previousIndex];
             

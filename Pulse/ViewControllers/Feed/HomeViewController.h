@@ -8,4 +8,7 @@
 
 @interface HomeViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UITableView *tblVW;
+@property (retain, nonatomic) NSMutableArray *arrFeed;
+
 @end

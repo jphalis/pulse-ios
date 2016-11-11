@@ -14,7 +14,7 @@
 @property (weak, nonatomic) IBOutlet UIView *scroller;
 @property (weak, nonatomic) IBOutlet SDIAsyncImageView *profilePicture;
 @property (weak, nonatomic) IBOutlet KIImagePager *imagePager;
-@property (weak, nonatomic) IBOutlet UILabel *profileName;
+@property (weak, nonatomic) IBOutlet UITextField *profileName;
 @property (weak, nonatomic) IBOutlet UIButton *followBtn;
 @property (weak, nonatomic) IBOutlet UIButton *verifyBtn;
 @property (weak, nonatomic) IBOutlet UILabel *eventCount;

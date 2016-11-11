@@ -22,16 +22,13 @@
 
 @interface HomeViewController (){
     AppDelegate *appDelegate;
-    
-    __weak IBOutlet UITableView *tblVW;
-    
-    NSMutableArray *arrFeed;
     UIRefreshControl *refreshControl;
 }
 
 @end
 
 @implementation HomeViewController
+@synthesize arrFeed;
 
 - (void)viewDidLoad {
     arrFeed = [[NSMutableArray alloc]init];
@@ -46,7 +43,7 @@
     [refreshControl addTarget:self action:@selector(startRefresh)
              forControlEvents:UIControlEventValueChanged];
     
-    [tblVW addSubview:refreshControl];
+    [_tblVW addSubview:refreshControl];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -81,7 +78,7 @@
 */
 
 -(void)scrollToTop{
-    [tblVW setContentOffset:CGPointZero animated:YES];
+    [_tblVW setContentOffset:CGPointZero animated:YES];
 }
 
 -(void)startRefresh{
@@ -182,7 +179,7 @@
 
 -(void)showFeed{
     [refreshControl endRefreshing];
-    [tblVW reloadData];
+    [_tblVW reloadData];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -278,8 +275,8 @@
         id userValue = [textView.textStorage attribute:@"senderTag" atIndex:characterIndex effectiveRange:&range0];
         id eventValue = [textView.textStorage attribute:@"eventTag" atIndex:characterIndex effectiveRange:&range1];
         
-        CGPoint location = [recognizer locationInView:tblVW];
-        NSIndexPath *ipath = [tblVW indexPathForRowAtPoint:location];
+        CGPoint location = [recognizer locationInView:_tblVW];
+        NSIndexPath *ipath = [_tblVW indexPathForRowAtPoint:location];
         FeedClass *feedClass = [arrFeed objectAtIndex:ipath.row];
         
         if(userValue) {

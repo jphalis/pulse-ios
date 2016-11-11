@@ -8,6 +8,7 @@
 #import "AppDelegate.h"
 #import "defs.h"
 #import "GlobalFunctions.h"
+#import "HomeViewController.h"
 #import "PartyViewController.h"
 #import "PreviewViewController.h"
 #import "SCLAlertView.h"
@@ -31,29 +32,6 @@
     [super viewDidLoad];
     
     appDelegate = [AppDelegate getDelegate];
-}
-
--(void)viewWillAppear:(BOOL)animated{
-    // Remove label on back button
-    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] init];
-    barButton.title = @" ";
-    self.navigationController.navigationBar.topItem.backBarButtonItem = barButton;
-    
-    // Hide the tabbar
-    appDelegate.tabbar.tabView.hidden = YES;
-    
-    [super viewWillAppear:YES];
-    
-    _partyNameField.text = _partyName;
-    
-    NSInteger monthNumber = [_partyMonth integerValue];
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    NSString *monthName = [[dateFormatter monthSymbols] objectAtIndex:(monthNumber-1)];
-    _partyDateTimeField.text = [NSString stringWithFormat:@"%@ %@, %@  %@-%@", monthName, _partyDay, _partyYear, _partyStartTime, _partyEndTime];
-    
-    _partyAddressField.text = _partyAddress;
-    
-    _partyDescriptionField.text = _partyDescription;
     
     if ([_partyType isEqualToString:@"Custom"]) {
         [_inviteIcon setImage:[UIImage imageNamed:@"custom_icon"]];
@@ -93,6 +71,29 @@
     else if ([_partyInvite isEqualToString:@"17"]) {
         [_inviteIcon setImage:[UIImage imageNamed:@"request_icon"]];
     }
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    // Remove label on back button
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] init];
+    barButton.title = @" ";
+    self.navigationController.navigationBar.topItem.backBarButtonItem = barButton;
+    
+    // Hide the tabbar
+    appDelegate.tabbar.tabView.hidden = YES;
+    
+    [super viewWillAppear:YES];
+    
+    _partyNameField.text = _partyName;
+    
+    NSInteger monthNumber = [_partyMonth integerValue];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    NSString *monthName = [[dateFormatter monthSymbols] objectAtIndex:(monthNumber-1)];
+    _partyDateTimeField.text = [NSString stringWithFormat:@"%@ %@, %@  %@-%@", monthName, _partyDay, _partyYear, _partyStartTime, _partyEndTime];
+    
+    _partyAddressField.text = _partyAddress;
+    
+    _partyDescriptionField.text = _partyDescription;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -157,7 +158,7 @@
         
         if([UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera]) {
             
-            UIImagePickerController* picker = [[UIImagePickerController alloc] init];
+            UIImagePickerController *picker = [[UIImagePickerController alloc] init];
             picker.sourceType = UIImagePickerControllerSourceTypeCamera;
             picker.delegate = self;
             [self presentViewController:picker animated:YES completion:NULL];
@@ -192,10 +193,10 @@
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)info {
-    
-    //    UIImage *image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
-    _partyImageField.image = image;
+
     [picker dismissViewControllerAnimated:YES completion:nil];
+    [_partyImageField setImage:nil];
+    [_partyImageField setImage:image];
 }
 
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
