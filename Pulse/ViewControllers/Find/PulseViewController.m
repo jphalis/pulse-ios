@@ -8,6 +8,7 @@
 #import "defs.h"
 #import "FindViewController.h"
 #import "PulseViewController.h"
+#import "UIButton+WebCache.h"
 
 
 @interface PulseViewController (){
@@ -50,13 +51,15 @@
     buttonTop.layer.cornerRadius = buttonTop.frame.size.width / 2;
     buttonTop.clipsToBounds = YES;
     buttonTop.layer.masksToBounds = YES;
-
+    
     if (GetUserProPic){
-        NSURL *url = [NSURL URLWithString:GetUserProPic];
-        NSData *data = [NSData dataWithContentsOfURL:url];
-        UIImage *image = [UIImage imageWithData:data];
-        [buttonTop setBackgroundImage:image forState:UIControlStateNormal];
-        [buttonTop setBackgroundImage:image forState:UIControlStateSelected];
+//        NSURL *url = [NSURL URLWithString:GetUserProPic];
+//        NSData *data = [NSData dataWithContentsOfURL:url];
+//        UIImage *image = [UIImage imageWithData:data];
+//        [buttonTop setBackgroundImage:image forState:UIControlStateNormal];
+//        [buttonTop setBackgroundImage:image forState:UIControlStateSelected];
+        
+        [buttonTop sd_setBackgroundImageWithURL:[NSURL URLWithString:GetUserProPic] forState:UIControlStateNormal];
     } else {
         [buttonTop setBackgroundImage:[UIImage imageNamed:@"avatar_icon"] forState:UIControlStateNormal];
         [buttonTop setBackgroundImage:[UIImage imageNamed:@"avatar_icon"] forState:UIControlStateSelected];
