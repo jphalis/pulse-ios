@@ -140,7 +140,7 @@ enum{
             _openPartyIcon.layer.borderWidth = 0;
             _exclusivePartyIcon.layer.borderWidth = 0;
             
-            _visibilityLabel.text = @"No one can see your post. Only those who you invite will be notified.";
+            _visibilityLabel.text = @"Anyone can see your post, but time and location are withheld until you approve.";
             
             [userInviteViewController.view removeFromSuperview];
             
