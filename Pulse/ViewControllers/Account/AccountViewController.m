@@ -653,7 +653,7 @@
         if ([data length] > 0 && error == nil){
             [self setBusy:NO];
             
-            NSDictionary * JSONValue = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
+            NSDictionary *JSONValue = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
             
             if([JSONValue isKindOfClass:[NSDictionary class]]){
                 
@@ -671,10 +671,14 @@
                                                                       duration:3.0];
                 }
                 else if ([JSONValue objectForKey:@"photo"]){
+                    NSMutableDictionary *dictPhotoInfo = [[NSMutableDictionary alloc]init];
+                    [dictPhotoInfo setValue:[JSONValue objectForKey:@"photo"] forKey:@"photo"];
+                    [arrUserImages addObject:dictPhotoInfo];
                     [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"Success"
                                                                    description:@"Your photo has been uploaded."
                                                                           type:TWMessageBarMessageTypeSuccess
                                                                       duration:3.0];
+                    [_imagePager reloadData];
                 }
             }
         } else {

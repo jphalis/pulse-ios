@@ -323,6 +323,12 @@
             }
         }
     }
+    
+    if (arrVisibleParties.count > 0){
+        _watermarkLbl.hidden = YES;
+    } else {
+        _watermarkLbl.hidden = NO;
+    }
 
     [refreshControl endRefreshing];
     [_collectionVW reloadData];
@@ -442,7 +448,7 @@
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     CollectionViewCellParty *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"FindCell" forIndexPath:indexPath];
-    
+
     PartyClass *partyClass = [arrVisibleParties objectAtIndex:indexPath.row];
 
     NSInteger monthNumber = [partyClass.partyMonth integerValue];

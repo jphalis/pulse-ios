@@ -13,6 +13,7 @@
 @property (strong, nonatomic) IBOutlet MKMapView *mapView;
 @property (nonatomic, retain) NSMutableArray *annotations;
 @property (weak, nonatomic) IBOutlet UIButton *currentLocBtn;
+@property (weak, nonatomic) IBOutlet UILabel *watermarkLbl;
 
 - (IBAction)onBack:(id)sender;
 - (IBAction)onCurrentLocation:(id)sender;
