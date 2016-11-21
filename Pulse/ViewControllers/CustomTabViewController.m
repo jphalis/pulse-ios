@@ -94,9 +94,7 @@ enum {
                 
                 if([JSONValue isKindOfClass:[NSDictionary class]]){
                     
-                    if([JSONValue objectForKey:@"follower"] == [NSNull null]){
-                        return;
-                    } else {
+                    if([JSONValue objectForKey:@"follower"] != [NSNull null]){
                         NSDictionary *dictFollower = [JSONValue objectForKey:@"follower"];
                         NSMutableArray *arrFollowing = [dictFollower objectForKey:@"get_following_info"];
                         for(int j = 0; j < arrFollowing.count; j++){
@@ -125,6 +123,10 @@ enum {
                             
                             [appDelegate.arrFollowing addObject:dictFollowerInfo];
                         }
+                    }
+                    
+                    if ([JSONValue objectForKey:@"profile_pic"] != [NSNull null]) {
+                        SetUserProPic([JSONValue objectForKey:@"profile_pic"]);
                     }
                 }
             }

@@ -221,28 +221,32 @@
     NSAttributedString *extraAttributedString = [[NSAttributedString alloc] initWithString:@"" attributes:@{NSForegroundColorAttributeName: [UIColor blackColor]}];
     
     NSRange range0 = [[feedTextAttributedString string] rangeOfString:@"{0}"];
-    if(range0.location != NSNotFound)
+    if (range0.location != NSNotFound)
         [feedTextAttributedString replaceCharactersInRange:range0 withAttributedString:senderAttributedString];
     
     NSRange range1 = [[feedTextAttributedString string] rangeOfString:@"{1}"];
-    if(range1.location != NSNotFound)
+    if (range1.location != NSNotFound)
         [feedTextAttributedString replaceCharactersInRange:range1 withAttributedString:textAttributedString];
 
     NSRange range2 = [[feedTextAttributedString string] rangeOfString:@"{2}"];
-    if(range2.location != NSNotFound)
+    if (range2.location != NSNotFound)
         [feedTextAttributedString replaceCharactersInRange:range2 withAttributedString:eventAttributedString];
     
     NSRange range3 = [[feedTextAttributedString string] rangeOfString:@"{3}"];
-    if(range3.location != NSNotFound)
+    if (range3.location != NSNotFound)
         [feedTextAttributedString replaceCharactersInRange:range3 withAttributedString:extraAttributedString];
     
     [feedTextAttributedString addAttribute:NSParagraphStyleAttributeName value:paragraph range:NSMakeRange(0, [feedTextAttributedString length])];
     
     cell.feedText.attributedText = feedTextAttributedString;
     
-    if([feedClass.targetUrl isEqualToString:@""]){
+    if ([feedClass.targetUrl isEqualToString:@""]){
         cell.feedText.textColor = [UIColor lightGrayColor];
     }
+    else if ([feedClass.sender isEqualToString:GetUserName]) {
+        cell.feedText.font = [UIFont boldSystemFontOfSize:12];
+    }
+    
     [cell.userProfilePicture loadImageFromURL:feedClass.senderProfilePicture withTempImage:@"avatar_icon"];
     cell.userProfilePicture.layer.cornerRadius = cell.userProfilePicture.frame.size.width / 2;
     cell.userProfilePicture.layer.masksToBounds = YES;

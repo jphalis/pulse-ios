@@ -102,7 +102,7 @@ enum{
             _openPartyIcon.layer.borderWidth = 0;
             _requestPartyIcon.layer.borderWidth = 0;
             
-            _visibilityLabel.text = @"Anyone can see your post, but time and location will be withheld until you approve a request.";
+            _visibilityLabel.text = @"Your post will not be visible to anyone that you do not invite.";
 
             userInviteViewController.view.frame = CGRectMake(0, 300, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height);
             NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"user__full_name" ascending:YES];
