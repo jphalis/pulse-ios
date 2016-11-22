@@ -112,7 +112,13 @@
     
     SCLAlertView *alert = [[SCLAlertView alloc] init];
     
-    NSString *full_name = [NSString stringWithFormat:@"%@ %@", _first_name, _last_name];
+    NSString *full_name;
+    
+    if ([_last_name isEqualToString:@""]) {
+        full_name = [NSString stringWithFormat:@"%@", _first_name];
+    } else {
+        full_name = [NSString stringWithFormat:@"%@ %@", _first_name, _last_name];
+    }
     
     NSString *params = [NSString stringWithFormat:@"{\"full_name\":\"%@\",\"email\":\"%@\",\"password\":\"%@\"}",full_name, _email, _password];
     NSString *postLength = [NSString stringWithFormat:@"%lu",(unsigned long)[params length]];

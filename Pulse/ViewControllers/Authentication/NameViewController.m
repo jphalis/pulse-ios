@@ -33,6 +33,9 @@
 }
 
 -(void)viewWillAppear:(BOOL)animated{
+    // Checkbox
+    [_companyField addTarget:self action:@selector(toggleButton:) forControlEvents: UIControlEventTouchUpInside];
+    
     [super viewWillAppear:YES];
     
     // Hide navigation bar
@@ -86,6 +89,28 @@
 
 #pragma mark - Functions
 
+- (void)toggleButton:(id)sender
+{
+    UIButton *tappedButton = (UIButton*)sender;
+    
+    if([tappedButton.currentImage isEqual:[UIImage imageNamed:@"unchecked_icon"]]) {
+        [sender setImage:[UIImage imageNamed: @"checked_icon"] forState:UIControlStateNormal];
+        UIColor *color = [UIColor whiteColor];
+        _firstNameField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Company name" attributes:@{NSForegroundColorAttributeName: color}];
+        _lastNameField.hidden = YES;
+        _lastNameBorder.hidden = YES;
+        _nameTitle.text = @"What's your company's name?";
+    }
+    else {
+        [sender setImage:[UIImage imageNamed: @"unchecked_icon"] forState:UIControlStateNormal];
+        UIColor *color = [UIColor whiteColor];
+        _firstNameField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"First name" attributes:@{NSForegroundColorAttributeName: color}];
+        _lastNameField.hidden = NO;
+        _lastNameBorder.hidden = NO;
+        _nameTitle.text = @"What's your name?";
+    }
+}
+
 -(BOOL)validateFields{
     [self.view endEditing:YES];
     
@@ -100,7 +125,7 @@
         }];
         return NO;
     }
-    else if ([_lastNameField.text isEqualToString:@""] || _lastNameField.text == nil){
+    else if (([_lastNameField.text isEqualToString:@""] || _lastNameField.text == nil) && _lastNameField.hidden == NO){
         alert.showAnimationType = SlideInFromLeft;
         alert.hideAnimationType = SlideOutToBottom;
         [alert showNotice:self title:@"Notice" subTitle:EMPTY_NAME closeButtonTitle:@"OK" duration:0.0f];
@@ -155,8 +180,11 @@
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    if (textField.tag == 0){
+    if (textField.tag == 0 && _lastNameField.hidden == NO){
         [_lastNameField becomeFirstResponder];
+    }
+    if (textField.tag == 0 && _lastNameField.hidden == YES){
+        [_firstNameField resignFirstResponder];
     }
     else if(textField.tag == 1){
         [_lastNameField resignFirstResponder];
