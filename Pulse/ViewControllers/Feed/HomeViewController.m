@@ -208,7 +208,15 @@
     NSMutableParagraphStyle *paragraph = [[NSMutableParagraphStyle alloc] init];
     NSMutableAttributedString *feedTextAttributedString = [[NSMutableAttributedString alloc] initWithString:@"{0} {1} {2} {3}" attributes:@{ NSForegroundColorAttributeName: [UIColor blackColor]}];
     
-    NSAttributedString *senderAttributedString = [[NSAttributedString alloc] initWithString:feedClass.sender attributes:@{@"senderTag" : @(YES), NSForegroundColorAttributeName: [UIColor colorWithRed:171/255.0 green:14/255.0 blue:27/255.0 alpha:1.0]}];
+    NSString *senderText;
+    
+    if ([feedClass.sender isEqualToString:GetUserName]) {
+        senderText = @"You";
+    } else {
+        senderText = feedClass.sender;
+    }
+    
+    NSAttributedString *senderAttributedString = [[NSAttributedString alloc] initWithString:senderText attributes:@{@"senderTag" : @(YES), NSForegroundColorAttributeName: [UIColor colorWithRed:171/255.0 green:14/255.0 blue:27/255.0 alpha:1.0]}];
     
     NSRange range = [feedClass.feedText rangeOfString:@" " options:NSBackwardsSearch];
     

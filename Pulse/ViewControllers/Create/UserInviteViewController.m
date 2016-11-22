@@ -16,6 +16,7 @@
     AppDelegate *appDelegate;
     InviteCreateViewController *inviteCreateViewController;
     NSMutableArray *myArray;
+    NSMutableArray *selectedRows;
 }
 
 @end
@@ -45,6 +46,7 @@
     self.navigationController.navigationBarHidden = YES;
     
     myArray = [[NSMutableArray alloc] init];
+    selectedRows = [[NSMutableArray alloc] init];
     
     [_tblVW reloadData];
 }
@@ -73,7 +75,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [arrDetails count];    //count number of row from counting array hear catagory is An Array
+    return [arrDetails count];
 }
 
 
@@ -92,11 +94,13 @@
     bottomBorder.backgroundColor = [UIColor colorWithRed:(234/255.0) green:(234/255.0) blue:(234/255.0) alpha:1.0];
     [cell.contentView addSubview:bottomBorder];
     
-    if ([myArray indexOfObject:cell.textLabel.text] != NSNotFound) {
-        cell.accessoryType = UITableViewCellAccessoryCheckmark;
-    } else{
-        cell.accessoryType = UITableViewCellAccessoryNone;
-    }
+//    if ([myArray indexOfObject:cell.textLabel.text] != NSNotFound) {
+//        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+//    } else{
+//        cell.accessoryType = UITableViewCellAccessoryNone;
+//    }
+
+    cell.accessoryType = ([self isRowSelectedOnTableView:tableView atIndexPath:indexPath]) ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
     
     return cell;
 }
@@ -106,18 +110,16 @@
     NSMutableDictionary *dictUser = [arrDetails objectAtIndex:indexPath.row];
     UITableViewCell *newCell = [tableView cellForRowAtIndexPath:indexPath];
     
-//    if ([myArray containsObject:[NSString stringWithString:newCell.textLabel.text]]) {
-//        newCell.accessoryType = UITableViewCellAccessoryCheckmark;
-//    }
-    
     if (newCell.accessoryType == UITableViewCellAccessoryNone) {
         newCell.accessoryType = UITableViewCellAccessoryCheckmark;
+        [selectedRows addObject:dictUser];
         [myArray addObject:dictUser];
         _editInvitedUsers(myArray.mutableCopy);
     }
     else
     {
         newCell.accessoryType = UITableViewCellAccessoryNone;
+        [selectedRows removeObject:dictUser];
         [myArray removeObject:dictUser];
         _editInvitedUsers(myArray.mutableCopy);
     }
@@ -130,8 +132,33 @@
 
 #pragma mark - Functions
 
+-(BOOL)isRowSelectedOnTableView:(UITableView *)tableView atIndexPath:(NSIndexPath *)indexPath
+{
+    return ([selectedRows containsObject:indexPath]) ? YES : NO;
+}
+
+- (IBAction)onAll:(id)sender
+{
+    [myArray removeAllObjects];
+    
+    NSUInteger numberOfSections = [_tblVW numberOfSections];
+    for (NSUInteger s = 0; s < numberOfSections; ++s) {
+        NSUInteger numberOfRowsInSection = [_tblVW numberOfRowsInSection:s];
+        for (NSUInteger r = 0; r < numberOfRowsInSection; ++r) {
+            NSIndexPath *idxPath = [NSIndexPath indexPathForRow:r inSection:s];
+            [selectedRows addObject:idxPath];
+            NSMutableDictionary *dictUser = [arrDetails objectAtIndex:r];
+            [myArray addObject:dictUser];
+            _editInvitedUsers(myArray.mutableCopy);
+        }
+    }
+    [_tblVW reloadData];
+    
+}
+
 - (IBAction)onDone:(id)sender
 {
     [self.view removeFromSuperview];
 }
+
 @end

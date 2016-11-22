@@ -12,6 +12,7 @@
 
 @property (nonatomic, copy) void (^editInvitedUsers)(NSMutableArray *response);
 
+- (IBAction)onAll:(id)sender;
 - (IBAction)onDone:(id)sender;
 
 @end
