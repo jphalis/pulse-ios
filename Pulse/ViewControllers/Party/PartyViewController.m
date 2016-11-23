@@ -402,8 +402,7 @@
     {
         [_attendBtn setTitle:REQUEST_BTN_TEXT forState:UIControlStateNormal];
     }
-    else
-    {
+    else {
         [_attendBtn setTitle:DEFAULT_BTN_TEXT forState:UIControlStateNormal];
     }   
 }
@@ -415,8 +414,7 @@
     if (_popToRoot) {
         [self.navigationController popToRootViewControllerAnimated:YES];
     }
-    else
-    {
+    else {
         [self.navigationController popViewControllerAnimated:YES];
     }
 }
@@ -428,35 +426,38 @@
                                                     cancelButtonTitle:@"Cancel"
                                                destructiveButtonTitle:@"Report Event"
                                                     otherButtonTitles:@"View Host", nil];
+    
+    if (_partyCreator == GetUserName) {
+        [actionSheet addButtonWithTitle:@"Delete Event"];
+    }
     [actionSheet showInView:self.view];
 }
 
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (buttonIndex == 0)
-    {
+    if (buttonIndex == 0) {
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Are you sure you want to report this event?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
         alert.delegate = self;
         alert.tag = 100;
         [alert show];
     }
-    else if(buttonIndex == 1)
-    {
+    else if (buttonIndex == 1) {
         AccountViewController *accountViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"AccountViewController"];
         accountViewController.userURL = _creatorUrl;
         accountViewController.needBack = YES;
         [self.navigationController pushViewController:accountViewController animated:YES];
     }
-    else if(buttonIndex == 2)
-    {
+    else if (buttonIndex == 2){
 //        NSLog(@"Cancel button clicked");
+    }
+    else if (buttonIndex == 3) {
+        [self deleteEvent];
     }
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (alertView.tag == 100 && buttonIndex == 1 )
-    {
+    if (alertView.tag == 100 && buttonIndex == 1 ) {
         checkNetworkReachability();
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -484,10 +485,36 @@
     }
 }
 
+- (void)deleteEvent {
+    checkNetworkReachability();
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSString *strURL = [NSString stringWithFormat:@"%@", _partyUrl];
+        NSURL *url = [NSURL URLWithString:strURL];
+        NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url];
+        [urlRequest setTimeoutInterval:60];
+        [urlRequest setHTTPMethod:@"DELETE"];
+        NSString *authStr = [NSString stringWithFormat:@"%@:%@", GetUserEmail, GetUserPassword];
+        NSData *plainData = [authStr dataUsingEncoding:NSUTF8StringEncoding];
+        NSString *base64String = [plainData base64EncodedStringWithOptions:0];
+        NSString *authValue = [NSString stringWithFormat:@"Basic %@", base64String];
+        [urlRequest setValue:authValue forHTTPHeaderField:@"Authorization"];
+        [urlRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        
+        [NSURLConnection sendAsynchronousRequest:urlRequest queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error){
+            [self setBusy:NO];
+            [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"Success"
+                                                           description:@"Your event has been deleted"
+                                                                  type:TWMessageBarMessageTypeSuccess
+                                                              duration:3.0];
+            [self.navigationController popViewControllerAnimated:YES];
+        }];
+    });
+}
+
 - (IBAction)onAttend:(id)sender
 {
-    if ([[usersRequested valueForKey:@"user__full_name"] containsObject:GetUserName])
-    {
+    if ([[usersRequested valueForKey:@"user__full_name"] containsObject:GetUserName]) {
         return;
     } else {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -543,13 +570,13 @@
 
 - (IBAction)onRequests:(id)sender
 {
-    if ([_partyCreator isEqualToString:GetUserName])
-    {
+    if ([_partyCreator isEqualToString:GetUserName]) {
         RequestsViewController *requestsViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"RequestsViewController"];
         requestsViewController.arrDetails = usersRequested.mutableCopy;
         requestsViewController.partyId = _partyId;
         [self.navigationController pushViewController:requestsViewController animated:YES];
-    } else {
+    }
+    else {
         SCLAlertView *alert = [[SCLAlertView alloc] init];
         alert.showAnimationType = SlideInFromLeft;
         alert.hideAnimationType = SlideOutToBottom;
@@ -581,20 +608,17 @@
         
         [NSURLConnection sendAsynchronousRequest:urlRequest queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error){
             
-            if ([data length] > 0 && error == nil)
-            {
+            if ([data length] > 0 && error == nil) {
                 NSDictionary *JSONValue = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
                 
-                if (JSONValue != nil)
-                {
+                if (JSONValue != nil) {
                     int likecount = (int)[usersLiked count];
 
-                    if ([[usersLiked valueForKey:@"user__full_name"] containsObject:GetUserName])
-                    {
+                    if ([[usersLiked valueForKey:@"user__full_name"] containsObject:GetUserName]) {
                         for(int i = 0; i < [usersLiked count]; i++){
                             NSMutableDictionary *dict = [usersLiked objectAtIndex:i];
                             
-                            if ([[dict objectForKey:@"user__full_name"]isEqualToString:GetUserName]){
+                            if ([[dict objectForKey:@"user__full_name"]isEqualToString:GetUserName]) {
                                 [usersLiked removeObjectAtIndex:i];
                             }
                         }
@@ -603,8 +627,7 @@
                         _likeCountLabel.textColor = [UIColor colorWithRed:165/255.0 green:169/255.0 blue:171/255.0 alpha:1.0];
                         likecount--;
                     }
-                    else
-                    {
+                    else {
                         NSMutableDictionary *dictUser = [[NSMutableDictionary alloc]init];
                         [dictUser setValue:GetUserName forKey:@"user__full_name"];
                         [usersLiked addObject:dictUser];
@@ -616,8 +639,7 @@
                     _likeCountLabel.text = [NSString stringWithFormat:@"%d", likecount];
                 }
             }
-            else
-            {
+            else {
                 [self showMessage:SERVER_ERROR];
             }
         }];

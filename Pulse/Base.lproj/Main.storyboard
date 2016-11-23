@@ -2661,7 +2661,7 @@ Pull to refresh.</string>
         <!--Navigation Controller-->
         <scene sceneID="GjM-HL-Seg">
             <objects>
-                <navigationController storyboardIdentifier="AuthNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="Jrm-aH-oNe" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="NavigationControllerPulse" automaticallyAdjustsScrollViewInsets="NO" id="Jrm-aH-oNe" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Pfm-Kv-BhO">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
