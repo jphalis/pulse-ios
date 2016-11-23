@@ -96,15 +96,16 @@
     if([tappedButton.currentImage isEqual:[UIImage imageNamed:@"unchecked_icon"]]) {
         [sender setImage:[UIImage imageNamed: @"checked_icon"] forState:UIControlStateNormal];
         UIColor *color = [UIColor whiteColor];
-        _firstNameField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Company name" attributes:@{NSForegroundColorAttributeName: color}];
+        _firstNameField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Group/Organization name" attributes:@{NSForegroundColorAttributeName: color}];
         _lastNameField.hidden = YES;
         _lastNameBorder.hidden = YES;
-        _nameTitle.text = @"What's your company's name?";
+        _nameTitle.text = @"What's your Group/Organization's name?";
     }
     else {
         [sender setImage:[UIImage imageNamed: @"unchecked_icon"] forState:UIControlStateNormal];
         UIColor *color = [UIColor whiteColor];
         _firstNameField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"First name" attributes:@{NSForegroundColorAttributeName: color}];
+        _lastNameField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Last name" attributes:@{NSForegroundColorAttributeName: color}];
         _lastNameField.hidden = NO;
         _lastNameBorder.hidden = NO;
         _nameTitle.text = @"What's your name?";
