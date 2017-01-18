@@ -28,6 +28,7 @@
     NSMutableArray *arrUserImages;
     BOOL viewer_can_see;
     NSString *imagePickerLabel;
+    UIRefreshControl *refreshControl;
 }
 
 @end
@@ -39,7 +40,7 @@
     dictProfileInformation = [[NSMutableDictionary alloc]init];
     arrEventImages = [[NSMutableArray alloc]init];
     arrUserImages = [[NSMutableArray alloc]init];
-    [self getProfileDetails];
+    [self getProfileDetails:NO];
     
     _profilePicture.layer.cornerRadius = _profilePicture.frame.size.width / 2;
     _profilePicture.clipsToBounds = YES;
@@ -50,6 +51,11 @@
     [super viewDidLoad];
     
     appDelegate = [AppDelegate getDelegate];
+    
+    refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self action:@selector(startRefresh)
+             forControlEvents:UIControlEventValueChanged];
+    [_scrollView addSubview:refreshControl];
     
     _collectionVW.alwaysBounceVertical = YES;
     
@@ -139,7 +145,11 @@
 }
 */
 
--(void)getProfileDetails
+-(void)startRefresh{
+    [self getProfileDetails:YES];
+}
+
+-(void)getProfileDetails:(BOOL)refreshed
 {
     checkNetworkReachability();
     [self setBusy:YES];
@@ -204,9 +214,9 @@
                         NSDictionary *dictPhotoDetail = [arrPhotos objectAtIndex:i];
                         
                         if([dictPhotoDetail objectForKey:@"id"] == [NSNull null]){
-                            [dictPhotoInfo setObject:@"" forKey:@"user__id"];
+                            [dictPhotoInfo setObject:@"" forKey:@"photo__id"];
                         } else {
-                            [dictPhotoInfo setValue:[dictPhotoDetail objectForKey:@"id"] forKey:@"user__id"];
+                            [dictPhotoInfo setValue:[dictPhotoDetail objectForKey:@"id"] forKey:@"photo__id"];
                         }
                         
                         if([dictPhotoDetail objectForKey:@"user"] == [NSNull null]){
@@ -228,6 +238,30 @@
                         }
                         
                         [arrUserImages addObject:dictPhotoInfo];
+                    }
+                }
+                
+                // Event images
+                if(arrEventImages.count > 0){
+                    [arrEventImages removeAllObjects];
+                }
+                if([JSONValue objectForKey:@"event_images"] != [NSNull null]){
+                    NSMutableArray *arrEvents = [JSONValue objectForKey:@"event_images"];
+                    
+                    for(int k = 0; k < arrEvents.count; k++){
+                        NSMutableDictionary *dictEventInfo = [[NSMutableDictionary alloc]init];
+                        NSDictionary *dictEventDetail = [arrEvents objectAtIndex:k];
+                        
+                        if ([[dictEventDetail objectForKey:@"image"] isEqualToString:@""]){
+                            [dictEventInfo setObject:@"" forKey:@"event__image"];
+                        } else {
+                            [dictEventInfo setValue:[dictEventDetail objectForKey:@"image"] forKey:@"event__image"];
+                        }
+                        
+                        int partyId = [[dictEventDetail objectForKey:@"id"]intValue];
+                        [dictEventInfo setValue:[NSString stringWithFormat:@"%d", partyId] forKey:@"event__id"];
+                        
+                        [arrEventImages addObject:dictEventInfo];
                     }
                 }
                 
@@ -305,34 +339,10 @@
                         
                         [profileClass.arrfollowings addObject:dictFollowerInfo];
                     }
-                    
-                    // Event images
-                    if(arrEventImages.count > 0){
-                        [arrEventImages removeAllObjects];
-                    }
-                    if(!([JSONValue objectForKey:@"event_images"] == [NSNull null])){
-                        NSMutableArray *arrEvents = [JSONValue objectForKey:@"event_images"];
-                        
-                        for(int k = 0; k < arrEvents.count; k++){
-                            NSMutableDictionary *dictEventInfo = [[NSMutableDictionary alloc]init];
-                            NSDictionary *dictEventDetail = [arrEvents objectAtIndex:k];
-                            
-                            if ([[dictEventDetail objectForKey:@"image"] isEqualToString:@""]){
-                                [dictEventInfo setObject:@"" forKey:@"event__image"];
-                            } else {
-                                [dictEventInfo setValue:[dictEventDetail objectForKey:@"image"] forKey:@"event__image"];
-                            }
-                            
-                            int partyId = [[dictEventDetail objectForKey:@"id"]intValue];
-                            [dictEventInfo setValue:[NSString stringWithFormat:@"%d", partyId] forKey:@"event__id"];
-                            
-                            [arrEventImages addObject:dictEventInfo];
-                        }
-                    }
                 }
                 
                 [dictProfileInformation setObject:profileClass forKey:@"ProfileInfo"];
-                [self showProfileInfo];
+                [self showProfileInfo:refreshed];
             }
         } else {
             showServerError();
@@ -341,7 +351,7 @@
     }];
 }
 
--(void)showProfileInfo
+-(void)showProfileInfo:(BOOL)refreshed
 {
     ProfileClass *profileClass = [dictProfileInformation objectForKey:@"ProfileInfo"];
     _profileName.text = profileClass.userName;
@@ -376,15 +386,17 @@
         [_followBtn setImage:[UIImage imageNamed:@"checkmark_icon"] forState:UIControlStateNormal];
     }
     
-    [_userImagesBtn setTitleColor:[UIColor colorWithRed:(171/255.0) green:(14/255.0) blue:(27/255.0) alpha:1.0] forState:UIControlStateNormal];
-    CALayer *border = [CALayer layer];
-    border.backgroundColor = [[UIColor colorWithRed:(171/255.0) green:(14/255.0) blue:(27/255.0) alpha:1.0] CGColor];
-    border.frame = CGRectMake(0, 30, _userImagesBtn.frame.size.width, 2);
-    [_userImagesBtn.layer addSublayer:border];
-    
-    CALayer *border2 = [CALayer layer];
-    border2.frame = CGRectMake(0, 0, 0, 0);
-    [_eventImagesBtn.layer addSublayer:border2];
+    if(refreshed == NO){
+        [_userImagesBtn setTitleColor:[UIColor colorWithRed:(171/255.0) green:(14/255.0) blue:(27/255.0) alpha:1.0] forState:UIControlStateNormal];
+        CALayer *border = [CALayer layer];
+        border.backgroundColor = [[UIColor colorWithRed:(171/255.0) green:(14/255.0) blue:(27/255.0) alpha:1.0] CGColor];
+        border.frame = CGRectMake(0, 30, _userImagesBtn.frame.size.width, 2);
+        [_userImagesBtn.layer addSublayer:border];
+        
+        CALayer *border2 = [CALayer layer];
+        border2.frame = CGRectMake(0, 0, 0, 0);
+        [_eventImagesBtn.layer addSublayer:border2];
+    }
     
     [self arrayWithImages:_imagePager];
     [_imagePager reloadData];
@@ -393,6 +405,7 @@
         _userImageNewBtn.hidden = YES;
     }
 
+    [refreshControl endRefreshing];
     [_collectionVW reloadData];
 }
 
@@ -956,6 +969,58 @@
 - (void)imagePager:(KIImagePager *)imagePager didSelectImageAtIndex:(NSUInteger)index
 {
     // NSLog(@"%s %lu", __PRETTY_FUNCTION__, (unsigned long)index);
+    
+    NSString *photo_id = [[arrUserImages objectAtIndex:index] valueForKey:@"photo__id"];
+    
+    SCLAlertView *alert = [[SCLAlertView alloc] init];
+    
+    [alert addButton:@"Delete" actionBlock:^(void) {
+        checkNetworkReachability();
+        [self.view endEditing:YES];
+        [self setBusy:YES];
+        
+        SCLAlertView *alert2 = [[SCLAlertView alloc] init];
+        
+        NSString *params = [NSString stringWithFormat:@"full_name=%@&email=%@", _profileName.text, GetUserEmail];
+        
+        NSMutableData *bodyData = [[NSMutableData alloc] initWithData:[params dataUsingEncoding:NSUTF8StringEncoding]];
+        NSString *postLength = [NSString stringWithFormat:@"%lu",(unsigned long)[bodyData length]];
+        NSString *urlStr = [NSString stringWithFormat:@"%@%@/", PHOTODELETE, photo_id];
+        NSURL *requestURL = [NSURL URLWithString:urlStr];
+        NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:requestURL];
+        [urlRequest setTimeoutInterval:60];
+        [urlRequest setHTTPMethod:@"DELETE"];
+        NSString *authStr = [NSString stringWithFormat:@"%@:%@", GetUserEmail, GetUserPassword];
+        NSData *plainData = [authStr dataUsingEncoding:NSUTF8StringEncoding];
+        NSString *base64String = [plainData base64EncodedStringWithOptions:0];
+        NSString *authValue = [NSString stringWithFormat:@"Basic %@", base64String];
+        [urlRequest setValue:authValue forHTTPHeaderField:@"Authorization"];
+        [urlRequest setValue:postLength forHTTPHeaderField:@"Content-Length"];
+        [urlRequest setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"content-type"];
+        [urlRequest setValue:@"multipart/form-data" forHTTPHeaderField:@"enctype"];
+        [urlRequest setHTTPBody:bodyData];
+        
+        [NSURLConnection sendAsynchronousRequest:urlRequest queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error){
+            
+            if ([data length] > 0 && error == nil){
+                NSDictionary *JSONValue = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+                
+                if(JSONValue != nil){
+                    alert2.showAnimationType = SlideInFromLeft;
+                    alert2.hideAnimationType = SlideOutToBottom;
+                    [alert2 showNotice:self title:@"Notice" subTitle:@"Your photo has been deleted." closeButtonTitle:@"OK" duration:0.0f];
+                    
+                    [arrUserImages removeObjectAtIndex:index];
+                    [imagePager reloadData];
+                }
+            } else {
+                showServerError();
+            }
+            [self setBusy:NO];
+        }];
+    }];
+    [alert showWarning:self title:@"Delete Photo" subTitle:@"Are you sure you want to delete this photo?" closeButtonTitle:@"Cancel" duration:0.0f];
+    
 }
 
 #pragma mark - CollectionView

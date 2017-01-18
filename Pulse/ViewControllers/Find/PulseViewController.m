@@ -60,6 +60,7 @@
 //        [buttonTop setBackgroundImage:image forState:UIControlStateSelected];
         
         [buttonTop sd_setBackgroundImageWithURL:[NSURL URLWithString:GetUserProPic] forState:UIControlStateNormal];
+        [buttonTop sd_setBackgroundImageWithURL:[NSURL URLWithString:GetUserProPic] forState:UIControlStateSelected];
     } else {
         [buttonTop setBackgroundImage:[UIImage imageNamed:@"avatar_icon"] forState:UIControlStateNormal];
         [buttonTop setBackgroundImage:[UIImage imageNamed:@"avatar_icon"] forState:UIControlStateSelected];

@@ -54,6 +54,7 @@ extern AppDelegate *appDelegate;
 #define FEEDURL           APIURL  "feed/"
 #define PROFILEURL        APIURL  "accounts/"
 #define PHOTOUPLOAD       APIURL  "accounts/photos/create/"
+#define PHOTODELETE       APIURL  "accounts/photos/delete/"
 #define FOLLOWURL         APIURL  "follow/"
 #define BLOCKURL          APIURL  "block/"
 #define NOTIFURL          APIURL  "notifications/"

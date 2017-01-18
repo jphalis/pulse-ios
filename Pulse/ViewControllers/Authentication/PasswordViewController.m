@@ -80,7 +80,7 @@
         signUpViewController.email = _email;
         signUpViewController.first_name = _first_name;
         signUpViewController.last_name = _last_name;
-        signUpViewController.password = [_passwordField.text Trim];
+        signUpViewController.password = _passwordField.text;
         [self.navigationController pushViewController:signUpViewController animated:YES];
     }
 }
@@ -110,7 +110,7 @@
         }];
         return NO;
     }
-    else if (_passwordField.text != _confirmPasswordField.text){
+    else if (!([_passwordField.text isEqualToString:_confirmPasswordField.text])){
         alert.showAnimationType = SlideInFromLeft;
         alert.hideAnimationType = SlideOutToBottom;
         [alert showNotice:self title:@"Notice" subTitle:@"Your passwords do not match." closeButtonTitle:@"OK" duration:0.0f];

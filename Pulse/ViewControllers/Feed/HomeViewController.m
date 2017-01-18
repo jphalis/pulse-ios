@@ -120,9 +120,9 @@
 
             if ([JSONValue isKindOfClass:[NSArray class]]){
                 [self setBusy:NO];
-                
 
                 if ([JSONValue count] > 0){
+                    _lblWaterMark.hidden = YES;
 
                     if (arrFeed.count > 0){
                         [arrFeed removeAllObjects];
@@ -166,20 +166,22 @@
 
                         [arrFeed addObject:feedClass];
                     }
-                    [self showFeed];
+                } else {
+                    _lblWaterMark.hidden = NO;
                 }
             }
         } else {
-            [self setBusy:NO];
             [appDelegate hideHUDForView2:self.view];
             showServerError();
         }
+        [self setBusy:NO];
+        [self showFeed];
     }];
 }
 
 -(void)showFeed{
-    [refreshControl endRefreshing];
     [_tblVW reloadData];
+    [refreshControl endRefreshing];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -206,17 +208,22 @@
     [cell.feedText addGestureRecognizer:tapGesture];
     
     NSMutableParagraphStyle *paragraph = [[NSMutableParagraphStyle alloc] init];
-    NSMutableAttributedString *feedTextAttributedString = [[NSMutableAttributedString alloc] initWithString:@"{0} {1} {2} {3}" attributes:@{ NSForegroundColorAttributeName: [UIColor blackColor]}];
+    NSMutableAttributedString *feedTextAttributedString = [[NSMutableAttributedString alloc] initWithString:@"{0} {1} {2} {3} {4}" attributes:@{ NSForegroundColorAttributeName: [UIColor blackColor]}];
     
     NSString *senderText;
+    NSString *article;
     
     if ([feedClass.sender isEqualToString:GetUserName]) {
         senderText = @"You";
+        article = @"are";
     } else {
         senderText = feedClass.sender;
+        article = @"is";
     }
     
     NSAttributedString *senderAttributedString = [[NSAttributedString alloc] initWithString:senderText attributes:@{@"senderTag" : @(YES), NSForegroundColorAttributeName: [UIColor colorWithRed:171/255.0 green:14/255.0 blue:27/255.0 alpha:1.0]}];
+    
+    NSAttributedString *articleAttributedString = [[NSAttributedString alloc] initWithString:article attributes:@{NSForegroundColorAttributeName: [UIColor blackColor]}];
     
     NSRange range = [feedClass.feedText rangeOfString:@" " options:NSBackwardsSearch];
     
@@ -234,15 +241,19 @@
     
     NSRange range1 = [[feedTextAttributedString string] rangeOfString:@"{1}"];
     if (range1.location != NSNotFound)
-        [feedTextAttributedString replaceCharactersInRange:range1 withAttributedString:textAttributedString];
-
+        [feedTextAttributedString replaceCharactersInRange:range1 withAttributedString:articleAttributedString];
+    
     NSRange range2 = [[feedTextAttributedString string] rangeOfString:@"{2}"];
     if (range2.location != NSNotFound)
-        [feedTextAttributedString replaceCharactersInRange:range2 withAttributedString:eventAttributedString];
+        [feedTextAttributedString replaceCharactersInRange:range2 withAttributedString:textAttributedString];
     
     NSRange range3 = [[feedTextAttributedString string] rangeOfString:@"{3}"];
     if (range3.location != NSNotFound)
-        [feedTextAttributedString replaceCharactersInRange:range3 withAttributedString:extraAttributedString];
+        [feedTextAttributedString replaceCharactersInRange:range3 withAttributedString:eventAttributedString];
+    
+    NSRange range4 = [[feedTextAttributedString string] rangeOfString:@"{4}"];
+    if (range4.location != NSNotFound)
+        [feedTextAttributedString replaceCharactersInRange:range4 withAttributedString:extraAttributedString];
     
     [feedTextAttributedString addAttribute:NSParagraphStyleAttributeName value:paragraph range:NSMakeRange(0, [feedTextAttributedString length])];
     
