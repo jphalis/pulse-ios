@@ -428,7 +428,7 @@
                                                destructiveButtonTitle:@"Report Event"
                                                     otherButtonTitles:@"View Host", nil];
     
-    if (_partyCreator == GetUserName) {
+    if ([_partyCreator isEqualToString:GetUserName]) {
         [actionSheet addButtonWithTitle:@"Delete Event"];
     }
     [actionSheet showInView:self.view];

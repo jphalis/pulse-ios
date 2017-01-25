@@ -93,12 +93,6 @@
     UIView *bottomBorder = [[UIView alloc] initWithFrame:CGRectMake(0, cell.frame.size.height - 1, cell.frame.size.width, 1)];
     bottomBorder.backgroundColor = [UIColor colorWithRed:(234/255.0) green:(234/255.0) blue:(234/255.0) alpha:1.0];
     [cell.contentView addSubview:bottomBorder];
-    
-//    if ([myArray indexOfObject:cell.textLabel.text] != NSNotFound) {
-//        cell.accessoryType = UITableViewCellAccessoryCheckmark;
-//    } else{
-//        cell.accessoryType = UITableViewCellAccessoryNone;
-//    }
 
     cell.accessoryType = ([self isRowSelectedOnTableView:tableView atIndexPath:indexPath]) ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
     

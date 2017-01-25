@@ -183,10 +183,16 @@ didFailAutocompleteWithError:(NSError *)error {
         }];
         return NO;
     }
-    if ([_partyAddressField.text isEqualToString:@""]){
+    else if ([_partyAddressField.text isEqualToString:@""]){
         alert.showAnimationType = SlideInFromLeft;
         alert.hideAnimationType = SlideOutToBottom;
         [alert showNotice:self title:@"Notice" subTitle:EMPTY_PARTY_ADDRESS closeButtonTitle:@"OK" duration:0.0f];
+        return NO;
+    }
+    else if ([_partySize isEqualToString:@""] || _partySize == nil){
+        alert.showAnimationType = SlideInFromLeft;
+        alert.hideAnimationType = SlideOutToBottom;
+        [alert showNotice:self title:@"Notice" subTitle:EMPTY_PARTY_SIZE closeButtonTitle:@"OK" duration:0.0f];
         return NO;
     }
     return YES;
@@ -240,41 +246,39 @@ didFailAutocompleteWithError:(NSError *)error {
 #pragma mark - Party Size
 
 - (IBAction)onClick:(id)sender {
-    if ([self checkParty] == 1){
-        switch ([sender tag]) {
-            case BTNSMALL:{
-                _smallPartyIcon.layer.borderWidth = 3;
-                _smallPartyIcon.layer.borderColor = [[UIColor greenColor] CGColor];
-                _smallPartyIcon.layer.cornerRadius = _smallPartyIcon.frame.size.width / 2;
-                _partySize = @"1-25";
-                
-                _mediumPartyIcon.layer.borderWidth = 0;
-                _largePartyIcon.layer.borderWidth = 0;
-                break;
-            }
-            case BTNMED:{
-                _mediumPartyIcon.layer.borderWidth = 3;
-                _mediumPartyIcon.layer.borderColor = [[UIColor greenColor] CGColor];
-                _mediumPartyIcon.layer.cornerRadius = _mediumPartyIcon.frame.size.width / 2;
-                _partySize = @"25-100";
-                
-                _smallPartyIcon.layer.borderWidth = 0;
-                _largePartyIcon.layer.borderWidth = 0;
-                break;
-            }
-            case BTNLARGE:{
-                _largePartyIcon.layer.borderWidth = 3;
-                _largePartyIcon.layer.borderColor = [[UIColor greenColor] CGColor];
-                _largePartyIcon.layer.cornerRadius = _largePartyIcon.frame.size.width / 2;
-                _partySize = @"100+";
-                
-                _smallPartyIcon.layer.borderWidth = 0;
-                _mediumPartyIcon.layer.borderWidth = 0;
-                break;
-            }
-            default: {
-                break;
-            }
+    switch ([sender tag]) {
+        case BTNSMALL:{
+            _smallPartyIcon.layer.borderWidth = 3;
+            _smallPartyIcon.layer.borderColor = [[UIColor greenColor] CGColor];
+            _smallPartyIcon.layer.cornerRadius = _smallPartyIcon.frame.size.width / 2;
+            _partySize = @"1-25";
+            
+            _mediumPartyIcon.layer.borderWidth = 0;
+            _largePartyIcon.layer.borderWidth = 0;
+            break;
+        }
+        case BTNMED:{
+            _mediumPartyIcon.layer.borderWidth = 3;
+            _mediumPartyIcon.layer.borderColor = [[UIColor greenColor] CGColor];
+            _mediumPartyIcon.layer.cornerRadius = _mediumPartyIcon.frame.size.width / 2;
+            _partySize = @"25-100";
+            
+            _smallPartyIcon.layer.borderWidth = 0;
+            _largePartyIcon.layer.borderWidth = 0;
+            break;
+        }
+        case BTNLARGE:{
+            _largePartyIcon.layer.borderWidth = 3;
+            _largePartyIcon.layer.borderColor = [[UIColor greenColor] CGColor];
+            _largePartyIcon.layer.cornerRadius = _largePartyIcon.frame.size.width / 2;
+            _partySize = @"100+";
+            
+            _smallPartyIcon.layer.borderWidth = 0;
+            _mediumPartyIcon.layer.borderWidth = 0;
+            break;
+        }
+        default: {
+            break;
         }
     }
 }

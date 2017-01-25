@@ -42,8 +42,9 @@
 #define CHANGE_PASS_MISMATCH @"Incorrect old password."
 
 // Event
-#define EMPTY_PARTY_NAME @"Please enter a name for this party first."
-#define EMPTY_PARTY_ADDRESS @"Please enter the address for the party."
+#define EMPTY_PARTY_NAME @"Please enter a name for this event first."
+#define EMPTY_PARTY_ADDRESS @"Please enter the address for the event."
+#define EMPTY_PARTY_SIZE @"Please select the size of the event."
 #define EMPTY_MONTH @"Please enter the starting month."
 #define EMPTY_DAY @"Please enter the starting day."
 #define EMPTY_START_TIME @"Please enter the start time."

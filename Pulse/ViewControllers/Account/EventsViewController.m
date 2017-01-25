@@ -133,6 +133,7 @@
                     PartyClass *partyClass = [[PartyClass alloc]init];
                     int partyId = [[[arrPartyResult objectAtIndex:i]valueForKey:@"id"]intValue];
                     partyClass.partyId = [NSString stringWithFormat:@"%d", partyId];
+                    partyClass.partyUrl = [[arrPartyResult objectAtIndex:i]valueForKey:@"party_url"];
                     partyClass.partyCreator = [[arrPartyResult objectAtIndex:i]valueForKey:@"user"];
                     partyClass.partyType = [[arrPartyResult objectAtIndex:i]valueForKey:@"party_type"];
                     partyClass.partyInvite = [[arrPartyResult objectAtIndex:i]valueForKey:@"invite_type"];
@@ -350,6 +351,7 @@
     PartyClass *partyClass = [arrParties objectAtIndex:indexPath.row];
     
     partyViewController.partyId = partyClass.partyId;
+    partyViewController.partyUrl = partyClass.partyUrl;
     partyViewController.partyCreator = partyClass.partyCreator;
     partyViewController.partyInvite = partyClass.partyInvite;
     partyViewController.partyType = partyClass.partyType;
