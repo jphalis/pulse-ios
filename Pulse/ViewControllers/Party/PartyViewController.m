@@ -16,7 +16,7 @@
 #import "UIViewControllerAdditions.h"
 
 
-#define DEFAULT_BTN_TEXT @"Let's go!"
+#define DEFAULT_BTN_TEXT @"Will you be there?"
 #define ATTENDING_BTN_TEXT @"Going!"
 #define REQUEST_BTN_TEXT @"Request invite!"
 #define REQUESTED_BTN_TEXT @"Requested"
@@ -374,6 +374,7 @@
     if ([[usersAttending valueForKey:@"user__full_name"] containsObject:GetUserName])
     {
         [_attendBtn setTitle:ATTENDING_BTN_TEXT forState:UIControlStateNormal];
+        _attendBtn.backgroundColor = [UIColor colorWithRed:59/255.0 green:199/255.0 blue:114/255.0 alpha:1.0];
     }
     // party is invite only and viewing user is not on list
     else if ([_partyInvite isEqualToString:@"Invite only"] &&
@@ -541,6 +542,7 @@
                         if ([_attendBtn.titleLabel.text isEqual:DEFAULT_BTN_TEXT])
                         {
                             [_attendBtn setTitle:ATTENDING_BTN_TEXT forState:UIControlStateNormal];
+                            _attendBtn.backgroundColor = [UIColor colorWithRed:59/255.0 green:199/255.0 blue:114/255.0 alpha:1.0];
                         }
                         else if ([_attendBtn.titleLabel.text isEqual:REQUEST_BTN_TEXT])
                         {
@@ -555,6 +557,7 @@
                         else
                         {
                             [_attendBtn setTitle:DEFAULT_BTN_TEXT forState:UIControlStateNormal];
+                            _attendBtn.backgroundColor = [UIColor colorWithRed:244/255.0 green:72/255.0 blue:73/255.0 alpha:1.0];
                         }
                     }
                 }

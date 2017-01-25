@@ -302,19 +302,19 @@
         if ([partyClass.partyLatitude isEqual:[NSNull null]] || [partyClass.partyLongitude isEqual:[NSNull null]]){
             // NSLog(@"Empty coordinates");
         } else {
-            NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
-            f.numberStyle = NSNumberFormatterDecimalStyle;
-            NSNumber *lat = [f numberFromString:partyClass.partyLatitude];
-            NSNumber *lon = [f numberFromString:partyClass.partyLongitude];
+            double lat = [partyClass.partyLatitude doubleValue];
+            double lon = [partyClass.partyLongitude doubleValue];
             
             CLLocation *currentLocation = [[CLLocation alloc]initWithLatitude:locationManager.location.coordinate.latitude longitude:locationManager.location.coordinate.longitude];
-            CLLocation *eventLocation = [[CLLocation alloc] initWithLatitude:[lat floatValue] longitude:[lon floatValue]];
+            CLLocation *eventLocation = [[CLLocation alloc] initWithLatitude:lat longitude:lon];
             NSInteger distanceFromCurrentLocation = [eventLocation distanceFromLocation:currentLocation]/1609.344; // meters to miles
 
-            if (distanceFromCurrentLocation <= 10) {
+            if (distanceFromCurrentLocation < 10) {
                 AnnotationClass *event_pin = [[AnnotationClass alloc] init];
-                event_pin.latitude = lat;
-                event_pin.longitude = lon;
+                NSNumber *pin_lat = [NSNumber numberWithDouble:lat];
+                NSNumber *pin_lon = [NSNumber numberWithDouble:lon];
+                event_pin.latitude = pin_lat;
+                event_pin.longitude = pin_lon;
                 event_pin.title = partyClass.partyName;
                 event_pin.annotationUrl = partyClass.partyUrl;
                 [_mapView addAnnotation:event_pin];
@@ -393,8 +393,9 @@
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation {
     // If the annotation is the user location, just return nil.
-    if ([annotation isKindOfClass:[MKUserLocation class]])
+    if ([annotation isKindOfClass:[MKUserLocation class]]){
         return nil;
+    }
     
     // Handle any custom annotations.
     if ([annotation isKindOfClass:[MKPointAnnotation class]]) {
@@ -414,6 +415,7 @@
     }
         return pinView;
     }
+    
     return nil;
 }
 
@@ -427,8 +429,13 @@
 }
 
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKPinAnnotationView *)view {
-    view.pinColor = MKPinAnnotationColorPurple;
-//    NSLog(@"%@", selectedAnnotation.title);
+    id annotation = view.annotation;
+    
+    if(![annotation isKindOfClass:[MKUserLocation class]])
+    {
+        view.pinColor = MKPinAnnotationColorPurple;
+        // NSLog(@"%@", selectedAnnotation.title);
+    }
 }
 
 #pragma mark - Collection View
