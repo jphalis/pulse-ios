@@ -190,7 +190,9 @@
                     profileClass.phoneNumber = @"";
                 } else {
                     profileClass.phoneNumber = [JSONValue objectForKey:@"phone_number"];
-                    SetUserPhone([JSONValue objectForKey:@"phone_number"]);
+                    if (userId == GetUserID) {
+                        SetUserPhone([JSONValue objectForKey:@"phone_number"]);
+                    }
                 }
                 BOOL isPrivate = [[JSONValue objectForKey:@"viewer_can_see"]boolValue];
                 profileClass.isPrivate = isPrivate;
@@ -198,7 +200,9 @@
                     profileClass.userProfilePicture = @"";
                 } else {
                     profileClass.userProfilePicture = [JSONValue objectForKey:@"profile_pic"];
-                    SetUserProPic(profileClass.userProfilePicture);
+                    if (userId == GetUserID) {
+                        SetUserProPic(profileClass.userProfilePicture);
+                    }
                 }
                 
                 // Photos
@@ -401,7 +405,7 @@
     [self arrayWithImages:_imagePager];
     [_imagePager reloadData];
     
-    if (GetUserName != _profileName.text){
+    if (![_profileName.text isEqualToString:GetUserName]){
         _userImageNewBtn.hidden = YES;
     }
 
@@ -476,7 +480,7 @@
 
 - (IBAction)onProfilePictureChange:(id)sender
 {
-    if (_profileName.text == GetUserName){
+    if ([_profileName.text isEqualToString:GetUserName]){
         [self requestAuthorizationWithRedirectionToSettings];
         imagePickerLabel = @"profile_picture";
     }
@@ -934,7 +938,7 @@
         [_eventImagesBtn.layer addSublayer:border2];
     }
     _imagePager.hidden = NO;
-    if (GetUserName == _profileName.text){
+    if ([_profileName.text isEqualToString:GetUserName]){
         _userImageNewBtn.hidden = NO;
     } else {
         _userImageNewBtn.hidden = YES;

@@ -216,7 +216,7 @@
     
     NSString *myUniqueName = [NSString stringWithFormat:@"%@-%lu", @"event", (unsigned long)([[NSDate date] timeIntervalSince1970]*10.0)];
 
-    NSMutableDictionary* _params = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *_params = [[NSMutableDictionary alloc] init];
 
     NSString *serverPartyType;
     if ([_partyType isEqualToString:@"Custom"]){
@@ -335,8 +335,6 @@
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error){
         
         if ([data length] > 0 && error == nil){
-            [self setBusy:NO];
-            
             NSDictionary *JSONValue = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
             
             if([JSONValue isKindOfClass:[NSDictionary class]]){

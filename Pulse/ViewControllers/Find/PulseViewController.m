@@ -53,12 +53,6 @@
     buttonTop.layer.masksToBounds = YES;
     
     if (GetUserProPic){
-//        NSURL *url = [NSURL URLWithString:GetUserProPic];
-//        NSData *data = [NSData dataWithContentsOfURL:url];
-//        UIImage *image = [UIImage imageWithData:data];
-//        [buttonTop setBackgroundImage:image forState:UIControlStateNormal];
-//        [buttonTop setBackgroundImage:image forState:UIControlStateSelected];
-        
         [buttonTop sd_setBackgroundImageWithURL:[NSURL URLWithString:GetUserProPic] forState:UIControlStateNormal];
         [buttonTop sd_setBackgroundImageWithURL:[NSURL URLWithString:GetUserProPic] forState:UIControlStateSelected];
     } else {
