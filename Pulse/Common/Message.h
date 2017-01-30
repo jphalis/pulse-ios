@@ -12,6 +12,7 @@
 #define LOGIN_ERROR  @"Unable to login with provided credentials."
 #define NETWORK_UNAVAILABLE  @"Please check your network connection."
 #define BLOCK_USER @"You have blocked that user."
+#define EMPTY_SEARCH @"Please enter text into the search bar."
 
 // Sign in
 #define USER_NOTREGISTERED @"The username or password may be incorrect."

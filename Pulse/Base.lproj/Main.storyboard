@@ -1718,43 +1718,43 @@ Pull to refresh.</string>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="76" sectionHeaderHeight="22" sectionFooterHeight="22" id="RfF-hs-Tw9">
-                                <rect key="frame" x="0.0" y="65" width="375" height="602"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="76" sectionHeaderHeight="22" sectionFooterHeight="22" id="RfF-hs-Tw9">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <inset key="contentInset" minX="0.0" minY="0.0" maxX="0.0" maxY="50"/>
                                 <color key="separatorColor" red="0.91764705879999997" green="0.91764705879999997" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" misplaced="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TableViewCellFeed" rowHeight="76" id="fsi-6q-g3J" customClass="TableViewCellFeed">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TableViewCellFeed" rowHeight="76" id="vwr-qQ-qVX" customClass="TableViewCellFeed">
                                         <rect key="frame" x="0.0" y="22" width="375" height="76"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fsi-6q-g3J" id="XiI-Z4-Mkc">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vwr-qQ-qVX" id="zCI-aG-AzT">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="76"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" id="5Wa-TW-Q2j">
+                                                <view contentMode="scaleToFill" id="H2l-qb-ITq">
                                                     <rect key="frame" x="7" y="4" width="360.5" height="67"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                                     <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avatar_icon" id="xkN-WH-zEf" userLabel="User Profile Picture" customClass="SDIAsyncImageView">
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avatar_icon" id="OyB-3j-PBZ" userLabel="User Profile Picture" customClass="SDIAsyncImageView">
                                                             <rect key="frame" x="14" y="11.5" width="40" height="40.5"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                         </imageView>
-                                                        <textView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" text="Sample Text" selectable="NO" id="Hvx-NF-h6g" userLabel="Feed Text Field">
+                                                        <textView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" text="Sample Text" selectable="NO" id="mTi-z9-EVA" userLabel="Feed Text Field">
                                                             <rect key="frame" x="71" y="8" width="274" height="60"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                         </textView>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="12m" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="cZ0-rL-hqK">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12m" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="rJI-xx-2s3">
                                                             <rect key="frame" x="192" y="3.5" width="169" height="15.5"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="9"/>
-                                                            <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <color key="textColor" red="0.33333333329999998" green="0.33333333329999998" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="WuA-rV-CYc" userLabel="Profile Btn">
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="y7T-iN-ywV" userLabel="Profile Btn">
                                                             <rect key="frame" x="0.0" y="9" width="74.5" height="45"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                                         </button>
@@ -1763,10 +1763,10 @@ Pull to refresh.</string>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="feedText" destination="Hvx-NF-h6g" id="M6S-vM-e8W"/>
-                                            <outlet property="profileBtn" destination="WuA-rV-CYc" id="9ND-HG-uCb"/>
-                                            <outlet property="timeLabel" destination="cZ0-rL-hqK" id="CwZ-Jj-jTO"/>
-                                            <outlet property="userProfilePicture" destination="xkN-WH-zEf" id="vhL-eQ-uPV"/>
+                                            <outlet property="feedText" destination="mTi-z9-EVA" id="9kT-sN-0r7"/>
+                                            <outlet property="profileBtn" destination="y7T-iN-ywV" id="KgB-Mm-a8h"/>
+                                            <outlet property="timeLabel" destination="rJI-xx-2s3" id="HKb-Bw-qKl"/>
+                                            <outlet property="userProfilePicture" destination="OyB-3j-PBZ" id="sKg-pk-29W"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -1776,7 +1776,7 @@ Pull to refresh.</string>
                                 </connections>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No new activity" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="eRE-mo-a5a">
-                                <rect key="frame" x="0.0" y="307" width="375" height="51.5"/>
+                                <rect key="frame" x="0.0" y="307" width="375" height="52"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <color key="textColor" red="0.66666666669999997" green="0.66666666669999997" blue="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -3165,6 +3165,97 @@ Pull to refresh.</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ere-5K-yrT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1921.5" y="1954"/>
+        </scene>
+        <!--Search Results Table View Controller-->
+        <scene sceneID="Sgo-cb-GnO">
+            <objects>
+                <viewController storyboardIdentifier="SearchResultsTableViewController" id="RQB-i2-TnR" customClass="SearchResultsTableViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="b29-OB-WLm">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="65" sectionHeaderHeight="22" sectionFooterHeight="22" id="OgR-Ot-Sdw">
+                                <rect key="frame" x="0.0" y="44" width="375" height="623"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <inset key="contentInset" minX="0.0" minY="0.0" maxX="0.0" maxY="50"/>
+                                <color key="separatorColor" red="0.91764705879999997" green="0.91764705879999997" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchResultCell" rowHeight="60" id="ROT-5S-VKX" customClass="TableViewCellSearch">
+                                        <rect key="frame" x="0.0" y="22" width="375" height="60"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ROT-5S-VKX" id="sNR-Kc-Td1">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" misplaced="YES" id="1Uq-OZ-qUp">
+                                                    <rect key="frame" x="7" y="0.0" width="361" height="60"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                                    <subviews>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="avatar_icon" id="sIY-Im-I3a" customClass="SDIAsyncImageView">
+                                                            <rect key="frame" x="8" y="10" width="40" height="39"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                        </imageView>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Full name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="S99-PP-Afb">
+                                                            <rect key="frame" x="59" y="16" width="302" height="29"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="12"/>
+                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </view>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="userFullName" destination="S99-PP-Afb" id="b1a-ID-JP5"/>
+                                            <outlet property="userProfilePic" destination="sIY-Im-I3a" id="Q6i-Ck-laZ"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="RQB-i2-TnR" id="qWu-3l-wcp"/>
+                                    <outlet property="delegate" destination="RQB-i2-TnR" id="tDl-km-16L"/>
+                                </connections>
+                            </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1R1-ke-69e">
+                                <rect key="frame" x="0.0" y="307.5" width="375" height="51.5"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <color key="textColor" red="0.66666666669999997" green="0.66666666669999997" blue="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="aGU-8N-LLd"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <connections>
+                        <outlet property="lblWaterMark" destination="1R1-ke-69e" id="bNg-zK-GUe"/>
+                        <outlet property="tableView" destination="OgR-Ot-Sdw" id="1IC-vs-st2"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Hhz-pb-Ebs" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2864.5" y="-1084.5"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="dSH-Y1-FAB">
+            <objects>
+                <navigationController storyboardIdentifier="TableSearchResultsNavController" automaticallyAdjustsScrollViewInsets="NO" id="k0N-FQ-2Tn" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="HG2-je-IrC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="RQB-i2-TnR" kind="relationship" relationship="rootViewController" id="kpO-kZ-p01"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TUg-XB-HIR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2379" y="-1083"/>
         </scene>
     </scenes>
     <resources>

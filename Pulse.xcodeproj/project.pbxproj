@@ -91,6 +91,8 @@
 		D0559B591DDA4A3500B2C437 /* UIImageView+HighlightedWebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = D0559B471DDA4A3500B2C437 /* UIImageView+HighlightedWebCache.m */; };
 		D0559B5A1DDA4A3500B2C437 /* UIImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = D0559B491DDA4A3500B2C437 /* UIImageView+WebCache.m */; };
 		D0559B5B1DDA4A3500B2C437 /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D0559B4B1DDA4A3500B2C437 /* UIView+WebCacheOperation.m */; };
+		D064E94D1E3A4B08009D2EAF /* TableViewCellSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = D064E94C1E3A4B08009D2EAF /* TableViewCellSearch.m */; };
+		D064E9571E3AF3D6009D2EAF /* SearchResultsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D064E9561E3AF3D6009D2EAF /* SearchResultsTableViewController.m */; };
 		D06B7E0C1D888B7900381C20 /* PartyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D06B7E081D888B7900381C20 /* PartyViewController.m */; };
 		D06B7E0D1D888B7900381C20 /* RequestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D06B7E0A1D888B7900381C20 /* RequestsViewController.m */; };
 		D06ED5131D6CAA23006AE20B /* AsyncImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D06ED50C1D6CAA23006AE20B /* AsyncImageView.m */; };
@@ -308,6 +310,10 @@
 		D0559B491DDA4A3500B2C437 /* UIImageView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+WebCache.m"; sourceTree = "<group>"; };
 		D0559B4A1DDA4A3500B2C437 /* UIView+WebCacheOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WebCacheOperation.h"; sourceTree = "<group>"; };
 		D0559B4B1DDA4A3500B2C437 /* UIView+WebCacheOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WebCacheOperation.m"; sourceTree = "<group>"; };
+		D064E94B1E3A4B08009D2EAF /* TableViewCellSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewCellSearch.h; sourceTree = "<group>"; };
+		D064E94C1E3A4B08009D2EAF /* TableViewCellSearch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewCellSearch.m; sourceTree = "<group>"; };
+		D064E9551E3AF3D6009D2EAF /* SearchResultsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResultsTableViewController.h; sourceTree = "<group>"; };
+		D064E9561E3AF3D6009D2EAF /* SearchResultsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultsTableViewController.m; sourceTree = "<group>"; };
 		D06B7E071D888B7900381C20 /* PartyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PartyViewController.h; sourceTree = "<group>"; };
 		D06B7E081D888B7900381C20 /* PartyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PartyViewController.m; sourceTree = "<group>"; };
 		D06B7E091D888B7900381C20 /* RequestsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestsViewController.h; sourceTree = "<group>"; };
@@ -594,6 +600,8 @@
 				D044E1391D90339200AB81BC /* TableViewCellNotification.m */,
 				D044E13C1D90339200AB81BC /* TableViewCellRequests.h */,
 				D044E13D1D90339200AB81BC /* TableViewCellRequests.m */,
+				D064E94B1E3A4B08009D2EAF /* TableViewCellSearch.h */,
+				D064E94C1E3A4B08009D2EAF /* TableViewCellSearch.m */,
 			);
 			path = CellViews;
 			sourceTree = "<group>";
@@ -795,6 +803,8 @@
 			children = (
 				D09D4BAB1D624E8F00D285F3 /* HomeViewController.h */,
 				D09D4BAC1D624E8F00D285F3 /* HomeViewController.m */,
+				D064E9551E3AF3D6009D2EAF /* SearchResultsTableViewController.h */,
+				D064E9561E3AF3D6009D2EAF /* SearchResultsTableViewController.m */,
 			);
 			path = Feed;
 			sourceTree = "<group>";
@@ -1031,6 +1041,7 @@
 				D0C02F941D56DC100033EF98 /* ProfileClass.m in Sources */,
 				D00ECE401D6E4C5F0067CA9A /* EventsViewController.m in Sources */,
 				D044E1571D90341100AB81BC /* UserInviteViewController.m in Sources */,
+				D064E9571E3AF3D6009D2EAF /* SearchResultsTableViewController.m in Sources */,
 				D04DBD7B1D5178B200BB8172 /* SCLButton.m in Sources */,
 				D0BDD5791DCD214200F360DE /* PhoneViewController.m in Sources */,
 				D04DBD871D5178B200BB8172 /* StringUtil.m in Sources */,
@@ -1049,6 +1060,7 @@
 				D0B0787D1DCBA3170038E587 /* KIImagePager.m in Sources */,
 				D04DBD7D1D5178B200BB8172 /* SCLTimerDisplay.m in Sources */,
 				D06B7E0C1D888B7900381C20 /* PartyViewController.m in Sources */,
+				D064E94D1E3A4B08009D2EAF /* TableViewCellSearch.m in Sources */,
 				D0559B4F1DDA4A3500B2C437 /* SDWebImageCompat.m in Sources */,
 				D0F73CC11D83498800DA8CC1 /* SignInViewController.m in Sources */,
 				D044E1551D90341100AB81BC /* InviteCreateViewController.m in Sources */,

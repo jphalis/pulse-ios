@@ -68,6 +68,7 @@ extern AppDelegate *appDelegate;
 #define PARTYDENYURL      APIURL  "party/deny/"
 #define PARTYLIKEURL      APIURL  "party/like/"
 #define FLAGURL           APIURL  "flag/create/"
+#define SEARCH_URL        APIURL  "search/?q="
 
 #define    UserDefaults       [NSUserDefaults standardUserDefaults]
 

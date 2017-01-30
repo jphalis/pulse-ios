@@ -15,7 +15,9 @@
 #import "GlobalFunctions.h"
 #import "HomeViewController.h"
 #import "PartyViewController.h"
+#import "SCLAlertView.h"
 #import "SDIAsyncImageView.h"
+#import "SearchResultsTableViewController.h"
 #import "TableViewCellFeed.h"
 #import "UIViewControllerAdditions.h"
 
@@ -23,15 +25,24 @@
 @interface HomeViewController (){
     AppDelegate *appDelegate;
     UIRefreshControl *refreshControl;
+    int lastCount;
+    BOOL isFiltered;
+    BOOL isEmpty;
 }
+
+- (IBAction)onSearch:(id)sender;
 
 @end
 
 @implementation HomeViewController
-@synthesize arrFeed;
+@synthesize arrFeed, arrUsers, arrFilteredUsers;
 
 - (void)viewDidLoad {
     arrFeed = [[NSMutableArray alloc]init];
+    arrUsers = [[NSMutableArray alloc]init];
+    arrFilteredUsers = [[NSArray alloc]init];
+    
+    [self initializeSearchController];
 
     [self getFeedDetails];
     
@@ -52,6 +63,8 @@
     barButton.title = @" ";
     self.navigationController.navigationBar.topItem.backBarButtonItem = barButton;
     
+    self.automaticallyAdjustsScrollViewInsets = YES;
+    
     // Show the tabbar
     appDelegate.tabbar.tabView.hidden = NO;
     
@@ -65,6 +78,45 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)initializeSearchController {
+    
+    // There's no transition in our storyboard to our search results tableview or navigation controller
+    // so we'll have to grab it using the instantiateViewControllerWithIdentifier: method
+    UINavigationController *searchResultsController = [[self storyboard] instantiateViewControllerWithIdentifier:@"TableSearchResultsNavController"];
+    
+    // Our instance of UISearchController will use searchResults
+    self.searchController = [[UISearchController alloc] initWithSearchResultsController:searchResultsController];
+    
+    // The searchcontroller's searchResultsUpdater property will contain our tableView.
+    self.searchController.searchResultsUpdater = self;
+    
+    // The searchBar contained in XCode's storyboard is a leftover from UISearchDisplayController.
+    // Don't use this. Instead, we'll create the searchBar programatically.
+    self.searchController.searchBar.frame = CGRectMake(self.searchController.searchBar.frame.origin.x,
+                                                       self.searchController.searchBar.frame.origin.y,
+                                                       self.searchController.searchBar.frame.size.width, 44.0);
+    
+    self.searchController.searchBar.placeholder = @"Search for user";
+    self.searchController.searchBar.barStyle = UIBarStyleBlackTranslucent;
+    self.searchController.searchBar.barTintColor = [UIColor clearColor];
+    
+    //add the UISearchController's search bar to the header of this table
+    _tblVW.tableHeaderView = self.searchController.searchBar;
+    
+    
+    //this view controller can be covered by theUISearchController's view (i.e. search/filter table)
+    self.definesPresentationContext = YES;
+    
+    //this ViewController will be responsible for implementing UISearchResultsDialog protocol method(s) - so handling what happens when user types into the search bar
+    self.searchController.searchResultsUpdater = self;
+    
+    //this ViewController will be responsisble for implementing UISearchBarDelegate protocol methods(s)
+    self.searchController.searchBar.delegate = self;
+    
+    [self.searchController.searchBar sizeToFit];
+    self.searchController.dimsBackgroundDuringPresentation = YES;
 }
 
 /*
@@ -185,18 +237,18 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 1;    //count of section
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [arrFeed count];    //count number of row from counting array hear cataGorry is An Array
+    return [arrFeed count];
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     TableViewCellFeed *cell = [tableView dequeueReusableCellWithIdentifier:@"TableViewCellFeed" forIndexPath:indexPath];
     
-    if(arrFeed.count <= 0){
+    if (arrFeed.count <= 0){
         return cell;
     }
     
@@ -330,6 +382,208 @@
 //        partyViewController.partyUrl = feedClass.targetUrl;
 //        [self.navigationController pushViewController:partyViewController animated:YES];
 //    }
+}
+
+#pragma mark - Search
+
+// Called when the search bar becomes first responder
+-(void)updateSearchResultsForSearchController:(UISearchController *)searchController {
+    searchController.searchResultsController.view.hidden = NO;
+    
+    UINavigationController *navController = (UINavigationController *)self.searchController.searchResultsController;
+    
+    // Present SearchResultsTableViewController as the topViewController
+    SearchResultsTableViewController *vc = (SearchResultsTableViewController *)navController.topViewController;
+    
+    vc.searchController = _searchController;
+    
+    NSString *searchText = self.searchController.searchBar.text;
+    
+    if([searchText length] == 0 || searchText == nil){
+        isFiltered = NO;
+        if(arrUsers.count > 0){
+            [arrUsers removeAllObjects];
+        }
+        isEmpty = NO;
+        vc.lblWaterMark.text = @"Search Pulse";
+        vc.searchResults = nil;
+        [vc.tableView reloadData];
+    } else {
+        if(searchText.length == 1){
+            [self performSelector:@selector(doSearch) withObject:searchText afterDelay:0.3f];
+        } else {
+            [self doFilter];
+        }
+    }
+}
+
+- (IBAction)onSearch:(id)sender {
+    if([self validateFields]){
+        isEmpty = NO;
+        [self doSearch];
+    }
+}
+
+-(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    [searchBar resignFirstResponder];
+}
+
+-(BOOL)validateFields{
+    SCLAlertView *alert = [[SCLAlertView alloc] init];
+    
+    if([_searchController.searchBar.text isEqualToString:@""] || _searchController.searchBar.text == nil){
+        alert.showAnimationType = SlideInFromLeft;
+        alert.hideAnimationType = SlideOutToBottom;
+        [alert showNotice:self title:@"Notice" subTitle:EMPTY_SEARCH closeButtonTitle:@"OK" duration:0.0f];
+        return NO;
+    }
+    return YES;
+}
+
+-(void)doSearch{
+    checkNetworkReachability();
+    
+    if(isEmpty == YES){
+        return;
+    }
+    
+    UINavigationController *navController = (UINavigationController *)self.searchController.searchResultsController;
+    
+    // Present SearchResultsTableViewController as the topViewController
+    SearchResultsTableViewController *vc = (SearchResultsTableViewController *)navController.topViewController;
+    
+    [self setBusy:YES];
+    NSString *urlString = [NSString stringWithFormat:@"%@%@", SEARCH_URL, self.searchController.searchBar.text];
+    NSMutableURLRequest *_request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:urlString]cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
+                                                             timeoutInterval:60];
+    NSString *authStr = [NSString stringWithFormat:@"%@:%@", GetUserEmail, GetUserPassword];
+    NSData *plainData = [authStr dataUsingEncoding:NSUTF8StringEncoding];
+    NSString *base64String = [plainData base64EncodedStringWithOptions:0];
+    NSString *authValue = [NSString stringWithFormat:@"Basic %@", base64String];
+    [_request setValue:authValue forHTTPHeaderField:@"Authorization"];
+    [_request setHTTPMethod:@"GET"];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSURLResponse *response = nil;
+        NSError *error = nil;
+        NSData *data = [NSURLConnection sendSynchronousRequest:_request returningResponse:&response error:&error];
+        
+        if (error == nil && [data length] > 0){
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                
+                NSArray *JSONValue = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+                
+                if([JSONValue isKindOfClass:[NSNull class]]){
+                    [self setBusy:NO];
+                    showServerError();
+                    return;
+                }
+                if([JSONValue isKindOfClass:[NSArray class]]){
+                    
+                    if( arrUsers.count > 0){
+                        [arrUsers removeAllObjects];
+                    }
+                    
+                    if([JSONValue count] > 0){
+                        for (int i = 0; i < JSONValue.count; i++) {
+                            
+                            NSMutableDictionary *dictResult;
+                            dictResult = [JSONValue objectAtIndex:i];
+                            NSMutableDictionary *dictSearch = [[NSMutableDictionary alloc]init];
+                            
+                            if([dictResult objectForKey:@"id"] == [NSNull null]){
+                                [dictSearch setValue:@"" forKey:@"id"];
+                            } else {
+                                [dictSearch setValue:[dictResult objectForKey:@"id"] forKey:@"id"];
+                            }
+                            if([dictResult objectForKey:@"account_url"] == [NSNull null]){
+                                [dictSearch setValue:@"" forKey:@"account_url"];
+                            } else {
+                                [dictSearch setValue:[dictResult objectForKey:@"account_url"] forKey:@"account_url"];
+                            }
+                            if([dictResult objectForKey:@"full_name"] == [NSNull null]){
+                                [dictSearch setValue:@"" forKey:@"full_name"];
+                            } else {
+                                [dictSearch setValue:[dictResult objectForKey:@"full_name"] forKey:@"full_name"];
+                            }
+                            if([dictResult objectForKey:@"profile_pic"] == [NSNull null]){
+                                [dictSearch setValue:@"" forKey:@"profile_pic"];
+                            } else {
+                                [dictSearch setValue:[dictResult objectForKey:@"profile_pic"] forKey:@"profile_pic"];
+                            }
+                            
+                            [arrUsers addObject:dictSearch];
+                        }
+                        
+                        lastCount = (int)[_searchController.searchBar.text length];
+                        vc.lblWaterMark.text = @"";
+                        [self showUsers];
+                    } else {
+                        isEmpty = YES;
+                        vc.lblWaterMark.text = @"0 results found";
+                        [self showUsers];
+                    }
+                } else {
+                    showServerError();
+                }
+            });
+        }
+    });
+    [self setBusy:NO];
+}
+
+-(void)showUsers{
+    UINavigationController *navController = (UINavigationController *)self.searchController.searchResultsController;
+    
+    // Present SearchResultsTableViewController as the topViewController
+    SearchResultsTableViewController *vc = (SearchResultsTableViewController *)navController.topViewController;
+    
+    vc.searchController = _searchController;
+    
+    if([_searchController.searchBar.text length] == 0){
+        if(arrUsers.count > 0){
+            [arrUsers removeAllObjects];
+        }
+        vc.lblWaterMark.text = @"";
+    }
+    [self doFilter];
+}
+
+-(void)doFilter{
+    UINavigationController *navController = (UINavigationController *)self.searchController.searchResultsController;
+
+    // Present SearchResultsTableViewController as the topViewController
+    SearchResultsTableViewController *vc = (SearchResultsTableViewController *)navController.topViewController;
+    
+    vc.searchController = _searchController;
+    
+    isFiltered = YES;
+    arrFilteredUsers = nil;
+    NSString *searchString = _searchController.searchBar.text;
+    
+    if([searchString length] == 0){
+        if(arrUsers.count > 0){
+            [arrUsers removeAllObjects];
+        }
+        isEmpty = NO;
+        vc.lblWaterMark.text = @"";
+        [vc.tableView reloadData];
+        return;
+    }
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"full_name beginswith[c] %@", searchString];
+    arrFilteredUsers = [arrUsers filteredArrayUsingPredicate:predicate];
+
+    // Update searchResults
+    vc.searchResults = arrFilteredUsers;
+    
+    if(arrFilteredUsers.count > 0){
+        vc.lblWaterMark.text = @"";
+    } else {
+        vc.lblWaterMark.text = @"0 results found";
+    }
+
+    [vc.tableView reloadData];
 }
 
 #pragma mark - Functions

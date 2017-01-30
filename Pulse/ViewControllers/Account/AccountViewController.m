@@ -35,8 +35,9 @@
 
 @implementation AccountViewController
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
+    self.definesPresentationContext = YES;
+    
     dictProfileInformation = [[NSMutableDictionary alloc]init];
     arrEventImages = [[NSMutableArray alloc]init];
     arrUserImages = [[NSMutableArray alloc]init];
@@ -62,21 +63,13 @@
     _profileBio.delegate = self;
     _profileName.delegate = self;
     
-    self.automaticallyAdjustsScrollViewInsets = false;
+    self.automaticallyAdjustsScrollViewInsets = NO;
     _scrollView.contentInset = UIEdgeInsetsZero;
     _scrollView.scrollIndicatorInsets = UIEdgeInsetsZero;
     _scrollView.contentOffset = CGPointMake(0.0, 0.0);
 }
 
-//- (void)viewDidLayoutSubviews
-//{
-//    [super viewDidLayoutSubviews];
-//    [_scrollView setContentSize:CGSizeMake(self.view.frame.size.width, 800)];
-//    _scrollView.frame = CGRectMake(0, 0, self.view.frame.size.width, 800);
-//}
-
--(void)viewWillAppear:(BOOL)animated
-{
+-(void)viewWillAppear:(BOOL)animated {
     // Remove label on back button
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] init];
     barButton.title = @" ";
