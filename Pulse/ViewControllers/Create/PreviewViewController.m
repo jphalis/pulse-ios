@@ -266,12 +266,17 @@
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     dateFormatter.dateFormat = @"hh:mm a";
     NSDate *start_time = [dateFormatter dateFromString:_partyStartTime];
-    NSDate *end_time = [dateFormatter dateFromString:_partyEndTime];
+    NSDate *end_time;
+    if(![_partyEndTime isEqualToString:@""]){
+        end_time = [dateFormatter dateFromString:_partyEndTime];
+    }
     dateFormatter.dateFormat = @"HH:mm";
     NSString *start_time_24 = [dateFormatter stringFromDate:start_time];
-    NSString *end_time_24 = [dateFormatter stringFromDate:end_time];
+    if(![_partyEndTime isEqualToString:@""]){
+        NSString *end_time_24 = [dateFormatter stringFromDate:end_time];
+        [_params setObject:end_time_24 forKey:@"end_time"];
+    }
     [_params setObject:start_time_24 forKey:@"start_time"];
-    [_params setObject:end_time_24 forKey:@"end_time"];
 
     [_params setObject:_partyDescription forKey:@"description"];
     

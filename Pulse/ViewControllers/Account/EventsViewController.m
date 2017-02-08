@@ -22,7 +22,7 @@
     NSMutableArray *arrParties;
     PartyViewController *partyViewController;
     UIRefreshControl *refreshControl;
-    NSInteger tapCellIndex;
+//    NSInteger tapCellIndex;
 }
 
 - (IBAction)onBack:(id)sender;
@@ -42,7 +42,7 @@
 
     appDelegate = [AppDelegate getDelegate];
     
-    tapCellIndex = -1;
+//    tapCellIndex = -1;
     
     refreshControl = [[UIRefreshControl alloc] init];
     [refreshControl addTarget:self action:@selector(startRefresh)
@@ -147,7 +147,11 @@
                     int partyYear = [[[arrPartyResult objectAtIndex:i]valueForKey:@"party_year"]intValue];
                     partyClass.partyYear = [NSString stringWithFormat:@"%d", partyYear];
                     partyClass.partyStartTime = [[arrPartyResult objectAtIndex:i]valueForKey:@"start_time"];
-                    partyClass.partyEndTime = [[arrPartyResult objectAtIndex:i]valueForKey:@"end_time"];
+                    if([[arrPartyResult objectAtIndex:i]valueForKey:@"end_time"] != [NSNull null]){
+                        partyClass.partyEndTime = [[arrPartyResult objectAtIndex:i]valueForKey:@"end_time"];
+                    } else {
+                        partyClass.partyEndTime = @"?";
+                    }
                     partyClass.partyDescription = [[arrPartyResult objectAtIndex:i]valueForKey:@"description"];
                     partyClass.partyAttendingCount = [[arrPartyResult objectAtIndex:i]valueForKey:@"attendees_count"];
                     partyClass.partyRequestCount = [[arrPartyResult objectAtIndex:i]valueForKey:@"requesters_count"];
@@ -347,11 +351,11 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     
-    tapCellIndex = indexPath.row;
+//    tapCellIndex = indexPath.row;
     PartyClass *partyClass = [arrParties objectAtIndex:indexPath.row];
     
     partyViewController.partyId = partyClass.partyId;
-    partyViewController.partyUrl = partyClass.partyUrl;
+//    partyViewController.partyUrl = partyClass.partyUrl;
     partyViewController.partyCreator = partyClass.partyCreator;
     partyViewController.partyInvite = partyClass.partyInvite;
     partyViewController.partyType = partyClass.partyType;

@@ -23,8 +23,7 @@
 #define INVITE_ONLY_BTN_TEXT @"Invite only event"
 
 
-@interface PartyViewController ()
-{
+@interface PartyViewController () {
     AppDelegate *appDelegate;
 }
 
@@ -34,11 +33,9 @@
 
 @synthesize usersAttending, usersRequested, usersInvited, usersLiked;
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
 
-    if (_partyUrl)
-    {
+    if (_partyUrl) {
         [self getPartyDetails];
     }
 
@@ -52,8 +49,7 @@
     [self.view addGestureRecognizer:viewRight];
 }
 
--(void)viewWillAppear:(BOOL)animated
-{
+-(void)viewWillAppear:(BOOL)animated {
     // Remove label on back button
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] init];
     barButton.title = @" ";
@@ -64,8 +60,7 @@
     
     [super viewWillAppear:YES];
     
-    if (!_partyUrl)
-    {
+    if (_partyUrl == NULL){
         [self showPartyInfo];
     }
 }
@@ -135,13 +130,14 @@
                 int partyYear = [[JSONValue valueForKey:@"party_year"]intValue];
                 _partyYear = [NSString stringWithFormat:@"%d", partyYear];
                 _partyStartTime = [JSONValue valueForKey:@"start_time"];
-                _partyEndTime = [JSONValue valueForKey:@"end_time"];
-                if ([JSONValue valueForKey:@"image"] == [NSNull null])
-                {
-                    _partyImage = @"";
+                if ([JSONValue valueForKey:@"end_time"] != [NSNull null]){
+                    _partyEndTime = [JSONValue valueForKey:@"end_time"];
+                } else {
+                    _partyEndTime = @"?";
                 }
-                else
-                {
+                if ([JSONValue valueForKey:@"image"] == [NSNull null]) {
+                    _partyImage = @"";
+                } else {
                     _partyImage = [JSONValue valueForKey:@"image"];
                 }
                 _partyDescription = [JSONValue valueForKey:@"description"];
@@ -158,30 +154,21 @@
                         NSMutableDictionary *dictAttendeeInfo = [[NSMutableDictionary alloc]init];
                         NSDictionary *dictUserDetail = [arrAttendee objectAtIndex:i];
                         
-                        if([dictUserDetail objectForKey:@"profile_pic"] == [NSNull null])
-                        {
+                        if([dictUserDetail objectForKey:@"profile_pic"] == [NSNull null]){
                             [dictAttendeeInfo setObject:@"" forKey:@"user__profile_pic"];
-                        }
-                        else
-                        {
+                        } else {
                             [dictAttendeeInfo setValue:[dictUserDetail objectForKey:@"profile_pic"] forKey:@"user__profile_pic"];
                         }
                         
-                        if([dictUserDetail objectForKey:@"id"] == [NSNull null])
-                        {
+                        if([dictUserDetail objectForKey:@"id"] == [NSNull null]) {
                             [dictAttendeeInfo setObject:@"" forKey:@"user__id"];
-                        }
-                        else
-                        {
+                        } else {
                             [dictAttendeeInfo setObject:[NSString stringWithFormat:@"%@",[dictUserDetail objectForKey:@"id"]] forKey:@"user__id"];
                         }
                         
-                        if([dictUserDetail objectForKey:@"full_name"] == [NSNull null])
-                        {
+                        if([dictUserDetail objectForKey:@"full_name"] == [NSNull null]) {
                             [dictAttendeeInfo setObject:@"" forKey:@"user__full_name"];
-                        }
-                        else
-                        {
+                        } else {
                             [dictAttendeeInfo setObject:[dictUserDetail objectForKey:@"full_name"] forKey:@"user__full_name"];
                         }
                         
@@ -199,30 +186,21 @@
                         NSMutableDictionary *dictRequesterInfo = [[NSMutableDictionary alloc]init];
                         NSDictionary *dictUserDetail = [arrRequester objectAtIndex:i];
                         
-                        if([dictUserDetail objectForKey:@"profile_pic"] == [NSNull null])
-                        {
+                        if([dictUserDetail objectForKey:@"profile_pic"] == [NSNull null]) {
                             [dictRequesterInfo setObject:@"" forKey:@"user__profile_pic"];
-                        }
-                        else
-                        {
+                        } else {
                             [dictRequesterInfo setValue:[dictUserDetail objectForKey:@"profile_pic"] forKey:@"user__profile_pic"];
                         }
                         
-                        if([dictUserDetail objectForKey:@"id"] == [NSNull null])
-                        {
+                        if([dictUserDetail objectForKey:@"id"] == [NSNull null]) {
                             [dictRequesterInfo setObject:@"" forKey:@"user__id"];
-                        }
-                        else
-                        {
+                        } else {
                             [dictRequesterInfo setObject:[NSString stringWithFormat:@"%@", [dictUserDetail objectForKey:@"id"]] forKey:@"user__id"];
                         }
                         
-                        if([dictUserDetail objectForKey:@"full_name"] == [NSNull null])
-                        {
+                        if([dictUserDetail objectForKey:@"full_name"] == [NSNull null]) {
                             [dictRequesterInfo setObject:@"" forKey:@"user__full_name"];
-                        }
-                        else
-                        {
+                        } else {
                             [dictRequesterInfo setObject:[dictUserDetail objectForKey:@"full_name"] forKey:@"user__full_name"];
                         }
                         

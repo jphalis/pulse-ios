@@ -179,11 +179,6 @@
         [alert showNotice:self title:@"Notice" subTitle:EMPTY_START_TIME closeButtonTitle:@"OK" duration:0.0f];
         return NO;
     }
-    else if ([_endTimeField.text isEqualToString:@""] || _endTimeField.text == nil){
-        alert.showAnimationType = SlideInFromLeft;
-        alert.hideAnimationType = SlideOutToBottom;
-        [alert showNotice:self title:@"Notice" subTitle:EMPTY_END_TIME closeButtonTitle:@"OK" duration:0.0f];
-    }
     return  YES;
 }
 
