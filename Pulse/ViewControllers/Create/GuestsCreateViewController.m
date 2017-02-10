@@ -62,6 +62,30 @@ enum{
     
     // partyAddressField attributes
     _partyAddressField.layer.cornerRadius = 7;
+    
+    if (!([_usersInvitedCount isEqualToString:@""] || _usersInvitedCount == nil)) {
+        _partySize = @"25-100";
+        _inviteOnlyLabel.hidden = NO;
+        if ([_usersInvitedCount integerValue] == 1) {
+            _inviteOnlyLabel.text = @"Inviting 1 person.";
+        } else {
+            _inviteOnlyLabel.text = [NSString stringWithFormat:@"Inviting %@ people.", _usersInvitedCount];
+        }
+        _smallPartyIcon.hidden = YES;
+        _smallPartyLabel.hidden = YES;
+        _mediumPartyIcon.hidden = YES;
+        _mediumPartyLabel.hidden = YES;
+        _largePartyIcon.hidden = YES;
+        _largePartyLabel.hidden = YES;
+    } else {
+        _inviteOnlyLabel.hidden = YES;
+        _smallPartyIcon.hidden = NO;
+        _smallPartyLabel.hidden = NO;
+        _mediumPartyIcon.hidden = NO;
+        _mediumPartyLabel.hidden = NO;
+        _largePartyIcon.hidden = NO;
+        _largePartyLabel.hidden = NO;
+    }
 }
 
 - (void)didReceiveMemoryWarning {

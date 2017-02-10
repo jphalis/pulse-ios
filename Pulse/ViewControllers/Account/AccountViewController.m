@@ -430,6 +430,7 @@
     
     if (arrUserImages.count > 0){
         _userImageId = [[arrUserImages objectAtIndex:_imagePager.currentPage] valueForKey:@"photo__id"];
+        _userImageDeleteBtn.hidden = NO;
     }
 }
 

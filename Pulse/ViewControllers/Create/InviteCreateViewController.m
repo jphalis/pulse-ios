@@ -195,6 +195,7 @@ enum{
             user_ids = @"";
         } else {
             user_ids = [[_usersInvited valueForKey:@"user__id"] componentsJoinedByString:@","];
+            guestsCreateViewController.usersInvitedCount = [NSString stringWithFormat:@"%lu", (unsigned long)[_usersInvited count]];
         }
         guestsCreateViewController.usersInvited = user_ids;
         [self.navigationController pushViewController:guestsCreateViewController animated:YES];

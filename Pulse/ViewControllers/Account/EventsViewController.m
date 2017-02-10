@@ -355,7 +355,7 @@
     PartyClass *partyClass = [arrParties objectAtIndex:indexPath.row];
     
     partyViewController.partyId = partyClass.partyId;
-//    partyViewController.partyUrl = partyClass.partyUrl;
+    partyViewController.partyUrl = partyClass.partyUrl;
     partyViewController.partyCreator = partyClass.partyCreator;
     partyViewController.partyInvite = partyClass.partyInvite;
     partyViewController.partyType = partyClass.partyType;

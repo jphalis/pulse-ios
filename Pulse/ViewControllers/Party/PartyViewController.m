@@ -34,7 +34,6 @@
 @synthesize usersAttending, usersRequested, usersInvited, usersLiked;
 
 - (void)viewDidLoad {
-
     if (_partyUrl) {
         [self getPartyDetails];
     }
@@ -478,22 +477,29 @@
 
                     if (JSONValue != nil) {
                         
+                        // user not attending and anyone can attend
                         if ([_attendBtn.titleLabel.text isEqual:DEFAULT_BTN_TEXT]) {
                             [_attendBtn setTitle:ATTENDING_BTN_TEXT forState:UIControlStateNormal];
                             _attendBtn.backgroundColor = [UIColor colorWithRed:59/255.0 green:199/255.0 blue:114/255.0 alpha:1.0];
+                            _attendBtn.userInteractionEnabled = NO;
                         }
+                        // user not attending and can request an invite
                         else if ([_attendBtn.titleLabel.text isEqual:REQUEST_BTN_TEXT]) {
                             [_attendBtn setTitle:REQUESTED_BTN_TEXT forState:UIControlStateNormal];
                             _attendBtn.backgroundColor = [UIColor lightGrayColor];
                             _attendBtn.userInteractionEnabled = NO;
+                            _attendBtn.userInteractionEnabled = NO;
                             [usersRequested addObject:GetUserName];
                         }
+                        // user not attending and invite only event
                         else if ([_attendBtn.titleLabel.text isEqual:INVITE_ONLY_BTN_TEXT]) {
+                            _attendBtn.userInteractionEnabled = NO;
                             return;
                         }
                         else {
                             [_attendBtn setTitle:DEFAULT_BTN_TEXT forState:UIControlStateNormal];
                             _attendBtn.backgroundColor = [UIColor colorWithRed:244/255.0 green:72/255.0 blue:73/255.0 alpha:1.0];
+                            _attendBtn.userInteractionEnabled = NO;
                         }
                     }
                 } else {
