@@ -263,15 +263,16 @@
     NSMutableAttributedString *feedTextAttributedString = [[NSMutableAttributedString alloc] initWithString:@"{0} {1} {2} {3} {4}" attributes:@{ NSForegroundColorAttributeName: [UIColor blackColor]}];
     
     NSString *senderText;
-    NSString *article;
+//    NSString *article;
     
     if ([feedClass.sender isEqualToString:GetUserName]) {
         senderText = @"You";
-        article = @"are";
+//        article = @"are";
     } else {
         senderText = feedClass.sender;
-        article = @"is";
+//        article = @"is";
     }
+    NSString *article = @"will be";
     
     NSAttributedString *senderAttributedString = [[NSAttributedString alloc] initWithString:senderText attributes:@{@"senderTag" : @(YES), NSForegroundColorAttributeName: [UIColor colorWithRed:171/255.0 green:14/255.0 blue:27/255.0 alpha:1.0]}];
     

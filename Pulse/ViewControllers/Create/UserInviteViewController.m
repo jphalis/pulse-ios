@@ -11,8 +11,7 @@
 #import "UserInviteViewController.h"
 
 
-@interface UserInviteViewController ()
-{
+@interface UserInviteViewController () {
     AppDelegate *appDelegate;
     InviteCreateViewController *inviteCreateViewController;
     NSMutableArray *myArray;
@@ -25,8 +24,7 @@
 
 @synthesize arrDetails;
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     appDelegate = [AppDelegate getDelegate];
     
     [super viewDidLoad];
@@ -35,8 +33,7 @@
     inviteCreateViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"InviteCreateViewController"];
 }
 
--(void)viewWillAppear:(BOOL)animated
-{
+-(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
     
     // Hide the tabbar
@@ -51,8 +48,7 @@
     [_tblVW reloadData];
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
@@ -67,20 +63,17 @@
 }
 */
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;    //count of section
 }
 
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [arrDetails count];
 }
 
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     TableViewCellInvite *cell = [tableView dequeueReusableCellWithIdentifier:@"InviteCell" forIndexPath:indexPath];
     
     NSMutableDictionary *dictUser = [arrDetails objectAtIndex:indexPath.row];
@@ -99,8 +92,7 @@
     return cell;
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSMutableDictionary *dictUser = [arrDetails objectAtIndex:indexPath.row];
     UITableViewCell *newCell = [tableView cellForRowAtIndexPath:indexPath];
     
@@ -109,9 +101,7 @@
         [selectedRows addObject:dictUser];
         [myArray addObject:dictUser];
         _editInvitedUsers(myArray.mutableCopy);
-    }
-    else
-    {
+    } else {
         newCell.accessoryType = UITableViewCellAccessoryNone;
         [selectedRows removeObject:dictUser];
         [myArray removeObject:dictUser];
@@ -119,25 +109,23 @@
     }
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
-{
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     return 0.01f;
 }
 
 #pragma mark - Functions
 
--(BOOL)isRowSelectedOnTableView:(UITableView *)tableView atIndexPath:(NSIndexPath *)indexPath
-{
+-(BOOL)isRowSelectedOnTableView:(UITableView *)tableView atIndexPath:(NSIndexPath *)indexPath {
     return ([selectedRows containsObject:indexPath]) ? YES : NO;
 }
 
-- (IBAction)onAll:(id)sender
-{
+- (IBAction)onAll:(id)sender {
     [myArray removeAllObjects];
     
     NSUInteger numberOfSections = [_tblVW numberOfSections];
     for (NSUInteger s = 0; s < numberOfSections; ++s) {
         NSUInteger numberOfRowsInSection = [_tblVW numberOfRowsInSection:s];
+        
         for (NSUInteger r = 0; r < numberOfRowsInSection; ++r) {
             NSIndexPath *idxPath = [NSIndexPath indexPathForRow:r inSection:s];
             [selectedRows addObject:idxPath];
@@ -150,8 +138,7 @@
     
 }
 
-- (IBAction)onDone:(id)sender
-{
+- (IBAction)onDone:(id)sender {
     [self.view removeFromSuperview];
 }
 

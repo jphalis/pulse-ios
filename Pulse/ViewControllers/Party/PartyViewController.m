@@ -65,16 +65,14 @@
     }
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Navigation
 
--(void)swipeRight:(UISwipeGestureRecognizer *)gestureRecognizer
-{
+-(void)swipeRight:(UISwipeGestureRecognizer *)gestureRecognizer {
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -90,8 +88,7 @@
 
 #pragma mark - Functions
 
--(void)getPartyDetails
-{
+-(void)getPartyDetails {
     checkNetworkReachability();
 
     NSString *urlString = [NSString stringWithFormat:@"%@", _partyUrl];
@@ -108,12 +105,10 @@
     [NSURLConnection sendAsynchronousRequest:_request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error)
     {
 
-        if ([data length] > 0 && error == nil)
-        {
+        if ([data length] > 0 && error == nil) {
             NSDictionary *JSONValue = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
             
-            if([JSONValue isKindOfClass:[NSDictionary class]])
-            {
+            if([JSONValue isKindOfClass:[NSDictionary class]]) {
                 int partyId = [[JSONValue valueForKey:@"id"]intValue];
                 _partyId = [NSString stringWithFormat:@"%d", partyId];
                 _partyCreator = [JSONValue valueForKey:@"user"];
@@ -144,13 +139,11 @@
                 _partyAttending = [NSString abbreviateNumber:[[JSONValue valueForKey:@"attendees_count"]intValue]];
                 _partyRequests = [NSString abbreviateNumber:[[JSONValue valueForKey:@"requesters_count"]intValue]];
 
-                if (!([JSONValue valueForKey:@"get_attendees_info"] == [NSNull null]))
-                {
+                if (!([JSONValue valueForKey:@"get_attendees_info"] == [NSNull null])) {
                     NSMutableArray *arrAttendee = [JSONValue valueForKey:@"get_attendees_info"];
                     usersAttending = [[NSMutableArray alloc]init];
                     
-                    for(int i = 0; i < arrAttendee.count; i++)
-                    {
+                    for(int i = 0; i < arrAttendee.count; i++) {
                         NSMutableDictionary *dictAttendeeInfo = [[NSMutableDictionary alloc]init];
                         NSDictionary *dictUserDetail = [arrAttendee objectAtIndex:i];
                         
@@ -176,13 +169,11 @@
                     }
                 }
 
-                if (!([JSONValue valueForKey:@"get_requesters_info"] == [NSNull null]))
-                {
+                if (!([JSONValue valueForKey:@"get_requesters_info"] == [NSNull null])) {
                     NSMutableArray *arrRequester = [JSONValue valueForKey:@"get_requesters_info"];
                     usersRequested = [[NSMutableArray alloc]init];
                     
-                    for(int i = 0; i < arrRequester.count; i++)
-                    {
+                    for(int i = 0; i < arrRequester.count; i++) {
                         NSMutableDictionary *dictRequesterInfo = [[NSMutableDictionary alloc]init];
                         NSDictionary *dictUserDetail = [arrRequester objectAtIndex:i];
                         
@@ -208,40 +199,29 @@
                     }
                 }
                 
-                if (!([JSONValue valueForKey:@"get_invited_users_info"] == [NSNull null]))
-                {
+                if (!([JSONValue valueForKey:@"get_invited_users_info"] == [NSNull null])) {
                     NSMutableArray *arrInvited = [JSONValue valueForKey:@"get_invited_users_info"];
                     usersInvited = [[NSMutableArray alloc]init];
                     
-                    for(int i = 0; i < arrInvited.count; i++)
-                    {
+                    for(int i = 0; i < arrInvited.count; i++) {
                         NSMutableDictionary *dictInvitedInfo = [[NSMutableDictionary alloc]init];
                         NSDictionary *dictUserDetail = [arrInvited objectAtIndex:i];
                         
-                        if([dictUserDetail objectForKey:@"profile_pic"] == [NSNull null])
-                        {
+                        if([dictUserDetail objectForKey:@"profile_pic"] == [NSNull null]) {
                             [dictInvitedInfo setObject:@"" forKey:@"user__profile_pic"];
-                        }
-                        else
-                        {
+                        } else {
                             [dictInvitedInfo setValue:[dictUserDetail objectForKey:@"profile_pic"] forKey:@"user__profile_pic"];
                         }
                         
-                        if([dictUserDetail objectForKey:@"id"] == [NSNull null])
-                        {
+                        if([dictUserDetail objectForKey:@"id"] == [NSNull null]) {
                             [dictInvitedInfo setObject:@"" forKey:@"user__id"];
-                        }
-                        else
-                        {
+                        } else {
                             [dictInvitedInfo setObject:[NSString stringWithFormat:@"%@", [dictUserDetail objectForKey:@"id"]] forKey:@"user__id"];
                         }
                         
-                        if([dictUserDetail objectForKey:@"full_name"] == [NSNull null])
-                        {
+                        if([dictUserDetail objectForKey:@"full_name"] == [NSNull null]) {
                             [dictInvitedInfo setObject:@"" forKey:@"user__full_name"];
-                        }
-                        else
-                        {
+                        } else {
                             [dictInvitedInfo setObject:[dictUserDetail objectForKey:@"full_name"] forKey:@"user__full_name"];
                         }
                         
@@ -249,31 +229,23 @@
                     }
                 }
                 
-                if (!([JSONValue valueForKey:@"get_likers_info"] == [NSNull null]))
-                {
+                if (!([JSONValue valueForKey:@"get_likers_info"] == [NSNull null])) {
                     NSMutableArray *arrLiked = [JSONValue valueForKey:@"get_likers_info"];
                     usersLiked = [[NSMutableArray alloc]init];
                     
-                    for(int i = 0; i < arrLiked.count; i++)
-                    {
+                    for(int i = 0; i < arrLiked.count; i++) {
                         NSMutableDictionary *dictLikerInfo = [[NSMutableDictionary alloc]init];
                         NSDictionary *dictUserDetail = [arrLiked objectAtIndex:i];
                         
-                        if([dictUserDetail objectForKey:@"id"] == [NSNull null])
-                        {
+                        if([dictUserDetail objectForKey:@"id"] == [NSNull null]) {
                             [dictLikerInfo setObject:@"" forKey:@"user__id"];
-                        }
-                        else
-                        {
+                        } else {
                             [dictLikerInfo setObject:[NSString stringWithFormat:@"%@", [dictUserDetail objectForKey:@"id"]] forKey:@"user__id"];
                         }
                         
-                        if([dictUserDetail objectForKey:@"full_name"] == [NSNull null])
-                        {
+                        if([dictUserDetail objectForKey:@"full_name"] == [NSNull null]) {
                             [dictLikerInfo setObject:@"" forKey:@"user__full_name"];
-                        }
-                        else
-                        {
+                        } else {
                             [dictLikerInfo setObject:[dictUserDetail objectForKey:@"full_name"] forKey:@"user__full_name"];
                         }
                         
@@ -283,16 +255,13 @@
 
                 [self showPartyInfo];
             }
-        }
-        else
-        {
+        } else {
             showServerError();
         }
     }];
 }
 
--(void)showPartyInfo
-{
+-(void)showPartyInfo {
     if ([_partyType isEqualToString:@"Custom"]) {
         [_partyImageField loadImageFromURL:_partyImage withTempImage:@"custom_icon"];
     }
@@ -341,18 +310,17 @@
     _partyRequestsField.text = _partyRequests;
     _partyDescriptionField.text = _partyDescription;
     
-    if ([[usersLiked valueForKey:@"user__full_name"] containsObject:GetUserName])
-    {
+    if ([[usersLiked valueForKey:@"user__full_name"] containsObject:GetUserName]) {
         [_likeImg setImage:[UIImage imageNamed:@"like_icon_active"]];
         _likeCountLabel.textColor = [UIColor whiteColor];
     }
     _likeCountLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)[usersLiked count]];
     
     // viewing user is attending party
-    if ([[usersAttending valueForKey:@"user__full_name"] containsObject:GetUserName])
-    {
+    if ([[usersAttending valueForKey:@"user__full_name"] containsObject:GetUserName]) {
         [_attendBtn setTitle:ATTENDING_BTN_TEXT forState:UIControlStateNormal];
         _attendBtn.backgroundColor = [UIColor colorWithRed:59/255.0 green:199/255.0 blue:114/255.0 alpha:1.0];
+        _attendBtn.userInteractionEnabled = NO;
     }
     // party is invite only and viewing user is not on list
     else if ([_partyInvite isEqualToString:@"Invite only"] &&
@@ -373,6 +341,7 @@
     {
         [_attendBtn setTitle:REQUESTED_BTN_TEXT forState:UIControlStateNormal];
         _attendBtn.backgroundColor = [UIColor lightGrayColor];
+        _attendBtn.userInteractionEnabled = NO;
     }
     // party requires a request and viewing user has not already requested
     else if ([_partyInvite isEqualToString:@"Request + approval"] &&
@@ -388,32 +357,27 @@
 
 #pragma mark - Button functions
 
-- (IBAction)onBack:(id)sender
-{
+- (IBAction)onBack:(id)sender {
     if (_popToRoot) {
         [self.navigationController popToRootViewControllerAnimated:YES];
-    }
-    else {
+    } else {
         [self.navigationController popViewControllerAnimated:YES];
     }
 }
 
-- (IBAction)onMore:(id)sender
-{
+- (IBAction)onMore:(id)sender {
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
                                                              delegate:self
                                                     cancelButtonTitle:@"Cancel"
                                                destructiveButtonTitle:@"Report Event"
                                                     otherButtonTitles:@"View Host", nil];
-    
     if ([_partyCreator isEqualToString:GetUserName]) {
         [actionSheet addButtonWithTitle:@"Delete Event"];
     }
     [actionSheet showInView:self.view];
 }
 
--(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex == 0) {
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Are you sure you want to report this event?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
         alert.delegate = self;
@@ -434,8 +398,7 @@
     }
 }
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (alertView.tag == 100 && buttonIndex == 1 ) {
         checkNetworkReachability();
         
@@ -491,8 +454,7 @@
     });
 }
 
-- (IBAction)onAttend:(id)sender
-{
+- (IBAction)onAttend:(id)sender {
     if ([[usersRequested valueForKey:@"user__full_name"] containsObject:GetUserName]) {
         return;
     } else {
@@ -511,36 +473,30 @@
             
             [NSURLConnection sendAsynchronousRequest:urlRequest queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error){
                 
-                if ([data length] > 0 && error == nil)
-                {
+                if ([data length] > 0 && error == nil) {
                     NSDictionary *JSONValue = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
 
-                    if (JSONValue != nil)
-                    {
-                        if ([_attendBtn.titleLabel.text isEqual:DEFAULT_BTN_TEXT])
-                        {
+                    if (JSONValue != nil) {
+                        
+                        if ([_attendBtn.titleLabel.text isEqual:DEFAULT_BTN_TEXT]) {
                             [_attendBtn setTitle:ATTENDING_BTN_TEXT forState:UIControlStateNormal];
                             _attendBtn.backgroundColor = [UIColor colorWithRed:59/255.0 green:199/255.0 blue:114/255.0 alpha:1.0];
                         }
-                        else if ([_attendBtn.titleLabel.text isEqual:REQUEST_BTN_TEXT])
-                        {
+                        else if ([_attendBtn.titleLabel.text isEqual:REQUEST_BTN_TEXT]) {
                             [_attendBtn setTitle:REQUESTED_BTN_TEXT forState:UIControlStateNormal];
                             _attendBtn.backgroundColor = [UIColor lightGrayColor];
+                            _attendBtn.userInteractionEnabled = NO;
                             [usersRequested addObject:GetUserName];
                         }
-                        else if ([_attendBtn.titleLabel.text isEqual:INVITE_ONLY_BTN_TEXT])
-                        {
+                        else if ([_attendBtn.titleLabel.text isEqual:INVITE_ONLY_BTN_TEXT]) {
                             return;
                         }
-                        else
-                        {
+                        else {
                             [_attendBtn setTitle:DEFAULT_BTN_TEXT forState:UIControlStateNormal];
                             _attendBtn.backgroundColor = [UIColor colorWithRed:244/255.0 green:72/255.0 blue:73/255.0 alpha:1.0];
                         }
                     }
-                }
-                else
-                {
+                } else {
                     [self showMessage:SERVER_ERROR];
                 }
             }];
@@ -549,15 +505,13 @@
     }
 }
 
-- (IBAction)onRequests:(id)sender
-{
+- (IBAction)onRequests:(id)sender {
     if ([_partyCreator isEqualToString:GetUserName]) {
         RequestsViewController *requestsViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"RequestsViewController"];
         requestsViewController.arrDetails = usersRequested.mutableCopy;
         requestsViewController.partyId = _partyId;
         [self.navigationController pushViewController:requestsViewController animated:YES];
-    }
-    else {
+    } else {
         SCLAlertView *alert = [[SCLAlertView alloc] init];
         alert.showAnimationType = SlideInFromLeft;
         alert.hideAnimationType = SlideOutToBottom;
@@ -565,8 +519,7 @@
     }
 }
 
-- (IBAction)onAttendees:(id)sender
-{
+- (IBAction)onAttendees:(id)sender {
     FollowViewController *followViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"FollowViewController"];
     followViewController.pageTitle = @"Attendees";
     followViewController.arrDetails = usersAttending.mutableCopy;
@@ -619,8 +572,7 @@
                     }
                     _likeCountLabel.text = [NSString stringWithFormat:@"%d", likecount];
                 }
-            }
-            else {
+            } else {
                 [self showMessage:SERVER_ERROR];
             }
         }];

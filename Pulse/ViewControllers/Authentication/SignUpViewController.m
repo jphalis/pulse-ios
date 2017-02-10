@@ -30,7 +30,7 @@
     [self.view addGestureRecognizer:viewRight];
 }
 
--(void)viewWillAppear:(BOOL)animated{
+-(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
     
     acceptedTerms = NO;
@@ -54,7 +54,7 @@
 
 #pragma mark - Navigation
 
--(void)swipeRight:(UISwipeGestureRecognizer *)gestureRecognizer{
+-(void)swipeRight:(UISwipeGestureRecognizer *)gestureRecognizer {
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -73,12 +73,9 @@
 }
 
 - (IBAction)onDone:(id)sender {
-    if (acceptedTerms)
-    {
+    if (acceptedTerms) {
         [self doSubmit];
-    }
-    else
-    {
+    } else {
         SCLAlertView *alert = [[SCLAlertView alloc] init];
         alert.showAnimationType = SlideInFromLeft;
         alert.hideAnimationType = SlideOutToBottom;
@@ -88,20 +85,15 @@
 
 #pragma mark - Functions
 
-- (void)toggleButton:(id)sender
-{
+- (void)toggleButton:(id)sender {
     UIButton *tappedButton = (UIButton*)sender;
 
-    if([tappedButton.currentImage isEqual:[UIImage imageNamed:@"unchecked_icon"]])
-    {
+    if([tappedButton.currentImage isEqual:[UIImage imageNamed:@"unchecked_icon"]]) {
         [sender setImage:[UIImage imageNamed: @"checked_icon"] forState:UIControlStateNormal];
         acceptedTerms = YES;
-    }
-    else
-    {
+    } else {
         [sender setImage:[UIImage imageNamed: @"unchecked_icon"] forState:UIControlStateNormal];
         acceptedTerms = NO;
-        
     }
 }
 
@@ -133,10 +125,12 @@
     
     [NSURLConnection sendAsynchronousRequest:urlRequest queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error){
         
-        if ([data length] > 0 && error == nil){
+        if ([data length] > 0 && error == nil) {
             NSDictionary *JSONValue = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
-            if(JSONValue != nil){
-                if([[JSONValue objectForKey:@"email"] isKindOfClass:[NSString class]]){
+            
+            if(JSONValue != nil) {
+                
+                if([[JSONValue objectForKey:@"email"] isKindOfClass:[NSString class]]) {
                     SetUserID([[JSONValue objectForKey:@"id"]integerValue]);
                     SetUserName(full_name);
                     SetUserEmail(_email);

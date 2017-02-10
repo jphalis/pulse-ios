@@ -167,6 +167,16 @@
 -(BOOL)ValidateFields{
     SCLAlertView *alert = [[SCLAlertView alloc] init];
     
+    NSDate *end_check;
+    NSDate *start_check;
+    
+    if(![_endTimeField.text isEqualToString:@""]){
+        NSDateFormatter *timeFormatter = [[NSDateFormatter alloc] init];
+        [timeFormatter setDateFormat:@"h:mm a"];
+        end_check = [timeFormatter dateFromString:_endTimeField.text];
+        start_check = [timeFormatter dateFromString:_startTimeField.text];
+    }
+    
     if ([_dateField.text isEqualToString:@""] || _dateField.text == nil){
         alert.showAnimationType = SlideInFromLeft;
         alert.hideAnimationType = SlideOutToBottom;
@@ -177,6 +187,13 @@
         alert.showAnimationType = SlideInFromLeft;
         alert.hideAnimationType = SlideOutToBottom;
         [alert showNotice:self title:@"Notice" subTitle:EMPTY_START_TIME closeButtonTitle:@"OK" duration:0.0f];
+        return NO;
+    }
+    else if (end_check != NULL && start_check != NULL && [end_check compare: start_check] == NSOrderedAscending){
+        
+        alert.showAnimationType = SlideInFromLeft;
+        alert.hideAnimationType = SlideOutToBottom;
+        [alert showNotice:self title:@"Notice" subTitle:@"Please choose a time later than the start time." closeButtonTitle:@"OK" duration:0.0f];
         return NO;
     }
     return  YES;

@@ -175,12 +175,12 @@ enum{
 }
 
 - (IBAction)onProceed:(id)sender {
-    if (!_partyInvite){
+    if (!_partyInvite) {
         SCLAlertView *alert = [[SCLAlertView alloc] init];
         alert.showAnimationType = SlideInFromLeft;
         alert.hideAnimationType = SlideOutToBottom;
         [alert showNotice:self title:@"Notice" subTitle:@"Please select an invitation type" closeButtonTitle:@"OK" duration:0.0f];
-    } else if ([_partyInvite isEqualToString:@"16"] && ([_usersInvited count] == 0)){
+    } else if ([_partyInvite isEqualToString:@"16"] && ([_usersInvited count] == 0)) {
         SCLAlertView *alert = [[SCLAlertView alloc] init];
         alert.showAnimationType = SlideInFromLeft;
         alert.hideAnimationType = SlideOutToBottom;
