@@ -94,7 +94,7 @@
     
     cell.userName.text = [dictUser objectForKey:@"user__full_name"];
     
-    if (cell.userName.text == GetUserName){
+    if (cell.userName.text == GetUserName) {
         cell.followBtn.hidden = YES;
     } else {
         if ([[appDelegate.arrFollowing valueForKey:@"user__full_name"] containsObject:[dictUser objectForKey:@"user__full_name"]]){
@@ -120,6 +120,8 @@
     checkNetworkReachability();
     [self setBusy:YES];
     
+    [appDelegate showHUDAddedToView:self.view message:@""];
+    
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[sender tag] inSection:0];
     NSMutableDictionary *dictUser = [arrDetails objectAtIndex:indexPath.row];
 
@@ -135,21 +137,21 @@
     [urlRequest setValue:authValue forHTTPHeaderField:@"Authorization"];
     [urlRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     
-    [NSURLConnection sendAsynchronousRequest:urlRequest queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error){
+    [NSURLConnection sendAsynchronousRequest:urlRequest queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
         
-        if ([data length] > 0 && error == nil){
+        if ([data length] > 0 && error == nil) {
             NSDictionary *JSONValue = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
 
-            if(JSONValue != nil){
+            if (JSONValue != nil) {
 
-                if([[JSONValue allKeys]count] > 1){
+                if ([[JSONValue allKeys]count] > 1) {
 
-                    if ([[appDelegate.arrFollowing valueForKey:@"user__full_name"] containsObject:[dictUser objectForKey:@"user__full_name"]]){
+                    if ([[appDelegate.arrFollowing valueForKey:@"user__full_name"] containsObject:[dictUser objectForKey:@"user__full_name"]]) {
                         UIImage *followImage = [UIImage imageNamed:@"plus_sign_icon.png"];
                         [sender setImage:followImage forState:UIControlStateNormal];
                         
-                        for(int i = 0; i < appDelegate.arrFollowing.count; i++){
-                            if([[[appDelegate.arrFollowing objectAtIndex:i] valueForKey:@"user__full_name"] isEqualToString:[dictUser objectForKey:@"user__full_name"]]){
+                        for (int i = 0; i < appDelegate.arrFollowing.count; i++) {
+                            if ([[[appDelegate.arrFollowing objectAtIndex:i] valueForKey:@"user__full_name"] isEqualToString:[dictUser objectForKey:@"user__full_name"]]) {
                                 [appDelegate.arrFollowing removeObjectAtIndex:i];
                             }
                         }
@@ -181,6 +183,7 @@
         } else {
             showServerError();
         }
+        [appDelegate hideHUDForView2:self.view];
         [self setBusy:NO];
     }];
 }
@@ -193,7 +196,7 @@
     [self.navigationController pushViewController:accountViewController animated:YES];
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     return 0.01f;
 }
 

@@ -88,31 +88,33 @@ enum {
         [_request setValue:authValue forHTTPHeaderField:@"Authorization"];
         [_request setHTTPMethod:@"GET"];
         
-        [NSURLConnection sendAsynchronousRequest:_request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error){
-            if ([data length] > 0 && error == nil){
+        [NSURLConnection sendAsynchronousRequest:_request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+            
+            if ([data length] > 0 && error == nil) {
                 NSDictionary *JSONValue = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
                 
-                if([JSONValue isKindOfClass:[NSDictionary class]]){
+                if ([JSONValue isKindOfClass:[NSDictionary class]]) {
                     
-                    if([JSONValue objectForKey:@"follower"] != [NSNull null]){
+                    if ([JSONValue objectForKey:@"follower"] != [NSNull null]) {
                         NSDictionary *dictFollower = [JSONValue objectForKey:@"follower"];
                         NSMutableArray *arrFollowing = [dictFollower objectForKey:@"get_following_info"];
-                        for(int j = 0; j < arrFollowing.count; j++){
+                        
+                        for (int j = 0; j < arrFollowing.count; j++) {
                             NSMutableDictionary *dictFollowerInfo = [[NSMutableDictionary alloc]init];
                             NSDictionary *dictUserDetail = [arrFollowing objectAtIndex:j];
                             
-                            if([dictUserDetail objectForKey:@"user__profile_pic"] == [NSNull null]){
+                            if ([dictUserDetail objectForKey:@"user__profile_pic"] == [NSNull null]) {
                                 [dictFollowerInfo setObject:@"" forKey:@"user__profile_pic"];
                             } else {
                                 [dictFollowerInfo setValue:[dictUserDetail objectForKey:@"user__profile_pic"] forKey:@"user__profile_pic"];
                             }
-                            if([dictUserDetail objectForKey:@"user__full_name"] == [NSNull null]){
+                            if ([dictUserDetail objectForKey:@"user__full_name"] == [NSNull null]) {
                                 [dictFollowerInfo setObject:@"" forKey:@"user__full_name"];
                             } else {
                                 [dictFollowerInfo setObject:[dictUserDetail objectForKey:@"user__full_name"] forKey:@"user__full_name"];
                             }
                             
-                            if([dictUserDetail objectForKey:@"user__id"] == [NSNull null]){
+                            if ([dictUserDetail objectForKey:@"user__id"] == [NSNull null]) {
                                 [dictFollowerInfo setObject:@"" forKey:@"user__id"];
                             } else {
                                 [dictFollowerInfo setObject:[NSString stringWithFormat:@"%@",[dictUserDetail objectForKey:@"user__id"]] forKey:@"user__id"];
@@ -134,7 +136,7 @@ enum {
     });
 }
 
--(void)LoadTabBar{
+-(void)LoadTabBar {
     HomeViewController *homeViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"HomeViewController"];
     PulseViewController *pulseViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PulseViewController"];
     CreateViewController *createViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"CreateViewController"];
@@ -154,13 +156,13 @@ enum {
     [self PushViewController:navController5];
 }
 
--(void)PushViewController:(UINavigationController *)nvc{
+-(void)PushViewController:(UINavigationController *)nvc {
     nvc.navigationBarHidden = YES;
     [appDelegate.arrViewControllers addObject:nvc];
 }
 
--(void)PresentSpecialViewController:(UIViewController *)vc{
-    if(prevController != nil){
+-(void)PresentSpecialViewController:(UIViewController *)vc {
+    if (prevController != nil) {
         [prevController.view removeFromSuperview];
     }
     specialViewController = vc;
@@ -173,8 +175,8 @@ enum {
     prevController = specialViewController;
 }
 
--(void)presentThisView:(UINavigationController*)naVController{
-    if(prevController != nil){
+-(void)presentThisView:(UINavigationController*)naVController {
+    if (prevController != nil) {
         [prevController.view removeFromSuperview];
     }
 
@@ -204,16 +206,13 @@ enum {
     previousIndex = currentIndex;
     currentIndex = btn.tag;
     
-    if (btn.tag == previousIndex)
-    {
+    if (btn.tag == previousIndex) {
        // return;
-    }
-    else
-    {
-        if (previousIndex != 0){
+    } else {
+        if (previousIndex != 0) {
             UIButton *btnpreviousIndex = (UIButton*)[tabView viewWithTag:previousIndex];
             
-            if (btnpreviousIndex != nil && previousIndex != -1){
+            if (btnpreviousIndex != nil && previousIndex != -1) {
                 [btnpreviousIndex setSelected:NO];
                 NSArray *viewsToRemove = [btnpreviousIndex subviews];
                 [[viewsToRemove lastObject] removeFromSuperview];

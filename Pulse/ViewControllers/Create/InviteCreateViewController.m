@@ -104,7 +104,7 @@ enum{
             
             _visibilityLabel.text = @"Only those who you select will be able to see your post.";
 
-            userInviteViewController.view.frame = CGRectMake(0, 300, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height);
+            userInviteViewController.view.frame = CGRectMake(0, 300, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height - 300);
             NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"user__full_name" ascending:YES];
             NSArray *sortedArray = [appDelegate.arrFollowing sortedArrayUsingDescriptors:@[sort]];
             userInviteViewController.arrDetails = sortedArray;
@@ -113,7 +113,7 @@ enum{
                                   delay:0.1
                                 options: UIViewAnimationOptionCurveEaseIn
                              animations:^{
-                                 userInviteViewController.view.frame = CGRectMake(0, 300, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height);
+                                 userInviteViewController.view.frame = CGRectMake(0, 300, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height - 300);
                              }
                              completion:^(BOOL finished){
                                  // NSLog(@"completed");
