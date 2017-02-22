@@ -18,6 +18,7 @@
 @property (nonatomic, retain) NSString *following_count;
 @property (nonatomic, retain) NSString *bio;
 @property (nonatomic, retain) NSString *phoneNumber;
+@property (nonatomic, retain) NSString *location;
 @property (nonatomic, assign) BOOL isPrivate;
 
 @end

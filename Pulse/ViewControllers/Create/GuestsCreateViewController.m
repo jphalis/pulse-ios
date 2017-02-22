@@ -4,6 +4,8 @@
 //
 
 
+#import <GooglePlaces/GooglePlaces.h>
+
 #import "AppDelegate.h"
 #import "DateCreateViewController.h"
 #import "defs.h"
@@ -11,8 +13,6 @@
 #import "GuestsCreateViewController.h"
 #import "SCLAlertView.h"
 #import "UIViewControllerAdditions.h"
-
-#import <GooglePlaces/GooglePlaces.h>
 
 
 @interface GuestsCreateViewController () <CLLocationManagerDelegate, UIActionSheetDelegate, GMSAutocompleteViewControllerDelegate> {

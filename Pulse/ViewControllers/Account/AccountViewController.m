@@ -63,6 +63,7 @@
     
     _profileBio.delegate = self;
     _profileName.delegate = self;
+    _profileLocation.delegate = self;
     
     self.automaticallyAdjustsScrollViewInsets = NO;
     _scrollView.contentInset = UIEdgeInsetsZero;
@@ -131,6 +132,8 @@
 }
 */
 
+#pragma mark - Functions
+
 -(void)startRefresh{
     [self getProfileDetails:YES];
 }
@@ -138,6 +141,7 @@
 -(void)dismissKeyboard {
     [_profileName resignFirstResponder];
     [_profileBio resignFirstResponder];
+    [_profileLocation resignFirstResponder];
 }
 
 -(void)getProfileDetails:(BOOL)refreshed {
@@ -183,6 +187,11 @@
                     if (userId == GetUserID) {
                         SetUserPhone([JSONValue objectForKey:@"phone_number"]);
                     }
+                }
+                if ([JSONValue objectForKey:@"location"] == [NSNull null]) {
+                    profileClass.location = @"";
+                } else {
+                    profileClass.location = [JSONValue objectForKey:@"location"];
                 }
                 BOOL isPrivate = [[JSONValue objectForKey:@"viewer_can_see"]boolValue];
                 profileClass.isPrivate = isPrivate;
@@ -352,6 +361,7 @@
     _followerCount.text = profileClass.followers_count;
     _followingCount.text = profileClass.following_count;
     _profileBio.text = profileClass.bio;
+    _profileLocation.text = profileClass.location;
     
     [_profilePicture loadImageFromURL:profileClass.userProfilePicture withTempImage:@"avatar_icon"];
     viewer_can_see = profileClass.isPrivate;
@@ -757,9 +767,22 @@
     [UIView commitAnimations];
 }
 
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if (range.length + range.location > textField.text.length) {
+        return NO;
+    }
+    
+    NSUInteger length = [textField.text length] - range.length + [string length];
+    if (textField == _profileName || textField == _profileLocation){
+        return length <= 100;
+    }
+    return YES;
+}
+
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [_profileBio resignFirstResponder];
     [_profileName resignFirstResponder];
+    [_profileLocation resignFirstResponder];
     [self updateBio];
     return YES;
 }
@@ -802,6 +825,7 @@
     if([text isEqualToString:@"\n"]){
         [textView resignFirstResponder];
         [_profileName resignFirstResponder];
+        [_profileLocation resignFirstResponder];
         [self updateBio];
         return NO;
     }
@@ -841,7 +865,7 @@
     SCLAlertView *alert = [[SCLAlertView alloc] init];
     ProfileClass *profileClass = [dictProfileInformation objectForKey:@"ProfileInfo"];
     
-    NSString *params = [NSString stringWithFormat:@"full_name=%@&email=%@&bio=%@", _profileName.text, GetUserEmail, _profileBio.text];
+    NSString *params = [NSString stringWithFormat:@"full_name=%@&email=%@&bio=%@&location=%@", _profileName.text, GetUserEmail, _profileBio.text, _profileLocation.text];
     
     NSMutableData *bodyData = [[NSMutableData alloc] initWithData:[params dataUsingEncoding:NSUTF8StringEncoding]];
     NSString *postLength = [NSString stringWithFormat:@"%lu",(unsigned long)[bodyData length]];
