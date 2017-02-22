@@ -3,12 +3,26 @@
 //  Pulse
 //
 
+#import <QuartzCore/QuartzCore.h>
 
 #import "AppDelegate.h"
 #import "defs.h"
 #import "FindViewController.h"
 #import "PulseViewController.h"
 #import "UIButton+WebCache.h"
+
+#import "AccountViewController.h"
+#import "CollectionViewCellImage.h"
+#import "EventsViewController.h"
+#import "FollowViewController.h"
+#import "GlobalFunctions.h"
+#import "PartyViewController.h"
+#import "PhoneViewController.h"
+#import "ProfileClass.h"
+#import "SCLAlertView.h"
+#import "SettingsViewController.h"
+#import "TWMessageBarManager.h"
+#import "UIViewControllerAdditions.h"
 
 
 @interface PulseViewController (){
@@ -44,6 +58,7 @@
     button = [UIButton buttonWithType:UIButtonTypeCustom];
     button.frame = CGRectMake(0, 0, 100, 100);
     button.center = self.view.center;
+    button.layer.cornerRadius = button.frame.size.width / 2;
     
     buttonTop = [UIButton buttonWithType:UIButtonTypeCustom];
     buttonTop.frame = CGRectMake(0, 0, 100, 100);
@@ -51,13 +66,12 @@
     buttonTop.layer.cornerRadius = buttonTop.frame.size.width / 2;
     buttonTop.clipsToBounds = YES;
     buttonTop.layer.masksToBounds = YES;
+    buttonTop.imageView.contentMode = UIViewContentModeScaleAspectFill;
     
     if (GetUserProPic){
-        [buttonTop sd_setBackgroundImageWithURL:[NSURL URLWithString:GetUserProPic] forState:UIControlStateNormal];
-        [buttonTop sd_setBackgroundImageWithURL:[NSURL URLWithString:GetUserProPic] forState:UIControlStateSelected];
+        [buttonTop sd_setImageWithURL:[NSURL URLWithString:GetUserProPic] forState:UIControlStateNormal];
     } else {
-        [buttonTop setBackgroundImage:[UIImage imageNamed:@"avatar_icon"] forState:UIControlStateNormal];
-        [buttonTop setBackgroundImage:[UIImage imageNamed:@"avatar_icon"] forState:UIControlStateSelected];
+        [buttonTop setImage:[UIImage imageNamed:@"avatar_icon"] forState:UIControlStateNormal];
     }
     
     c = [[UIView alloc] initWithFrame:button.bounds];
@@ -79,6 +93,8 @@
     
     [self.view addSubview:button];
     [self.view addSubview:buttonTop];
+    
+    _descriptionLabel.text = @"Click here to search your area";
 }
 
 - (void)didReceiveMemoryWarning {
@@ -120,12 +136,18 @@
     group.repeatCount = MAXFLOAT;
     [f.layer addAnimation:group forKey:@"g"];
     
+    button.userInteractionEnabled = NO;
+    buttonTop.userInteractionEnabled = NO;
+    
     [self performSelector:@selector(pushView) withObject:nil afterDelay:3.0];
 }
 
 - (void)pushView {
     FindViewController *findViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"FindViewController"];
     [self.navigationController pushViewController:findViewController animated:YES];
+    [button.titleLabel.layer removeAllAnimations];
+    [c.layer removeAllAnimations];
+    [f.layer removeAllAnimations];
 }
 
 @end

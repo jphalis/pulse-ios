@@ -315,8 +315,19 @@
     }
     _likeCountLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)[usersLiked count]];
     
+    NSDateFormatter *dateFormatter2 = [[NSDateFormatter alloc] init];
+    [dateFormatter2 setDateFormat:@"MM-dd-yyyy"];
+    NSDate *partyEndDate = [dateFormatter2 dateFromString:[NSString stringWithFormat:@"%@-%@-%@", _partyMonth, _partyDay, _partyYear]];
+    NSDate *today = [NSDate date];
+    
+    // party has ended
+    if ([partyEndDate compare: today] == NSOrderedAscending) {
+        [_attendBtn setTitle:@"Event expired" forState:UIControlStateNormal];
+        _attendBtn.backgroundColor = [UIColor lightGrayColor];
+        _attendBtn.userInteractionEnabled = NO;
+    }
     // viewing user is attending party
-    if ([[usersAttending valueForKey:@"user__full_name"] containsObject:GetUserName]) {
+    else if ([[usersAttending valueForKey:@"user__full_name"] containsObject:GetUserName]) {
         [_attendBtn setTitle:ATTENDING_BTN_TEXT forState:UIControlStateNormal];
         _attendBtn.backgroundColor = [UIColor colorWithRed:59/255.0 green:199/255.0 blue:114/255.0 alpha:1.0];
         _attendBtn.userInteractionEnabled = NO;
@@ -324,8 +335,7 @@
     // party is invite only and viewing user is not on list
     else if ([_partyInvite isEqualToString:@"Invite only"] &&
              (!([_partyCreator isEqualToString:GetUserName])) &&
-             (!([[usersInvited valueForKey:@"user__full_name"] containsObject:GetUserName])))
-    {
+             (!([[usersInvited valueForKey:@"user__full_name"] containsObject:GetUserName]))) {
         [_attendBtn setTitle:INVITE_ONLY_BTN_TEXT forState:UIControlStateNormal];
         _attendBtn.backgroundColor = [UIColor lightGrayColor];
         _attendBtn.userInteractionEnabled = NO;
@@ -336,8 +346,7 @@
     // party requires a request and viewing user has already requested
     else if ([_partyInvite isEqualToString:@"Request + approval"] &&
              [[usersRequested valueForKey:@"user__full_name"] containsObject:GetUserName] &&
-             (!([_partyCreator isEqualToString:GetUserName])))
-    {
+             (!([_partyCreator isEqualToString:GetUserName]))) {
         [_attendBtn setTitle:REQUESTED_BTN_TEXT forState:UIControlStateNormal];
         _attendBtn.backgroundColor = [UIColor lightGrayColor];
         _attendBtn.userInteractionEnabled = NO;
@@ -345,8 +354,7 @@
     // party requires a request and viewing user has not already requested
     else if ([_partyInvite isEqualToString:@"Request + approval"] &&
              (![[usersRequested valueForKey:@"user__full_name"] containsObject:GetUserName]) &&
-             (!([_partyCreator isEqualToString:GetUserName])))
-    {
+             (!([_partyCreator isEqualToString:GetUserName]))) {
         [_attendBtn setTitle:REQUEST_BTN_TEXT forState:UIControlStateNormal];
     }
     else {

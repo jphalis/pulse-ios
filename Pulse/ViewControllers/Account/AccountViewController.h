@@ -26,7 +26,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *backBtn2;
 @property (weak, nonatomic) IBOutlet UIButton *settingsBtn;
 @property (weak, nonatomic) IBOutlet UIButton *eventsBtn;
-//@property (weak, nonatomic) IBOutlet UITextField *profileBio;
 @property (weak, nonatomic) IBOutlet UITextView *profileBio;
 @property (weak, nonatomic) IBOutlet UIImageView *lockIcon;
 @property (weak, nonatomic) IBOutlet UIButton *userImagesBtn;

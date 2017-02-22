@@ -207,6 +207,7 @@ enum {
     currentIndex = btn.tag;
     
     if (btn.tag == previousIndex) {
+        [prevController popToRootViewControllerAnimated:YES];
        // return;
     } else {
         if (previousIndex != 0) {

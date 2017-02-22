@@ -70,6 +70,7 @@
     _scrollView.contentOffset = CGPointMake(0.0, 0.0);
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
+    [tap setCancelsTouchesInView:NO];
     [self.view addGestureRecognizer:tap];
 }
 
@@ -362,29 +363,21 @@
     
     if ([profileClass.phoneNumber isEqualToString:@""] || profileClass.phoneNumber == NULL) {
         [_verifyBtn setImage:[UIImage imageNamed:@"unverified_icon"] forState:UIControlStateNormal];
-        
-        if ([_profileName.text isEqualToString:GetUserName]) {
-            _verifyLabel.text = @"unverified";
-        }
+        _verifyLabel.text = @"unverified";
     } else {
         [_verifyBtn setImage:[UIImage imageNamed:@"verified_icon"] forState:UIControlStateNormal];
-        
-        if ([_profileName.text isEqualToString:GetUserName]) {
-            _verifyLabel.text = @"verified";
-        }
+        _verifyLabel.text = @"verified";
     }
     
     if (viewer_can_see == 1) {
         _lockIcon.hidden = YES;
         _imagePager.hidden = NO;
         _userImageNewBtn.hidden = NO;
-        _userImageDeleteBtn.hidden = NO;
         _collectionVW.hidden = YES;
     } else {
         _lockIcon.hidden = NO;
         _imagePager.hidden = YES;
         _userImageNewBtn.hidden = YES;
-        _userImageDeleteBtn.hidden = YES;
         _collectionVW.hidden = YES;
     }
     
@@ -422,7 +415,6 @@
         _userImageDeleteBtn.hidden = YES;
         _followBtn.hidden = NO;
         _followLabel.hidden = NO;
-        _verifyLabel.hidden = YES;
     }
 
     [refreshControl endRefreshing];
@@ -430,7 +422,10 @@
     
     if (arrUserImages.count > 0){
         _userImageId = [[arrUserImages objectAtIndex:_imagePager.currentPage] valueForKey:@"photo__id"];
-        _userImageDeleteBtn.hidden = NO;
+        
+        if ([_profileName.text isEqualToString:GetUserName]){
+            _userImageDeleteBtn.hidden = NO;
+        }
     }
 }
 
