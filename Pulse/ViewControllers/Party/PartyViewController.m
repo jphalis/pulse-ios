@@ -34,10 +34,6 @@
 @synthesize usersAttending, usersRequested, usersInvited, usersLiked;
 
 - (void)viewDidLoad {
-    if (_partyUrl) {
-        [self getPartyDetails];
-    }
-
     [super viewDidLoad];
     
     appDelegate = [AppDelegate getDelegate];
@@ -57,11 +53,13 @@
     // Hide the tabbar
     appDelegate.tabbar.tabView.hidden = YES;
     
-    [super viewWillAppear:YES];
-    
-    if (_partyUrl == NULL){
+    if (_partyUrl == NULL || [_partyUrl isEqualToString:@""]) {
         [self showPartyInfo];
+    } else {
+        [self getPartyDetails];
     }
+    
+    [super viewWillAppear:YES];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -315,10 +313,20 @@
     }
     _likeCountLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)[usersLiked count]];
     
+    // compare party end date with today
     NSDateFormatter *dateFormatter2 = [[NSDateFormatter alloc] init];
     [dateFormatter2 setDateFormat:@"MM-dd-yyyy"];
     NSDate *partyEndDate = [dateFormatter2 dateFromString:[NSString stringWithFormat:@"%@-%@-%@", _partyMonth, _partyDay, _partyYear]];
-    NSDate *today = [NSDate date];
+    NSDate *today = [[NSDate alloc] init];
+
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSInteger comps = (NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear);
+    NSDateComponents *date1Components = [calendar components:comps
+                                                    fromDate: partyEndDate];
+    NSDateComponents *date2Components = [calendar components:comps
+                                                    fromDate: today];
+    partyEndDate = [calendar dateFromComponents:date1Components];
+    today = [calendar dateFromComponents:date2Components];
     
     // party has ended
     if ([partyEndDate compare: today] == NSOrderedAscending) {

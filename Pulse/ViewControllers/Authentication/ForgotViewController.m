@@ -98,6 +98,7 @@
                         NSDictionary * JSONValue = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
                         
                         if([JSONValue isKindOfClass:[NSDictionary class]]){
+                            
                             if([[JSONValue objectForKey:@"success"]isEqualToString:@"Password reset e-mail has been sent."]){
                                 [self setBusy:NO];
                                 alert.showAnimationType = SlideInFromLeft;
@@ -106,20 +107,19 @@
                                 [alert alertIsDismissed:^{
                                     [self.navigationController popViewControllerAnimated:YES];
                                 }];
-                            }
-                            else {
+                            } else {
                                 [self setBusy:NO];
                                 alert.showAnimationType = SlideInFromLeft;
                                 alert.hideAnimationType = SlideOutToBottom;
                                 [alert showNotice:self title:@"Notice" subTitle:@"That email does not exist." closeButtonTitle:@"OK" duration:0.0f];
                             }
                             _emailField.text = @"";
-                        }
-                        else {
+                        } else {
+                            [self setBusy:NO];
                             showServerError();
                         }
-                    }
-                    else {
+                    } else {
+                        [self setBusy:NO];
                         showServerError();
                     }
                 });

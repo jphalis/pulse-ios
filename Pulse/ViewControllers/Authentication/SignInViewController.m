@@ -222,8 +222,6 @@
                 if ([data length] > 0 && error == nil){
                     NSDictionary *JSONValue = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
                     
-                    // NSLog(@"%@", JSONValue);
-                    
                     if([[JSONValue objectForKey:@"user_id"]integerValue] > 0){
                         SetUserID([[JSONValue objectForKey:@"user_id"]integerValue]);
                         SetUserName([JSONValue objectForKey:@"user_name"]);

@@ -45,6 +45,7 @@ extern AppDelegate *appDelegate;
 #else
     #define BASEURL       @"https://pulse-ios.herokuapp.com/"
 #endif
+
 #define TERMSURL          BASEURL "terms/"
 #define PRIVACYURL        BASEURL "privacy/"
 #define APIURL            BASEURL "hidden/secure/pulse/api/"

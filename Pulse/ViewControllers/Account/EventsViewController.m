@@ -355,7 +355,7 @@
     PartyClass *partyClass = [arrParties objectAtIndex:indexPath.row];
     
     partyViewController.partyId = partyClass.partyId;
-    partyViewController.partyUrl = partyClass.partyUrl;
+//    partyViewController.partyUrl = partyClass.partyUrl;
     partyViewController.partyCreator = partyClass.partyCreator;
     partyViewController.partyInvite = partyClass.partyInvite;
     partyViewController.partyType = partyClass.partyType;
@@ -364,6 +364,7 @@
     partyViewController.partySize = partyClass.partySize;
     partyViewController.partyMonth = partyClass.partyMonth;
     partyViewController.partyDay = partyClass.partyDay;
+    partyViewController.partyYear = partyClass.partyYear;
     partyViewController.partyStartTime = partyClass.partyStartTime;
     partyViewController.partyEndTime = partyClass.partyEndTime;
     partyViewController.partyImage = partyClass.partyImage;
