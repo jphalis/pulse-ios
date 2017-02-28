@@ -37,50 +37,76 @@ MBProgressHUD *hud;
     // Dark keyboard
     [[UITextField appearance] setKeyboardAppearance:UIKeyboardAppearanceDark];
     
-    // Push notification settings
-//    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
-//        [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge) categories:nil]];
-//        
-//        [[UIApplication sharedApplication] registerForRemoteNotifications];
-//    }
-//    else {
-//        [[UIApplication sharedApplication] registerForRemoteNotificationTypes: (UIRemoteNotificationTypeNewsstandContentAvailability| UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
-//    }
-    
-    // Which types of noticiations are enabled by the user
-    // UIRemoteNotificationType enabledTypes = [[UIApplication sharedApplication] enabledRemoteNotificationTypes];
-    
     _arrFollowing = [[NSMutableArray alloc]init];
     
     [GMSPlacesClient provideAPIKey:@"AIzaSyBkOYnlH6Ht1T4_Z6uM0IF9HCxBSkByNcc"];
     
+    // Push notification settings
+    [self registerForRemoteNotifications];
+    
     return YES;
 }
 
-// Available in iOS8
--(void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings{
-    
+#pragma mark - Remote Notification Delegate // <= iOS 9.x
+
+- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings {
     [application registerForRemoteNotifications];
 }
 
-- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken{
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     
     NSString *uniqueIdentifier = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
-    NSString *tokenAsString = [[[deviceToken description]
-                                stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]]
-                               stringByReplacingOccurrencesOfString:@" " withString:@""];
+    NSString *tokenAsString = [[NSString alloc]initWithFormat:@"%@", [[[deviceToken description] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]] stringByReplacingOccurrencesOfString:@" " withString:@""]];
     
-    [[NSUserDefaults standardUserDefaults] setObject: uniqueIdentifier forKey:@"deviceUDID"];
-    [[NSUserDefaults standardUserDefaults] setObject: tokenAsString forKey:@"deviceToken"];
+//    NSLog(@"udid: %@", uniqueIdentifier);
+//    NSLog(@"device token: %@", tokenAsString);
+    
+    [[NSUserDefaults standardUserDefaults] setObject:uniqueIdentifier forKey:@"deviceUDID"];
+    [[NSUserDefaults standardUserDefaults] setObject:tokenAsString forKey:@"deviceToken"];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
-    // Handle your RemoteNotification
+-(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+//    NSLog(@"Push Notification Information : %@", userInfo);
 }
 
-- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error{
-    // NSLog(@"Error: %@", error);
+-(void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+//    NSLog(@"%@ = %@", NSStringFromSelector(_cmd), error);
+//    NSLog(@"Error = %@", error);
+}
+
+#pragma mark - UNUserNotificationCenter Delegate // >= iOS 10
+
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions options))completionHandler {
+    
+//    NSLog(@"User Info = %@", notification.request.content.userInfo);
+    completionHandler(UNNotificationPresentationOptionAlert | UNNotificationPresentationOptionBadge | UNNotificationPresentationOptionSound);
+}
+
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void(^)())completionHandler {
+    
+//    NSLog(@"User Info 2 = %@", response.notification.request.content.userInfo);
+    completionHandler();
+}
+
+#pragma mark - Class Methods
+
+/* Notification Registration */
+- (void)registerForRemoteNotifications {
+    if (SYSTEM_VERSION_GRATERTHAN_OR_EQUALTO(@"10.0")) {
+        UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+        center.delegate = self;
+        [center requestAuthorizationWithOptions:(UNAuthorizationOptionSound | UNAuthorizationOptionAlert | UNAuthorizationOptionBadge) completionHandler:^(BOOL granted, NSError * _Nullable error){
+            
+            if ( !error ){
+                [[UIApplication sharedApplication] registerForRemoteNotifications];
+            }
+        }];
+    }
+    else {
+        [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge) categories:nil]];
+        [[UIApplication sharedApplication] registerForRemoteNotifications];
+    }
 }
 
 #pragma mark - Static Methods

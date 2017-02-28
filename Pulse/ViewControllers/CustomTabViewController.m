@@ -67,6 +67,10 @@ enum {
     
     [self getArrFollowing];
     
+    #if !(DEBUG)
+        [self addDeviceToken];
+    #endif
+    
 //    if ([timer isValid]) {
 //        [timer invalidate], timer = nil;
 //    }
@@ -132,6 +136,52 @@ enum {
                     }
                 }
             }
+        }];
+    });
+}
+
+-(void)addDeviceToken{
+    [self setBusy:YES];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSString *deviceType = [NSString stringWithFormat:@"%@ %@", [[UIDevice currentDevice] systemName], [[UIDevice currentDevice] systemVersion]];
+        NSString *deviceUDID = [[NSUserDefaults standardUserDefaults] objectForKey:@"deviceUDID"];
+        NSString *deviceToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"deviceToken"];
+        
+//        NSLog(@"Device type: %@", deviceType);
+//        NSLog(@"Device token: %@", deviceToken);
+//        NSLog(@"Device udid: %@", deviceUDID);
+        
+        NSString *params = [NSString stringWithFormat:@"{\"device_type\":\"%@\",\"registration_id\":\"%@\",\"device_id\":\"%@\"}", deviceType, deviceToken, deviceUDID];
+        NSString *postLength = [NSString stringWithFormat:@"%lu", (unsigned long)[params length]];
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@", APNSTOKENGEN]];
+        NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url];
+        [urlRequest setTimeoutInterval:60];
+        [urlRequest setHTTPMethod:@"POST"];
+        NSString *authStr = [NSString stringWithFormat:@"%@:%@", GetUserEmail, GetUserPassword];
+        NSData *plainData = [authStr dataUsingEncoding:NSUTF8StringEncoding];
+        NSString *base64String = [plainData base64EncodedStringWithOptions:0];
+        NSString *authValue = [NSString stringWithFormat:@"Basic %@", base64String];
+        [urlRequest setValue:authValue forHTTPHeaderField:@"Authorization"];
+        [urlRequest setValue:postLength forHTTPHeaderField:@"Content-Length"];
+        [urlRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        [urlRequest setHTTPBody:[params dataUsingEncoding:NSUTF8StringEncoding]];
+        
+        [NSURLConnection sendAsynchronousRequest:urlRequest queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error){
+            
+            if ([data length] > 0 && error == nil){
+                NSDictionary *JSONValue = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+                
+                if(JSONValue != nil){
+                    
+                    if([[JSONValue allKeys] count] > 1){
+                        // NSLog(@"successfully added device");
+                    } else {
+                        // NSLog(@"failure to add device");
+                    }
+                }
+            }
+            [self setBusy:NO];
         }];
     });
 }

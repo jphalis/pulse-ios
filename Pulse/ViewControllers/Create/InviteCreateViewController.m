@@ -104,16 +104,18 @@ enum{
             
             _visibilityLabel.text = @"Only those who you select will be able to see your post.";
 
-            userInviteViewController.view.frame = CGRectMake(0, 300, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height - 300);
+//            userInviteViewController.view.frame = CGRectMake(0, 300, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height - 300);
+            userInviteViewController.view.frame = CGRectMake([[UIScreen mainScreen] bounds].origin.x, [[UIScreen mainScreen] bounds].origin.y, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height);
             NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"user__full_name" ascending:YES];
             NSArray *sortedArray = [appDelegate.arrFollowing sortedArrayUsingDescriptors:@[sort]];
-            userInviteViewController.arrDetails = sortedArray;
+            userInviteViewController.arrDetails = [(NSArray *)sortedArray mutableCopy];
 
             [UIView animateWithDuration:0.5
                                   delay:0.1
                                 options: UIViewAnimationOptionCurveEaseIn
                              animations:^{
-                                 userInviteViewController.view.frame = CGRectMake(0, 300, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height - 300);
+//                                 userInviteViewController.view.frame = CGRectMake(0, 300, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height - 300);
+                                 userInviteViewController.view.frame = CGRectMake([[UIScreen mainScreen] bounds].origin.x, [[UIScreen mainScreen] bounds].origin.y, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height);
                              }
                              completion:^(BOOL finished){
                                  // NSLog(@"completed");
@@ -189,6 +191,9 @@ enum{
         GuestsCreateViewController *guestsCreateViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"GuestsCreateViewController"];
         guestsCreateViewController.partyType = _partyType;
         guestsCreateViewController.partyInvite = _partyInvite;
+        
+        NSLog(@"users invited: %@", _usersInvited);
+        
         NSString *user_ids = [[NSString alloc] init];
         if (![_partyInvite isEqualToString:@"16"]) {
             [_usersInvited removeAllObjects];

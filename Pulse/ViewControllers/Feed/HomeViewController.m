@@ -493,24 +493,24 @@
                             NSMutableDictionary *dictSearch = [[NSMutableDictionary alloc]init];
                             
                             if([dictResult objectForKey:@"id"] == [NSNull null]){
-                                [dictSearch setValue:@"" forKey:@"id"];
+                                [dictSearch setValue:@"" forKey:@"user__id"];
                             } else {
-                                [dictSearch setValue:[dictResult objectForKey:@"id"] forKey:@"id"];
+                                [dictSearch setValue:[dictResult objectForKey:@"id"] forKey:@"user__id"];
                             }
                             if([dictResult objectForKey:@"account_url"] == [NSNull null]){
-                                [dictSearch setValue:@"" forKey:@"account_url"];
+                                [dictSearch setValue:@"" forKey:@"user__account_url"];
                             } else {
-                                [dictSearch setValue:[dictResult objectForKey:@"account_url"] forKey:@"account_url"];
+                                [dictSearch setValue:[dictResult objectForKey:@"account_url"] forKey:@"user__account_url"];
                             }
                             if([dictResult objectForKey:@"full_name"] == [NSNull null]){
-                                [dictSearch setValue:@"" forKey:@"full_name"];
+                                [dictSearch setValue:@"" forKey:@"user__full_name"];
                             } else {
-                                [dictSearch setValue:[dictResult objectForKey:@"full_name"] forKey:@"full_name"];
+                                [dictSearch setValue:[dictResult objectForKey:@"full_name"] forKey:@"user__full_name"];
                             }
                             if([dictResult objectForKey:@"profile_pic"] == [NSNull null]){
-                                [dictSearch setValue:@"" forKey:@"profile_pic"];
+                                [dictSearch setValue:@"" forKey:@"user__profile_pic"];
                             } else {
-                                [dictSearch setValue:[dictResult objectForKey:@"profile_pic"] forKey:@"profile_pic"];
+                                [dictSearch setValue:[dictResult objectForKey:@"profile_pic"] forKey:@"user__profile_pic"];
                             }
                             
                             [arrUsers addObject:dictSearch];
@@ -572,11 +572,12 @@
         return;
     }
     
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"full_name beginswith[c] %@", searchString];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"user__full_name beginswith[c] %@", searchString];
     arrFilteredUsers = [arrUsers filteredArrayUsingPredicate:predicate];
 
     // Update searchResults
     vc.searchResults = arrFilteredUsers;
+    vc.isInviteSearch = NO;
     
     if(arrFilteredUsers.count > 0){
         vc.lblWaterMark.text = @"";

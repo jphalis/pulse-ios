@@ -70,6 +70,9 @@ extern AppDelegate *appDelegate;
 #define PARTYLIKEURL      APIURL  "party/like/"
 #define FLAGURL           APIURL  "flag/create/"
 #define SEARCH_URL        APIURL  "search/?q="
+#define APNSTOKENGEN      APIURL  "device/apns/"
+
+#define SYSTEM_VERSION_GRATERTHAN_OR_EQUALTO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 
 #define    UserDefaults       [NSUserDefaults standardUserDefaults]
 
@@ -96,5 +99,8 @@ extern AppDelegate *appDelegate;
 
 #define    SetisFullView(x)   [[NSUserDefaults standardUserDefaults] setBool:(x) forKey:@"FullView"]
 #define    GetsFullView       [[NSUserDefaults standardUserDefaults] boolForKey:@"FullView"]
+
+#define    SetIsImageView(x)      [[NSUserDefaults standardUserDefaults] setBool:(x) forKey:@"ImageView"]
+#define    GetsImageView          [[NSUserDefaults standardUserDefaults] boolForKey:@"ImageView"]
 
 #endif

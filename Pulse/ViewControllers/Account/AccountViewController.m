@@ -14,20 +14,23 @@
 #import "GlobalFunctions.h"
 #import "PartyViewController.h"
 #import "PhoneViewController.h"
+#import "PhotoViewController.h"
 #import "ProfileClass.h"
 #import "SCLAlertView.h"
 #import "SettingsViewController.h"
 #import "TWMessageBarManager.h"
 #import "UIViewControllerAdditions.h"
 
-@interface AccountViewController () <UICollectionViewDelegateFlowLayout, KIImagePagerDelegate, KIImagePagerDataSource>{
+@interface AccountViewController () <UICollectionViewDelegateFlowLayout, KIImagePagerDelegate, KIImagePagerDataSource, PhotoViewControllerDelegate>{
     
     AppDelegate *appDelegate;
+    PhotoViewController *photoViewController;
     NSMutableDictionary *dictProfileInformation;
     NSMutableArray *arrEventImages;
     NSMutableArray *arrUserImages;
     BOOL viewer_can_see;
     NSString *imagePickerLabel;
+    NSString *pro_pic;
     UIRefreshControl *refreshControl;
 }
 
@@ -64,6 +67,8 @@
     _profileBio.delegate = self;
     _profileName.delegate = self;
     _profileLocation.delegate = self;
+    photoViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PhotoViewController"];
+    photoViewController.delegate = self;
     
     self.automaticallyAdjustsScrollViewInsets = NO;
     _scrollView.contentInset = UIEdgeInsetsZero;
@@ -197,8 +202,10 @@
                 profileClass.isPrivate = isPrivate;
                 if ([JSONValue objectForKey:@"profile_pic"] == [NSNull null]) {
                     profileClass.userProfilePicture = @"";
+                    pro_pic = NULL;
                 } else {
                     profileClass.userProfilePicture = [JSONValue objectForKey:@"profile_pic"];
+                    pro_pic = [JSONValue objectForKey:@"profile_pic"];
                     if (userId == GetUserID) {
                         SetUserProPic(profileClass.userProfilePicture);
                     }
@@ -504,6 +511,13 @@
     if ([_profileName.text isEqualToString:GetUserName]){
         [self requestAuthorizationWithRedirectionToSettings];
         imagePickerLabel = @"profile_picture";
+    } else {
+        
+        if (pro_pic != NULL) {
+            photoViewController.photoUrl = pro_pic;
+            photoViewController.view.frame = appDelegate.window.frame;
+            [self.view addSubview:photoViewController.view];
+        }
     }
 }
 
@@ -714,6 +728,10 @@
                                                                           type:TWMessageBarMessageTypeSuccess
                                                                       duration:3.0];
                     [_imagePager reloadData];
+                    
+                    if ([arrUserImages count] > 0){
+                        _userImageDeleteBtn.hidden = NO;
+                    }
                 }
             }
         } else {
@@ -1047,7 +1065,10 @@
     _imagePager.hidden = NO;
     if ([_profileName.text isEqualToString:GetUserName]) {
         _userImageNewBtn.hidden = NO;
-        _userImageDeleteBtn.hidden = NO;
+        
+        if ([arrUserImages count] > 0){
+            _userImageDeleteBtn.hidden = NO;
+        }
     } else {
         _userImageNewBtn.hidden = YES;
         _userImageDeleteBtn.hidden = YES;
@@ -1079,6 +1100,13 @@
 
 - (void)imagePager:(KIImagePager *)imagePager didSelectImageAtIndex:(NSUInteger)index {
     // NSLog(@"%s %lu", __PRETTY_FUNCTION__, (unsigned long)index);
+    photoViewController.photoUrl = [[arrUserImages objectAtIndex:index] valueForKey:@"photo"];
+    photoViewController.view.frame = appDelegate.window.frame;
+    [self.view addSubview:photoViewController.view];
+}
+
+-(void)removeImage{
+    [photoViewController.view removeFromSuperview];
 }
 
 - (IBAction)onDeleteUserImage:(id)sender {
@@ -1123,6 +1151,10 @@
 
                         [arrUserImages removeObjectAtIndex:_imagePager.currentPage];
                         [_imagePager reloadData];
+                        
+                        if ([arrUserImages count] == 0){
+                            _userImageDeleteBtn.hidden = YES;
+                        }
                     }
                 } else {
                     showServerError();

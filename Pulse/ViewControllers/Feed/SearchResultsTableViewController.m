@@ -6,15 +6,25 @@
 #import "AccountViewController.h"
 #import "SearchResultsTableViewController.h"
 #import "TableViewCellSearch.h"
+#import "UserInviteViewController.h"
 
 
-@interface SearchResultsTableViewController ()
+@interface SearchResultsTableViewController () {
+    UserInviteViewController *userInviteViewController;
+}
 
 @property (nonatomic, strong) NSArray *array;
 
 @end
 
 @implementation SearchResultsTableViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+    
+    userInviteViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"UserInviteViewController"];
+}
 
 - (void)viewWillAppear:(BOOL)animated {
     self.navigationController.navigationBar.hidden = NO;
@@ -38,8 +48,8 @@
 
     dictUser = [_searchResults objectAtIndex:indexPath.row];
 
-    cell.userFullName.text = [dictUser objectForKey:@"full_name"];
-    [cell.userProfilePic loadImageFromURL:[dictUser objectForKey:@"profile_pic"] withTempImage:@"avatar_icon"];
+    cell.userFullName.text = [dictUser objectForKey:@"user__full_name"];
+    [cell.userProfilePic loadImageFromURL:[dictUser objectForKey:@"user__profile_pic"] withTempImage:@"avatar_icon"];
     cell.userProfilePic.layer.cornerRadius = cell.userProfilePic.frame.size.width / 2;
     cell.userProfilePic.layer.masksToBounds = YES;
 
@@ -52,18 +62,23 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     self.searchController.definesPresentationContext = YES;
-    self.searchController.searchBar.hidden = YES;
     [self.searchController.searchBar resignFirstResponder];
-    
-    NSMutableDictionary *dictUser;
-    dictUser = [_searchResults objectAtIndex:indexPath.row];
-
-    AccountViewController *accountViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"AccountViewController"];
-    accountViewController.userURL = [dictUser objectForKey:@"account_url"];
-    accountViewController.needBack = YES;
-    [self.navigationController pushViewController:accountViewController animated:YES];
-    
     self.navigationController.navigationBar.hidden = YES;
+    
+    NSMutableDictionary *dictUser = [_searchResults objectAtIndex:indexPath.row];
+    
+    if (_isInviteSearch) {
+        NSMutableArray *myArray = [[NSMutableArray alloc] init];
+        [myArray addObject:dictUser];
+        _editInvitedUsers(myArray.mutableCopy);
+        self.searchController.active = NO;
+    } else {
+        AccountViewController *accountViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"AccountViewController"];
+        accountViewController.userURL = [dictUser objectForKey:@"user__account_url"];
+        accountViewController.needBack = YES;
+        [self.navigationController pushViewController:accountViewController animated:YES];
+        self.searchController.searchBar.hidden = YES;
+    }
 }
 
 @end

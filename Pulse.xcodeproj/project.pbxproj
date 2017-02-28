@@ -91,6 +91,7 @@
 		D0559B591DDA4A3500B2C437 /* UIImageView+HighlightedWebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = D0559B471DDA4A3500B2C437 /* UIImageView+HighlightedWebCache.m */; };
 		D0559B5A1DDA4A3500B2C437 /* UIImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = D0559B491DDA4A3500B2C437 /* UIImageView+WebCache.m */; };
 		D0559B5B1DDA4A3500B2C437 /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D0559B4B1DDA4A3500B2C437 /* UIView+WebCacheOperation.m */; };
+		D05658FC1E611F440019F7A2 /* PhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D05658FB1E611F440019F7A2 /* PhotoViewController.m */; };
 		D064E94D1E3A4B08009D2EAF /* TableViewCellSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = D064E94C1E3A4B08009D2EAF /* TableViewCellSearch.m */; };
 		D064E9571E3AF3D6009D2EAF /* SearchResultsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D064E9561E3AF3D6009D2EAF /* SearchResultsTableViewController.m */; };
 		D06B7E0C1D888B7900381C20 /* PartyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D06B7E081D888B7900381C20 /* PartyViewController.m */; };
@@ -310,10 +311,12 @@
 		D0559B491DDA4A3500B2C437 /* UIImageView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+WebCache.m"; sourceTree = "<group>"; };
 		D0559B4A1DDA4A3500B2C437 /* UIView+WebCacheOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WebCacheOperation.h"; sourceTree = "<group>"; };
 		D0559B4B1DDA4A3500B2C437 /* UIView+WebCacheOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WebCacheOperation.m"; sourceTree = "<group>"; };
+		D05658FA1E611F440019F7A2 /* PhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoViewController.h; sourceTree = "<group>"; };
+		D05658FB1E611F440019F7A2 /* PhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoViewController.m; sourceTree = "<group>"; };
 		D064E94B1E3A4B08009D2EAF /* TableViewCellSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewCellSearch.h; sourceTree = "<group>"; };
 		D064E94C1E3A4B08009D2EAF /* TableViewCellSearch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewCellSearch.m; sourceTree = "<group>"; };
-		D064E9551E3AF3D6009D2EAF /* SearchResultsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResultsTableViewController.h; sourceTree = "<group>"; };
-		D064E9561E3AF3D6009D2EAF /* SearchResultsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultsTableViewController.m; sourceTree = "<group>"; };
+		D064E9551E3AF3D6009D2EAF /* SearchResultsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchResultsTableViewController.h; path = Feed/SearchResultsTableViewController.h; sourceTree = "<group>"; };
+		D064E9561E3AF3D6009D2EAF /* SearchResultsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SearchResultsTableViewController.m; path = Feed/SearchResultsTableViewController.m; sourceTree = "<group>"; };
 		D06B7E071D888B7900381C20 /* PartyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PartyViewController.h; sourceTree = "<group>"; };
 		D06B7E081D888B7900381C20 /* PartyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PartyViewController.m; sourceTree = "<group>"; };
 		D06B7E091D888B7900381C20 /* RequestsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestsViewController.h; sourceTree = "<group>"; };
@@ -339,6 +342,7 @@
 		D0BC2F5C1D84775B00237E33 /* FindViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindViewController.m; sourceTree = "<group>"; };
 		D0BDD5771DCD214200F360DE /* PhoneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhoneViewController.h; sourceTree = "<group>"; };
 		D0BDD5781DCD214200F360DE /* PhoneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhoneViewController.m; sourceTree = "<group>"; };
+		D0BE7E2E1E5FE5D100C50BE5 /* Pulse.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Pulse.entitlements; sourceTree = "<group>"; };
 		D0C02F811D56D69F0033EF98 /* FollowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FollowViewController.h; sourceTree = "<group>"; };
 		D0C02F821D56D69F0033EF98 /* FollowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FollowViewController.m; sourceTree = "<group>"; };
 		D0C02F8F1D56DBF30033EF98 /* NotificationClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationClass.h; sourceTree = "<group>"; };
@@ -457,6 +461,7 @@
 		13F77D351D2EE581003EF38D /* Pulse */ = {
 			isa = PBXGroup;
 			children = (
+				D0BE7E2E1E5FE5D100C50BE5 /* Pulse.entitlements */,
 				D044E12F1D90339200AB81BC /* CellViews */,
 				D04DBD891D5178CD00BB8172 /* Common */,
 				D04DBD4E1D5178B200BB8172 /* External */,
@@ -555,6 +560,8 @@
 				D06B7E041D888B7900381C20 /* Party */,
 				D03CEEB61D56D2D700D2586D /* CustomTabViewController.h */,
 				D03CEEB71D56D2D700D2586D /* CustomTabViewController.m */,
+				D064E9551E3AF3D6009D2EAF /* SearchResultsTableViewController.h */,
+				D064E9561E3AF3D6009D2EAF /* SearchResultsTableViewController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -568,6 +575,8 @@
 				D00ECE3F1D6E4C5F0067CA9A /* EventsViewController.m */,
 				D0C02F811D56D69F0033EF98 /* FollowViewController.h */,
 				D0C02F821D56D69F0033EF98 /* FollowViewController.m */,
+				D05658FA1E611F440019F7A2 /* PhotoViewController.h */,
+				D05658FB1E611F440019F7A2 /* PhotoViewController.m */,
 				D03CEEA21D56D2D700D2586D /* SettingsViewController.h */,
 				D03CEEA31D56D2D700D2586D /* SettingsViewController.m */,
 			);
@@ -803,8 +812,6 @@
 			children = (
 				D09D4BAB1D624E8F00D285F3 /* HomeViewController.h */,
 				D09D4BAC1D624E8F00D285F3 /* HomeViewController.m */,
-				D064E9551E3AF3D6009D2EAF /* SearchResultsTableViewController.h */,
-				D064E9561E3AF3D6009D2EAF /* SearchResultsTableViewController.m */,
 			);
 			path = Feed;
 			sourceTree = "<group>";
@@ -936,10 +943,12 @@
 				TargetAttributes = {
 					13F77D321D2EE581003EF38D = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = Y64H65SHZL;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Maps.iOS = {
+								enabled = 1;
+							};
+							com.apple.Push = {
 								enabled = 1;
 							};
 						};
@@ -1105,6 +1114,7 @@
 				D044E1411D90339200AB81BC /* TableViewCellFeed.m in Sources */,
 				D04DBD7A1D5178B200BB8172 /* SCLAlertViewStyleKit.m in Sources */,
 				D0330E441D7C81AD0080A3CC /* SVWebViewControllerActivitySafari.m in Sources */,
+				D05658FC1E611F440019F7A2 /* PhotoViewController.m in Sources */,
 				D09D4BB01D624EF000D285F3 /* FeedClass.m in Sources */,
 				D0F73CC01D83498800DA8CC1 /* PasswordViewController.m in Sources */,
 				D04DBD7E1D5178B200BB8172 /* UIImage+ImageEffects.m in Sources */,
@@ -1215,7 +1225,7 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1.1.2;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = Y64H65SHZL;
+				DEVELOPMENT_TEAM = 3U37D8Q844;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1268,7 +1278,7 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1.1.2;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = Y64H65SHZL;
+				DEVELOPMENT_TEAM = 3U37D8Q844;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1294,9 +1304,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = Pulse/Pulse.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				DEVELOPMENT_TEAM = Y64H65SHZL;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 3U37D8Q844;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1305,10 +1316,10 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.domain.pulse;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pulsesocialapp.PulseSocial;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "9b2b1bc5-ae47-4efd-bff9-40964359161b";
-				PROVISIONING_PROFILE_SPECIFIER = Pulse;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -1318,9 +1329,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = Pulse/Pulse.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				DEVELOPMENT_TEAM = Y64H65SHZL;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 3U37D8Q844;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1329,10 +1341,10 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.domain.pulse;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pulsesocialapp.PulseSocial;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "9b2b1bc5-ae47-4efd-bff9-40964359161b";
-				PROVISIONING_PROFILE_SPECIFIER = Pulse;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
