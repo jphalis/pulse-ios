@@ -67,9 +67,9 @@ enum {
     
     [self getArrFollowing];
     
-    #if !(DEBUG)
+//    #if !(DEBUG)
         [self addDeviceToken];
-    #endif
+//    #endif
     
 //    if ([timer isValid]) {
 //        [timer invalidate], timer = nil;

@@ -40,11 +40,13 @@ extern AppDelegate *appDelegate;
 #define HideNetworkActivityIndicator()      [UIApplication sharedApplication].networkActivityIndicatorVisible = NO
 
 // URLs
-#ifdef DEBUG
-    #define BASEURL       @"http://127.0.0.1:8000/"
-#else
-    #define BASEURL       @"https://pulse-ios.herokuapp.com/"
-#endif
+//#ifdef DEBUG
+//    #define BASEURL       @"http://127.0.0.1:8000/"
+//#else
+//    #define BASEURL       @"https://pulse-ios.herokuapp.com/"
+//#endif
+
+#define BASEURL       @"https://pulse-ios.herokuapp.com/"
 
 #define TERMSURL          BASEURL "terms/"
 #define PRIVACYURL        BASEURL "privacy/"
@@ -71,8 +73,6 @@ extern AppDelegate *appDelegate;
 #define FLAGURL           APIURL  "flag/create/"
 #define SEARCH_URL        APIURL  "search/?q="
 #define APNSTOKENGEN      APIURL  "device/apns/"
-
-#define SYSTEM_VERSION_GRATERTHAN_OR_EQUALTO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 
 #define    UserDefaults       [NSUserDefaults standardUserDefaults]
 
