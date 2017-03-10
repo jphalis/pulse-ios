@@ -358,6 +358,7 @@
         [_attendBtn setTitle:REQUESTED_BTN_TEXT forState:UIControlStateNormal];
         _attendBtn.backgroundColor = [UIColor lightGrayColor];
         _attendBtn.userInteractionEnabled = NO;
+        _partyAddressField.hidden = YES;
     }
     // party requires a request and viewing user has not already requested
     else if ([_partyInvite isEqualToString:@"Request + approval"] &&
@@ -367,6 +368,7 @@
     }
     else {
         [_attendBtn setTitle:DEFAULT_BTN_TEXT forState:UIControlStateNormal];
+        _partyAddressField.hidden = YES;
     }   
 }
 

@@ -40,13 +40,11 @@ extern AppDelegate *appDelegate;
 #define HideNetworkActivityIndicator()      [UIApplication sharedApplication].networkActivityIndicatorVisible = NO
 
 // URLs
-//#ifdef DEBUG
-//    #define BASEURL       @"http://127.0.0.1:8000/"
-//#else
-//    #define BASEURL       @"https://pulse-ios.herokuapp.com/"
-//#endif
-
-#define BASEURL       @"https://pulse-ios.herokuapp.com/"
+#ifdef DEBUG
+    #define BASEURL       @"http://127.0.0.1:8000/"
+#else
+    #define BASEURL       @"https://pulse-ios.herokuapp.com/"
+#endif
 
 #define TERMSURL          BASEURL "terms/"
 #define PRIVACYURL        BASEURL "privacy/"

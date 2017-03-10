@@ -131,14 +131,6 @@
 }
 
 -(void)startRefresh{
-    if(arrParties.count > 0){
-        [arrParties removeAllObjects];
-    }
-    
-    if(arrVisibleParties.count > 0){
-        [arrVisibleParties removeAllObjects];
-    }
-
     [self getPartyDetails];
 }
 
@@ -170,6 +162,14 @@
             
             if([JSONValue isKindOfClass:[NSDictionary class]]){
                 
+                if(arrParties.count > 0){
+                    [arrParties removeAllObjects];
+                }
+                
+                if(arrVisibleParties.count > 0){
+                    [arrVisibleParties removeAllObjects];
+                }
+                
                 partyCount = [[JSONValue objectForKey:@"count"]integerValue];
                 
                 NSArray *arrPartyResult = [JSONValue objectForKey:@"results"];
@@ -194,7 +194,13 @@
                     int partyYear = [[[arrPartyResult objectAtIndex:i]valueForKey:@"party_year"]intValue];
                     partyClass.partyYear = [NSString stringWithFormat:@"%d", partyYear];
                     partyClass.partyStartTime = [[arrPartyResult objectAtIndex:i]valueForKey:@"start_time"];
-                    partyClass.partyEndTime = [[arrPartyResult objectAtIndex:i]valueForKey:@"end_time"];
+                    
+                    if ([[arrPartyResult objectAtIndex:i]valueForKey:@"end_time"] == [NSNull null]){
+                        partyClass.partyEndTime = @"?";
+                    } else {
+                        partyClass.partyEndTime = [[arrPartyResult objectAtIndex:i]valueForKey:@"end_time"];
+                    }
+                    
                     partyClass.partyDescription = [[arrPartyResult objectAtIndex:i]valueForKey:@"description"];
                     partyClass.partyAttendingCount = [NSString abbreviateNumber:[[[arrPartyResult objectAtIndex:i]valueForKey:@"attendees_count"]intValue]];
                     partyClass.partyRequestCount = [NSString abbreviateNumber:[[[arrPartyResult objectAtIndex:i]valueForKey:@"requesters_count"]intValue]];
@@ -291,7 +297,7 @@
     }];
 }
 
--(void)showParties{
+-(void)showParties {
     // Pins for events
     [_mapView removeAnnotations:_mapView.annotations];
     [_annotations removeAllObjects];
@@ -467,15 +473,15 @@
     cell.userProfilePicture.layer.cornerRadius = cell.userProfilePicture.frame.size.width / 2;
     cell.userProfilePicture.layer.masksToBounds = YES;
     cell.userProfilePicture.clipsToBounds = YES;
-    if ([partyClass.partyInvite isEqualToString:@"Invite only"] &&
+    cell.partyName.text = partyClass.partyName;
+    cell.partyAddress.text = partyClass.partyAddress;
+    
+    if (([partyClass.partyInvite isEqualToString:@"Invite only"] ||
+         [partyClass.partyInvite isEqualToString:@"Request + approval"]) &&
         (!([partyClass.partyCreator isEqualToString:GetUserName])) &&
         (!([[partyClass.arrAttending valueForKey:@"user__full_name"] containsObject:GetUserName])))
     {
-        cell.partyName.hidden = YES;
         cell.partyAddress.hidden = YES;
-    } else {
-        cell.partyName.text = partyClass.partyName;
-        cell.partyAddress.text = partyClass.partyAddress;
     }
     
     if ([partyClass.partyType isEqualToString:@"Custom"]) {
@@ -499,6 +505,8 @@
     else if ([partyClass.partyType isEqualToString:@"Celebration"]) {
         [cell.partyPicture loadImageFromURL:partyClass.partyImage withTempImage:@"celebration_icon"];
     }
+    
+    cell.partyPicture.backgroundColor = [UIColor clearColor];
     
     cell.partyAttending.text = partyClass.partyAttendingCount;
     cell.partyRequests.text = partyClass.partyRequestCount;
