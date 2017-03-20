@@ -348,8 +348,8 @@
         _attendBtn.backgroundColor = [UIColor lightGrayColor];
         _attendBtn.userInteractionEnabled = NO;
         _partyNameField.hidden = YES;
-        _partyAddressField.hidden = YES;
-        
+        // _partyAddressField.hidden = YES;
+        _partyAddressField.text = @"(Location withheld)";
     }
     // party requires a request and viewing user has already requested
     else if ([_partyInvite isEqualToString:@"Request + approval"] &&
@@ -358,17 +358,21 @@
         [_attendBtn setTitle:REQUESTED_BTN_TEXT forState:UIControlStateNormal];
         _attendBtn.backgroundColor = [UIColor lightGrayColor];
         _attendBtn.userInteractionEnabled = NO;
-        _partyAddressField.hidden = YES;
+        // _partyAddressField.hidden = YES;
+        _partyAddressField.text = @"(Location withheld)";
     }
     // party requires a request and viewing user has not already requested
     else if ([_partyInvite isEqualToString:@"Request + approval"] &&
              (![[usersRequested valueForKey:@"user__full_name"] containsObject:GetUserName]) &&
              (!([_partyCreator isEqualToString:GetUserName]))) {
         [_attendBtn setTitle:REQUEST_BTN_TEXT forState:UIControlStateNormal];
+        // _partyAddressField.hidden = YES;
+        _partyAddressField.text = @"(Location withheld)";
     }
     else {
         [_attendBtn setTitle:DEFAULT_BTN_TEXT forState:UIControlStateNormal];
-        _partyAddressField.hidden = YES;
+        // _partyAddressField.hidden = YES;
+        _partyAddressField.text = @"(Location withheld)";
     }   
 }
 

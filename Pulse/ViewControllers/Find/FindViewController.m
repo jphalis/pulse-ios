@@ -316,15 +316,21 @@
             NSInteger distanceFromCurrentLocation = [eventLocation distanceFromLocation:currentLocation]/1609.344; // meters to miles
 
             if (distanceFromCurrentLocation < 10) {
-                AnnotationClass *event_pin = [[AnnotationClass alloc] init];
-                NSNumber *pin_lat = [NSNumber numberWithDouble:lat];
-                NSNumber *pin_lon = [NSNumber numberWithDouble:lon];
-                event_pin.latitude = pin_lat;
-                event_pin.longitude = pin_lon;
-                event_pin.title = partyClass.partyName;
-                event_pin.annotationUrl = partyClass.partyUrl;
-                [_mapView addAnnotation:event_pin];
-                [_annotations addObject:event_pin];
+                
+                if ([partyClass.partyInvite isEqualToString:@"Request + approval"] &&
+                    ![[partyClass.arrAttending valueForKey:@"user__full_name"] containsObject:GetUserName]) {
+                    // NSLog(@"Event is request + approve and user is not attending");
+                } else {
+                    AnnotationClass *event_pin = [[AnnotationClass alloc] init];
+                    NSNumber *pin_lat = [NSNumber numberWithDouble:lat];
+                    NSNumber *pin_lon = [NSNumber numberWithDouble:lon];
+                    event_pin.latitude = pin_lat;
+                    event_pin.longitude = pin_lon;
+                    event_pin.title = partyClass.partyName;
+                    event_pin.annotationUrl = partyClass.partyUrl;
+                    [_mapView addAnnotation:event_pin];
+                    [_annotations addObject:event_pin];
+                }
                 [arrVisibleParties addObject:partyClass];
             }
         }
@@ -481,7 +487,8 @@
         (!([partyClass.partyCreator isEqualToString:GetUserName])) &&
         (!([[partyClass.arrAttending valueForKey:@"user__full_name"] containsObject:GetUserName])))
     {
-        cell.partyAddress.hidden = YES;
+        // cell.partyAddress.hidden = YES;
+        cell.partyAddress.text = @"(Location withheld)";
     }
     
     if ([partyClass.partyType isEqualToString:@"Custom"]) {
@@ -514,33 +521,20 @@
     return cell;
 }
 
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+
+    PartyClass *partyClass = [arrParties objectAtIndex:indexPath.row];
     
-    tapCellIndex = indexPath.row;
-    AnnotationClass *annotation = (AnnotationClass *)[_annotations objectAtIndex:indexPath.row];
-    [_mapView selectAnnotation:annotation animated:YES];
-    
-//    PartyClass *partyClass = [arrParties objectAtIndex:indexPath.row];
-//    PartyViewController *partyViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PartyViewController"];
-//    partyViewController.partyId = partyClass.partyId;
-//    partyViewController.partyCreator = partyClass.partyCreator;
-//    partyViewController.partyInvite = partyClass.partyInvite;
-//    partyViewController.partyType = partyClass.partyType;
-//    partyViewController.partyName = partyClass.partyName;
-//    partyViewController.partyAddress = partyClass.partyAddress;
-//    partyViewController.partySize = partyClass.partySize;
-//    partyViewController.partyMonth = partyClass.partyMonth;
-//    partyViewController.partyDay = partyClass.partyDay;
-//    partyViewController.partyStartTime = partyClass.partyStartTime;
-//    partyViewController.partyEndTime = partyClass.partyEndTime;
-//    partyViewController.partyImage = partyClass.partyImage;
-//    partyViewController.partyDescription = partyClass.partyDescription;
-//    partyViewController.partyAttending = partyClass.partyAttendingCount;
-//    partyViewController.partyRequests = partyClass.partyRequestCount;
-//    partyViewController.usersAttending = partyClass.arrAttending.mutableCopy;
-//    partyViewController.usersRequested = partyClass.arrRequested.mutableCopy;
-//
-//    [self.navigationController pushViewController:partyViewController animated:YES];
+    if ([partyClass.partyInvite isEqualToString:@"Request + approval"] &&
+        ![[partyClass.arrAttending valueForKey:@"user__full_name"] containsObject:GetUserName]) {
+        PartyViewController *partyViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PartyViewController"];
+        partyViewController.partyUrl = partyClass.partyUrl;
+        [self.navigationController pushViewController:partyViewController animated:YES];
+    } else {
+        tapCellIndex = indexPath.row;
+        AnnotationClass *annotation = (AnnotationClass *)[_annotations objectAtIndex:indexPath.row];
+        [_mapView selectAnnotation:annotation animated:YES];
+    }
 }
 
 @end
