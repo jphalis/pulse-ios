@@ -371,8 +371,6 @@
     }
     else {
         [_attendBtn setTitle:DEFAULT_BTN_TEXT forState:UIControlStateNormal];
-        // _partyAddressField.hidden = YES;
-        _partyAddressField.text = @"(Location withheld)";
     }   
 }
 
