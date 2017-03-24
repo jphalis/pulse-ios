@@ -422,6 +422,23 @@
         CALayer *border2 = [CALayer layer];
         border2.frame = CGRectMake(0, 0, 0, 0);
         [_eventImagesBtn.layer addSublayer:border2];
+    } else {
+        [_userImagesBtn setTitleColor:[UIColor colorWithRed:(171/255.0) green:(14/255.0) blue:(27/255.0) alpha:1.0] forState:UIControlStateNormal];
+        [_eventImagesBtn setTitleColor:[UIColor colorWithRed:(41/255.0) green:(46/255.0) blue:(50/255.0) alpha:1.0] forState:UIControlStateNormal];
+        
+        if ([_userImagesBtn.layer.sublayers count] > 1) {
+            [[_userImagesBtn.layer.sublayers objectAtIndex:1] removeFromSuperlayer];
+            CALayer *border = [CALayer layer];
+            border.backgroundColor = [[UIColor colorWithRed:(171/255.0) green:(14/255.0) blue:(27/255.0) alpha:1.0] CGColor];
+            border.frame = CGRectMake(0, 30, _userImagesBtn.frame.size.width, 2);
+            [_userImagesBtn.layer addSublayer:border];
+        }
+        if ([_eventImagesBtn.layer.sublayers count] > 1) {
+            [[_eventImagesBtn.layer.sublayers objectAtIndex:1] removeFromSuperlayer];
+            CALayer *border2 = [CALayer layer];
+            border2.frame = CGRectMake(0, 0, 0, 0);
+            [_eventImagesBtn.layer addSublayer:border2];
+        }
     }
     
     [self arrayWithImages:_imagePager];
