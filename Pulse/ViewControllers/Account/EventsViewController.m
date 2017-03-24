@@ -85,10 +85,6 @@
 }
 
 -(void)startRefresh{
-    if(arrParties.count > 0){
-        [arrParties removeAllObjects];
-    }
-
     [self getPartyDetails];
 }
 
@@ -125,6 +121,11 @@
             NSDictionary *JSONValue = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
             
             if([JSONValue isKindOfClass:[NSDictionary class]]){
+                
+                if(arrParties.count > 0){
+                    [arrParties removeAllObjects];
+                }
+                
                 partyCount = [[JSONValue objectForKey:@"count"]integerValue];
                 
                 NSArray *arrPartyResult = [JSONValue objectForKey:@"results"];

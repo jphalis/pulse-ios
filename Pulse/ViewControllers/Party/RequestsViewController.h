@@ -10,7 +10,5 @@
 @property (strong, nonatomic) IBOutlet UITableView *tblVW;
 @property (strong, nonatomic) NSMutableArray *arrDetails;
 @property (retain) NSString *partyId;
-@property (retain) NSString *userName;
-@property (retain) NSString *userId;
 
 @end

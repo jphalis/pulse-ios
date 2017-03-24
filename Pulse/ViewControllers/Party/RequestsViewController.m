@@ -15,8 +15,7 @@
 #import "TWMessageBarManager.h"
 
 
-@interface RequestsViewController ()
-{
+@interface RequestsViewController () {
     AppDelegate *appDelegate;
 }
 
@@ -28,8 +27,7 @@
 
 @synthesize arrDetails;
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     appDelegate = [AppDelegate getDelegate];
     
     UISwipeGestureRecognizer *viewRight = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swipeRight:)];
@@ -40,8 +38,7 @@
     // Do any additional setup after loading the view.
 }
 
--(void)viewWillAppear:(BOOL)animated
-{
+-(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
     
     // Hide the tabbar
@@ -51,14 +48,12 @@
     self.navigationController.navigationBarHidden = YES;
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
--(void)swipeRight:(UISwipeGestureRecognizer *)gestureRecognizer
-{
+-(void)swipeRight:(UISwipeGestureRecognizer *)gestureRecognizer {
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -72,30 +67,24 @@
 }
 */
 
-- (IBAction)onBack:(id)sender
-{
+- (IBAction)onBack:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;    //count of section
 }
 
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [arrDetails count];    //count number of row from counting array hear catagory is An Array
 }
 
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     TableViewCellRequests *cell = [tableView dequeueReusableCellWithIdentifier:@"RequestCell" forIndexPath:indexPath];
     
     NSMutableDictionary *dictUser = [arrDetails objectAtIndex:indexPath.row];
-    _userName = [dictUser objectForKey:@"user__full_name"];
-    _userId = [dictUser objectForKey:@"user__id"];
     
     [cell.userProfilePicture loadImageFromURL:[dictUser objectForKey:@"user__profile_pic"] withTempImage:@"avatar_icon"];
     cell.userProfilePicture.layer.cornerRadius = cell.userProfilePicture.frame.size.width / 2;
@@ -103,9 +92,9 @@
     cell.userName.text = [dictUser objectForKey:@"user__full_name"];
     
     [cell.approveBtn addTarget:self action:@selector(approveUser:) forControlEvents:UIControlEventTouchUpInside];
-    cell.approveBtn.tag = indexPath.row;
+    [cell.approveBtn setTag: indexPath.row];
     [cell.denyBtn addTarget:self action:@selector(denyUser:) forControlEvents:UIControlEventTouchUpInside];
-    cell.denyBtn.tag = indexPath.row;
+    [cell.denyBtn setTag: indexPath.row];
     
     [[cell.approveBtn imageView] setContentMode: UIViewContentModeScaleAspectFit];
     [[cell.denyBtn imageView] setContentMode: UIViewContentModeScaleAspectFit];
@@ -117,12 +106,15 @@
     return cell;
 }
 
--(IBAction)approveUser:(UIButton *)sender
-{
+-(IBAction)approveUser:(UIButton *)sender {
     checkNetworkReachability();
     [self setBusy:YES];
+    
+    NSInteger row = sender.tag;
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
+    NSMutableDictionary *dictUser = [arrDetails objectAtIndex:indexPath.row];
 
-    NSString *strURL = [NSString stringWithFormat:@"%@%@/%@/", PARTYACCEPTURL, _partyId, _userId];
+    NSString *strURL = [NSString stringWithFormat:@"%@%@/%@/", PARTYACCEPTURL, _partyId, [dictUser objectForKey:@"user__id"]];
     NSURL *url = [NSURL URLWithString:strURL];
     NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url];
     [urlRequest setTimeoutInterval:60];
@@ -137,38 +129,23 @@
     [NSURLConnection sendAsynchronousRequest:urlRequest queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error)
     {
         
-        if ([data length] > 0 && error == nil)
-        {
+        if ([data length] > 0 && error == nil) {
             NSDictionary *JSONValue = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
 
-            if(JSONValue != nil)
-            {
-                if([[JSONValue allKeys]count] > 1)
-                {
-                    for(int i = 0; i < arrDetails.count; i++)
-                    {
-                        if([[[arrDetails objectAtIndex:i] valueForKey:@"user__full_name"] isEqualToString:_userName])
-                        {
-                            [arrDetails removeObjectAtIndex:i];
-                        }
-                    }
-                    
-                    NSInteger row = sender.tag;
-                    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
+            if(JSONValue != nil) {
+                
+                if([[JSONValue allKeys]count] > 1) {
                     BOOL lastRow = FALSE;
                     if ([_tblVW numberOfRowsInSection:[indexPath section]] == 1 ) {
                         lastRow = TRUE;
                     }
+                    [arrDetails removeObjectAtIndex:indexPath.row];
                     [_tblVW beginUpdates];
-                    // [_tblVW reloadRowsAtIndexPaths:[NSMutableArray arrayWithObjects:indexPath, nil] withRowAnimation:UITableViewRowAnimationFade];
-                    if (lastRow)
-                    {
-                        [_tblVW deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                    
+                    [_tblVW deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+
+                    if (lastRow) {
                         [self.navigationController popViewControllerAnimated:YES];
-                    }
-                    else
-                    {
-                        [_tblVW deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
                     }
                     [_tblVW endUpdates];
                     [_tblVW reloadData];
@@ -179,21 +156,22 @@
                                                                       duration:2.0];
                 }
             }
-        }
-        else
-        {
+        } else {
             showServerError();
         }
         [self setBusy:NO];
     }];
 }
 
--(IBAction)denyUser:(UIButton *)sender
-{
+-(IBAction)denyUser:(UIButton *)sender {
     checkNetworkReachability();
     [self setBusy:YES];
     
-    NSString *strURL = [NSString stringWithFormat:@"%@%@/%@/", PARTYDENYURL, _partyId, _userId];
+    NSInteger row = sender.tag;
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
+    NSMutableDictionary *dictUser = [arrDetails objectAtIndex:indexPath.row];
+    
+    NSString *strURL = [NSString stringWithFormat:@"%@%@/%@/", PARTYDENYURL, _partyId, [dictUser objectForKey:@"user__id"]];
     NSURL *url = [NSURL URLWithString:strURL];
     NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url];
     [urlRequest setTimeoutInterval:60];
@@ -208,38 +186,23 @@
     [NSURLConnection sendAsynchronousRequest:urlRequest queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error)
      {
          
-         if ([data length] > 0 && error == nil)
-         {
+         if ([data length] > 0 && error == nil) {
              NSDictionary *JSONValue = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
              
-             if(JSONValue != nil)
-             {
-                 if([[JSONValue allKeys]count] > 1)
-                 {
-                     for(int i = 0; i < arrDetails.count; i++)
-                     {
-                         if([[[arrDetails objectAtIndex:i] valueForKey:@"user__full_name"] isEqualToString:_userName])
-                         {
-                             [arrDetails removeObjectAtIndex:i];
-                         }
-                     }
-                     
-                     NSInteger row = sender.tag;
-                     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
+             if(JSONValue != nil) {
+                 
+                 if([[JSONValue allKeys]count] > 1) {
                      BOOL lastRow = FALSE;
                      if ([_tblVW numberOfRowsInSection:[indexPath section]] == 1 ) {
                          lastRow = TRUE;
                      }
+                     [arrDetails removeObjectAtIndex:indexPath.row];
                      [_tblVW beginUpdates];
-                     // [_tblVW reloadRowsAtIndexPaths:[NSMutableArray arrayWithObjects:indexPath, nil] withRowAnimation:UITableViewRowAnimationFade];
-                     if (lastRow)
-                     {
-                         [_tblVW deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                     
+                     [_tblVW deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+                     
+                     if (lastRow) {
                          [self.navigationController popViewControllerAnimated:YES];
-                     }
-                     else
-                     {
-                         [_tblVW deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
                      }
                      [_tblVW endUpdates];
                      [_tblVW reloadData];
@@ -250,9 +213,7 @@
                                                                        duration:2.0];
                  }
              }
-         }
-         else
-         {
+         } else {
              showServerError();
          }
          [self setBusy:NO];
@@ -260,13 +221,15 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSMutableDictionary *dictUser = [arrDetails objectAtIndex:indexPath.row];
+    
     AccountViewController *accountViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"AccountViewController"];
-    accountViewController.userURL = [NSString stringWithFormat:@"%@%@/", PROFILEURL, _userId];
+    accountViewController.userURL = [NSString stringWithFormat:@"%@%@/", PROFILEURL, [dictUser objectForKey:@"user__id"]];
     accountViewController.needBack = YES;
     [self.navigationController pushViewController:accountViewController animated:YES];
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     return 0.01f;
 }
 
