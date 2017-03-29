@@ -126,8 +126,8 @@ MBProgressHUD *hud;
 
 #pragma mark - Static Methods
 
-+(AppDelegate*) getDelegate{
-    return (AppDelegate *)[[UIApplication sharedApplication]delegate];
++(AppDelegate*)getDelegate {
+    return (AppDelegate *)[[UIApplication sharedApplication] delegate];
 }
 
 +(void)showMessage:(NSString *)message{
@@ -208,7 +208,7 @@ MBProgressHUD *hud;
     return [string isEqualToString:filtered];
 }
 
--(NSInteger)getLength:(NSString*)mobileNumber{
+-(NSInteger)getLength:(NSString*)mobileNumber {
     mobileNumber = [mobileNumber stringByReplacingOccurrencesOfString:@"(" withString:@""];
     mobileNumber = [mobileNumber stringByReplacingOccurrencesOfString:@")" withString:@""];
     mobileNumber = [mobileNumber stringByReplacingOccurrencesOfString:@" " withString:@""];
@@ -218,7 +218,7 @@ MBProgressHUD *hud;
     return length;
 }
 
--(void)userLogout{
+-(void)userLogout {
     [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"UserID"];
     [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"UserToken"];
     [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"UserName"];
@@ -240,7 +240,7 @@ MBProgressHUD *hud;
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
 }
 
-- (void)applicationDidBecomeActive:(UIApplication *)application{
+- (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];

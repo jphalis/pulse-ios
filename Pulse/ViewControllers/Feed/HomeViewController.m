@@ -70,7 +70,7 @@
     
     [super viewWillAppear:YES];
     
-    if(arrFeed.count > 0){
+    if (arrFeed.count > 0) {
         [self scrollToTop];
     }
 }
@@ -105,7 +105,6 @@
     //add the UISearchController's search bar to the header of this table
     _tblVW.tableHeaderView = self.searchController.searchBar;
     
-    
     //this view controller can be covered by theUISearchController's view (i.e. search/filter table)
     self.definesPresentationContext = YES;
     
@@ -134,16 +133,13 @@
 }
 
 -(void)startRefresh{
-    if(arrFeed.count > 0){
-        [arrFeed removeAllObjects];
-    }
     [self getFeedDetails];
 }
 
 -(void)getFeedDetails {
     checkNetworkReachability();
 
-    NSString *urlString = [NSString stringWithFormat:@"%@", FEEDURL];
+    NSString *urlString = [NSString stringWithFormat:@"%@%ld/", FEEDURL, (long)GetUserID];
     NSMutableURLRequest *_request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:urlString]cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
                                                              timeoutInterval:60];
     NSString *authStr = [NSString stringWithFormat:@"%@:%@", GetUserEmail, GetUserPassword];
@@ -231,12 +227,12 @@
     }];
 }
 
--(void)showFeed{
+-(void)showFeed {
     [_tblVW reloadData];
     [refreshControl endRefreshing];
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
 
@@ -245,10 +241,10 @@
 }
 
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     TableViewCellFeed *cell = [tableView dequeueReusableCellWithIdentifier:@"TableViewCellFeed" forIndexPath:indexPath];
     
-    if (arrFeed.count <= 0){
+    if (arrFeed.count <= 0) {
         return cell;
     }
     
@@ -312,10 +308,9 @@
     
     cell.feedText.attributedText = feedTextAttributedString;
     
-    if ([feedClass.targetUrl isEqualToString:@""]){
+    if ([feedClass.targetUrl isEqualToString:@""]) {
         cell.feedText.textColor = [UIColor lightGrayColor];
-    }
-    else if ([feedClass.sender isEqualToString:GetUserName]) {
+    } else if ([feedClass.sender isEqualToString:GetUserName]) {
         cell.feedText.font = [UIFont boldSystemFontOfSize:12];
     }
     
@@ -355,7 +350,7 @@
         NSIndexPath *ipath = [_tblVW indexPathForRowAtPoint:location];
         FeedClass *feedClass = [arrFeed objectAtIndex:ipath.row];
         
-        if(userValue) {
+        if (userValue) {
             AccountViewController *accountViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"AccountViewController"];
             accountViewController.userURL = feedClass.senderUrl;
             accountViewController.needBack = YES;
@@ -363,7 +358,7 @@
             return;
         }
         
-        if(eventValue) {
+        if (eventValue) {
             if (![feedClass.targetUrl isEqualToString:@""]) {
                 PartyViewController *partyViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PartyViewController"];
                 partyViewController.partyUrl = feedClass.targetUrl;
@@ -395,12 +390,11 @@
     
     // Present SearchResultsTableViewController as the topViewController
     SearchResultsTableViewController *vc = (SearchResultsTableViewController *)navController.topViewController;
-    
     vc.searchController = _searchController;
     
     NSString *searchText = self.searchController.searchBar.text;
     
-    if([searchText length] == 0 || searchText == nil){
+    if ([searchText length] == 0 || searchText == nil) {
         isFiltered = NO;
         if(arrUsers.count > 0){
             [arrUsers removeAllObjects];
@@ -410,7 +404,7 @@
         vc.searchResults = nil;
         [vc.tableView reloadData];
     } else {
-        if(searchText.length == 1){
+        if (searchText.length == 1) {
             [self performSelector:@selector(doSearch) withObject:searchText afterDelay:0.3f];
         } else {
             [self doFilter];
@@ -419,7 +413,7 @@
 }
 
 - (IBAction)onSearch:(id)sender {
-    if([self validateFields]){
+    if ([self validateFields]) {
         isEmpty = NO;
         [self doSearch];
     }
@@ -431,8 +425,7 @@
 
 -(BOOL)validateFields{
     SCLAlertView *alert = [[SCLAlertView alloc] init];
-    
-    if([_searchController.searchBar.text isEqualToString:@""] || _searchController.searchBar.text == nil){
+    if ([_searchController.searchBar.text isEqualToString:@""] || _searchController.searchBar.text == nil) {
         alert.showAnimationType = SlideInFromLeft;
         alert.hideAnimationType = SlideOutToBottom;
         [alert showNotice:self title:@"Notice" subTitle:EMPTY_SEARCH closeButtonTitle:@"OK" duration:0.0f];
@@ -441,10 +434,10 @@
     return YES;
 }
 
--(void)doSearch{
+-(void)doSearch {
     checkNetworkReachability();
     
-    if(isEmpty == YES){
+    if (isEmpty == YES) {
         return;
     }
     
@@ -469,45 +462,45 @@
         NSError *error = nil;
         NSData *data = [NSURLConnection sendSynchronousRequest:_request returningResponse:&response error:&error];
         
-        if (error == nil && [data length] > 0){
+        if (error == nil && [data length] > 0) {
             dispatch_sync(dispatch_get_main_queue(), ^{
                 
                 NSArray *JSONValue = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
                 
-                if([JSONValue isKindOfClass:[NSNull class]]){
+                if ([JSONValue isKindOfClass:[NSNull class]]) {
                     [self setBusy:NO];
                     showServerError();
                     return;
                 }
-                if([JSONValue isKindOfClass:[NSArray class]]){
+                if ([JSONValue isKindOfClass:[NSArray class]]) {
                     
                     if( arrUsers.count > 0){
                         [arrUsers removeAllObjects];
                     }
                     
-                    if([JSONValue count] > 0){
+                    if ([JSONValue count] > 0) {
                         for (int i = 0; i < JSONValue.count; i++) {
                             
                             NSMutableDictionary *dictResult;
                             dictResult = [JSONValue objectAtIndex:i];
                             NSMutableDictionary *dictSearch = [[NSMutableDictionary alloc]init];
                             
-                            if([dictResult objectForKey:@"id"] == [NSNull null]){
+                            if ([dictResult objectForKey:@"id"] == [NSNull null] ){
                                 [dictSearch setValue:@"" forKey:@"user__id"];
                             } else {
                                 [dictSearch setValue:[dictResult objectForKey:@"id"] forKey:@"user__id"];
                             }
-                            if([dictResult objectForKey:@"account_url"] == [NSNull null]){
+                            if ([dictResult objectForKey:@"account_url"] == [NSNull null]) {
                                 [dictSearch setValue:@"" forKey:@"user__account_url"];
                             } else {
                                 [dictSearch setValue:[dictResult objectForKey:@"account_url"] forKey:@"user__account_url"];
                             }
-                            if([dictResult objectForKey:@"full_name"] == [NSNull null]){
+                            if ([dictResult objectForKey:@"full_name"] == [NSNull null]) {
                                 [dictSearch setValue:@"" forKey:@"user__full_name"];
                             } else {
                                 [dictSearch setValue:[dictResult objectForKey:@"full_name"] forKey:@"user__full_name"];
                             }
-                            if([dictResult objectForKey:@"profile_pic"] == [NSNull null]){
+                            if ([dictResult objectForKey:@"profile_pic"] == [NSNull null]) {
                                 [dictSearch setValue:@"" forKey:@"user__profile_pic"];
                             } else {
                                 [dictSearch setValue:[dictResult objectForKey:@"profile_pic"] forKey:@"user__profile_pic"];
@@ -533,16 +526,15 @@
     [self setBusy:NO];
 }
 
--(void)showUsers{
+-(void)showUsers {
     UINavigationController *navController = (UINavigationController *)self.searchController.searchResultsController;
     
     // Present SearchResultsTableViewController as the topViewController
     SearchResultsTableViewController *vc = (SearchResultsTableViewController *)navController.topViewController;
-    
     vc.searchController = _searchController;
     
-    if([_searchController.searchBar.text length] == 0){
-        if(arrUsers.count > 0){
+    if ([_searchController.searchBar.text length] == 0) {
+        if (arrUsers.count > 0) {
             [arrUsers removeAllObjects];
         }
         vc.lblWaterMark.text = @"";
@@ -550,19 +542,18 @@
     [self doFilter];
 }
 
--(void)doFilter{
+-(void)doFilter {
     UINavigationController *navController = (UINavigationController *)self.searchController.searchResultsController;
 
     // Present SearchResultsTableViewController as the topViewController
     SearchResultsTableViewController *vc = (SearchResultsTableViewController *)navController.topViewController;
-    
     vc.searchController = _searchController;
     
     isFiltered = YES;
     arrFilteredUsers = nil;
     NSString *searchString = _searchController.searchBar.text;
     
-    if([searchString length] == 0){
+    if ([searchString length] == 0) {
         if(arrUsers.count > 0){
             [arrUsers removeAllObjects];
         }
@@ -579,7 +570,7 @@
     vc.searchResults = arrFilteredUsers;
     vc.isInviteSearch = NO;
     
-    if(arrFilteredUsers.count > 0){
+    if (arrFilteredUsers.count > 0) {
         vc.lblWaterMark.text = @"";
     } else {
         vc.lblWaterMark.text = @"0 results found";
@@ -590,9 +581,8 @@
 
 #pragma mark - Functions
 
--(void)showUser:(CustomButton*)sender{
+-(void)showUser:(CustomButton*)sender {
     FeedClass *feedClass = [arrFeed objectAtIndex:sender.tag];
-    
     AccountViewController *accountViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"AccountViewController"];
     accountViewController.userURL = feedClass.senderUrl;
     accountViewController.needBack = YES;

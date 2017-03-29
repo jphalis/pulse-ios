@@ -26,7 +26,6 @@
     NSMutableArray *arrParties;
     NSMutableArray *arrVisibleParties;
     UIRefreshControl *refreshControl;
-    NSInteger tapCellIndex;
 }
 
 @end
@@ -41,17 +40,16 @@
     arrParties = [[NSMutableArray alloc]init];
     arrVisibleParties = [[NSMutableArray alloc]init];
     _annotations = [[NSMutableArray alloc]init];
-    [self getPartyDetails];
 
     [super viewDidLoad];
+    
+    [self getPartyDetails];
     
     appDelegate = [AppDelegate getDelegate];
     
     _mapView.delegate = self;
     locationManager = [[CLLocationManager alloc] init];
     locationManager.delegate = self;
-    
-    tapCellIndex = -1;
     
     refreshControl = [[UIRefreshControl alloc] init];
     [refreshControl addTarget:self action:@selector(startRefresh)
@@ -120,17 +118,15 @@
 
 #pragma mark - Functions
 
--(void)swipeRight:(UISwipeGestureRecognizer *)gestureRecognizer
-{
+-(void)swipeRight:(UISwipeGestureRecognizer *)gestureRecognizer {
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (IBAction)onBack:(id)sender
-{
+- (IBAction)onBack:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
 }
 
--(void)startRefresh{
+-(void)startRefresh {
     [self getPartyDetails];
 }
 
@@ -152,60 +148,61 @@
     [_request setHTTPMethod:@"GET"];
     
     [NSURLConnection sendAsynchronousRequest:_request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error){
-        if(error != nil){
+        
+        if (error != nil) {
             [appDelegate hideHUDForView2:self.view];
         }
-        if([data length] > 0 && error == nil){
+        if ([data length] > 0 && error == nil) {
             [appDelegate hideHUDForView2:self.view];
             
             NSDictionary *JSONValue = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
             
             if([JSONValue isKindOfClass:[NSDictionary class]]){
                 
-                if(arrParties.count > 0){
+                if (arrParties.count > 0) {
                     [arrParties removeAllObjects];
                 }
                 
-                if(arrVisibleParties.count > 0){
+                if (arrVisibleParties.count > 0) {
                     [arrVisibleParties removeAllObjects];
                 }
                 
-                partyCount = [[JSONValue objectForKey:@"count"]integerValue];
+                partyCount = [[JSONValue objectForKey:@"count"] integerValue];
                 
                 NSArray *arrPartyResult = [JSONValue objectForKey:@"results"];
 
                 for (int i = 0; i < arrPartyResult.count; i++) {
-                    PartyClass *partyClass = [[PartyClass alloc]init];
-                    int partyId = [[[arrPartyResult objectAtIndex:i]valueForKey:@"id"]intValue];
+                    PartyClass *partyClass = [[PartyClass alloc] init];
+                    int partyId = [[[arrPartyResult objectAtIndex:i] valueForKey:@"id"] intValue];
                     partyClass.partyId = [NSString stringWithFormat:@"%d", partyId];
-                    partyClass.partyUrl = [[arrPartyResult objectAtIndex:i]valueForKey:@"party_url"];
-                    partyClass.partyCreator = [[arrPartyResult objectAtIndex:i]valueForKey:@"user"];
-                    partyClass.partyType = [[arrPartyResult objectAtIndex:i]valueForKey:@"party_type"];
-                    partyClass.partyInvite = [[arrPartyResult objectAtIndex:i]valueForKey:@"invite_type"];
-                    partyClass.partyName = [[arrPartyResult objectAtIndex:i]valueForKey:@"name"];
-                    partyClass.partyAddress = [[arrPartyResult objectAtIndex:i]valueForKey:@"location"];
-                    partyClass.partyLatitude = [[arrPartyResult objectAtIndex:i]valueForKey:@"latitude"];
-                    partyClass.partyLongitude = [[arrPartyResult objectAtIndex:i]valueForKey:@"longitude"];
-                    partyClass.partySize = [[arrPartyResult objectAtIndex:i]valueForKey:@"party_size"];
-                    int partyMonth = [[[arrPartyResult objectAtIndex:i]valueForKey:@"party_month"]intValue];
+                    partyClass.partyUrl = [[arrPartyResult objectAtIndex:i] valueForKey:@"party_url"];
+                    partyClass.partyCreator = [[arrPartyResult objectAtIndex:i] valueForKey:@"user"];
+                    partyClass.partyType = [[arrPartyResult objectAtIndex:i] valueForKey:@"party_type"];
+                    partyClass.partyInvite = [[arrPartyResult objectAtIndex:i] valueForKey:@"invite_type"];
+                    partyClass.partyName = [[arrPartyResult objectAtIndex:i] valueForKey:@"name"];
+                    partyClass.partyAddress = [[arrPartyResult objectAtIndex:i] valueForKey:@"location"];
+                    partyClass.partyLatitude = [[arrPartyResult objectAtIndex:i] valueForKey:@"latitude"];
+                    partyClass.partyLongitude = [[arrPartyResult objectAtIndex:i] valueForKey:@"longitude"];
+                    partyClass.partySize = [[arrPartyResult objectAtIndex:i] valueForKey:@"party_size"];
+                    int partyMonth = [[[arrPartyResult objectAtIndex:i] valueForKey:@"party_month"] intValue];
                     partyClass.partyMonth = [NSString stringWithFormat:@"%d", partyMonth];
-                    int partyDay = [[[arrPartyResult objectAtIndex:i]valueForKey:@"party_day"]intValue];
+                    int partyDay = [[[arrPartyResult objectAtIndex:i] valueForKey:@"party_day"] intValue];
                     partyClass.partyDay = [NSString stringWithFormat:@"%d", partyDay];
-                    int partyYear = [[[arrPartyResult objectAtIndex:i]valueForKey:@"party_year"]intValue];
+                    int partyYear = [[[arrPartyResult objectAtIndex:i] valueForKey:@"party_year"] intValue];
                     partyClass.partyYear = [NSString stringWithFormat:@"%d", partyYear];
-                    partyClass.partyStartTime = [[arrPartyResult objectAtIndex:i]valueForKey:@"start_time"];
+                    partyClass.partyStartTime = [[arrPartyResult objectAtIndex:i] valueForKey:@"start_time"];
                     
-                    if ([[arrPartyResult objectAtIndex:i]valueForKey:@"end_time"] == [NSNull null]){
+                    if ([[arrPartyResult objectAtIndex:i] valueForKey:@"end_time"] == [NSNull null]){
                         partyClass.partyEndTime = @"?";
                     } else {
-                        partyClass.partyEndTime = [[arrPartyResult objectAtIndex:i]valueForKey:@"end_time"];
+                        partyClass.partyEndTime = [[arrPartyResult objectAtIndex:i] valueForKey:@"end_time"];
                     }
                     
-                    partyClass.partyDescription = [[arrPartyResult objectAtIndex:i]valueForKey:@"description"];
-                    partyClass.partyAttendingCount = [NSString abbreviateNumber:[[[arrPartyResult objectAtIndex:i]valueForKey:@"attendees_count"]intValue]];
-                    partyClass.partyRequestCount = [NSString abbreviateNumber:[[[arrPartyResult objectAtIndex:i]valueForKey:@"requesters_count"]intValue]];
+                    partyClass.partyDescription = [[arrPartyResult objectAtIndex:i] valueForKey:@"description"];
+                    partyClass.partyAttendingCount = [NSString abbreviateNumber:[[[arrPartyResult objectAtIndex:i] valueForKey:@"attendees_count"] intValue]];
+                    partyClass.partyRequestCount = [NSString abbreviateNumber:[[[arrPartyResult objectAtIndex:i] valueForKey:@"requesters_count"] intValue]];
                     
-                    if([[arrPartyResult objectAtIndex:i]valueForKey:@"user_profile_pic"] == [NSNull null]){
+                    if([[arrPartyResult objectAtIndex:i] valueForKey:@"user_profile_pic"] == [NSNull null]){
                         partyClass.partyUserProfilePicture = @"";
                     } else {
                         partyClass.partyUserProfilePicture = [[arrPartyResult objectAtIndex:i]valueForKey:@"user_profile_pic"];
@@ -250,7 +247,7 @@
                         }
                     }
                     
-                    if([[arrPartyResult objectAtIndex:i]valueForKey:@"get_requesters_info"] == [NSNull null]){
+                    if ([[arrPartyResult objectAtIndex:i]valueForKey:@"get_requesters_info"] == [NSNull null]){
                         
                     } else {
                         NSMutableArray *arrRequester = [[arrPartyResult objectAtIndex:i]valueForKey:@"get_requesters_info"];
@@ -316,21 +313,20 @@
             NSInteger distanceFromCurrentLocation = [eventLocation distanceFromLocation:currentLocation]/1609.344; // meters to miles
 
             if (distanceFromCurrentLocation < 10) {
-                
+                AnnotationClass *event_pin = [[AnnotationClass alloc] init];
+                NSNumber *pin_lat = [NSNumber numberWithDouble:lat];
+                NSNumber *pin_lon = [NSNumber numberWithDouble:lon];
+                event_pin.latitude = pin_lat;
+                event_pin.longitude = pin_lon;
+                event_pin.title = partyClass.partyName;
+                event_pin.annotationUrl = partyClass.partyUrl;
                 if ([partyClass.partyInvite isEqualToString:@"Request + approval"] &&
                     ![[partyClass.arrAttending valueForKey:@"user__full_name"] containsObject:GetUserName]) {
                     // NSLog(@"Event is request + approve and user is not attending");
                 } else {
-                    AnnotationClass *event_pin = [[AnnotationClass alloc] init];
-                    NSNumber *pin_lat = [NSNumber numberWithDouble:lat];
-                    NSNumber *pin_lon = [NSNumber numberWithDouble:lon];
-                    event_pin.latitude = pin_lat;
-                    event_pin.longitude = pin_lon;
-                    event_pin.title = partyClass.partyName;
-                    event_pin.annotationUrl = partyClass.partyUrl;
                     [_mapView addAnnotation:event_pin];
-                    [_annotations addObject:event_pin];
                 }
+                [_annotations addObject:event_pin];
                 [arrVisibleParties addObject:partyClass];
             }
         }
@@ -341,9 +337,10 @@
     } else {
         _watermarkLbl.hidden = NO;
     }
-
-    [refreshControl endRefreshing];
+    
     [_collectionVW reloadData];
+    [_collectionVW layoutIfNeeded];
+    [refreshControl endRefreshing];
 }
 
 #pragma mark - Map
@@ -442,9 +439,7 @@
 
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKPinAnnotationView *)view {
     id annotation = view.annotation;
-    
-    if(![annotation isKindOfClass:[MKUserLocation class]])
-    {
+    if(![annotation isKindOfClass:[MKUserLocation class]]) {
         view.pinColor = MKPinAnnotationColorPurple;
         // NSLog(@"%@", selectedAnnotation.title);
     }
@@ -523,7 +518,7 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
 
-    PartyClass *partyClass = [arrParties objectAtIndex:indexPath.row];
+    PartyClass *partyClass = [arrVisibleParties objectAtIndex:indexPath.row];
     
     if ([partyClass.partyInvite isEqualToString:@"Request + approval"] &&
         ![[partyClass.arrAttending valueForKey:@"user__full_name"] containsObject:GetUserName]) {
@@ -531,7 +526,6 @@
         partyViewController.partyUrl = partyClass.partyUrl;
         [self.navigationController pushViewController:partyViewController animated:YES];
     } else {
-        tapCellIndex = indexPath.row;
         AnnotationClass *annotation = (AnnotationClass *)[_annotations objectAtIndex:indexPath.row];
         [_mapView selectAnnotation:annotation animated:YES];
     }
