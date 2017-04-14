@@ -53,6 +53,8 @@
     // Hide the tabbar
     appDelegate.tabbar.tabView.hidden = YES;
     
+    NSLog(@"url: %@", _partyUrl);
+    
     if (_partyUrl == NULL || [_partyUrl isEqualToString:@""]) {
         [self showPartyInfo];
     } else {
@@ -389,7 +391,7 @@
                                                              delegate:self
                                                     cancelButtonTitle:@"Cancel"
                                                destructiveButtonTitle:@"Report Event"
-                                                    otherButtonTitles:@"View Host", nil];
+                                                    otherButtonTitles:@"View Host", @"Share via...", nil];
     if ([_partyCreator isEqualToString:GetUserName]) {
         [actionSheet addButtonWithTitle:@"Delete Event"];
     }
@@ -409,10 +411,15 @@
         accountViewController.needBack = YES;
         [self.navigationController pushViewController:accountViewController animated:YES];
     }
-    else if (buttonIndex == 2){
-//        NSLog(@"Cancel button clicked");
+    else if (buttonIndex == 2) {
+        NSString *message = [NSString stringWithFormat:@"%@%@", SHAREPARTYURL, _partyId];
+        UIActivityViewController * avc = [[UIActivityViewController alloc] initWithActivityItems:@[message] applicationActivities:nil];
+        [self presentViewController:avc animated:YES completion:nil];
     }
     else if (buttonIndex == 3) {
+        // NSLog(@"Cancel button clicked");
+    }
+    else if (buttonIndex == 4) {
         [self deleteEvent];
     }
 }

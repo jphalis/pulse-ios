@@ -13,11 +13,6 @@
 #import "UIViewControllerAdditions.h"
 
 
-
-
-#import "AccountViewController.h"
-
-
 #define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 #define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
 
@@ -53,6 +48,11 @@ MBProgressHUD *hud;
     // Push notification settings
     [self registerForRemoteNotifications];
     
+    // Launched via URL
+    NSURL *url = [launchOptions objectForKey:UIApplicationLaunchOptionsURLKey];
+    if (url) {
+        [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
+    }
     return YES;
 }
 
@@ -137,6 +137,28 @@ MBProgressHUD *hud;
                                                 cancelButtonTitle:@"OK"
                                                 otherButtonTitles: nil];
     [myAlertView show];
+}
+
+# pragma mark - Open page from URL
+
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
+    if (!url) { return NO; }
+    
+    NSString *party_url = [NSString stringWithFormat:@"%@%@/", PARTYURL, url.lastPathComponent];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"URLSCHEMEACTIVATEDNOTIFICATION"
+                                                        object:party_url
+                                                      userInfo:nil];
+    return YES;
+}
+
+-(BOOL) application:(UIApplication *)app openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    if (!url) { return NO; }
+    
+    NSString *party_url = [NSString stringWithFormat:@"%@%@/", PARTYURL, url.lastPathComponent];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"URLSCHEMEACTIVATEDNOTIFICATION"
+                                                        object:party_url
+                                                      userInfo:nil];
+    return YES;
 }
 
 #pragma mark - ActivityIndicator methods
@@ -226,6 +248,7 @@ MBProgressHUD *hud;
     [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"UserPassword"];
     [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"UserProPic"];
     [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"UserPhone"];
+    [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"Party_Url_From_Web"];
     [self.arrFollowing removeAllObjects];
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];

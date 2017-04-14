@@ -71,6 +71,7 @@ extern AppDelegate *appDelegate;
 #define FLAGURL           APIURL  "flag/create/"
 #define SEARCH_URL        APIURL  "search/?q="
 #define APNSTOKENGEN      APIURL  "device/apns/"
+#define SHAREPARTYURL     BASEURL "party/share/"
 
 #define    UserDefaults       [NSUserDefaults standardUserDefaults]
 
@@ -92,13 +93,16 @@ extern AppDelegate *appDelegate;
 #define    SetUserProPic(x)   [[NSUserDefaults standardUserDefaults] setObject:(x) forKey:@"UserProPic"]
 #define    GetUserProPic      [[NSUserDefaults standardUserDefaults] objectForKey:@"UserProPic"]
 
-#define    SetUserPhone(x)     [[NSUserDefaults standardUserDefaults] setObject:(x) forKey:@"UserPhone"]
-#define    GetUserPhone        [[NSUserDefaults standardUserDefaults] objectForKey:@"UserPhone"]
+#define    SetUserPhone(x)    [[NSUserDefaults standardUserDefaults] setObject:(x) forKey:@"UserPhone"]
+#define    GetUserPhone       [[NSUserDefaults standardUserDefaults] objectForKey:@"UserPhone"]
 
 #define    SetisFullView(x)   [[NSUserDefaults standardUserDefaults] setBool:(x) forKey:@"FullView"]
 #define    GetsFullView       [[NSUserDefaults standardUserDefaults] boolForKey:@"FullView"]
 
-#define    SetIsImageView(x)      [[NSUserDefaults standardUserDefaults] setBool:(x) forKey:@"ImageView"]
-#define    GetsImageView          [[NSUserDefaults standardUserDefaults] boolForKey:@"ImageView"]
+#define    SetIsImageView(x)  [[NSUserDefaults standardUserDefaults] setBool:(x) forKey:@"ImageView"]
+#define    GetsImageView      [[NSUserDefaults standardUserDefaults] boolForKey:@"ImageView"]
+
+#define    SetWebPartyUrl(x)  [[NSUserDefaults standardUserDefaults] setObject:(x) forKey:@"Party_Url_From_Web"]
+#define    GetWebPartyUrl     [[NSUserDefaults standardUserDefaults] objectForKey:@"Party_Url_From_Web"]
 
 #endif
