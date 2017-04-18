@@ -48,11 +48,6 @@
     
     [super viewDidLoad];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(webViewNotification:)
-                                                 name:@"URLSCHEMEACTIVATEDNOTIFICATION"
-                                               object:nil];
-    
     appDelegate = [AppDelegate getDelegate];
 
     refreshControl = [[UIRefreshControl alloc] init];
@@ -78,21 +73,6 @@
     if (arrFeed.count > 0) {
         [self scrollToTop];
     }
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    if ([self isBeingDismissed]) {
-        [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                        name:@"URLSCHEMEACTIVATEDNOTIFICATION"
-                                                      object:nil];
-    }
-}
-
-- (void)webViewNotification:(NSNotification *)notification {
-    NSString *url = [notification object];
-    PartyViewController *partyViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PartyViewController"];
-    partyViewController.partyUrl = url;
-    [self.navigationController pushViewController:partyViewController animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

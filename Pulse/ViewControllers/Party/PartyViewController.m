@@ -53,8 +53,6 @@
     // Hide the tabbar
     appDelegate.tabbar.tabView.hidden = YES;
     
-    NSLog(@"url: %@", _partyUrl);
-    
     if (_partyUrl == NULL || [_partyUrl isEqualToString:@""]) {
         [self showPartyInfo];
     } else {
