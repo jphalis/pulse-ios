@@ -10,7 +10,6 @@
 #import "defs.h"
 #import "HomeViewController.h"
 #import "NotificationsViewController.h"
-#import "PartyViewController.h"
 #import "PulseViewController.h"
 
 
@@ -51,11 +50,6 @@ enum {
     
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(webViewNotification:)
-                                                 name:@"URLSCHEMEACTIVATEDNOTIFICATION"
-                                               object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -66,16 +60,6 @@ enum {
                                                         name:@"URLSCHEMEACTIVATEDNOTIFICATION"
                                                       object:nil];
     }
-}
-
-- (void)webViewNotification:(NSNotification *)notification {
-    NSString *url = [notification object];
-    PartyViewController *partyViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PartyViewController"];
-    partyViewController.partyUrl = url;
-    [self.navigationController pushViewController:partyViewController animated:YES];
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:@"URLSCHEMEACTIVATEDNOTIFICATION"
-                                                  object:nil];
 }
 
 - (void)didReceiveMemoryWarning {

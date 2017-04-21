@@ -6,6 +6,7 @@
 
 #import "AccountViewController.h"
 #import "AppDelegate.h"
+#import "CustomTabViewController.h"
 #import "defs.h"
 #import "FollowViewController.h"
 #import "GlobalFunctions.h"
@@ -379,6 +380,14 @@
 - (IBAction)onBack:(id)sender {
     if (_popToRoot) {
         [self.navigationController popToRootViewControllerAnimated:YES];
+    } else if (_setNewRoot) {
+        CustomTabViewController *tabViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"CustomTabViewController"];
+        appDelegate.window.rootViewController = tabViewController;
+        [UIView transitionWithView:appDelegate.window
+                          duration:0.3
+                           options:UIViewAnimationOptionTransitionCrossDissolve
+                        animations:^{ appDelegate.window.rootViewController = tabViewController; }
+                        completion:nil];
     } else {
         [self.navigationController popViewControllerAnimated:YES];
     }

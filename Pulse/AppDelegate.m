@@ -9,6 +9,7 @@
 //#import "AuthViewController.h"
 #import "defs.h"
 #import "MBProgressHUD.h"
+#import "PartyViewController.h"
 #import "SignInViewController.h"
 #import "UIViewControllerAdditions.h"
 
@@ -145,9 +146,11 @@ MBProgressHUD *hud;
     if (!url) { return NO; }
     
     NSString *party_url = [NSString stringWithFormat:@"%@%@/", PARTYURL, url.lastPathComponent];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"URLSCHEMEACTIVATEDNOTIFICATION"
-                                                        object:party_url
-                                                      userInfo:nil];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+    PartyViewController *partyViewController = [storyboard instantiateViewControllerWithIdentifier:@"PartyViewController"];
+    partyViewController.partyUrl = party_url;
+    partyViewController.setNewRoot = YES;
+    [self.window setRootViewController:partyViewController];
     return YES;
 }
 
@@ -155,9 +158,11 @@ MBProgressHUD *hud;
     if (!url) { return NO; }
     
     NSString *party_url = [NSString stringWithFormat:@"%@%@/", PARTYURL, url.lastPathComponent];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"URLSCHEMEACTIVATEDNOTIFICATION"
-                                                        object:party_url
-                                                      userInfo:nil];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+    PartyViewController *partyViewController = [storyboard instantiateViewControllerWithIdentifier:@"PartyViewController"];
+    partyViewController.partyUrl = party_url;
+    partyViewController.setNewRoot = YES;
+    [self.window setRootViewController:partyViewController];
     return YES;
 }
 
