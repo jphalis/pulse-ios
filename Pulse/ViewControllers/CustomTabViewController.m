@@ -52,16 +52,6 @@ enum {
     // Do any additional setup after loading the view.
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:YES];
-    
-    if ([[UIApplication sharedApplication].keyWindow.rootViewController isBeingDismissed]) {
-        [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                        name:@"URLSCHEMEACTIVATEDNOTIFICATION"
-                                                      object:nil];
-    }
-}
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
