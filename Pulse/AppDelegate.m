@@ -50,9 +50,11 @@ MBProgressHUD *hud;
     [self registerForRemoteNotifications];
     
     // Launched via URL
-    NSURL *url = [launchOptions objectForKey:UIApplicationLaunchOptionsURLKey];
-    if (url) {
-        [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"10.0")) {
+        NSURL *url = [launchOptions objectForKey:UIApplicationLaunchOptionsURLKey];
+        if (url) {
+            [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
+        }
     }
     return YES;
 }
@@ -154,7 +156,7 @@ MBProgressHUD *hud;
     return YES;
 }
 
--(BOOL) application:(UIApplication *)app openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+-(BOOL)application:(UIApplication *)app openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
     if (!url) { return NO; }
     
     NSString *party_url = [NSString stringWithFormat:@"%@%@/", PARTYURL, url.lastPathComponent];
