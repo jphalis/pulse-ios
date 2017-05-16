@@ -334,6 +334,11 @@
         [_attendBtn setTitle:@"Event expired" forState:UIControlStateNormal];
         _attendBtn.backgroundColor = [UIColor lightGrayColor];
         _attendBtn.userInteractionEnabled = NO;
+        if (([_partyInvite isEqualToString:@"Invite Only"] ||
+             [_partyInvite isEqualToString:@"Request + approval"]) &&
+            !([[usersAttending valueForKey:@"user__full_name"] containsObject:GetUserName])){
+            _partyAddressField.text = @"(Location withheld)";
+        }
     }
     // viewing user is attending party
     else if ([[usersAttending valueForKey:@"user__full_name"] containsObject:GetUserName]) {
