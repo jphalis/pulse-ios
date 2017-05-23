@@ -8,6 +8,7 @@
 
 @interface DateCreateViewController : UIViewController <UITextFieldDelegate, UITextViewDelegate>
 
+@property (weak, nonatomic) IBOutlet UIButton *recurrenceBtn;
 @property (weak, nonatomic) IBOutlet UITextField *dateField;
 @property (strong, nonatomic) UIDatePicker *datePickerView;
 @property (strong, nonatomic) UIDatePicker *startPickerView;
@@ -27,8 +28,10 @@
 @property (retain, nonatomic) NSString *partyMonth;
 @property (retain, nonatomic) NSString *partyDay;
 @property (retain, nonatomic) NSString *partyYear;
+@property (retain, nonatomic) NSString *partyReccurence;
 
 - (IBAction)onNow:(id)sender;
+- (IBAction)onRecurrence:(id)sender;
 - (IBAction)onPrevious:(id)sender;
 - (IBAction)onScratch:(id)sender;
 - (IBAction)onProceed:(id)sender;

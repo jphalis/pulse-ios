@@ -120,6 +120,52 @@
     _startTimeField.text = [timeFormatter stringFromDate:now];
 }
 
+- (IBAction)onRecurrence:(id)sender {
+    UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:@"Event Recurrence" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+//    [actionSheet addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+//        
+//        // Cancel button tappped.
+//        [self dismissViewControllerAnimated:YES completion:^{
+//        }];
+//    }]];
+    
+    [actionSheet addAction:[UIAlertAction actionWithTitle:@"None" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
+        
+        [_recurrenceBtn setTitle:@"recurrence: (none)" forState:UIControlStateNormal];
+        _partyReccurence = @"20";
+        
+        [self dismissViewControllerAnimated:YES completion:^{}];
+    }]];
+    
+    [actionSheet addAction:[UIAlertAction actionWithTitle:@"Daily" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        
+        [_recurrenceBtn setTitle:@"recurrence: (daily)" forState:UIControlStateNormal];
+        _partyReccurence = @"21";
+        
+        [self dismissViewControllerAnimated:YES completion:^{}];
+    }]];
+    
+    [actionSheet addAction:[UIAlertAction actionWithTitle:@"Weekly" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        
+        [_recurrenceBtn setTitle:@"recurrence: (weekly)" forState:UIControlStateNormal];
+        _partyReccurence = @"22";
+        
+        [self dismissViewControllerAnimated:YES completion:^{}];
+    }]];
+    
+    [actionSheet addAction:[UIAlertAction actionWithTitle:@"Monthly" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        
+        [_recurrenceBtn setTitle:@"recurrence: (monthly)" forState:UIControlStateNormal];
+        _partyReccurence = @"23";
+        
+        [self dismissViewControllerAnimated:YES completion:^{}];
+    }]];
+    
+    // Present action sheet.
+    [self presentViewController:actionSheet animated:YES completion:nil];
+}
+
 #pragma mark - Picker views
 
 -(void)updateDateLabel:(UIDatePicker *)sender {
@@ -314,6 +360,7 @@
         previewViewController.partyStartTime = _startTimeField.text;
         previewViewController.partyEndTime = _endTimeField.text;
         previewViewController.partyDescription = _descriptionField.text;
+        previewViewController.partyRecurrence = _partyReccurence;
         [self.navigationController pushViewController:previewViewController animated:YES];
     }
 }

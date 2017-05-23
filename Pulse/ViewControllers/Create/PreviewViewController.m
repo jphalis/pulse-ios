@@ -262,6 +262,7 @@
     [_params setObject:_partyMonth forKey:@"party_month"];
     [_params setObject:_partyDay forKey:@"party_day"];
     [_params setObject:_partyYear forKey:@"party_year"];
+    [_params setObject:_partyRecurrence forKey:@"recurrence"];
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     dateFormatter.dateFormat = @"hh:mm a";

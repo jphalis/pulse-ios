@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" colorMatched="YES" initialViewController="vRd-LZ-LZg">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" colorMatched="YES" initialViewController="vRd-LZ-LZg">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -815,7 +815,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="XeS-mP-1dy">
-                                <rect key="frame" x="107" y="124" width="161" height="35"/>
+                                <rect key="frame" x="67" y="124" width="84" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <state key="normal" title="right now">
@@ -823,6 +823,17 @@
                                 </state>
                                 <connections>
                                     <action selector="onNow:" destination="fq9-ex-NlI" eventType="touchUpInside" id="t12-RN-j8i"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="lcC-ys-4Pw">
+                                <rect key="frame" x="215" y="124" width="136" height="24"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <state key="normal" title="recurrence: (none)">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="onRecurrence:" destination="fq9-ex-NlI" eventType="touchUpInside" id="BgC-SE-oof"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -833,6 +844,7 @@
                         <outlet property="descriptionField" destination="6BU-xh-Efm" id="P5D-If-wka"/>
                         <outlet property="descriptionTextCount" destination="aZb-K0-hAg" id="4Z2-jQ-QYI"/>
                         <outlet property="endTimeField" destination="5Yv-6d-gRY" id="8LM-FX-DhT"/>
+                        <outlet property="recurrenceBtn" destination="lcC-ys-4Pw" id="8T6-RI-VTl"/>
                         <outlet property="startTimeField" destination="ZoG-3m-U4V" id="763-qA-I0B"/>
                     </connections>
                 </viewController>

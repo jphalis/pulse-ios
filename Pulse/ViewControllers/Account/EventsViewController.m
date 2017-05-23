@@ -22,7 +22,6 @@
     NSMutableArray *arrParties;
     PartyViewController *partyViewController;
     UIRefreshControl *refreshControl;
-//    NSInteger tapCellIndex;
 }
 
 - (IBAction)onBack:(id)sender;
@@ -41,8 +40,6 @@
     partyViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PartyViewController"];
 
     appDelegate = [AppDelegate getDelegate];
-    
-//    tapCellIndex = -1;
     
     refreshControl = [[UIRefreshControl alloc] init];
     [refreshControl addTarget:self action:@selector(startRefresh)
@@ -328,7 +325,7 @@
     return CGSizeMake(cellWidth, 100);
 }
 
--(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     CollectionViewCellParty *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"EventCell" forIndexPath:indexPath];
     
     PartyClass *partyClass = [arrParties objectAtIndex:indexPath.row];
@@ -351,8 +348,6 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    
-//    tapCellIndex = indexPath.row;
     PartyClass *partyClass = [arrParties objectAtIndex:indexPath.row];
     
     partyViewController.partyId = partyClass.partyId;
@@ -374,6 +369,7 @@
     partyViewController.partyRequests = partyClass.partyRequestCount;
     partyViewController.usersAttending = partyClass.arrAttending.mutableCopy;
     partyViewController.usersRequested = partyClass.arrRequested.mutableCopy;
+    partyViewController.usersInvited = partyClass.arrInvited.mutableCopy;
     partyViewController.usersLiked = partyClass.arrLiked.mutableCopy;
     
     [self.navigationController pushViewController:partyViewController animated:YES];
